@@ -174,9 +174,13 @@
 - (void)tableViewController:(HNYDetailTableViewController *)tableViewController didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     HNYDetailItemModel *model = [self.tableViewController.viewAry objectAtIndex:indexPath.row];
     if ([@"contactBoss" isEqualToString:model.key]) {
-        BDContactBossViewController *controller = [[BDContactBossViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+            [self login];
+        }else{
+            BDContactBossViewController *controller = [[BDContactBossViewController alloc] init];
+            controller.customNaviController = self.customNaviController;
+            [self.customNaviController pushViewController:controller animated:YES];
+        }
     }
     else if ([@"declare" isEqualToString:model.key]){
         HNYBaseViewController *controller = [[HNYBaseViewController alloc] init];
@@ -202,6 +206,13 @@
         }];
     }
 }
+#pragma mark - instance fun
+- (void)login{
+    BDLoginViewController *controller = [[BDLoginViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    [self.customNaviController pushViewController:controller animated:YES];
+}
+
 #pragma mark - http request
 - (void)getDeclaration{
     [self showRequestingTips:nil];

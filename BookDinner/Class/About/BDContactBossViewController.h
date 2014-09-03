@@ -9,6 +9,7 @@
 #import "HNYBaseViewController.h"
 #import "BDContactBossTableViewCell.h"
 #import "BDContactBossInputView.h"
+#import "BDLoginViewController.h"
 
 @interface BDContactBossViewController : HNYBaseViewController
 

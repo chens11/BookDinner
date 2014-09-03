@@ -259,7 +259,7 @@
             else
                 self.tableController.enbleHeaderRefresh = YES;
         }
-        if ([ActionAddMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+       else if ([ActionAddMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             BDContactMessageModel *model = [[BDContactMessageModel alloc] init];
             model.message = self.sendMsg;
             [self.tableController.list addObject:model];
@@ -268,16 +268,30 @@
             [self.tableController.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
     }
+    //token is out of date login again
+    else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
+        [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
+    }
+
     else{
         if ([ActionAddMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             self.inputView.msgTextView.text = self.sendMsg;
         }
-        if ([ActionGetMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([ActionGetMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }
 }
+#pragma mark - instance fun
+- (void)login{
+    BDLoginViewController *controller = [[BDLoginViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    [self.customNaviController pushViewController:controller animated:YES];
+}
+
+
 #pragma mark - HNYDelegate
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
     if ([aView isEqual:self.inputView]) {

@@ -79,7 +79,7 @@
     if ([self.personModel.img isKindOfClass:[UIImage class]]){
         imgItem.value = self.personModel.img;
     }
-    else if ([self.personModel.img isKindOfClass:[NSString class]]){
+    else if ([self.personModel.img isKindOfClass:[NSString class]] && self.personModel.img.length > 10){
         NSURL *url = [NSURL URLWithString:self.personModel.img];
         imgItem.value = url;
     }
@@ -314,8 +314,6 @@
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
             self.personModel.img = imgItem.value;
-            
-            [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         }
     }
     else{

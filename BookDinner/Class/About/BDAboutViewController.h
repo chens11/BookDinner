@@ -8,6 +8,7 @@
 
 #import "HNYBaseViewController.h"
 #import "BDTutorialView.h"
+#import "BDLoginViewController.h"
 
 @interface BDAboutViewController : HNYBaseViewController
 
