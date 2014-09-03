@@ -86,9 +86,10 @@ UIActionSheetDelegate>
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loginButton.frame = CGRectMake(15, self.view.frame.size.height - 55 , self.view.frame.size.width - 30, 40);
     self.loginButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    self.loginButton.titleLabel.font = ButtonTitleFont;
+    self.loginButton.enabled = NO;
     [self.loginButton setBackgroundColor:ButtonNormalColor];
     [self.loginButton setTitle:@"订餐" forState:UIControlStateNormal];
-    self.loginButton.titleLabel.font = ButtonTitleFont;
     [self.loginButton addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.loginButton];
 
@@ -230,12 +231,14 @@ UIActionSheetDelegate>
             self.nameLabel.text = self.dinnerModel.title;
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.dinnerModel.money];
             self.numLabel.text = [NSString stringWithFormat:@"剩余%d份",self.dinnerModel.number];
+            self.loginButton.enabled = YES;
             NSURL *url = [NSURL URLWithString:self.dinnerModel.img];
             [self.imgView setImageWithURL:url];
         }
     }
     else{
         if ([ActionGetTodayRecommend isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            self.loginButton.enabled = NO;
             [self showTips:@"获取今日推荐菜单失败"];
         }
     }
