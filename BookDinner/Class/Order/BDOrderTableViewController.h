@@ -1,0 +1,13 @@
+//
+//  BDOrderTableViewController.h
+//  BookDinner
+//
+//  Created by zqchen on 3/8/14.
+//  Copyright (c) 2014 chenzq. All rights reserved.
+//
+
+#import "HNYRefreshTableViewController.h"
+
+@interface BDOrderTableViewController : HNYRefreshTableViewController
+
+@end
