@@ -104,12 +104,6 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    [self.headImg setImage:[UIImage imageNamed:@"dinner"]];
-    self.nameLabel.text = @"香辣猪扒A套餐";
-    self.statusLabel.text = @"交易完成";
-    self.ruleLabel.text = @"满100使用";
-    self.priceLabel.text = @"￥100";
-    self.payLabel.text = @"实际支付: ￥400";
     self.bgLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
 
     self.nameLabel.frame = CGRectMake(20 ,15,self.frame.size.width - 150,20);
@@ -121,10 +115,18 @@
     self.statusLabel.frame = CGRectMake(self.frame.size.width - 150 ,0,145,20);
     self.ruleLabel.frame = CGRectMake(self.frame.size.width - 100 ,30,80,20);
 }
-- (void)iniDataWithModel:(id)model{
-//    if ([model isKindOfClass:[BDCouponModel class]]) {
-//        
-//    }
+- (void)iniDataWithModel:(BDOrderModel*)model{
+    if ([model isKindOfClass:[BDOrderModel class]]) {
+        self.nameLabel.text = model.title;
+        
+//        [self.headImg setImage:[UIImage imageNamed:@"dinner"]];
+//        self.nameLabel.text = @"香辣猪扒A套餐";
+//        self.statusLabel.text = @"交易完成";
+//        self.ruleLabel.text = @"满100使用";
+//        self.priceLabel.text = @"￥100";
+//        self.payLabel.text = @"实际支付: ￥400";
+
+    }
 }
 
 @end

@@ -72,11 +72,13 @@
 #define ActionSaveAddress                         @"API/?c=user&a=editaddressid"
 #define ActionDeleteAddress                         @"API/?c=user&a=deleteaddressid"
 #define ActionGetTodayRecommend                         @"API/?c=product&a=todayrecommended"
-#define ActionSing                         @"API/?c=user&a=sign"
+#define ActionSing                          @"API/?c=user&a=sign"
 #define ActionGetDeclaration                         @"API/?c=info&a=getdeclaration"
 #define ActionGetMessage                         @"API/?c=info&a=getmessage"
 #define ActionAddMessage                         @"API/?c=info&a=addmessage"
 #define ActionCheckVersion                         @"API/?c=product&a=todayrecommended"
+#define ActionPlaceOrder                         @"API/?c=product&a=addorder"
+#define ActionGetOrderList                         @"API/?c=product&a=getorder"
 
 
 

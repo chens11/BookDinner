@@ -31,7 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"管理收货地址";
     [self createTableView];
     [self getAddressList];
 
@@ -84,12 +83,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    BDAddressDetailViewController *controller = [[BDAddressDetailViewController alloc] init];
-    controller.delegate = self;
-    controller.addressModel = [self.menuAry objectAtIndex:indexPath.row];
-    controller.customNaviController  = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    if (self.selector) {
+        BDAddressModel *model = [self.menuAry objectAtIndex:indexPath.row];
+        [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:model,@"BDAddressModel", nil]];
+        [self.customNaviController popViewControllerAnimated:YES];
+    }else{
+        BDAddressDetailViewController *controller = [[BDAddressDetailViewController alloc] init];
+        controller.delegate = self;
+        controller.addressModel = [self.menuAry objectAtIndex:indexPath.row];
+        controller.customNaviController  = self.customNaviController;
+        [self.customNaviController pushViewController:controller animated:YES];
+    }
 }
 #pragma mark - IBAciton
 - (void)touchAddBarItem:(UIBarButtonItem*)sender{
@@ -137,9 +141,6 @@
             NSArray *value = [dictionary valueForKey:HTTP_VALUE];
             self.menuAry = [HNYJSONUitls mappingDicAry:value toObjectAryWithClassName:@"BDAddressModel"];
             [self.table reloadData];
-        }
-        else if ([ActionSavePersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
-            [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }
     else{

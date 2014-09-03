@@ -81,6 +81,7 @@
     numItem.name = @"  欢迎页";
     numItem.key = @"welocome";
     numItem.height = @"one";
+    numItem.textFont = [UIFont systemFontOfSize:15.0];
     numItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:numItem];
     
@@ -90,6 +91,7 @@
     declareItem.name = @"  介绍";
     declareItem.key = @"declare";
     declareItem.height = @"one";
+    declareItem.textFont = [UIFont systemFontOfSize:15.0];
     declareItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:declareItem];
     
@@ -100,6 +102,7 @@
     typeItem.key = @"check_version";
     typeItem.textValue = @"2.03";
     typeItem.name = @"  检查更新";
+    typeItem.textFont = [UIFont systemFontOfSize:15.0];
     typeItem.textAlignment = NSTextAlignmentRight;
     typeItem.textColor = [UIColor lightGrayColor];
     typeItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -113,6 +116,7 @@
     phoneItem.textValue = @"18988995051";
     phoneItem.value = @"18988995051";
     phoneItem.name = @"  客服电话";
+    phoneItem.textFont = [UIFont systemFontOfSize:15.0];
     phoneItem.textAlignment = NSTextAlignmentRight;
     phoneItem.textColor = [UIColor lightGrayColor];
     phoneItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -126,6 +130,7 @@
     developItem.textValue = @"o.m.g@foxmail.com";
     developItem.value = @"o.m.g@foxmail.com";
     developItem.name = @"  开发者";
+    developItem.textFont = [UIFont systemFontOfSize:15.0];
     developItem.textAlignment = NSTextAlignmentRight;
     developItem.textColor = [UIColor lightGrayColor];
     developItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -137,6 +142,9 @@
     bossItem.height = @"one";
     bossItem.key = @"contactBoss";
     bossItem.name = @"  联系老板";
+    bossItem.textValue = @"老板会根据您的留言赠送积分哦";
+    bossItem.textFont = [UIFont systemFontOfSize:14.0];
+    bossItem.textColor = [UIColor lightGrayColor];
     bossItem.textAlignment = NSTextAlignmentRight;
     bossItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:bossItem];

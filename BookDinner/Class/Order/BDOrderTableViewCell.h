@@ -7,6 +7,7 @@
 //
 
 #import "HNYTableViewCell.h"
+#import "BDOrderModel.h"
 
 @interface BDOrderTableViewCell : HNYTableViewCell
 

@@ -56,16 +56,15 @@
     if ([addressModel isKindOfClass:[BDAddressModel class]]) {
         BDAddressModel *cModel = addressModel;
         self.nameLabel.text = cModel.name;
-        self.phoneLabel.text = cModel.phone;
-        self.addressLabel.text = cModel.address;
-        
-        
-        
+        self.phoneLabel.text = cModel.tel;
+        self.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@",cModel.prorince.name,cModel.city.name,cModel.district.name,cModel.address];
     }
-    
-    self.nameLabel.text = @"高先生";
-    self.phoneLabel.text = @"15814590153";
-    self.addressLabel.text = @"上区绿地科技岛广场A座2606室";
+    else{
+        self.nameLabel.text = @"请您输入收货地址";
+    }
+//    self.nameLabel.text = @"高先生";
+//    self.phoneLabel.text = @"15814590153";
+//    self.addressLabel.text = @"上区绿地科技岛广场A座2606室";
 
 
 }

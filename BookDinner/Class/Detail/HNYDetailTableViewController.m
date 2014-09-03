@@ -336,6 +336,7 @@
     cell.contentView.backgroundColor = self.cellBackGroundColor;
 
     HNYDetailItemModel *itemVO = [self.viewAry objectAtIndex:indexPath.row];
+    itemVO.tag = indexPath.row;
     itemVO.nameLabelWidth = self.nameLabelWidth;
 
     if ((itemVO.value != nil) && (itemVO.key != nil)) {
@@ -397,6 +398,8 @@
     self.views = [NSMutableArray arrayWithCapacity:0];
     self.keys = [NSMutableArray arrayWithCapacity:0];
     for (HNYDetailItemModel *itemVO in viewAry) {
+        int index = [viewAry indexOfObject:itemVO];
+        itemVO.tag = index;
         [self.keys addObject:itemVO.key];
         if (itemVO.viewType == Customer) {
             [self.views addObject:[self.customDelegate createViewWith:itemVO]];
@@ -426,6 +429,7 @@
     HNYDetailItemModel *itemVo = [self.viewAry objectAtIndex:index];
 
     itemVo.value = item.value;
+    itemVo.tag = item.tag;
     itemVo.textValue = item.textValue;
 
     if (itemVo.viewType == Customer) {

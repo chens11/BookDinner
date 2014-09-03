@@ -16,7 +16,7 @@
 UIActionSheetDelegate>
 
 @property (nonatomic,strong) UIImageView *bgImageView;
-@property (nonatomic,strong) UIButton *loginButton;
+@property (nonatomic,strong) UIButton *orderBtn;
 @property (nonatomic,strong) UIScrollView *mScrollView;
 @property (nonatomic,strong) UIImageView *imgView;
 @property (nonatomic,strong) UIPageControl *pageControl;
@@ -83,15 +83,15 @@ UIActionSheetDelegate>
     [self.view addSubview:self.numLabel];
     
     
-    self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.loginButton.frame = CGRectMake(15, self.view.frame.size.height - 55 , self.view.frame.size.width - 30, 40);
-    self.loginButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.loginButton.titleLabel.font = ButtonTitleFont;
-    self.loginButton.enabled = NO;
-    [self.loginButton setBackgroundColor:ButtonNormalColor];
-    [self.loginButton setTitle:@"订餐" forState:UIControlStateNormal];
-    [self.loginButton addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.loginButton];
+    self.orderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.orderBtn.frame = CGRectMake(15, self.view.frame.size.height - 55 , self.view.frame.size.width - 30, 40);
+    self.orderBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    self.orderBtn.titleLabel.font = ButtonTitleFont;
+    self.orderBtn.enabled = NO;
+    [self.orderBtn setBackgroundColor:ButtonNormalColor];
+    [self.orderBtn setTitle:@"订餐" forState:UIControlStateNormal];
+    [self.orderBtn addTarget:self action:@selector(touchOrderButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.orderBtn];
 
     // Do any additional setup after loading the view.
 }
@@ -177,9 +177,10 @@ UIActionSheetDelegate>
 }
 
 #pragma mark - ibaction
-- (void)touchLoginButton:(UIButton*)sender{
+- (void)touchOrderButton:(UIButton*)sender{
     if(self.dinnerModel){
         BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
+        controller.dinnerModel = self.dinnerModel;
         controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
         
@@ -231,14 +232,14 @@ UIActionSheetDelegate>
             self.nameLabel.text = self.dinnerModel.title;
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.dinnerModel.money];
             self.numLabel.text = [NSString stringWithFormat:@"剩余%d份",self.dinnerModel.number];
-            self.loginButton.enabled = YES;
+            self.orderBtn.enabled = YES;
             NSURL *url = [NSURL URLWithString:self.dinnerModel.img];
             [self.imgView setImageWithURL:url];
         }
     }
     else{
         if ([ActionGetTodayRecommend isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
-            self.loginButton.enabled = NO;
+            self.orderBtn.enabled = NO;
             [self showTips:@"获取今日推荐菜单失败"];
         }
     }

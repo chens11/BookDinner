@@ -9,5 +9,6 @@
 #import "HNYBaseViewController.h"
 
 @interface BDAddressViewController : HNYBaseViewController
+@property (nonatomic) BOOL selector;
 
 @end

@@ -231,6 +231,7 @@
     }
     else if ([@"address" isEqualToString:model.key]) {
         BDAddressViewController *controller = [[BDAddressViewController alloc] init];
+        controller.title = @"管理收货地址";
         controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
     }

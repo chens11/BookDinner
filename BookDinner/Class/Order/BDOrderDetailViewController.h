@@ -7,7 +7,13 @@
 //
 
 #import "HNYBaseViewController.h"
+#import "BDDinnerModel.h"
+#import "BDAddressModel.h"
+#import "BDLoginViewController.h"
+#import "BDPayViewController.h"
 
 @interface BDOrderDetailViewController : HNYBaseViewController
+@property (nonatomic,strong) BDDinnerModel *dinnerModel;
+@property (nonatomic,strong) BDAddressModel *addressModel;
 
 @end
