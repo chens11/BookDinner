@@ -16,6 +16,7 @@
 @property (nonatomic,strong) UILabel *ruleLabel;
 @property (nonatomic,strong) UILabel *statusLabel;
 @property (nonatomic,strong) UIImageView *tailImg;
+@property (nonatomic,strong) UIImageView *bgImg;
 
 @end
 
@@ -30,8 +31,12 @@
         
         self.bgLabel = [[UILabel alloc] init];
         self.bgLabel.backgroundColor = [UIColor whiteColor];
-        [self.contentView addSubview:self.bgLabel];
+//        [self.contentView addSubview:self.bgLabel];
 
+        self.bgImg = [[UIImageView alloc] init];
+        self.bgImg.contentMode = UIViewContentModeScaleToFill;
+        self.bgImg.image = [UIImage imageNamed:@"alert_bg1"];
+        [self.contentView addSubview:self.bgImg];
         
         self.headImg = [[UIImageView alloc] init];
         self.headImg.contentMode = UIViewContentModeCenter;
@@ -71,7 +76,6 @@
         
         self.tailImg = [[UIImageView alloc] init];
         self.tailImg.contentMode = UIViewContentModeScaleAspectFit;
-        self.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.tailImg];
         
 
@@ -103,6 +107,7 @@
     self.headImg.frame = CGRectMake(20, 15, 70, self.frame.size.height - 45);
 //    self.valueLabel.frame = CGRectMake(0, 0, 80, self.contentView.frame.size.height - 20);
     self.bgLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
+    self.bgImg.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
     self.nameLabel.frame = CGRectMake(95 ,15,self.frame.size.width - 100,20);
     self.ruleLabel.frame = CGRectMake(95 ,35,self.frame.size.width - 100,self.frame.size.height - 60);
 

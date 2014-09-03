@@ -196,6 +196,9 @@
 		CA16CA9619B7562A00CDE5D8 /* BDAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA16CA8D19B7562A00CDE5D8 /* BDAddressTableViewCell.m */; };
 		CA16CA9719B7562A00CDE5D8 /* BDAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA16CA8F19B7562A00CDE5D8 /* BDAddressViewController.m */; };
 		CA16CA9819B7562A00CDE5D8 /* BDCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA16CA9119B7562A00CDE5D8 /* BDCodeModel.m */; };
+		CA16CA9A19B7607800CDE5D8 /* alert_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CA16CA9919B7607800CDE5D8 /* alert_bg.png */; };
+		CA16CA9C19B7628A00CDE5D8 /* alert_bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = CA16CA9B19B7628A00CDE5D8 /* alert_bg1.png */; };
+		CA16CA9E19B7635600CDE5D8 /* btn_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CA16CA9D19B7635600CDE5D8 /* btn_bg.png */; };
 		CA16F00919B4BBD3005F2F5A /* tutorial1.png in Resources */ = {isa = PBXBuildFile; fileRef = CA16F00519B4BBD3005F2F5A /* tutorial1.png */; };
 		CA16F00A19B4BBD3005F2F5A /* tutorial2.png in Resources */ = {isa = PBXBuildFile; fileRef = CA16F00619B4BBD3005F2F5A /* tutorial2.png */; };
 		CA16F00B19B4BBD3005F2F5A /* tutorial3.png in Resources */ = {isa = PBXBuildFile; fileRef = CA16F00719B4BBD3005F2F5A /* tutorial3.png */; };
@@ -585,6 +588,9 @@
 		CA16CA8F19B7562A00CDE5D8 /* BDAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAddressViewController.m; sourceTree = "<group>"; };
 		CA16CA9019B7562A00CDE5D8 /* BDCodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDCodeModel.h; sourceTree = "<group>"; };
 		CA16CA9119B7562A00CDE5D8 /* BDCodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDCodeModel.m; sourceTree = "<group>"; };
+		CA16CA9919B7607800CDE5D8 /* alert_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alert_bg.png; sourceTree = "<group>"; };
+		CA16CA9B19B7628A00CDE5D8 /* alert_bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alert_bg1.png; sourceTree = "<group>"; };
+		CA16CA9D19B7635600CDE5D8 /* btn_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_bg.png; sourceTree = "<group>"; };
 		CA16F00519B4BBD3005F2F5A /* tutorial1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial1.png; sourceTree = "<group>"; };
 		CA16F00619B4BBD3005F2F5A /* tutorial2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial2.png; sourceTree = "<group>"; };
 		CA16F00719B4BBD3005F2F5A /* tutorial3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial3.png; sourceTree = "<group>"; };
@@ -1347,6 +1353,9 @@
 		03BE233C196E3B3E005C0D03 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CA16CA9D19B7635600CDE5D8 /* btn_bg.png */,
+				CA16CA9B19B7628A00CDE5D8 /* alert_bg1.png */,
+				CA16CA9919B7607800CDE5D8 /* alert_bg.png */,
 				CA16F00519B4BBD3005F2F5A /* tutorial1.png */,
 				CA16F00619B4BBD3005F2F5A /* tutorial2.png */,
 				CA16F00719B4BBD3005F2F5A /* tutorial3.png */,
@@ -1612,6 +1621,7 @@
 				03BE23C8196E3B3E005C0D03 /* UMShareEditViewController.xib in Resources */,
 				0361C64D197375A5000CDB6C /* menu_icon_setting.png in Resources */,
 				CACB3D5919A63EFE00E27064 /* bubbleBoss.png in Resources */,
+				CA16CA9E19B7635600CDE5D8 /* btn_bg.png in Resources */,
 				CACB3D4E19A62ECC00E27064 /* menu_icon_coupon@2x.png in Resources */,
 				CAF5E35419A793F100C406FE /* ly-plate.png in Resources */,
 				0361C64B197375A5000CDB6C /* menu_icon_information.png in Resources */,
@@ -1627,6 +1637,7 @@
 				03BE239A196E3B3E005C0D03 /* ELCAlbumPickerController.xib in Resources */,
 				03BE23C3196E3B3E005C0D03 /* UMSocialLocalizable.strings in Resources */,
 				03BE23EE196E3B3E005C0D03 /* menu-bg.png in Resources */,
+				CA16CA9A19B7607800CDE5D8 /* alert_bg.png in Resources */,
 				03BE239E196E3B3E005C0D03 /* Overlay@2x.png in Resources */,
 				CA16F00A19B4BBD3005F2F5A /* tutorial2.png in Resources */,
 				03BE23E0196E3B3E005C0D03 /* iconDelete@2x.png in Resources */,
@@ -1686,6 +1697,7 @@
 				0361C649197375A5000CDB6C /* menu_icon_card.png in Resources */,
 				0361C64C197375A5000CDB6C /* menu_icon_logo.png in Resources */,
 				03BE23DF196E3B3E005C0D03 /* iconDelete.png in Resources */,
+				CA16CA9C19B7628A00CDE5D8 /* alert_bg1.png in Resources */,
 				CA200724198D428800AB3E46 /* welcome_1.png in Resources */,
 				03BE23C7196E3B3E005C0D03 /* UMSCommentInputControlleriPad.xib in Resources */,
 				03BE21D1196E3AB5005C0D03 /* Images.xcassets in Resources */,

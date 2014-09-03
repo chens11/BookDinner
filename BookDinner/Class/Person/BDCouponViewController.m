@@ -137,7 +137,7 @@
     
 }
 - (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.tableController.list objectAtIndex:indexPath.row];
+    return nil;
 }
 
 #pragma mark - IBAction
