@@ -39,7 +39,7 @@
         [self.contentView addSubview:self.bgImg];
         
         self.headImg = [[UIImageView alloc] init];
-        self.headImg.contentMode = UIViewContentModeCenter;
+        self.headImg.contentMode = UIViewContentModeScaleToFill;
 //        self.headImg.backgroundColor = [UIColor yellowColor];
         [self.contentView addSubview:self.headImg];
 
@@ -50,6 +50,7 @@
         
         self.statusLabel = [[UILabel alloc] init];
         self.statusLabel.backgroundColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];
+        self.statusLabel.backgroundColor = [UIColor clearColor];
         self.statusLabel.font = [UIFont systemFontOfSize:14.0];
         [self.contentView addSubview:self.statusLabel];
         
@@ -67,7 +68,7 @@
         
         self.ruleLabel = [[UILabel alloc] init];
         self.ruleLabel.textAlignment = NSTextAlignmentLeft;
-//        self.ruleLabel.textColor = [UIColor lightGrayColor];
+        self.ruleLabel.textColor = [UIColor lightGrayColor];
         self.ruleLabel.backgroundColor = [UIColor clearColor];
         self.ruleLabel.numberOfLines = 0;
         self.ruleLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -104,16 +105,16 @@
     self.ruleLabel.text = @"本优惠券一次购买满100可以使用";
     self.statusLabel.text = @" 可使用";
     
-    self.headImg.frame = CGRectMake(20, 15, 70, self.frame.size.height - 45);
+    self.headImg.frame = CGRectMake(15, 15, 40, self.frame.size.height - 55);
 //    self.valueLabel.frame = CGRectMake(0, 0, 80, self.contentView.frame.size.height - 20);
     self.bgLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
-    self.bgImg.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
-    self.nameLabel.frame = CGRectMake(95 ,15,self.frame.size.width - 100,20);
-    self.ruleLabel.frame = CGRectMake(95 ,35,self.frame.size.width - 100,self.frame.size.height - 60);
+    self.bgImg.frame = CGRectMake(10 ,10,self.contentView.frame.size.width - 20,self.contentView.frame.size.height-20);
+    self.nameLabel.frame = CGRectMake(65 ,15,self.frame.size.width - 75,20);
+    self.ruleLabel.frame = CGRectMake(65 ,35,self.frame.size.width - 75,self.frame.size.height - 60);
 
     
-    self.statusLabel.frame = CGRectMake(15, self.frame.size.height - 25, self.frame.size.width - 30, 20);
-    self.dateLabel.frame = CGRectMake(0, self.frame.size.height - 25, self.frame.size.width-20, 20);
+    self.statusLabel.frame = CGRectMake(15, self.frame.size.height - 30, self.frame.size.width - 30, 20);
+    self.dateLabel.frame = CGRectMake(0, self.frame.size.height - 30, self.frame.size.width-20, 20);
 
 }
 - (void)iniDataWithModel:(id)model{
