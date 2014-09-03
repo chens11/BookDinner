@@ -118,6 +118,7 @@
 - (void)iniDataWithModel:(BDOrderModel*)model{
     if ([model isKindOfClass:[BDOrderModel class]]) {
         self.nameLabel.text = model.title;
+        self.statusLabel.text = model.stateName;
         
 //        [self.headImg setImage:[UIImage imageNamed:@"dinner"]];
 //        self.nameLabel.text = @"香辣猪扒A套餐";

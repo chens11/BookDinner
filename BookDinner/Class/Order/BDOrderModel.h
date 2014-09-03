@@ -15,7 +15,9 @@
 @property (nonatomic,strong) NSString *money;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *paytime;
-@property (nonatomic) id state;
+//（0待付款，1已付款，2派送中，3成交，4失效）
+@property (nonatomic) int state;
+@property (nonatomic,strong) NSString *stateName;
 @property (nonatomic) int order_number;
 
 @end
