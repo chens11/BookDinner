@@ -66,7 +66,7 @@
     self.tableViewController.cellHeight = 50;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
     [self addChildViewController:self.tableViewController];
-    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight * 6 +10);
+    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight * 7 +10);
     [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     [self.view addSubview:self.tableViewController.view];
     [self addChildViewController:self.tableViewController];
@@ -109,6 +109,18 @@
     codeItem.key = USER_ADDRESS_CODE;
     codeItem.name = @"  地区";
     [_viewAry addObject:codeItem];
+    
+    HNYDetailItemModel *streetItem = [[HNYDetailItemModel alloc] init];
+    streetItem.viewType = Label;
+    streetItem.editable = YES;
+    streetItem.height = @"one";
+    streetItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (self.addressModel.street.name)
+        streetItem.textValue = [NSString stringWithFormat:@"%@",self.addressModel.street.name];
+    streetItem.value = self.addressModel;
+    streetItem.key = USER_ADDRESS_STREET;
+    streetItem.name = @"  街道";
+    [_viewAry addObject:streetItem];
     
     HNYDetailItemModel *addreItem = [[HNYDetailItemModel alloc] init];
     addreItem.viewType = TextView;
@@ -174,7 +186,17 @@
     HNYDetailItemModel *item = [self.tableViewController.viewAry objectAtIndex:indexPath.row];
     if ([item.key isEqualToString:USER_ADDRESS_CODE]) {
         BDAddressSelectorViewController *controller = [[BDAddressSelectorViewController alloc] init];
+        controller.title = @"请选择地区";
         controller.delegate = self;
+        controller.addressModel = self.addressModel;
+        controller.customNaviController = self.customNaviController;
+        [self.customNaviController pushViewController:controller animated:YES];
+    }
+    else if ([item.key isEqualToString:USER_ADDRESS_STREET]) {
+        BDAddressSelectorViewController *controller = [[BDAddressSelectorViewController alloc] init];
+        controller.title = @"请选择街道";
+        controller.delegate = self;
+        controller.getStreet = YES;
         controller.addressModel = self.addressModel;
         controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
@@ -190,17 +212,21 @@
     HNYDetailItemModel *addItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
     if (!nameItem.value) {
         [self showTips:@"请您输入名称"];
+        return;
     }
     
     if (!phoneItem.value) {
         [self showTips:@"请您输入手机号码"];
+        return;
     }
     
     if (!codeItem.value) {
         [self showTips:@"请您选择地区"];
+        return;
     }
     if (!addItem.value) {
         [self showTips:@"请您输入详细地址"];
+        return;
     }
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
@@ -212,6 +238,8 @@
                   forKey:@"city"];
     [dictionary setValue:[NSNumber numberWithInt:self.addressModel.district.code]
                   forKey:@"district"];
+    [dictionary setValue:[NSNumber numberWithInt:self.addressModel.street.code]
+                  forKey:@"street"];
     [dictionary setValue:[NSNumber numberWithBool:self.isDefault] forKey:@"isdefault"];
     [dictionary setValue:addItem.value forKey:@"address"];
 
@@ -246,15 +274,18 @@
 
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDAddressSelectorViewController class]]) {
-        BDAddressSelectorViewController *controller = (BDAddressSelectorViewController*)vController;
-        self.addressModel.prorince = controller.addressModel.prorince;
-        self.addressModel.city = controller.addressModel.city;
-        self.addressModel.district = controller.addressModel.district;
         
         HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_ADDRESS_CODE];
+        HNYDetailItemModel *streetItem = [self.tableViewController getItemWithKey:USER_ADDRESS_STREET];
         
         nameItem.textValue = [NSString stringWithFormat:@"%@ %@ %@",self.addressModel.prorince.name,self.addressModel.city.name,self.addressModel.district.name];
         nameItem.value = self.addressModel;
+        
+        if (self.addressModel.street.name) {
+            streetItem.textValue = [NSString stringWithFormat:@"%@",self.addressModel.street.name];
+            streetItem.value = self.addressModel;
+            [self.tableViewController changeViewAryObjectWith:streetItem atIndex:[self.viewAry indexOfObject:streetItem]];
+        }
         
         [self.tableViewController changeViewAryObjectWith:nameItem atIndex:[self.viewAry indexOfObject:nameItem]];
 

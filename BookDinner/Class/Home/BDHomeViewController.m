@@ -240,7 +240,8 @@ UIActionSheetDelegate>
     else{
         if ([ActionGetTodayRecommend isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             self.orderBtn.enabled = NO;
-            [self showTips:@"获取今日推荐菜单失败"];
+//            [self showTips:@"获取今日推荐菜单失败"];
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }
 }

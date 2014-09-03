@@ -50,7 +50,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    if (self.codeModel.type == 0) {
+    if (self.codeModel.type == 0 || self.codeModel.type == 3) {
         self.nameLabel.frame = CGRectMake(5, 0, self.frame.size.width - 5, self.frame.size.height);
     }
     else if (self.codeModel.type == 1) {

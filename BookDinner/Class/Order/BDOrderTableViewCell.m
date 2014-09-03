@@ -39,6 +39,7 @@
         self.headImg = [[UIImageView alloc] init];
         self.headImg.contentMode = UIViewContentModeScaleAspectFit;
         self.backgroundColor = [UIColor clearColor];
+        [self.headImg setImage:[UIImage imageNamed:@"dinner"]];
         [self.contentView addSubview:self.headImg];
         
         self.nameLabel = [[UILabel alloc] init];
@@ -107,7 +108,7 @@
     self.bgLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
 
     self.nameLabel.frame = CGRectMake(20 ,15,self.frame.size.width - 150,20);
-    self.priceLabel.frame = CGRectMake(self.frame.size.width - 100 ,15,80,20);
+    self.priceLabel.frame = CGRectMake(self.frame.size.width - 105 ,15,80,20);
     self.headImg.frame = CGRectMake(15 ,35,60,60);
     self.payBtn.frame = CGRectMake(self.frame.size.width - 80, self.frame.size.height - 50, 60, 30);
     self.payLabel.frame = CGRectMake(20, self.frame.size.height - 40, 150, 20);
@@ -119,12 +120,15 @@
     if ([model isKindOfClass:[BDOrderModel class]]) {
         self.nameLabel.text = model.title;
         self.statusLabel.text = model.stateName;
-        
-//        [self.headImg setImage:[UIImage imageNamed:@"dinner"]];
+        if (model.img.length > 10) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",model.img]];
+            [self.headImg setImageWithURL:url placeholderImage:self.headImg.image options:SDWebImageCacheMemoryOnly];
+        }
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",[model.money floatValue]];
+
 //        self.nameLabel.text = @"香辣猪扒A套餐";
 //        self.statusLabel.text = @"交易完成";
 //        self.ruleLabel.text = @"满100使用";
-//        self.priceLabel.text = @"￥100";
 //        self.payLabel.text = @"实际支付: ￥400";
 
     }

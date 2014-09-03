@@ -12,5 +12,6 @@
 
 @interface BDAddressSelectorViewController : HNYBaseViewController
 @property (nonatomic,strong) BDAddressModel *addressModel;
+@property (nonatomic)BOOL getStreet;
 
 @end

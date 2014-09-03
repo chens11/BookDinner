@@ -7,6 +7,7 @@
 //
 
 #import "HNYBaseViewController.h"
+#import "BDLoginViewController.h"
 
 @interface BDAddressViewController : HNYBaseViewController
 @property (nonatomic) BOOL selector;

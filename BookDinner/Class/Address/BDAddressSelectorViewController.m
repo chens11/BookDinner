@@ -37,8 +37,10 @@
     self.table.dataSource = self;
     self.table.delegate = self;
     [self.view addSubview:self.table];
-    
-    [self getAddressProvince];
+    if (self.getStreet)
+        [self getAddressStreetWith:self.addressModel.district];
+    else
+        [self getAddressProvince];
     
     // Do any additional setup after loading the view.
 }
@@ -91,12 +93,42 @@
         self.addressModel.city = model.parentCode;
         self.addressModel.district = model;
         
-        [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
+        [self.delegate viewController:self
+                       actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
+        [self.customNaviController popViewControllerAnimated:YES];
+    }
+    else if (model.type == 3){
+        self.addressModel.street = model;
+        [self.delegate viewController:self
+                       actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
         [self.customNaviController popViewControllerAnimated:YES];
     }
 }
 
 #pragma mark - http request
+- (void)getAddressStreetWith:(BDCodeModel*)model{
+    [self showRequestingTips:nil];
+    self.requestingModel = model;
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:model.code],@"code",
+                                  [AppInfo headInfo],HTTP_HEAD,nil];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetAddressStreet];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetAddressStreet,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+}
+
 - (void)getAddressBlockWith:(BDCodeModel*)model{
     [self showRequestingTips:nil];
     self.requestingModel = model;
@@ -119,7 +151,6 @@
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
 }
-
 
 - (void)getAddressCityWith:(BDCodeModel*)model{
     [self showRequestingTips:nil];
@@ -208,6 +239,21 @@
             self.requestingModel.sons = sons;
             [self.table reloadData];
         }
+        else if ([ActionGetAddressStreet isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            NSArray *list = [dictionary valueForKey:HTTP_VALUE];
+            for (NSDictionary *codeDic in list) {
+                BDCodeModel *model = [HNYJSONUitls mappingDictionary:codeDic toObjectWithClassName:@"BDCodeModel"];
+                model.type = 3;
+                model.parentCode = nil;
+                model.hasSons = NO;
+                [self.dataAry addObject:model];
+            }
+            if (self.dataAry.count == 0) {
+                [self showTips:@"无街道数据"];
+            }
+            [self.table reloadData];
+        }
+
     }
     else{
         if ([ActionGetAddressProvince isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
@@ -217,6 +263,9 @@
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
         else if ([ActionGetAddressBlock isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
+        else if ([ActionGetAddressStreet isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

@@ -18,5 +18,6 @@
 @property (nonatomic,strong) BDCodeModel *prorince;
 @property (nonatomic,strong) BDCodeModel *city;
 @property (nonatomic,strong) BDCodeModel *district;
+@property (nonatomic,strong) BDCodeModel *street;
 
 @end

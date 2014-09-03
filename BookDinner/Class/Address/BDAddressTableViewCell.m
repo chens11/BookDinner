@@ -70,7 +70,7 @@
         BDAddressModel *cModel = model;
         self.nameLabel.text = cModel.name;
         self.phoneLabel.text = cModel.tel;
-        self.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@",cModel.prorince.name,cModel.city.name,cModel.district.name,cModel.address];
+        self.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@ %@",cModel.prorince.name,cModel.city.name,cModel.district.name,cModel.street.name,cModel.address];
     }
 }
 

@@ -12,6 +12,7 @@
 @synthesize prorince = _prorince;
 @synthesize city = _city;
 @synthesize district = _district;
+@synthesize street = _street;
 
 - (void)setProrince:(BDCodeModel *)prorince{
     if ([prorince isKindOfClass:[NSDictionary class]]) {
@@ -35,6 +36,14 @@
     }
     else
         _district = district;
+}
+
+- (void)setStreet:(BDCodeModel *)street{
+    if ([street isKindOfClass:[NSDictionary class]]) {
+        _street  = [HNYJSONUitls mappingDictionary:(NSDictionary*)street toObjectWithClassName:@"BDCodeModel"];
+    }
+    else
+        _street = street;
 }
 
 @end

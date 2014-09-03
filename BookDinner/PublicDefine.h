@@ -43,6 +43,7 @@
 #define USER_IMG_TYPE                               @"img_type"
 #define USER_ADDRESS                                @"address"
 #define USER_ADDRESS_CODE                                @"address_code"
+#define USER_ADDRESS_STREET                                @"street"
 #define USER_IS_LOGIN                               @"user_is_login"
 
 #define NotificationActionLogin                                  @"NotificationActionLogin"
@@ -68,6 +69,7 @@
 #define ActionGetAddressProvince                         @"API/?c=server&a=getprovince"
 #define ActionGetAddressCity                         @"API/?c=server&a=getcity"
 #define ActionGetAddressBlock                         @"API/?c=server&a=getdistrict"
+#define ActionGetAddressStreet                         @"API/?c=server&a=getstreet"
 #define ActionAddAddress                         @"API/?c=user&a=addaddress"
 #define ActionSaveAddress                         @"API/?c=user&a=editaddressid"
 #define ActionDeleteAddress                         @"API/?c=user&a=deleteaddressid"

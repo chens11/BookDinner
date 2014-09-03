@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PublicDefine.h"
+#import "UIImageView+WebCache.h"
 
 @interface HNYTableViewCell : UITableViewCell
 @property (nonatomic,strong) UILabel *bottomLine;

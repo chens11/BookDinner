@@ -95,6 +95,15 @@
         [self.customNaviController pushViewController:controller animated:YES];
     }
 }
+
+#pragma mark - instance fun
+- (void)login{
+    BDLoginViewController *controller = [[BDLoginViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    [self.customNaviController pushViewController:controller animated:YES];
+}
+
+
 #pragma mark - IBAciton
 - (void)touchAddBarItem:(UIBarButtonItem*)sender{
     
@@ -141,6 +150,12 @@
             NSArray *value = [dictionary valueForKey:HTTP_VALUE];
             self.menuAry = [HNYJSONUitls mappingDicAry:value toObjectAryWithClassName:@"BDAddressModel"];
             [self.table reloadData];
+        }
+    }
+    else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
+        if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+            [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
         }
     }
     else{
