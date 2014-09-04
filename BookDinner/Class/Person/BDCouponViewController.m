@@ -69,11 +69,15 @@
     unPay.title = @"待使用";
     unPay.type = @"0";
     
+    BDMenuModel *used = [[BDMenuModel alloc] init];
+    used.title = @"已使用";
+    used.type = @"0";
+    
     BDMenuModel *payed = [[BDMenuModel alloc] init];
     payed.title = @"已过期";
     payed.type = @"1";
     
-    NSMutableArray *array = [NSMutableArray arrayWithObjects:all,unPay,payed, nil];
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:all,unPay,used,payed, nil];
     topView.subMenuAry = array;
     topView.defaultSelectedIndex = 0;
 }
