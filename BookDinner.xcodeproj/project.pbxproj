@@ -176,6 +176,8 @@
 		03BE240F196E3E3F005C0D03 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE240E196E3E3F005C0D03 /* AssetsLibrary.framework */; };
 		03E0364F19B6FCBA008C1084 /* BDPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E0364E19B6FCBA008C1084 /* BDPayViewController.m */; };
 		03E0365219B704CD008C1084 /* BDOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E0365119B704CD008C1084 /* BDOrderModel.m */; };
+		03F4A69E19B81C760039C70C /* BDOrderTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F4A69D19B81C760039C70C /* BDOrderTopView.m */; };
+		03F4A6A119B826220039C70C /* BDOrderTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F4A6A019B826220039C70C /* BDOrderTopItemView.m */; };
 		03F87F3119B409470019757A /* AlipayRsaLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F87F2319B409470019757A /* AlipayRsaLib.a */; };
 		03F87F3219B409480019757A /* Alixpay.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03F87F2519B409470019757A /* Alixpay.bundle */; };
 		03F87F3319B409480019757A /* AlixPaylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F87F2619B409470019757A /* AlixPaylib.a */; };
@@ -550,6 +552,10 @@
 		03E0364E19B6FCBA008C1084 /* BDPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPayViewController.m; sourceTree = "<group>"; };
 		03E0365019B704CD008C1084 /* BDOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderModel.h; sourceTree = "<group>"; };
 		03E0365119B704CD008C1084 /* BDOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderModel.m; sourceTree = "<group>"; };
+		03F4A69C19B81C760039C70C /* BDOrderTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderTopView.h; sourceTree = "<group>"; };
+		03F4A69D19B81C760039C70C /* BDOrderTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderTopView.m; sourceTree = "<group>"; };
+		03F4A69F19B826220039C70C /* BDOrderTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderTopItemView.h; sourceTree = "<group>"; };
+		03F4A6A019B826220039C70C /* BDOrderTopItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderTopItemView.m; sourceTree = "<group>"; };
 		03F87F2319B409470019757A /* AlipayRsaLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AlipayRsaLib.a; sourceTree = "<group>"; };
 		03F87F2419B409470019757A /* AlixLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlixLibService.h; sourceTree = "<group>"; };
 		03F87F2519B409470019757A /* Alixpay.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Alixpay.bundle; sourceTree = "<group>"; };
@@ -790,6 +796,10 @@
 			children = (
 				0361C6691973DF3D000CDB6C /* BDOrderViewController.h */,
 				0361C66A1973DF3D000CDB6C /* BDOrderViewController.m */,
+				03F4A69C19B81C760039C70C /* BDOrderTopView.h */,
+				03F4A69D19B81C760039C70C /* BDOrderTopView.m */,
+				03F4A69F19B826220039C70C /* BDOrderTopItemView.h */,
+				03F4A6A019B826220039C70C /* BDOrderTopItemView.m */,
 				03E0365019B704CD008C1084 /* BDOrderModel.h */,
 				03E0365119B704CD008C1084 /* BDOrderModel.m */,
 				CA200729198D48CA00AB3E46 /* BDOrderTableViewCell.h */,
@@ -1809,6 +1819,7 @@
 				039BA93B19B4756A00B49FA2 /* EAIntroView.m in Sources */,
 				03BE23B8196E3B3E005C0D03 /* UIImage+GIF.m in Sources */,
 				03BE23B7196E3B3E005C0D03 /* UIButton+WebCache.m in Sources */,
+				03F4A69E19B81C760039C70C /* BDOrderTopView.m in Sources */,
 				03BE238E196E3B3E005C0D03 /* ASIInputStream.m in Sources */,
 				03758E00196E8F9400360E2D /* HNYModel.m in Sources */,
 				0361C6671973DBC0000CDB6C /* BDPersonTableViewCell.m in Sources */,
@@ -1843,6 +1854,7 @@
 				03BE23B3196E3B3E005C0D03 /* SDWebImageDownloader.m in Sources */,
 				03BE23A4196E3B3E005C0D03 /* NSString+SBJSON.m in Sources */,
 				CA25C95E19741A5300644082 /* BDChangePasswordViewController.m in Sources */,
+				03F4A6A119B826220039C70C /* BDOrderTopItemView.m in Sources */,
 				03BE23C0196E3B3E005C0D03 /* HNYTreeCell.m in Sources */,
 				CA04291E199129E7007BCA4A /* HNYDetailItemModel.m in Sources */,
 				CACB3D6219A6563700E27064 /* BDPersonDetailViewController.m in Sources */,

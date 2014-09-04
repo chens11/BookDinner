@@ -18,7 +18,8 @@
 @property (nonatomic,strong) UILabel *bgLabel;
 @property (nonatomic,strong) UIButton *payBtn;
 @property (nonatomic,strong) UILabel *payLabel;
-//@property (nonatomic,strong) UIButton *bgLabel;
+@property (nonatomic,strong) UILabel *typeLabel;
+@property (nonatomic,strong) UILabel *couponLabel;
 
 @end
 
@@ -64,6 +65,18 @@
         self.priceLabel.font = [UIFont systemFontOfSize:14.0];
         [self.contentView addSubview:self.priceLabel];
         
+        self.typeLabel = [[UILabel alloc] init];
+        self.typeLabel.textAlignment = NSTextAlignmentLeft;
+        self.typeLabel.backgroundColor = [UIColor clearColor];
+        self.typeLabel.font = [UIFont systemFontOfSize:14.0];
+        [self.contentView addSubview:self.typeLabel];
+        
+        self.couponLabel = [[UILabel alloc] init];
+        self.couponLabel.textAlignment = NSTextAlignmentLeft;
+        self.couponLabel.backgroundColor = [UIColor clearColor];
+        self.couponLabel.font = [UIFont systemFontOfSize:14.0];
+        [self.contentView addSubview:self.couponLabel];
+        
         self.numLabel = [[UILabel alloc] init];
         self.numLabel.textAlignment = NSTextAlignmentRight;
         self.numLabel.backgroundColor = [UIColor clearColor];
@@ -107,11 +120,14 @@
     self.tailImg.frame = CGRectMake(10 ,10,self.contentView.frame.size.width - 20,self.contentView.frame.size.height-20);
     self.nameLabel.frame = CGRectMake(20 ,15,self.frame.size.width - 150,20);
     self.statusLabel.frame = CGRectMake(self.frame.size.width - 80 ,15,60,20);
-    self.priceLabel.frame = CGRectMake(self.frame.size.width - 80 ,40,60,20);
-    self.numLabel.frame = CGRectMake(self.frame.size.width - 80 ,60,60,20);
+    self.priceLabel.frame = CGRectMake(self.frame.size.width - 150 ,40,130,20);
+    self.numLabel.frame = CGRectMake(self.frame.size.width - 150 ,70,130,20);
+    
+    self.typeLabel.frame = CGRectMake(110,40,130,20);
+    self.couponLabel.frame = CGRectMake(110,70,150,20);
     
     self.headImg.frame = CGRectMake(20 ,30,80,self.frame.size.height - 60);
-    self.payBtn.frame = CGRectMake(self.frame.size.width - 80, self.frame.size.height - 50, 60, 30);
+    self.payBtn.frame = CGRectMake(self.frame.size.width - 80, self.frame.size.height - 40, 60, 25);
     self.payLabel.frame = CGRectMake(20, self.frame.size.height - 40, 150, 20);
 }
 - (void)iniDataWithModel:(BDOrderModel*)model{
@@ -122,6 +138,8 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",model.img]];
             [self.headImg setImageWithURL:url placeholderImage:self.headImg.image options:SDWebImageCacheMemoryOnly];
         }
+        self.typeLabel.text = [NSString stringWithFormat:@"购买方式:赠送朋友"];
+        self.couponLabel.text = [NSString stringWithFormat:@"优惠券:8折卷(朋友卷)"];
         self.priceLabel.text = [NSString stringWithFormat:@"￥22.0"];
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
         self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.money floatValue]];

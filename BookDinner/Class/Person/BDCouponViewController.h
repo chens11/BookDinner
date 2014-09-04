@@ -8,6 +8,7 @@
 
 #import "HNYBaseViewController.h"
 #import "BDCouponTableViewCell.h"
+#import "BDOrderTopView.h"
 
 @interface BDCouponViewController : HNYBaseViewController
 

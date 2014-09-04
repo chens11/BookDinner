@@ -9,8 +9,9 @@
 #import "BDOrderViewController.h"
 #import "BDOrderTableViewCell.h"
 #import "BDOrderDetailViewController.h"
+#import "BDOrderTopView.h"
 
-@interface BDOrderViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface BDOrderViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,HNYDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
 
 @end
@@ -30,6 +31,7 @@
 {
     [super viewDidLoad];
     self.title = @"我的订单";
+    [self createTopView];
     [self createTable];
     [self getOrderList];
     // Do any additional setup after loading the view.
@@ -47,10 +49,42 @@
     self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
 }
 
+- (void)createTopView{
+    BDOrderTopView *topView = [[BDOrderTopView alloc] initWithFrame:CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, 44)];
+    topView.delegate = self;
+    [self.view addSubview:topView];
+    //（0待付款，1已付款，2派送中，3成交，4失效）
+    BDMenuModel *all = [[BDMenuModel alloc] init];
+    all.title = @"全部";
+    all.type = @"0,1,2,3,4";
+    
+    BDMenuModel *unPay = [[BDMenuModel alloc] init];
+    unPay.title = @"待付款";
+    unPay.type = @"0";
+    
+    BDMenuModel *payed = [[BDMenuModel alloc] init];
+    payed.title = @"已付款";
+    payed.type = @"1";
+    
+    BDMenuModel *sending = [[BDMenuModel alloc] init];
+    sending.title = @"派送中";
+    sending.type = @"2";
+    
+    BDMenuModel *done = [[BDMenuModel alloc] init];
+    done.title = @"成交";
+    done.type = @"3";
+    
+    BDMenuModel *out = [[BDMenuModel alloc] init];
+    out.title = @"失效";
+    out.type = @"4";
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:all,unPay,payed,sending,done,out, nil];
+    topView.subMenuAry = array;
+    topView.defaultSelectedIndex = 0;
+}
 
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
-    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + 44, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - 44);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];
@@ -125,6 +159,11 @@
 }
 - (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
+}
+
+#pragma mark - HNYDelegate
+- (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
+    
 }
 
 #pragma mark - http request

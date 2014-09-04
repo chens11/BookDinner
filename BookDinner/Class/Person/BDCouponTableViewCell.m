@@ -99,22 +99,22 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.nameLabel.text = @"订餐优惠券";
+    self.nameLabel.text = @"打折券";
     self.dateLabel.text = @"有效期至2014-09-04";
     self.valueLabel.text = @"￥90";
     self.ruleLabel.text = @"本优惠券一次购买满100可以使用";
-    self.statusLabel.text = @" 可使用";
+    self.statusLabel.text = @"可使用";
     
     self.headImg.frame = CGRectMake(15, 15, 40, self.frame.size.height - 55);
 //    self.valueLabel.frame = CGRectMake(0, 0, 80, self.contentView.frame.size.height - 20);
     self.bgLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
     self.bgImg.frame = CGRectMake(10 ,10,self.contentView.frame.size.width - 20,self.contentView.frame.size.height-20);
     self.nameLabel.frame = CGRectMake(65 ,15,self.frame.size.width - 75,20);
-    self.ruleLabel.frame = CGRectMake(65 ,35,self.frame.size.width - 75,self.frame.size.height - 60);
+    self.ruleLabel.frame = CGRectMake(65,30,self.frame.size.width - 80,self.frame.size.height - 60);
 
     
-    self.statusLabel.frame = CGRectMake(15, self.frame.size.height - 30, self.frame.size.width - 30, 20);
-    self.dateLabel.frame = CGRectMake(0, self.frame.size.height - 30, self.frame.size.width-20, 20);
+    self.statusLabel.frame = CGRectMake(15, self.frame.size.height - 35, self.frame.size.width - 30, 20);
+    self.dateLabel.frame = CGRectMake(0, self.frame.size.height - 35, self.frame.size.width-20, 20);
 
 }
 - (void)iniDataWithModel:(id)model{
