@@ -10,6 +10,7 @@
 #import "BDPersonTableViewCell.h"
 #import "BDPersonDetailViewController.h"
 #import "BDLoginViewController.h"
+#import "BDPayViewController.h"
 
 @interface BDPersonViewController : HNYBaseViewController
 @property (nonatomic,strong) BDPersonModel *personModel;

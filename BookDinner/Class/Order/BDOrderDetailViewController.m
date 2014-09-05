@@ -330,6 +330,10 @@
 
 - (void)touchBuyButton:(UIButton*)sender{
     [self.view endEditing:YES];
+    BDPayViewController *controller = [[BDPayViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    [self.customNaviController pushViewController:controller animated:YES];
+    return;
     
     HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
     if (sender.tag == 100) {

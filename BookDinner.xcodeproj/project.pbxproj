@@ -174,6 +174,9 @@
 		03BE240B196E3E2F005C0D03 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE240A196E3E2F005C0D03 /* libicucore.dylib */; };
 		03BE240D196E3E36005C0D03 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE240C196E3E36005C0D03 /* CoreTelephony.framework */; };
 		03BE240F196E3E3F005C0D03 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE240E196E3E3F005C0D03 /* AssetsLibrary.framework */; };
+		03C0A0CB19B98DC9006D1A62 /* BDPayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C0A0CA19B98DC9006D1A62 /* BDPayTableViewCell.m */; };
+		03C0A0CD19B9981A006D1A62 /* alipay_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03C0A0CC19B9981A006D1A62 /* alipay_logo.png */; };
+		03C0A0CF19B99A14006D1A62 /* weichat_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03C0A0CE19B99A14006D1A62 /* weichat_logo.png */; };
 		03E0364F19B6FCBA008C1084 /* BDPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E0364E19B6FCBA008C1084 /* BDPayViewController.m */; };
 		03E0365219B704CD008C1084 /* BDOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E0365119B704CD008C1084 /* BDOrderModel.m */; };
 		03F4A69E19B81C760039C70C /* BDOrderTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F4A69D19B81C760039C70C /* BDOrderTopView.m */; };
@@ -548,6 +551,10 @@
 		03BE240A196E3E2F005C0D03 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		03BE240C196E3E36005C0D03 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		03BE240E196E3E3F005C0D03 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		03C0A0C919B98DC9006D1A62 /* BDPayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPayTableViewCell.h; sourceTree = "<group>"; };
+		03C0A0CA19B98DC9006D1A62 /* BDPayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPayTableViewCell.m; sourceTree = "<group>"; };
+		03C0A0CC19B9981A006D1A62 /* alipay_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alipay_logo.png; sourceTree = "<group>"; };
+		03C0A0CE19B99A14006D1A62 /* weichat_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weichat_logo.png; sourceTree = "<group>"; };
 		03E0364D19B6FCBA008C1084 /* BDPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPayViewController.h; sourceTree = "<group>"; };
 		03E0364E19B6FCBA008C1084 /* BDPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPayViewController.m; sourceTree = "<group>"; };
 		03E0365019B704CD008C1084 /* BDOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderModel.h; sourceTree = "<group>"; };
@@ -810,6 +817,8 @@
 				0361C66D1973E059000CDB6C /* BDOrderDetailViewController.m */,
 				03E0364D19B6FCBA008C1084 /* BDPayViewController.h */,
 				03E0364E19B6FCBA008C1084 /* BDPayViewController.m */,
+				03C0A0C919B98DC9006D1A62 /* BDPayTableViewCell.h */,
+				03C0A0CA19B98DC9006D1A62 /* BDPayTableViewCell.m */,
 				CA2F1E1C19926AD500D3396C /* BDOrderReceiveAddressView.h */,
 				CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */,
 			);
@@ -1363,6 +1372,8 @@
 		03BE233C196E3B3E005C0D03 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				03C0A0CE19B99A14006D1A62 /* weichat_logo.png */,
+				03C0A0CC19B9981A006D1A62 /* alipay_logo.png */,
 				CA16CA9D19B7635600CDE5D8 /* btn_bg.png */,
 				CA16CA9B19B7628A00CDE5D8 /* alert_bg1.png */,
 				CA16CA9919B7607800CDE5D8 /* alert_bg.png */,
@@ -1680,9 +1691,11 @@
 				CA18CE47198DF89700345DC9 /* LLMenuRemoveRound.png in Resources */,
 				03BE23E5196E3B3E005C0D03 /* iconLeft.png in Resources */,
 				CACB3D5B19A63EFE00E27064 /* bubbleMine.png in Resources */,
+				03C0A0CF19B99A14006D1A62 /* weichat_logo.png in Resources */,
 				CAA7E9E21976C3CD00BEBE36 /* naviBar.png in Resources */,
 				03BE23E6196E3B3E005C0D03 /* iconLeft@2x.png in Resources */,
 				CAF5E35519A793F100C406FE /* rotate-static.png in Resources */,
+				03C0A0CD19B9981A006D1A62 /* alipay_logo.png in Resources */,
 				03BE23ED196E3B3E005C0D03 /* login_back.png in Resources */,
 				03BE23EC196E3B3E005C0D03 /* iconSubMenuSelected.png in Resources */,
 				CAA7E9E41976C4A300BEBE36 /* ClassifyIcon@2x.png in Resources */,
@@ -1822,6 +1835,7 @@
 				03F4A69E19B81C760039C70C /* BDOrderTopView.m in Sources */,
 				03BE238E196E3B3E005C0D03 /* ASIInputStream.m in Sources */,
 				03758E00196E8F9400360E2D /* HNYModel.m in Sources */,
+				03C0A0CB19B98DC9006D1A62 /* BDPayTableViewCell.m in Sources */,
 				0361C6671973DBC0000CDB6C /* BDPersonTableViewCell.m in Sources */,
 				CACB3D5419A639D600E27064 /* BDContactBossTableViewCell.m in Sources */,
 				03BE23AC196E3B3E005C0D03 /* HNYRefreshTableViewController.m in Sources */,

@@ -11,6 +11,7 @@
 @interface BDOrderTableViewCell()
 @property (nonatomic,strong) UIImageView *headImg;
 @property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UILabel *statusLabel;
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) UILabel *numLabel;
@@ -80,6 +81,12 @@
         self.couponLabel.font = [UIFont systemFontOfSize:14.0];
         [self.contentView addSubview:self.couponLabel];
         
+        self.timeLabel = [[UILabel alloc] init];
+        self.timeLabel.textAlignment = NSTextAlignmentLeft;
+        self.timeLabel.backgroundColor = [UIColor clearColor];
+        self.timeLabel.font = [UIFont systemFontOfSize:14.0];
+        [self.contentView addSubview:self.timeLabel];
+        
         self.numLabel = [[UILabel alloc] init];
         self.numLabel.textAlignment = NSTextAlignmentRight;
         self.numLabel.backgroundColor = [UIColor clearColor];
@@ -128,7 +135,8 @@
     self.numLabel.frame = CGRectMake(self.frame.size.width - 150 ,70,130,20);
     
     self.typeLabel.frame = CGRectMake(110,40,130,20);
-    self.couponLabel.frame = CGRectMake(110,70,150,20);
+    self.couponLabel.frame = CGRectMake(110,65,150,20);
+    self.timeLabel.frame = CGRectMake(110, 90, 150, 20);
     
     self.headImg.frame = CGRectMake(20 ,30,80,self.frame.size.height - 60);
     self.payBtn.frame = CGRectMake(self.frame.size.width - 80, self.frame.size.height - 40, 60, 25);
@@ -147,6 +155,7 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥22.0"];
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
         self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.money floatValue]];
+        self.timeLabel.text = @"送餐时间: 10:30-11:00";
 
     }
 }

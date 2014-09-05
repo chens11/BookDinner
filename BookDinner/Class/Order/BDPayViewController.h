@@ -7,6 +7,7 @@
 //
 
 #import "HNYBaseViewController.h"
+#import "BDPayTableViewCell.h"
 
 @interface BDPayViewController : HNYBaseViewController
 
