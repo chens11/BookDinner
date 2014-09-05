@@ -103,7 +103,7 @@
 //    hud.detailsLabelFont = [UIFont boldSystemFontOfSize:16];
 //    hud.yOffset = -50.f;
     hud.removeFromSuperViewOnHide = YES;
-    [hud hide:YES afterDelay:2];
+    [hud hide:YES afterDelay:1];
 }
 
 - (void)popViewController{

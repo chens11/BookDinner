@@ -81,6 +81,7 @@
 #define ActionCheckVersion                         @"API/?c=product&a=todayrecommended"
 #define ActionPlaceOrder                         @"API/?c=product&a=addorder"
 #define ActionGetOrderList                         @"API/?c=product&a=getorder"
+#define ActionLuckyDraw                         @"API/?c=ticker&a=dazhuanpan"
 
 
 

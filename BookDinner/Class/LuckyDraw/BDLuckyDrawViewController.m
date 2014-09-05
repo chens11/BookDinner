@@ -43,12 +43,14 @@
     [self.view addSubview:self.labelTextField];
     
     
-    self.plateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 99, self.view.frame.size.width, self.view.frame.size.width)];
+    self.plateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*5/6, self.view.frame.size.width*5/6)];
+    self.plateImageView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.width*1/2 + self.naviBar.frame.size.height);
     self.plateImageView.contentMode = UIViewContentModeScaleToFill;
     self.plateImageView.image = [UIImage imageNamed:@"ly-plate"];
     [self.view addSubview:self.plateImageView];
     
-    self.rotateStaticImageView = [[UIImageView alloc] initWithFrame:CGRectMake(35, 136, 250, 250)];
+    self.rotateStaticImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    self.rotateStaticImageView.center = self.plateImageView.center;
     self.rotateStaticImageView.contentMode = UIViewContentModeScaleToFill;
     self.rotateStaticImageView.image = [UIImage imageNamed:@"rotate-static"];
     [self.view addSubview:self.rotateStaticImageView];
@@ -107,18 +109,19 @@
 }
 
 - (IBAction)start:(id)sender {
+    [self luckDraw];
     
-    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    endValue = [self fetchResult];
-    rotationAnimation.delegate = self;
-    rotationAnimation.fromValue = @(startValue);
-    rotationAnimation.toValue = @(endValue);
-    rotationAnimation.duration = 2.0f;
-    rotationAnimation.autoreverses = NO;
-    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    rotationAnimation.removedOnCompletion = NO;
-    rotationAnimation.fillMode = kCAFillModeBoth;
-    [_rotateStaticImageView.layer addAnimation:rotationAnimation forKey:@"revItUpAnimation"];
+//    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+//    endValue = [self fetchResult];
+//    rotationAnimation.delegate = self;
+//    rotationAnimation.fromValue = @(startValue);
+//    rotationAnimation.toValue = @(endValue);
+//    rotationAnimation.duration = 2.0f;
+//    rotationAnimation.autoreverses = NO;
+//    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    rotationAnimation.removedOnCompletion = NO;
+//    rotationAnimation.fillMode = kCAFillModeBoth;
+//    [_rotateStaticImageView.layer addAnimation:rotationAnimation forKey:@"revItUpAnimation"];
 }
 
 -(float)fetchResult{
@@ -174,6 +177,56 @@ double radians(float degrees) {
     NSLog(@"result = %@",result);
     _label1.text = result;
     NSLog(@"endValue = %f\n",endValue);
+}
+#pragma mark - http request
+
+- (void)luckDraw{
+    [self showRequestingTips:nil];
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
+                                  [AppInfo headInfo],HTTP_HEAD,nil];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLuckyDraw];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *pData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionLuckyDraw,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:pData];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+    
+}
+- (void)requestFinished:(ASIHTTPRequest *)request{
+    NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
+    NSDictionary *dictionary = [string JSONValue];
+    NSLog(@"result = %@",string);
+    [self.hud removeFromSuperview];
+    if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
+        if ([ActionLuckyDraw isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            endValue = [self fetchResult];
+            rotationAnimation.delegate = self;
+            rotationAnimation.fromValue = @(startValue);
+            rotationAnimation.toValue = @(endValue);
+            rotationAnimation.duration = 2.0f;
+            rotationAnimation.autoreverses = NO;
+            rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            rotationAnimation.removedOnCompletion = NO;
+            rotationAnimation.fillMode = kCAFillModeBoth;
+            [_rotateStaticImageView.layer addAnimation:rotationAnimation forKey:@"revItUpAnimation"];
+
+        }
+    }
+    
+    else{
+        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+    }
 }
 
 @end
