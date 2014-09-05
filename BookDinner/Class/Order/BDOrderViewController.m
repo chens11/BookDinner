@@ -13,6 +13,7 @@
 
 @interface BDOrderViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,HNYDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
+@property (nonatomic,strong) NSString *orderState;
 
 @end
 
@@ -22,6 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.orderState = @"0,1,2,3,4";
         // Custom initialization
     }
     return self;
@@ -33,7 +35,6 @@
     self.title = @"我的订单";
     [self createTopView];
     [self createTable];
-    [self getOrderList];
     // Do any additional setup after loading the view.
 }
 
@@ -163,7 +164,12 @@
 
 #pragma mark - HNYDelegate
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
-    
+    if ([aView isKindOfClass:[BDOrderTopView class]]) {
+        BDMenuModel *model = [info valueForKey:@"subMenuSelected"];
+        self.orderState = model.type;
+        [self.tableController.list removeAllObjects];
+        [self getOrderList];
+    }
 }
 
 #pragma mark - http request
@@ -173,7 +179,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [NSNumber numberWithInt:self.tableController.pageNum],@"pagenum",
                                   [NSNumber numberWithInt:self.tableController.pageSize],@"pagesize",
-                                  @"0",@"state",
+                                  self.orderState,@"state",
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     

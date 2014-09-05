@@ -20,6 +20,7 @@
 @property (nonatomic,strong) UILabel *payLabel;
 @property (nonatomic,strong) UILabel *typeLabel;
 @property (nonatomic,strong) UILabel *couponLabel;
+@property (nonatomic,strong) NSArray *buyTypeAry;
 
 @end
 
@@ -31,6 +32,7 @@
     if (self) {
         self.contentView.backgroundColor = [UIColor colorWithRed:237.0/255 green:234.0/255 blue:225.0/255 alpha:1.0];
         self.backgroundColor = [UIColor clearColor];
+        self.buyTypeAry = [NSArray arrayWithObjects:@"本人购买",@"赠送朋友",nil];
 
         self.bgLabel = [[UILabel alloc] init];
         self.bgLabel.backgroundColor = [UIColor whiteColor];
@@ -63,6 +65,7 @@
         self.priceLabel.textAlignment = NSTextAlignmentRight;
         self.priceLabel.backgroundColor = [UIColor clearColor];
         self.priceLabel.font = [UIFont systemFontOfSize:14.0];
+        self.priceLabel.textColor = [UIColor redColor];
         [self.contentView addSubview:self.priceLabel];
         
         self.typeLabel = [[UILabel alloc] init];
@@ -81,6 +84,7 @@
         self.numLabel.textAlignment = NSTextAlignmentRight;
         self.numLabel.backgroundColor = [UIColor clearColor];
         self.numLabel.font = [UIFont systemFontOfSize:14.0];
+        self.numLabel.textColor = [UIColor redColor];
         [self.contentView addSubview:self.numLabel];
         
         self.payLabel = [[UILabel alloc] init];
@@ -138,8 +142,8 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",model.img]];
             [self.headImg setImageWithURL:url placeholderImage:self.headImg.image options:SDWebImageCacheMemoryOnly];
         }
-        self.typeLabel.text = [NSString stringWithFormat:@"购买方式:赠送朋友"];
-        self.couponLabel.text = [NSString stringWithFormat:@"优惠券:8折卷(朋友卷)"];
+        self.typeLabel.text = [NSString stringWithFormat:@"购买方式: %@",[self.buyTypeAry objectAtIndex:model.using]];
+        self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 8折卷(朋友卷)"];
         self.priceLabel.text = [NSString stringWithFormat:@"￥22.0"];
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
         self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.money floatValue]];

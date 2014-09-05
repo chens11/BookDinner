@@ -10,6 +10,7 @@
 
 @interface BDCouponViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
+@property (nonatomic,strong) NSString *orderState;
 
 @end
 
@@ -100,7 +101,13 @@
 }
 #pragma mark - HNYDelegate
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
-    
+    if ([aView isKindOfClass:[BDOrderTopView class]]) {
+        BDMenuModel *model = [info valueForKey:@"subMenuSelected"];
+        self.orderState = model.type;
+        [self.tableController.list removeAllObjects];
+//        [self getCouponList];
+    }
+
 }
 
 #pragma mark - IBAciton
@@ -178,4 +185,56 @@
 - (void)touchLoginButton:(UIButton*)sender{
     
 }
+- (void)getCouponList{
+    [self showRequestingTips:nil];
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:self.tableController.pageNum],@"pagenum",
+                                  [NSNumber numberWithInt:self.tableController.pageSize],@"pagesize",
+                                  self.orderState,@"state",
+                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
+                                  [AppInfo headInfo],HTTP_HEAD,nil];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderList];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderList,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+    
+}
+- (void)requestFinished:(ASIHTTPRequest *)request{
+    NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
+    NSDictionary *dictionary = [string JSONValue];
+    NSLog(@"result = %@",string);
+    [self.hud removeFromSuperview];
+    if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
+        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            
+            NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDOrderModel"];
+            [self.tableController doneRefresh];
+            [self.tableController.list addObjectsFromArray:value];
+            [self.tableController.tableView reloadData];
+            if (value.count < self.tableController.pageSize)
+                self.tableController.enbleFooterLoad = NO;
+            else
+                self.tableController.enbleFooterLoad = YES;
+            
+            if (self.tableController.list.count == 0)
+                [self showTips:@"无订单"];
+        }
+    }
+    
+    else{
+        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+    }
+}
+
 @end

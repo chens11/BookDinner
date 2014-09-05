@@ -11,6 +11,7 @@
 @interface BDOrderModel : HNYModel
 @property (nonatomic,strong) NSString *addtime;
 @property (nonatomic) int id;
+@property (nonatomic) int using;
 @property (nonatomic,strong) NSString *img;
 @property (nonatomic,strong) NSString *money;
 @property (nonatomic,strong) NSString *title;

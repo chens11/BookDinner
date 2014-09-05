@@ -16,6 +16,7 @@
 @interface BDOrderDetailViewController ()<HNYDetailTableViewControllerDelegate,HNYDelegate,HNYActionSheetDelegate>
 @property (nonatomic,strong) NSMutableArray *viewAry;
 @property (nonatomic,strong) NSArray *timeAry;
+@property (nonatomic,strong) NSArray *buyTypeAry;
 @property (nonatomic,strong) HNYDetailTableViewController *tableViewController;
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) HNYTextField *numTextField;
@@ -29,9 +30,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _viewAry = [[NSMutableArray alloc] initWithCapacity:0];
-        self.timeAry = [NSMutableArray arrayWithObjects:@"10:00 - 10:30",@"10:30 - 11:00",@"11:00 - 11:30",@"11:30 - 12:00",@"12:00 - 12:30",@"12:30 - 13:00",@"13:00 - 13:30", nil];
-
-        // Custom initialization
+        self.timeAry = [NSArray arrayWithObjects:@"10:00 - 10:30",@"10:30 - 11:00",@"11:00 - 11:30",@"11:30 - 12:00",@"12:00 - 12:30",@"12:30 - 13:00",@"13:00 - 13:30", nil];
+        self.buyTypeAry = [NSArray arrayWithObjects:@"本人购买",@"赠送朋友",nil];
+        // Custom initializations
     }
     return self;
 }
@@ -112,7 +113,8 @@
     typeItem.textColor = [UIColor lightGrayColor];
     typeItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     typeItem.key = @"buyType";
-    typeItem.textValue = @"本人购买";
+    typeItem.textValue = [self.buyTypeAry objectAtIndex:0];
+    typeItem.value = [NSNumber numberWithInt:0];
     typeItem.textColor = [UIColor lightGrayColor];
     typeItem.name = @"  购买方式";
     [_viewAry addObject:typeItem];
@@ -278,15 +280,12 @@
         
     }
     else if ([@"buyType" isEqualToString:item.key]) {
-        NSMutableArray *array = [NSMutableArray array];
-        
-        NSString *buySelf = [NSString stringWithFormat:@"本人购买"];
-        [array addObject:buySelf];
-        NSString *sendOther = [NSString stringWithFormat:@"赠送朋友"];
-        [array addObject:sendOther];
-        
-        HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择购买方式" withStringAry:array cancelBtnTitle:nil sureBtnTitle:nil delegate:self];
-        sheet.tag = 100;
+        HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择购买方式"
+                                                withStringAry:self.buyTypeAry
+                                               cancelBtnTitle:nil
+                                                 sureBtnTitle:nil
+                                                     delegate:self];
+        sheet.tag = item.tag;
     }
     else if ([@"coupon" isEqualToString:item.key]) {
         BDCouponViewController *controller = [[BDCouponViewController alloc] init];
@@ -302,20 +301,24 @@
         [array addObject:sendOther];
         NSString *myPay = [NSString stringWithFormat:@"我的钱包付        余额:￥200"];
         [array addObject:myPay];
-        HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择支付方式" withStringAry:array cancelBtnTitle:nil sureBtnTitle:nil delegate:self];
-        sheet.tag = 101;
+        HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择支付方式"
+                                                withStringAry:array
+                                               cancelBtnTitle:nil
+                                                 sureBtnTitle:nil
+                                                     delegate:self];
+        sheet.tag = item.tag;
         
     }
     else if ([@"time" isEqualToString:item.key]){
         
 
-        HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择送餐时间" withStringAry:self.timeAry cancelBtnTitle:nil sureBtnTitle:nil delegate:self];
-        sheet.tag = 102;
+        HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择送餐时间"
+                                                withStringAry:self.timeAry
+                                               cancelBtnTitle:nil
+                                                 sureBtnTitle:nil
+                                                     delegate:self];
+        sheet.tag = item.tag;
 
-//        UIDatePicker *picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 216, self.view.frame.size.width, 216)];
-//        picker.datePickerMode = UIDatePickerModeDateAndTime;
-//        [picker addTarget:self action:@selector(dateValueChang:) forControlEvents:UIControlEventValueChanged];
-//        [self.view addSubview:picker];
     }
 
 }
@@ -352,6 +355,7 @@
         }
         HNYDetailItemModel *timeItem = [self.tableViewController getItemWithKey:@"time"];
         HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+        HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
         
         
         if ([numItem.value intValue] == 0) {
@@ -378,7 +382,10 @@
         [dictionary setValue:[NSNumber numberWithInt:self.addressModel.id] forKey:@"user_address_id"];
         [dictionary setValue:[NSNumber numberWithInt:[numItem.value intValue]] forKey:@"order_number"];
         [dictionary setValue:timeItem.value forKey:@"order_date"];
+        [dictionary setValue:buyItem.value forKey:@"using"];
+        [dictionary setValue:[NSNumber numberWithInt:0] forKey:@"ticker_id"];
         [dictionary setValue:@"" forKey:@"remarks"];
+        
         
         [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
         [dictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
@@ -400,12 +407,21 @@
 
 // caled when select the String ary
 - (void)hNYActionSheet:(HNYActionSheet *)actionSheet didSelectStringAryAtIndex:(NSInteger)index{
-    NSString *time = [self.timeAry objectAtIndex:index];
-    HNYDetailItemModel *timeItem = [self.tableViewController getItemWithKey:@"time"];
-    timeItem.value = time;
-    timeItem.textValue = time;
-    [self.tableViewController changeViewAryObjectWith:timeItem atIndex:[self.viewAry indexOfObject:timeItem]];
-    [self.tableViewController.tableView reloadData];
+    HNYDetailItemModel *item = [self.tableViewController.viewAry objectAtIndex:actionSheet.tag];
+    if ([@"time" isEqualToString:item.key]) {
+        NSString *time = [self.timeAry objectAtIndex:index];
+        item.value = time;
+        item.textValue = time;
+        [self.tableViewController changeViewAryObjectWith:item atIndex:[self.viewAry indexOfObject:item]];
+        [self.tableViewController.tableView reloadData];
+    }
+    else if ([@"buyType" isEqualToString:item.key]) {
+        NSString *time = [self.buyTypeAry objectAtIndex:index];
+        item.value = [NSNumber numberWithInt:index];
+        item.textValue = time;
+        [self.tableViewController changeViewAryObjectWith:item atIndex:[self.viewAry indexOfObject:item]];
+        [self.tableViewController.tableView reloadData];
+    }
 
     [actionSheet hide];
 }

@@ -84,7 +84,7 @@
         self.selectIndex = defaultSelectedIndex;
         BDOrderTopItemView *item = [self.items objectAtIndex:defaultSelectedIndex];
         item.selected = YES;
-        [self.delegate view:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:item,@"subMenuSelected", nil]];
+        [self.delegate view:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:[self.subMenuAry objectAtIndex:defaultSelectedIndex],@"subMenuSelected", nil]];
     }
 }
 
