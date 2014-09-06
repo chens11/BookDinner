@@ -10,6 +10,7 @@
 
 @implementation BDOrderModel
 @synthesize state = _state;
+@synthesize ticker = _ticker;
 - (void)setState:(int)state{
     _state = state;
     if (_state == 0) {
@@ -26,6 +27,14 @@
     }
     else if (_state == 4){
         self.stateName = @"失效";
+    }
+}
+- (void)setTicker:(id)ticker{
+    if ([ticker isKindOfClass:[BDCouponModel class]]) {
+        _ticker = ticker;
+    }
+    else if ([ticker isKindOfClass:[NSDictionary class]]){
+        _ticker = [HNYJSONUitls mappingDictionary:ticker toObjectWithClassName:@"BDCouponModel"];
     }
 }
 

@@ -11,9 +11,12 @@
 #import "BDAddressModel.h"
 #import "BDLoginViewController.h"
 #import "BDPayViewController.h"
+#import "BDOrderModel.h"
 
 @interface BDOrderDetailViewController : HNYBaseViewController
 @property (nonatomic,strong) BDDinnerModel *dinnerModel;
 @property (nonatomic,strong) BDAddressModel *addressModel;
+@property (nonatomic,strong) BDCouponModel *couponModel;
+@property (nonatomic) BOOL editAble;
 
 @end

@@ -29,6 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.editAble = YES;
         _viewAry = [[NSMutableArray alloc] initWithCapacity:0];
         self.timeAry = [NSArray arrayWithObjects:@"10:00 - 10:30",@"10:30 - 11:00",@"11:00 - 11:30",@"11:30 - 12:00",@"12:00 - 12:30",@"12:30 - 13:00",@"13:00 - 13:30", nil];
         self.buyTypeAry = [NSArray arrayWithObjects:@"本人购买",@"赠送朋友",nil];
@@ -144,20 +145,6 @@
     timeItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:timeItem];
 
-    
-    HNYDetailItemModel *markItem = [[HNYDetailItemModel alloc] init];
-    markItem.viewType = Label;
-    markItem.editable = YES;
-    markItem.height = @"one";
-    markItem.key = @"payType";
-    markItem.name = @"  支付方式";
-    markItem.textValue = @"支付宝支付";
-    markItem.textColor = [UIColor lightGrayColor];
-    markItem.textAlignment = NSTextAlignmentRight;
-    markItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    [_viewAry addObject:markItem];
-
-
     HNYDetailItemModel *addressItem = [[HNYDetailItemModel alloc] init];
     addressItem.viewType = Customer;
     addressItem.key = USER_ADDRESS;
@@ -196,6 +183,7 @@
     
     UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     buyBtn.tag = 3;
+    buyBtn.enabled = self.editAble;
     [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
     buyBtn.backgroundColor = ButtonNormalColor;
     buyBtn.titleLabel.font = ButtonTitleFont;
@@ -236,6 +224,7 @@
         UIButton *minusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         minusBtn.frame = CGRectMake(numView.frame.size.width - 120, 0, 40, self.tableViewController.cellHeight);
         minusBtn.tag = 100;
+        minusBtn.enabled = self.editAble;
         [minusBtn setImage:[UIImage imageNamed:@"LLMenuRemoveRound"] forState:UIControlStateNormal];
         [minusBtn addTarget:self action:@selector(touchBuyButton:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -256,6 +245,7 @@
         UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         addBtn.frame = CGRectMake(numView.frame.size.width - 50, 0, 40, self.tableViewController.cellHeight);
         addBtn.tag = 101;
+        addBtn.enabled = self.editAble;
         [addBtn setImage:[UIImage imageNamed:@"LLMenuAddRound"] forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(touchBuyButton:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -269,6 +259,8 @@
 
 
 - (void)tableViewController:(HNYDetailTableViewController *)tableViewController didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (!self.editAble)
+        return;
     HNYDetailItemModel *item = [self.tableViewController.viewAry objectAtIndex:indexPath.row];
     if ([USER_ADDRESS isEqualToString:item.key]) {
         BDAddressViewController *controller = [[BDAddressViewController alloc] init];
@@ -288,25 +280,15 @@
         sheet.tag = item.tag;
     }
     else if ([@"coupon" isEqualToString:item.key]) {
+        HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
+
         BDCouponViewController *controller = [[BDCouponViewController alloc] init];
         controller.customNaviController = self.customNaviController;
+        controller.title = @"请选择优惠券";
+        controller.selector = YES;
+        controller.delegate = self;
+        controller.using = [buyItem.value intValue];
         [self.customNaviController pushViewController:controller animated:YES];
-        
-    }
-    else if ([@"payType" isEqualToString:item.key]) {
-        NSMutableArray *array = [NSMutableArray array];
-        NSString *buySelf = [NSString stringWithFormat:@"支付宝支付"];
-        [array addObject:buySelf];
-        NSString *sendOther = [NSString stringWithFormat:@"微信支付"];
-        [array addObject:sendOther];
-        NSString *myPay = [NSString stringWithFormat:@"我的钱包付        余额:￥200"];
-        [array addObject:myPay];
-        HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择支付方式"
-                                                withStringAry:array
-                                               cancelBtnTitle:nil
-                                                 sureBtnTitle:nil
-                                                     delegate:self];
-        sheet.tag = item.tag;
         
     }
     else if ([@"time" isEqualToString:item.key]){
@@ -360,7 +342,8 @@
         HNYDetailItemModel *timeItem = [self.tableViewController getItemWithKey:@"time"];
         HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
         HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
-        
+        HNYDetailItemModel *couponItem = [self.tableViewController getItemWithKey:@"coupon"];
+        BDCouponModel *couponModel = couponItem.value;
         
         if ([numItem.value intValue] == 0) {
             [self showTips:@"请您至少购买一份"];
@@ -387,7 +370,7 @@
         [dictionary setValue:[NSNumber numberWithInt:[numItem.value intValue]] forKey:@"order_number"];
         [dictionary setValue:timeItem.value forKey:@"order_date"];
         [dictionary setValue:buyItem.value forKey:@"using"];
-        [dictionary setValue:[NSNumber numberWithInt:0] forKey:@"ticker_id"];
+        [dictionary setValue:[NSNumber numberWithInt:couponModel.id] forKey:@"ticker_id"];
         [dictionary setValue:@"" forKey:@"remarks"];
         
         
@@ -459,6 +442,15 @@
         HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
         addressItem.value = self.addressModel;
         [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
+        [self.tableViewController.tableView reloadData];
+    }
+    else if ([vController isKindOfClass:[BDCouponViewController class]]) {
+        BDCouponModel *model = [info valueForKey:@"BDCouponModel"];
+        self.couponModel = model;
+        HNYDetailItemModel *couponItem = [self.tableViewController getItemWithKey:@"coupon"];
+        couponItem.value = self.couponModel;
+        couponItem.textValue = self.couponModel.name;
+        [self.tableViewController changeViewAryObjectWith:couponItem atIndex:[self.viewAry indexOfObject:couponItem]];
         [self.tableViewController.tableView reloadData];
     }
 }

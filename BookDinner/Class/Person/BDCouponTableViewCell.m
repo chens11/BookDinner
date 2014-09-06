@@ -99,10 +99,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.nameLabel.text = @"打折券";
-    self.dateLabel.text = @"有效期至2014-09-04";
     self.valueLabel.text = @"￥90";
-    self.ruleLabel.text = @"本优惠券一次购买满100可以使用";
     self.statusLabel.text = @"可使用";
     
     self.headImg.frame = CGRectMake(15, 15, 40, self.frame.size.height - 55);
@@ -117,10 +114,16 @@
     self.dateLabel.frame = CGRectMake(0, self.frame.size.height - 35, self.frame.size.width-20, 20);
 
 }
-- (void)iniDataWithModel:(id)model{
+- (void)iniDataWithModel:(BDCouponModel*)model{
     [self.headImg setImage:[UIImage imageNamed:@"LLScanIndexEvoucher"]];
     if ([model isKindOfClass:[BDCouponModel class]]) {
-//        BDCouponModel *cModel = model;
+        self.nameLabel.text = model.name;
+        self.statusLabel.text = model.state_name;
+        self.ruleLabel.text = model.label;
+        self.dateLabel.text = [NSString stringWithFormat:@"有效期至 %@",model.enddate];
+        if (model.using == 1) {
+            self.nameLabel.text = [NSString stringWithFormat:@"%@(%@)",model.name,model.using_name];
+        }
         
     }
 }

@@ -11,6 +11,7 @@
 @interface BDCouponViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
 @property (nonatomic,strong) NSString *orderState;
+@property (nonatomic,strong) BDOrderTopView *topView;
 
 @end
 
@@ -20,6 +21,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.orderState = @"1";
         // Custom initialization
     }
     return self;
@@ -29,17 +31,18 @@
 {
     [super viewDidLoad];
     
-    self.title = @"我的优惠券";
     [self createTopView];
     [self createTable];
-    UIButton *defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    defaultBtn.frame = CGRectMake(15, self.view.frame.size.height - 50 , self.view.frame.size.width - 30, 40);
-    defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    defaultBtn.titleLabel.font = ButtonTitleFont;
-    [defaultBtn setBackgroundColor:ButtonNormalColor];
-    [defaultBtn setTitle:@"删除" forState:UIControlStateNormal];
-    [defaultBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:defaultBtn];
+    if (!self.selector) {
+        UIButton *defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        defaultBtn.frame = CGRectMake(15, self.view.frame.size.height - 50 , self.view.frame.size.width - 30, 40);
+        defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        defaultBtn.titleLabel.font = ButtonTitleFont;
+        [defaultBtn setBackgroundColor:ButtonNormalColor];
+        [defaultBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [defaultBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:defaultBtn];
+    }
 
 
     // Do any additional setup after loading the view.
@@ -58,9 +61,9 @@
 }
 
 - (void)createTopView{
-    BDOrderTopView *topView = [[BDOrderTopView alloc] initWithFrame:CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, 44)];
-    topView.delegate = self;
-    [self.view addSubview:topView];
+    self.topView = [[BDOrderTopView alloc] initWithFrame:CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, 44)];
+    self.topView.delegate = self;
+    [self.view addSubview:self.topView];
     //（0待付款，1已付款，2派送中，3成交，4失效）
     BDMenuModel *all = [[BDMenuModel alloc] init];
     all.title = @"全部";
@@ -68,36 +71,34 @@
     
     BDMenuModel *unPay = [[BDMenuModel alloc] init];
     unPay.title = @"待使用";
-    unPay.type = @"0";
+    unPay.type = @"1";
     
     BDMenuModel *used = [[BDMenuModel alloc] init];
     used.title = @"已使用";
-    used.type = @"0";
+    used.type = @"2";
     
     BDMenuModel *payed = [[BDMenuModel alloc] init];
     payed.title = @"已过期";
-    payed.type = @"1";
+    payed.type = @"3";
     
-    NSMutableArray *array = [NSMutableArray arrayWithObjects:all,unPay,used,payed, nil];
-    topView.subMenuAry = array;
-    topView.defaultSelectedIndex = 0;
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:unPay,used,payed, nil];
+    self.topView.subMenuAry = array;
+    self.topView.defaultSelectedIndex = 0;
 }
 
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
-    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + 44, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - 65 - 44);
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + self.topView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - 65 - self.topView.frame.size.height);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];
     self.tableController.view.backgroundColor = [UIColor clearColor];
     self.tableController.tableView.allowsMultipleSelectionDuringEditing = YES;
+    self.tableController.pageNum = 1;
+    self.tableController.pageSize = 10;
     self.tableController.delegate = self;
     [self.view addSubview:self.tableController.view];
     [self addChildViewController:self.tableController];
-    for (int i = 0; i < 38 ; i++) {
-        [self.tableController.list addObject:[NSString stringWithFormat:@"%@",[NSDate date]]];
-    }
-    [self.tableController.tableView reloadData];
 }
 #pragma mark - HNYDelegate
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
@@ -105,7 +106,7 @@
         BDMenuModel *model = [info valueForKey:@"subMenuSelected"];
         self.orderState = model.type;
         [self.tableController.list removeAllObjects];
-//        [self getCouponList];
+        [self getCouponList];
     }
 
 }
@@ -148,39 +149,48 @@
     BDCouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
     if (!cell) {
         cell = [[BDCouponTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     [cell iniDataWithModel:[self.tableController.list objectAtIndex:indexPath.row]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.selector) {
+        BDCouponModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+        if (self.using == 0 && model.using == 1) {
+            [self showTips:@"该订单不是赠送朋友不能使用朋友卷"];
+        }
+        else if (self.using == 1 && model.using == 0) {
+            [self showTips:@"该订单不是赠送朋友只能使用朋友卷"];
+        }
+        else{
+            [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:model,@"BDCouponModel", nil]];
+            [self.customNaviController popViewControllerAnimated:YES];
+        }
+    }
     
 }
 
 #pragma mark - HNYRefreshTableViewControllerDelegate
-- (void)pullDownTable{
+//下拉Table View
+-(void)pullDownTable{
     [self.tableController.list removeAllObjects];
     [self.tableController.tableView reloadData];
-    for (int i = 0; i < 20 ; i++) {
-        [self.tableController.list addObject:[NSString stringWithFormat:@"%@",[NSDate date]]];
-    }
-    self.tableController.headerIsUpdateing = NO;
-    [self.tableController.tableView reloadData];
-}
-
-- (void)pullUpTable{
-    for (int i = 0; i < 5 ; i++) {
-        [self.tableController.list addObject:[NSString stringWithFormat:@"%@",[NSDate date]]];
-    }
-    self.tableController.footerIsLoading = NO;
-    [self.tableController.tableView reloadData];
+    self.tableController.loadType = 0;
+    self.tableController.pageNum = 1;
+    self.tableController.enbleFooterLoad = YES;
+    [self getCouponList];
     
+}
+//上拉Table View
+-(void)pullUpTable{
+    self.tableController.loadType = 1;
+    self.tableController.pageNum += 1;
+    [self getCouponList];
 }
 - (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
 }
-
 #pragma mark - IBAction
 - (void)touchLoginButton:(UIButton*)sender{
     
@@ -190,12 +200,12 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [NSNumber numberWithInt:self.tableController.pageNum],@"pagenum",
                                   [NSNumber numberWithInt:self.tableController.pageSize],@"pagesize",
-                                  self.orderState,@"state",
+                                  [NSNumber numberWithInt:[self.orderState intValue]],@"state",
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderList];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLuckyDrawList];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -203,7 +213,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderList,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionLuckyDrawList,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -215,9 +225,9 @@
     NSLog(@"result = %@",string);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([ActionLuckyDrawList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             
-            NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDOrderModel"];
+            NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDCouponModel"];
             [self.tableController doneRefresh];
             [self.tableController.list addObjectsFromArray:value];
             [self.tableController.tableView reloadData];
@@ -227,12 +237,12 @@
                 self.tableController.enbleFooterLoad = YES;
             
             if (self.tableController.list.count == 0)
-                [self showTips:@"无订单"];
+                [self showTips:@"无优惠券"];
         }
     }
     
     else{
-        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
+        if ([ActionLuckyDrawList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
     }
 }

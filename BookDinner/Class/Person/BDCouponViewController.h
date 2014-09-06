@@ -11,5 +11,7 @@
 #import "BDOrderTopView.h"
 
 @interface BDCouponViewController : HNYBaseViewController
+@property (nonatomic) BOOL selector;
+@property (nonatomic) int using;
 
 @end

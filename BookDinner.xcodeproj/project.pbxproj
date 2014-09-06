@@ -216,7 +216,6 @@
 		CA1CFDF119AB796900DBD55D /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1CFDF019AB796900DBD55D /* AppInfo.m */; };
 		CA200724198D428800AB3E46 /* welcome_1.png in Resources */ = {isa = PBXBuildFile; fileRef = CA200722198D428800AB3E46 /* welcome_1.png */; };
 		CA200725198D428800AB3E46 /* welcome_2.png in Resources */ = {isa = PBXBuildFile; fileRef = CA200723198D428800AB3E46 /* welcome_2.png */; };
-		CA200728198D481F00AB3E46 /* BDOrderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA200727198D481F00AB3E46 /* BDOrderTableViewController.m */; };
 		CA20072B198D48CA00AB3E46 /* BDOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA20072A198D48CA00AB3E46 /* BDOrderTableViewCell.m */; };
 		CA25C95E19741A5300644082 /* BDChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA25C95D19741A5300644082 /* BDChangePasswordViewController.m */; };
 		CA25C96419741A9B00644082 /* BDCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA25C96319741A9B00644082 /* BDCouponViewController.m */; };
@@ -618,8 +617,6 @@
 		CA1CFDF019AB796900DBD55D /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfo.m; sourceTree = "<group>"; };
 		CA200722198D428800AB3E46 /* welcome_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome_1.png; sourceTree = "<group>"; };
 		CA200723198D428800AB3E46 /* welcome_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome_2.png; sourceTree = "<group>"; };
-		CA200726198D481F00AB3E46 /* BDOrderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderTableViewController.h; sourceTree = "<group>"; };
-		CA200727198D481F00AB3E46 /* BDOrderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderTableViewController.m; sourceTree = "<group>"; };
 		CA200729198D48CA00AB3E46 /* BDOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderTableViewCell.h; sourceTree = "<group>"; };
 		CA20072A198D48CA00AB3E46 /* BDOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderTableViewCell.m; sourceTree = "<group>"; };
 		CA25C95C19741A5300644082 /* BDChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDChangePasswordViewController.h; sourceTree = "<group>"; };
@@ -803,24 +800,22 @@
 			children = (
 				0361C6691973DF3D000CDB6C /* BDOrderViewController.h */,
 				0361C66A1973DF3D000CDB6C /* BDOrderViewController.m */,
+				CA200729198D48CA00AB3E46 /* BDOrderTableViewCell.h */,
+				CA20072A198D48CA00AB3E46 /* BDOrderTableViewCell.m */,
 				03F4A69C19B81C760039C70C /* BDOrderTopView.h */,
 				03F4A69D19B81C760039C70C /* BDOrderTopView.m */,
 				03F4A69F19B826220039C70C /* BDOrderTopItemView.h */,
 				03F4A6A019B826220039C70C /* BDOrderTopItemView.m */,
 				03E0365019B704CD008C1084 /* BDOrderModel.h */,
 				03E0365119B704CD008C1084 /* BDOrderModel.m */,
-				CA200729198D48CA00AB3E46 /* BDOrderTableViewCell.h */,
-				CA20072A198D48CA00AB3E46 /* BDOrderTableViewCell.m */,
-				CA200726198D481F00AB3E46 /* BDOrderTableViewController.h */,
-				CA200727198D481F00AB3E46 /* BDOrderTableViewController.m */,
 				0361C66C1973E059000CDB6C /* BDOrderDetailViewController.h */,
 				0361C66D1973E059000CDB6C /* BDOrderDetailViewController.m */,
+				CA2F1E1C19926AD500D3396C /* BDOrderReceiveAddressView.h */,
+				CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */,
 				03E0364D19B6FCBA008C1084 /* BDPayViewController.h */,
 				03E0364E19B6FCBA008C1084 /* BDPayViewController.m */,
 				03C0A0C919B98DC9006D1A62 /* BDPayTableViewCell.h */,
 				03C0A0CA19B98DC9006D1A62 /* BDPayTableViewCell.m */,
-				CA2F1E1C19926AD500D3396C /* BDOrderReceiveAddressView.h */,
-				CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1519,18 +1514,18 @@
 		CA16CA8319B7562A00CDE5D8 /* Address */ = {
 			isa = PBXGroup;
 			children = (
-				CA16CA8419B7562A00CDE5D8 /* BDAddressDetailViewController.h */,
-				CA16CA8519B7562A00CDE5D8 /* BDAddressDetailViewController.m */,
-				CA16CA8619B7562A00CDE5D8 /* BDAddressModel.h */,
-				CA16CA8719B7562A00CDE5D8 /* BDAddressModel.m */,
-				CA16CA8819B7562A00CDE5D8 /* BDAddressSelectorTableViewCell.h */,
-				CA16CA8919B7562A00CDE5D8 /* BDAddressSelectorTableViewCell.m */,
-				CA16CA8A19B7562A00CDE5D8 /* BDAddressSelectorViewController.h */,
-				CA16CA8B19B7562A00CDE5D8 /* BDAddressSelectorViewController.m */,
-				CA16CA8C19B7562A00CDE5D8 /* BDAddressTableViewCell.h */,
-				CA16CA8D19B7562A00CDE5D8 /* BDAddressTableViewCell.m */,
 				CA16CA8E19B7562A00CDE5D8 /* BDAddressViewController.h */,
 				CA16CA8F19B7562A00CDE5D8 /* BDAddressViewController.m */,
+				CA16CA8C19B7562A00CDE5D8 /* BDAddressTableViewCell.h */,
+				CA16CA8D19B7562A00CDE5D8 /* BDAddressTableViewCell.m */,
+				CA16CA8419B7562A00CDE5D8 /* BDAddressDetailViewController.h */,
+				CA16CA8519B7562A00CDE5D8 /* BDAddressDetailViewController.m */,
+				CA16CA8A19B7562A00CDE5D8 /* BDAddressSelectorViewController.h */,
+				CA16CA8B19B7562A00CDE5D8 /* BDAddressSelectorViewController.m */,
+				CA16CA8819B7562A00CDE5D8 /* BDAddressSelectorTableViewCell.h */,
+				CA16CA8919B7562A00CDE5D8 /* BDAddressSelectorTableViewCell.m */,
+				CA16CA8619B7562A00CDE5D8 /* BDAddressModel.h */,
+				CA16CA8719B7562A00CDE5D8 /* BDAddressModel.m */,
 				CA16CA9019B7562A00CDE5D8 /* BDCodeModel.h */,
 				CA16CA9119B7562A00CDE5D8 /* BDCodeModel.m */,
 			);
@@ -1825,7 +1820,6 @@
 				03B6A14419AD82DC009F905F /* HNYTableView.m in Sources */,
 				03E0365219B704CD008C1084 /* BDOrderModel.m in Sources */,
 				03BE23BD196E3B3E005C0D03 /* HNYScrollView.m in Sources */,
-				CA200728198D481F00AB3E46 /* BDOrderTableViewController.m in Sources */,
 				03BE23A2196E3B3E005C0D03 /* HNYTJSONViewController.m in Sources */,
 				03BE23B2196E3B3E005C0D03 /* SDWebImageDecoder.m in Sources */,
 				CA36ECFD1993CBE900299636 /* BDLuckyDrawViewController.m in Sources */,

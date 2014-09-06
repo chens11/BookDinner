@@ -238,6 +238,7 @@
     }
     else if ([@"coupon" isEqualToString:model.key]) {
         BDCouponViewController *controller = [[BDCouponViewController alloc] init];
+        controller.title = @"我的优惠券";
         controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
     }

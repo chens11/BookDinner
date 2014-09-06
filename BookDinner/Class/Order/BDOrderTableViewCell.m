@@ -140,7 +140,7 @@
     
     self.headImg.frame = CGRectMake(20 ,30,80,self.frame.size.height - 60);
     self.payBtn.frame = CGRectMake(self.frame.size.width - 80, self.frame.size.height - 40, 60, 25);
-    self.payLabel.frame = CGRectMake(20, self.frame.size.height - 40, 150, 20);
+    self.payLabel.frame = CGRectMake(20, self.frame.size.height - 35, 150, 20);
 }
 - (void)iniDataWithModel:(BDOrderModel*)model{
     if ([model isKindOfClass:[BDOrderModel class]]) {
@@ -151,11 +151,15 @@
             [self.headImg setImageWithURL:url placeholderImage:self.headImg.image options:SDWebImageCacheMemoryOnly];
         }
         self.typeLabel.text = [NSString stringWithFormat:@"购买方式: %@",[self.buyTypeAry objectAtIndex:model.using]];
-        self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 8折卷(朋友卷)"];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥22.0"];
+        self.priceLabel.text = model.pricemoney;
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
         self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.money floatValue]];
         self.timeLabel.text = @"送餐时间: 10:30-11:00";
+        self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
+        if (model.ticker) {
+            self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@(%@)",model.ticker,model.ticker.using_name];
+        }
+
 
     }
 }
