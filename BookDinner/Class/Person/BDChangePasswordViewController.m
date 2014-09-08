@@ -43,7 +43,7 @@
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     saveBtn.frame = CGRectMake(10, self.naviBar.frame.size.height + 155, self.view.frame.size.width - 20, 40);
     saveBtn.titleLabel.font = ButtonTitleFont;
-    [saveBtn setBackgroundColor:ButtonNormalColor];
+    [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     [saveBtn setTitle:@"提交修改密码" forState:UIControlStateNormal];
     [saveBtn addTarget:self action:@selector(touchSaveButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:saveBtn];

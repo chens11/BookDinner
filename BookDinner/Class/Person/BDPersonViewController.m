@@ -46,7 +46,7 @@
     
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     logoutBtn.frame = CGRectMake(5, self.view.frame.size.height - 55, self.view.frame.size.width - 10, 40);
-    [logoutBtn setBackgroundColor:ButtonNormalColor];
+    [logoutBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     logoutBtn.titleLabel.font = ButtonTitleFont;
     [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
     [logoutBtn addTarget:self action:@selector(touchLogoutButton:) forControlEvents:UIControlEventTouchUpInside];

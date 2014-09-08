@@ -185,7 +185,7 @@
     buyBtn.tag = 3;
     buyBtn.enabled = self.editAble;
     [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
-    buyBtn.backgroundColor = ButtonNormalColor;
+    [buyBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     buyBtn.titleLabel.font = ButtonTitleFont;
     buyBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     buyBtn.frame = CGRectMake(self.view.frame.size.width - 110, self.view.frame.size.height - 50, 100, 40);

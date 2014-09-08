@@ -89,7 +89,8 @@ UIActionSheetDelegate>
     self.orderBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.orderBtn.titleLabel.font = ButtonTitleFont;
     self.orderBtn.enabled = NO;
-    [self.orderBtn setBackgroundColor:ButtonNormalColor];
+    [self.orderBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_disable"] forState:UIControlStateDisabled];
+    [self.orderBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     [self.orderBtn setTitle:@"订餐" forState:UIControlStateNormal];
     [self.orderBtn addTarget:self action:@selector(touchOrderButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.orderBtn];

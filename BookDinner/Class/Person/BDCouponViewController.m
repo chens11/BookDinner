@@ -38,7 +38,7 @@
 //        defaultBtn.frame = CGRectMake(15, self.view.frame.size.height - 50 , self.view.frame.size.width - 30, 40);
 //        defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 //        defaultBtn.titleLabel.font = ButtonTitleFont;
-//        [defaultBtn setBackgroundColor:ButtonNormalColor];
+//        [defaultBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
 //        [defaultBtn setTitle:@"删除" forState:UIControlStateNormal];
 //        [defaultBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
 //        [self.view addSubview:defaultBtn];

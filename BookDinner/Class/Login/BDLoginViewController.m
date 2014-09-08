@@ -86,7 +86,7 @@
 
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     loginBtn.frame = CGRectMake(5, self.naviBar.frame.size.height + 160, self.view.frame.size.width - 10, 40);
-    [loginBtn setBackgroundColor:ButtonNormalColor];
+    [loginBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     loginBtn.titleLabel.font = ButtonTitleFont;
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -95,7 +95,7 @@
     
     UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     forgetBtn.frame = CGRectMake(5, self.naviBar.frame.size.height + 205, (self.view.frame.size.width - 20)/2, 40);
-    [forgetBtn setBackgroundColor:ButtonNormalColor];
+    [forgetBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     forgetBtn.titleLabel.font = ButtonTitleFont;
     [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgetBtn addTarget:self action:@selector(touchForgetButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -105,7 +105,7 @@
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     registerBtn.frame = CGRectMake((self.view.frame.size.width - 20)/2 + 15, self.naviBar.frame.size.height + 205, (self.view.frame.size.width - 20)/2, 40);
     registerBtn.titleLabel.font = ButtonTitleFont;
-    [registerBtn setBackgroundColor:ButtonNormalColor];
+    [registerBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(touchRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerBtn];

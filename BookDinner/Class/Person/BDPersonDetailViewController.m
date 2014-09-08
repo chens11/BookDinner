@@ -166,7 +166,7 @@
         UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         saveBtn.frame = CGRectMake(15, 5, self.view.frame.size.width - 30, 40);
         saveBtn.titleLabel.font = ButtonTitleFont;
-        [saveBtn setBackgroundColor:ButtonNormalColor];
+        [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [saveBtn setTitle:@"保存个人信息" forState:UIControlStateNormal];
         [saveBtn addTarget:self action:@selector(touchSaveButton:) forControlEvents:UIControlEventTouchUpInside];
         [temp addSubview:saveBtn];

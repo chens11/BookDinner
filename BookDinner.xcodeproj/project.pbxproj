@@ -222,6 +222,7 @@
 		CA2F1E1E19926AD500D3396C /* BDOrderReceiveAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */; };
 		CA2F1E2519927B7C00D3396C /* HNYActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E2219927B7C00D3396C /* HNYActionSheet.m */; };
 		CA2F1E2619927B7C00D3396C /* HNYTActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E2419927B7C00D3396C /* HNYTActionSheetViewController.m */; };
+		CA30D7EB19BDFEC100E74442 /* btn_bg_disable.png in Resources */ = {isa = PBXBuildFile; fileRef = CA30D7EA19BDFEC100E74442 /* btn_bg_disable.png */; };
 		CA36ECFD1993CBE900299636 /* BDLuckyDrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA36ECFC1993CBE900299636 /* BDLuckyDrawViewController.m */; };
 		CA3AE0CD1997BC120088C557 /* button_info.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3AE0CC1997BC120088C557 /* button_info.png */; };
 		CA45265019B2308D00B01A4F /* BDContactMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45264F19B2308D00B01A4F /* BDContactMessageModel.m */; };
@@ -629,6 +630,7 @@
 		CA2F1E2219927B7C00D3396C /* HNYActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNYActionSheet.m; sourceTree = "<group>"; };
 		CA2F1E2319927B7C00D3396C /* HNYTActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYTActionSheetViewController.h; sourceTree = "<group>"; };
 		CA2F1E2419927B7C00D3396C /* HNYTActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNYTActionSheetViewController.m; sourceTree = "<group>"; };
+		CA30D7EA19BDFEC100E74442 /* btn_bg_disable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_bg_disable.png; sourceTree = "<group>"; };
 		CA36ECFB1993CBE900299636 /* BDLuckyDrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDLuckyDrawViewController.h; sourceTree = "<group>"; };
 		CA36ECFC1993CBE900299636 /* BDLuckyDrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDLuckyDrawViewController.m; sourceTree = "<group>"; };
 		CA3AE0CC1997BC120088C557 /* button_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_info.png; sourceTree = "<group>"; };
@@ -1367,6 +1369,7 @@
 		03BE233C196E3B3E005C0D03 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CA30D7EA19BDFEC100E74442 /* btn_bg_disable.png */,
 				03C0A0CE19B99A14006D1A62 /* weichat_logo.png */,
 				03C0A0CC19B9981A006D1A62 /* alipay_logo.png */,
 				CA16CA9D19B7635600CDE5D8 /* btn_bg.png */,
@@ -1635,6 +1638,7 @@
 				CACB3D5A19A63EFE00E27064 /* bubbleBoss@2x.png in Resources */,
 				CA3AE0CD1997BC120088C557 /* button_info.png in Resources */,
 				03BE23C8196E3B3E005C0D03 /* UMShareEditViewController.xib in Resources */,
+				CA30D7EB19BDFEC100E74442 /* btn_bg_disable.png in Resources */,
 				0361C64D197375A5000CDB6C /* menu_icon_setting.png in Resources */,
 				CACB3D5919A63EFE00E27064 /* bubbleBoss.png in Resources */,
 				CA16CA9E19B7635600CDE5D8 /* btn_bg.png in Resources */,

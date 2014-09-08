@@ -230,7 +230,7 @@
         
         UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         registerBtn.frame = CGRectMake(10, 5, self.view.frame.size.width - 20, 40);
-        [registerBtn setBackgroundColor:ButtonNormalColor];
+        [registerBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         registerBtn.titleLabel.font = ButtonTitleFont;
         [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
         [registerBtn addTarget:self action:@selector(touchRegisterButton:) forControlEvents:UIControlEventTouchUpInside];

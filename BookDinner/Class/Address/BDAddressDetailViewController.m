@@ -163,7 +163,7 @@
         saveBtn.frame = CGRectMake(15, 5 , self.view.frame.size.width - 30, 40);
         saveBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         saveBtn.titleLabel.font = ButtonTitleFont;
-        [saveBtn setBackgroundColor:ButtonNormalColor];
+        [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
         [saveBtn addTarget:self action:@selector(touchSaveAddressButton:) forControlEvents:UIControlEventTouchUpInside];
         [temp addSubview:saveBtn];
@@ -173,7 +173,7 @@
         defaultBtn.frame = CGRectMake(15, 50 , self.view.frame.size.width - 30, 40);
         defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         defaultBtn.titleLabel.font = ButtonTitleFont;
-        [defaultBtn setBackgroundColor:ButtonNormalColor];
+        [defaultBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [defaultBtn setTitle:@"设为默认地址" forState:UIControlStateNormal];
         [defaultBtn addTarget:self action:@selector(touchDefaultAddressButton:) forControlEvents:UIControlEventTouchUpInside];
         [temp addSubview:defaultBtn];
