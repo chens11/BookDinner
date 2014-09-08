@@ -12,10 +12,6 @@
 #define ButtonNormalColor               [UIColor colorWithRed:236.0/255 green:95.0/255 blue:52.0/255 alpha:1.0]
 #define ButtonTitleFont                 [UIFont boldSystemFontOfSize:16.0]
 
-
-
-
-
 #define HideWelcomPage                              @"隐藏欢迎页"
 #define UMSocialAppKey                              @"53a0eb3c56240be04d05f9f5"
 #define WeiXinAppKey                                @"wx99161eb38899bb67"
