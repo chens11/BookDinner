@@ -16,7 +16,6 @@
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) UILabel *numLabel;
 @property (nonatomic,strong) UIImageView *tailImg;
-@property (nonatomic,strong) UILabel *bgLabel;
 @property (nonatomic,strong) UIButton *payBtn;
 @property (nonatomic,strong) UILabel *payLabel;
 @property (nonatomic,strong) UILabel *typeLabel;
@@ -34,11 +33,6 @@
         self.contentView.backgroundColor = [UIColor colorWithRed:237.0/255 green:234.0/255 blue:225.0/255 alpha:1.0];
         self.backgroundColor = [UIColor clearColor];
         self.buyTypeAry = [NSArray arrayWithObjects:@"本人购买",@"赠送朋友",nil];
-
-        self.bgLabel = [[UILabel alloc] init];
-        self.bgLabel.backgroundColor = [UIColor whiteColor];
-//        [self.contentView addSubview:self.bgLabel];
-
         
         self.tailImg = [[UIImageView alloc] init];
         self.tailImg.contentMode = UIViewContentModeScaleToFill;
@@ -127,20 +121,19 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.bgLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
     self.tailImg.frame = CGRectMake(10 ,10,self.contentView.frame.size.width - 20,self.contentView.frame.size.height-20);
-    self.nameLabel.frame = CGRectMake(20 ,15,self.frame.size.width - 150,20);
-    self.statusLabel.frame = CGRectMake(self.frame.size.width - 80 ,15,60,20);
-    self.priceLabel.frame = CGRectMake(self.frame.size.width - 150 ,40,130,20);
-    self.numLabel.frame = CGRectMake(self.frame.size.width - 150 ,70,130,20);
+    self.nameLabel.frame = CGRectMake(20 ,15,self.contentView.frame.size.width - 150,20);
+    self.statusLabel.frame = CGRectMake(self.contentView.frame.size.width - 80 ,15,60,20);
+    self.priceLabel.frame = CGRectMake(self.contentView.frame.size.width - 150 ,40,130,20);
+    self.numLabel.frame = CGRectMake(self.contentView.frame.size.width - 150 ,70,130,20);
     
     self.typeLabel.frame = CGRectMake(110,40,130,20);
     self.couponLabel.frame = CGRectMake(110,65,150,20);
     self.timeLabel.frame = CGRectMake(110, 90, 150, 20);
     
-    self.headImg.frame = CGRectMake(20 ,30,80,self.frame.size.height - 60);
-    self.payBtn.frame = CGRectMake(self.frame.size.width - 80, self.frame.size.height - 40, 60, 25);
-    self.payLabel.frame = CGRectMake(20, self.frame.size.height - 35, 150, 20);
+    self.headImg.frame = CGRectMake(20 ,30,80,self.contentView.frame.size.height - 60);
+    self.payBtn.frame = CGRectMake(self.contentView.frame.size.width - 80, self.contentView.frame.size.height - 40, 60, 25);
+    self.payLabel.frame = CGRectMake(20, self.contentView.frame.size.height - 35, 150, 20);
 }
 - (void)iniDataWithModel:(BDOrderModel*)model{
     if ([model isKindOfClass:[BDOrderModel class]]) {
@@ -151,16 +144,13 @@
             [self.headImg setImageWithURL:url placeholderImage:self.headImg.image options:SDWebImageCacheMemoryOnly];
         }
         self.typeLabel.text = [NSString stringWithFormat:@"购买方式: %@",[self.buyTypeAry objectAtIndex:model.using]];
-        self.priceLabel.text = model.pricemoney;
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",[model.pricemoney floatValue]];
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
         self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.money floatValue]];
         self.timeLabel.text = @"送餐时间: 10:30-11:00";
         self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
-        if (model.ticker) {
+        if (model.ticker)
             self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@(%@)",model.ticker,model.ticker.using_name];
-        }
-
-
     }
 }
 #pragma mark - ibaction

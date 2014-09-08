@@ -156,6 +156,11 @@
         return;
 
     }
+    if (![AppInfo isValidateMobile:self.userNameField.text]) {
+        [self showTips:@"请输入正确的手机号码"];
+        return;
+    }
+
     if (self.passwordField.text.length == 0) {
         [self showTips:@"请您输入密码"];
         return;

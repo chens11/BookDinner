@@ -46,8 +46,8 @@
 #pragma mark - create subview
 - (void)createNaviBarItems{
     [super createNaviBarItems];
-    HNYNaviBarItem *barItem = [HNYNaviBarItem initWithTitle:@"编辑" target:self action:@selector(touchDeleteBarItem:)];
-    self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
+//    HNYNaviBarItem *barItem = [HNYNaviBarItem initWithTitle:@"编辑" target:self action:@selector(touchDeleteBarItem:)];
+//    self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
 }
 
 - (void)createTopView{
@@ -91,7 +91,7 @@
     self.tableController.tableView.separatorColor = [UIColor clearColor];
     self.tableController.delegate = self;
     self.tableController.pageNum = 1;
-    self.tableController.pageSize = 5;
+    self.tableController.pageSize = 10;
     [self.view addSubview:self.tableController.view];
     [self addChildViewController:self.tableController];
 }
@@ -139,6 +139,20 @@
     controller.customNaviController = self.customNaviController;
     [self.customNaviController pushViewController:controller animated:YES];
 
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"%d", indexPath.row);
+        [self.tableController.list removeObjectAtIndex:[indexPath row]];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 #pragma mark - HNYRefreshTableViewControllerDelegate

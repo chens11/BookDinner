@@ -9,7 +9,6 @@
 #import "BDCouponTableViewCell.h"
 @interface BDCouponTableViewCell()
 @property (nonatomic,strong) UIImageView *headImg;
-@property (nonatomic,strong) UILabel *bgLabel;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *dateLabel;
 @property (nonatomic,strong) UILabel *valueLabel;
@@ -29,10 +28,6 @@
         self.contentView.backgroundColor = [UIColor colorWithRed:237.0/255 green:234.0/255 blue:225.0/255 alpha:1.0];
         self.backgroundColor = [UIColor clearColor];
         
-        self.bgLabel = [[UILabel alloc] init];
-        self.bgLabel.backgroundColor = [UIColor whiteColor];
-//        [self.contentView addSubview:self.bgLabel];
-
         self.bgImg = [[UIImageView alloc] init];
         self.bgImg.contentMode = UIViewContentModeScaleToFill;
         self.bgImg.image = [UIImage imageNamed:@"alert_bg1"];
@@ -40,7 +35,6 @@
         
         self.headImg = [[UIImageView alloc] init];
         self.headImg.contentMode = UIViewContentModeScaleToFill;
-//        self.headImg.backgroundColor = [UIColor yellowColor];
         [self.contentView addSubview:self.headImg];
 
         self.nameLabel = [[UILabel alloc] init];
@@ -102,16 +96,13 @@
     self.valueLabel.text = @"￥90";
     self.statusLabel.text = @"可使用";
     
-    self.headImg.frame = CGRectMake(15, 15, 40, self.frame.size.height - 55);
-//    self.valueLabel.frame = CGRectMake(0, 0, 80, self.contentView.frame.size.height - 20);
-    self.bgLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 30,self.contentView.frame.size.height-20);
+    self.headImg.frame = CGRectMake(15, 15, 40, self.contentView.frame.size.height - 55);
     self.bgImg.frame = CGRectMake(10 ,10,self.contentView.frame.size.width - 20,self.contentView.frame.size.height-20);
-    self.nameLabel.frame = CGRectMake(65 ,15,self.frame.size.width - 75,20);
-    self.ruleLabel.frame = CGRectMake(65,30,self.frame.size.width - 80,self.frame.size.height - 60);
-
+    self.nameLabel.frame = CGRectMake(65 ,15,self.contentView.frame.size.width - 75,20);
+    self.ruleLabel.frame = CGRectMake(65,30,self.contentView.frame.size.width - 80,self.contentView.frame.size.height - 60);
     
-    self.statusLabel.frame = CGRectMake(15, self.frame.size.height - 35, self.frame.size.width - 30, 20);
-    self.dateLabel.frame = CGRectMake(0, self.frame.size.height - 35, self.frame.size.width-20, 20);
+    self.statusLabel.frame = CGRectMake(15, self.contentView.frame.size.height - 35, self.contentView.frame.size.width - 30, 20);
+    self.dateLabel.frame = CGRectMake(0, self.contentView.frame.size.height - 35, self.contentView.frame.size.width-20, 20);
 
 }
 - (void)iniDataWithModel:(BDCouponModel*)model{

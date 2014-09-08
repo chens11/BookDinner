@@ -33,16 +33,16 @@
     
     [self createTopView];
     [self createTable];
-    if (!self.selector) {
-        UIButton *defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        defaultBtn.frame = CGRectMake(15, self.view.frame.size.height - 50 , self.view.frame.size.width - 30, 40);
-        defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        defaultBtn.titleLabel.font = ButtonTitleFont;
-        [defaultBtn setBackgroundColor:ButtonNormalColor];
-        [defaultBtn setTitle:@"删除" forState:UIControlStateNormal];
-        [defaultBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:defaultBtn];
-    }
+//    if (!self.selector) {
+//        UIButton *defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        defaultBtn.frame = CGRectMake(15, self.view.frame.size.height - 50 , self.view.frame.size.width - 30, 40);
+//        defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+//        defaultBtn.titleLabel.font = ButtonTitleFont;
+//        [defaultBtn setBackgroundColor:ButtonNormalColor];
+//        [defaultBtn setTitle:@"删除" forState:UIControlStateNormal];
+//        [defaultBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:defaultBtn];
+//    }
 
 
     // Do any additional setup after loading the view.
@@ -56,8 +56,8 @@
 #pragma mark - create subview
 - (void)createNaviBarItems{
     [super createNaviBarItems];
-    HNYNaviBarItem *barItem = [HNYNaviBarItem initWithTitle:@"编辑" target:self action:@selector(touchDeleteBarItem:)];
-    self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
+//    HNYNaviBarItem *barItem = [HNYNaviBarItem initWithTitle:@"编辑" target:self action:@selector(touchDeleteBarItem:)];
+//    self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
 }
 
 - (void)createTopView{
@@ -88,12 +88,10 @@
 
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
-    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + self.topView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - 65 - self.topView.frame.size.height);
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + self.topView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - self.topView.frame.size.height);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];
-    self.tableController.view.backgroundColor = [UIColor clearColor];
-    self.tableController.tableView.allowsMultipleSelectionDuringEditing = YES;
     self.tableController.pageNum = 1;
     self.tableController.pageSize = 10;
     self.tableController.delegate = self;
@@ -169,6 +167,19 @@
         }
     }
     
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"%d", indexPath.row);
+        [self.tableController.list removeObjectAtIndex:[indexPath row]];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 #pragma mark - HNYRefreshTableViewControllerDelegate
