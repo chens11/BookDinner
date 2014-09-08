@@ -42,10 +42,11 @@ UIActionSheetDelegate>
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTodayRecommend) name:NotificationAppDidBecomeActive object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getTodayRecommend)
+                                                 name:NotificationAppDidBecomeActive object:nil];
     [self createScrollView];
     [self createDateView];
-    
     [self getTodayRecommend];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

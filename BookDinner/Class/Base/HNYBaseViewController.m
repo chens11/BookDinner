@@ -100,8 +100,6 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.detailsLabelText = tips;
-//    hud.detailsLabelFont = [UIFont boldSystemFontOfSize:16];
-//    hud.yOffset = -50.f;
     hud.removeFromSuperViewOnHide = YES;
     [hud hide:YES afterDelay:1];
 }

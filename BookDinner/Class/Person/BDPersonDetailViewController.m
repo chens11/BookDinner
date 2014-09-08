@@ -40,10 +40,8 @@
 {
     [super viewDidLoad];
     self.title = @"个人信息";
-    
     [self createTable];
     [self setContent];
-//    [self getPersonInfo];
     
     // Do any additional setup after loading the view.
 }

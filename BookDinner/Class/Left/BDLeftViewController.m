@@ -41,8 +41,12 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotifcation:) name:NotificationActionLogin object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutNotifcation:) name:NotificationActionLogout object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loginNotifcation:)
+                                                 name:NotificationActionLogin object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(logoutNotifcation:)
+                                                 name:NotificationActionLogout object:nil];
 
     self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.bgImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

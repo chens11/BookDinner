@@ -94,7 +94,6 @@
 
     
     UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [forgetBtn setBackgroundImage:[[UIImage imageNamed:@"ic_login_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
     forgetBtn.frame = CGRectMake(5, self.naviBar.frame.size.height + 205, (self.view.frame.size.width - 20)/2, 40);
     [forgetBtn setBackgroundColor:ButtonNormalColor];
     forgetBtn.titleLabel.font = ButtonTitleFont;

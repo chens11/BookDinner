@@ -39,19 +39,7 @@
 {
     [super viewDidLoad];
     self.title = @"个人中心";
-
-    self.tableViewController = [[HNYDetailTableViewController alloc] init];
-    self.tableViewController.delegate = self;
-    self.tableViewController.customDelegate = self;
-    self.tableViewController.nameLabelWidth = 100;
-    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
-    self.tableViewController.cellHeight = 50;
-    self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
-    [self addChildViewController:self.tableViewController];
-    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - 65 - self.naviBar.frame.size.height);
-    [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
-    [self.view addSubview:self.tableViewController.view];
-    [self addChildViewController:self.tableViewController];
+    [self createTable];
     [self setContent];
     [self getPersonInfo];
 
@@ -85,17 +73,22 @@
 */
 
 #pragma mark - create subview
+- (void)createTable{
+    self.tableViewController = [[HNYDetailTableViewController alloc] init];
+    self.tableViewController.delegate = self;
+    self.tableViewController.customDelegate = self;
+    self.tableViewController.nameLabelWidth = 100;
+    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
+    self.tableViewController.cellHeight = 50;
+    self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
+    [self addChildViewController:self.tableViewController];
+    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - 65 - self.naviBar.frame.size.height);
+    [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
+    [self.view addSubview:self.tableViewController.view];
+    [self addChildViewController:self.tableViewController];
+}
+
 - (void)setContent{
-    
-//    HNYDetailItemModel *first = [[HNYDetailItemModel alloc] init];
-//    first.viewType = Label;
-//    first.backGroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:235.0/255 alpha:1.0];
-//    first.editable = NO;
-//    first.height = @"auto";
-//    first.maxheight = 35;
-//    first.minheight = 35;
-//    first.key = @"first";
-//    [_viewAry addObject:first];
     
     HNYDetailItemModel *nameItem = [[HNYDetailItemModel alloc] init];
     nameItem.viewType = TextField;
@@ -103,7 +96,6 @@
     nameItem.key = @"account";
     nameItem.textAlignment = NSTextAlignmentRight;
     nameItem.textValue = [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT];
-//    nameItem.rightPadding = 10;
     nameItem.textColor = [UIColor lightGrayColor];
     nameItem.name = @"  账号";
     nameItem.height = @"one";
@@ -180,7 +172,6 @@
     couponItem.height = @"one";
     couponItem.key = @"coupon";
     couponItem.name = @"  我的优惠券";
-//    couponItem.textValue = @"10 张";
     couponItem.textAlignment = UITextAlignmentRight;
     couponItem.textColor = [UIColor lightGrayColor];
     [_viewAry addObject:couponItem];

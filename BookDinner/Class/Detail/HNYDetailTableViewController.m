@@ -58,11 +58,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    {
-        UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
-        tapGr.cancelsTouchesInView = NO;
-        [self.view addGestureRecognizer:tapGr];
-    }
+    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    tapGr.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGr];
     self.tableView.separatorColor = self.separatorLineColor;
 }
 

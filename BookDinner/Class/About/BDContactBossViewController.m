@@ -30,15 +30,31 @@
 {
     [super viewDidLoad];
     self.title = @"联系老板";
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+    [self createTable];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
     
     self.inputView = [[BDContactBossInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 55, self.view.frame.size.width, 55)];
     self.inputView.delegate = self;
     [self.view addSubview:self.inputView];
-
+    [self getMessage];
     
+
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+#pragma mark - create subview
+- (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
     self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - self.inputView.frame.size.height);
     self.tableController.tableView.delegate = self;
@@ -52,24 +68,6 @@
     self.tableController.pageSize = 20;
     [self.view addSubview:self.tableController.view];
     [self addChildViewController:self.tableController];
-//    for (int i = 0; i < 4 ; i++) {
-//        [self.tableController.list addObject:[NSString stringWithFormat:@"联系老板联系老板联系老板联系老板联系老板联系老板联系老板联系老板联系老板联系老板联系老板联系老板%@",[NSDate date]]];
-//    }
-    
-    [self getMessage];
-    [self.tableController.tableView reloadData];
-    
-
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

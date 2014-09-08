@@ -37,23 +37,8 @@
     [super viewDidLoad];
     
     self.title = @"修改密码";
-    
-    self.tableViewController = [[HNYDetailTableViewController alloc] init];
-    self.tableViewController.delegate = self;
-    self.tableViewController.customDelegate = self;
-    self.tableViewController.nameLabelWidth = 100;
-    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
-    self.tableViewController.cellHeight = 50;
-    self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
-    [self addChildViewController:self.tableViewController];
-    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight * 4);
-    [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
-    [self.view addSubview:self.tableViewController.view];
-    [self addChildViewController:self.tableViewController];
-    
+    [self createTable];
     [self setContent];
-
-    
 
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     saveBtn.frame = CGRectMake(10, self.naviBar.frame.size.height + 155, self.view.frame.size.width - 20, 40);
@@ -83,6 +68,22 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark - create subview
+- (void)createTable{
+    self.tableViewController = [[HNYDetailTableViewController alloc] init];
+    self.tableViewController.delegate = self;
+    self.tableViewController.customDelegate = self;
+    self.tableViewController.nameLabelWidth = 100;
+    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
+    self.tableViewController.cellHeight = 50;
+    self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
+    [self addChildViewController:self.tableViewController];
+    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight * 4);
+    [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
+    [self.view addSubview:self.tableViewController.view];
+    [self addChildViewController:self.tableViewController];
+}
+
 - (void)setContent{
     
     HNYDetailItemModel *passwordItem = [[HNYDetailItemModel alloc] init];

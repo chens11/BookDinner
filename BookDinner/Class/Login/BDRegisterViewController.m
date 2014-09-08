@@ -36,7 +36,18 @@
 {
     [super viewDidLoad];
     self.title = @"会员注册";
-    
+    [self createTable];
+    [self setContent];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+#pragma mark - create subview
+- (void)createTable{
     self.tableViewController = [[HNYDetailTableViewController alloc] init];
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
@@ -49,19 +60,8 @@
     [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     [self.view addSubview:self.tableViewController.view];
     [self addChildViewController:self.tableViewController];
-    
-    [self setContent];
-
-    
-   
-    // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (void)setContent{
     
     HNYDetailItemModel *imgItem = [[HNYDetailItemModel alloc] init];
