@@ -135,8 +135,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
     BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
     controller.customNaviController = self.customNaviController;
+    controller.orderModel = model;
+    if (![@"0" isEqualToString:self.orderState])
+        controller.editAble = NO;
     [self.customNaviController pushViewController:controller animated:YES];
 
 }

@@ -24,6 +24,7 @@
 @end
 
 @implementation BDOrderDetailViewController
+@synthesize orderModel = _orderModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -551,6 +552,12 @@
     HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
     price = money * [numItem.value intValue];
     return price;
+}
+
+- (void)setOrderModel:(BDOrderModel *)orderModel{
+    if ([orderModel isKindOfClass:[BDOrderModel class]]) {
+        
+    }
 }
 
 @end

@@ -17,6 +17,7 @@
 @property (nonatomic,strong) BDDinnerModel *dinnerModel;
 @property (nonatomic,strong) BDAddressModel *addressModel;
 @property (nonatomic,strong) BDCouponModel *couponModel;
+@property (nonatomic,strong) BDOrderModel *orderModel;
 @property (nonatomic) BOOL editAble;
 
 @end

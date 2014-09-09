@@ -11,6 +11,8 @@
 @interface BDLuckyDrawViewController ()
 @property (strong, nonatomic) UILabel *pointLabel;
 @property (strong, nonatomic) UILabel *resultLabel;
+@property (strong, nonatomic) NSArray *data;
+@property (strong, nonatomic) NSArray *miss;
 
 @end
 @implementation BDLuckyDrawViewController{
@@ -18,8 +20,6 @@
     float startValue;
     float endValue;
     NSDictionary *awards;
-    NSArray *miss;
-    NSArray *data;
     NSString *result;
 }
 
@@ -27,6 +27,24 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
+        BDCouponModel *coupon = [[BDCouponModel alloc] init];
+        coupon.name = @"再接再厉";
+        coupon.type = 0;
+        
+        BDCouponModel *coupon1 = [[BDCouponModel alloc] init];
+        coupon1.name = @"买一送一";
+        coupon1.type = 1;
+        
+        BDCouponModel *coupon2 = [[BDCouponModel alloc] init];
+        coupon2.name = @"打折券";
+        coupon2.type = 2;
+        
+        BDCouponModel *coupon3 = [[BDCouponModel alloc] init];
+        coupon3.name = @"1元购";
+        coupon3.type = 3;
+
+        self.data = [NSArray arrayWithObjects:coupon,coupon1,coupon2,coupon3, nil];
         // Custom initialization
     }
     return self;
@@ -69,12 +87,28 @@
     [self.view addSubview:self.resultLabel];
     
 
-
+//    @property (nonatomic,strong) NSString *addtime;
+//    @property (nonatomic) int debit;
+//    @property (nonatomic) float discount;
+//    @property (nonatomic,strong) NSString *enddate;
+//    @property (nonatomic,strong) NSString *label;
+//    @property (nonatomic) int id;
+//    //状态（1未使用，2已使用，3过期）
+//    @property (nonatomic) int state;
+//    @property (nonatomic,strong) NSString *state_name;
+//    @property (nonatomic) int type;
+//    @property (nonatomic) int using;
+//    @property (nonatomic,strong) NSString *using_name;
+//    @property (nonatomic,strong) NSString *name;
+//这样吧  一等奖是1元购（自己和朋友）  二等奖是买一送一（没有朋友券） 三等奖是9折（自己和朋友）  这样一共是5种  加上再接再厉 控制在6种
     
-    data = @[@"一等奖",@"二等奖",@"三等奖",@"再接再厉"];
+    
+    
+    
+    self.data = @[@"一等奖",@"二等奖",@"三等奖",@"再接再厉"];
     
     //中奖和没中奖之间的分隔线设有2个弧度的盲区，指针不会旋转到的，避免抽奖的时候起争议。
-    miss = @[
+    self.miss = @[
              @{@"min": @47,
                @"max":@89
                },
@@ -112,12 +146,16 @@
                            @"max":@43
                            }
                        ],
-               @"再接再厉":miss
+               @"再接再厉":self.miss
                };
     
 }
 
 - (IBAction)start:(id)sender {
+    if (self.personModel.score < 199) {
+        [self showTips:@"您的积分不够200，无法参与抽奖"];
+        return;
+    }
     [self luckDraw];
     
 //    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -139,7 +177,7 @@
     srand((unsigned)time(0));
     random = rand() %4;
     int i = random;
-    result = data[i];  //TEST DATA ,shoud fetch result from remote service
+    result = self.data[i];  //TEST DATA ,shoud fetch result from remote service
 //    if (_labelTextField.text != nil && ![_labelTextField.text isEqualToString:@""]) {
 //        result = _labelTextField.text;
 //    }
@@ -159,7 +197,7 @@
     
     random = rand() %5;
     i = random;
-    NSDictionary *content = miss[i];
+    NSDictionary *content = self.miss[i];
     int min = [content[@"min"] intValue];
     int max = [content[@"max"] intValue];
     

@@ -30,15 +30,15 @@
 {
     [super viewDidLoad];
     self.title = @"联系老板";
+    self.inputView = [[BDContactBossInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 55, self.view.frame.size.width, 55)];
+    self.inputView.delegate = self;
+    [self.view addSubview:self.inputView];
     [self createTable];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:)
                                                  name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
     
-    self.inputView = [[BDContactBossInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 55, self.view.frame.size.width, 55)];
-    self.inputView.delegate = self;
-    [self.view addSubview:self.inputView];
     [self getMessage];
     
 
@@ -57,6 +57,7 @@
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
     self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - self.inputView.frame.size.height);
+    self.tableController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];
