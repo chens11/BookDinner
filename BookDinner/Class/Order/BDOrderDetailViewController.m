@@ -556,7 +556,11 @@
 
 - (void)setOrderModel:(BDOrderModel *)orderModel{
     if ([orderModel isKindOfClass:[BDOrderModel class]]) {
-        
+        _orderModel = orderModel;
+        self.dinnerModel = [[BDDinnerModel alloc] init];
+        self.dinnerModel.title = orderModel.title;
+        self.dinnerModel.img = orderModel.img;
+        self.dinnerModel.money = orderModel.money;        
     }
 }
 
