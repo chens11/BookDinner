@@ -9,6 +9,8 @@
 #import "BDLuckyDrawViewController.h"
 
 @interface BDLuckyDrawViewController ()
+@property (strong, nonatomic) UILabel *pointLabel;
+@property (strong, nonatomic) UILabel *resultLabel;
 
 @end
 @implementation BDLuckyDrawViewController{
@@ -35,14 +37,11 @@
     [super viewDidLoad];
     self.title = @"幸运大转盘";
     
-    self.label1 = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 120, self.view.frame.size.height - 100, 80, 44)];
-    [self.view addSubview:self.label1];
-    
-    self.labelTextField = [[HNYTextField alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - 100, self.view.frame.size.width - 160, 44)];
-    self.labelTextField.placeholder = @"请输入要抽中的奖项";
-    [self.view addSubview:self.labelTextField];
-    
-    
+    self.pointLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.naviBar.frame.size.height, self.view.frame.size.width - 10, 30)];
+    self.pointLabel.backgroundColor = [UIColor clearColor];
+    self.pointLabel.text = [NSString stringWithFormat:@"我的积分: %d",self.personModel.score];
+    [self.view addSubview:self.pointLabel];
+
     self.plateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*5/6, self.view.frame.size.width*5/6)];
     self.plateImageView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.width*1/2 + self.naviBar.frame.size.height);
     self.plateImageView.contentMode = UIViewContentModeScaleToFill;
@@ -60,6 +59,16 @@
     button.frame = CGRectMake(108, 158, 105, 105);
     [button addTarget:self action:@selector(start:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
+    
+    
+    self.resultLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.plateImageView.frame.origin.y + self.plateImageView.frame.size.height + 10, self.view.frame.size.width - 10, 80)];
+    self.resultLabel.numberOfLines = 0;
+    self.resultLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.resultLabel.backgroundColor = [UIColor clearColor];
+    self.resultLabel.text = @"抽奖规则:大转盘是采用用户积分消耗来抽奖领取优惠券，200积分一次抽奖";
+    [self.view addSubview:self.resultLabel];
+    
+
 
     
     data = @[@"一等奖",@"二等奖",@"三等奖",@"再接再厉"];
@@ -131,9 +140,9 @@
     random = rand() %4;
     int i = random;
     result = data[i];  //TEST DATA ,shoud fetch result from remote service
-    if (_labelTextField.text != nil && ![_labelTextField.text isEqualToString:@""]) {
-        result = _labelTextField.text;
-    }
+//    if (_labelTextField.text != nil && ![_labelTextField.text isEqualToString:@""]) {
+//        result = _labelTextField.text;
+//    }
     for (NSString *str in [awards allKeys]) {
         if ([str isEqualToString:result]) {
             NSDictionary *content = awards[str][0];
@@ -175,13 +184,13 @@ double radians(float degrees) {
     
     NSLog(@"startValue = %f",startValue);
     NSLog(@"result = %@",result);
-    _label1.text = result;
     NSLog(@"endValue = %f\n",endValue);
+    self.resultLabel.text = result;
 }
 #pragma mark - http request
 
 - (void)luckDraw{
-    [self showRequestingTips:nil];
+    self.resultLabel.text = @"正在抽奖...";
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
@@ -208,6 +217,14 @@ double radians(float degrees) {
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionLuckyDraw isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            NSDictionary *value = [dictionary valueForKey:@"value"];
+            self.personModel.score = [[value valueForKey:@"scroe"] intValue];
+            self.pointLabel.text = [NSString stringWithFormat:@"我的积分: %d",self.personModel.score];
+            [self.delegate viewController:self actionWitnInfo:nil];
+            
+            BDCouponModel *coupon = [HNYJSONUitls mappingDictionary:value toObjectWithClassName:@"BDCouponModel"];
+            result = [NSString stringWithFormat:@"%@",[dictionary valueForKey:HTTP_INFO]];
+
             CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             endValue = [self fetchResult];
             rotationAnimation.delegate = self;
@@ -219,13 +236,12 @@ double radians(float degrees) {
             rotationAnimation.removedOnCompletion = NO;
             rotationAnimation.fillMode = kCAFillModeBoth;
             [_rotateStaticImageView.layer addAnimation:rotationAnimation forKey:@"revItUpAnimation"];
-
         }
     }
     
     else{
         if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
-            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+            result = [dictionary valueForKey:HTTP_INFO];
     }
 }
 

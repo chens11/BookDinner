@@ -7,11 +7,11 @@
 //
 
 #import "HNYBaseViewController.h"
+#import "BDCouponModel.h"
 
 @interface BDLuckyDrawViewController : HNYBaseViewController
-@property (strong, nonatomic) UILabel *label1;
-@property (strong, nonatomic) UITextField *labelTextField;
 @property (strong, nonatomic) UIImageView *plateImageView;
 @property (strong, nonatomic) UIImageView *rotateStaticImageView;
+@property (nonatomic,strong) BDPersonModel *personModel;
 
 @end

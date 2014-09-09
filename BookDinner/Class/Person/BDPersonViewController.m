@@ -236,6 +236,8 @@
     else if ([@"points" isEqualToString:model.key]) {
         BDLuckyDrawViewController *controller = [[BDLuckyDrawViewController alloc] init];
         controller.customNaviController = self.customNaviController;
+        controller.personModel = self.personModel;
+        controller.delegate = self;
         [self.customNaviController pushViewController:controller animated:YES];
     }
     else if ([@"order" isEqualToString:model.key]) {
@@ -276,6 +278,18 @@
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
     controller.customNaviController = self.customNaviController;
     [self.customNaviController pushViewController:controller animated:YES];
+}
+
+#pragma mark - 
+- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
+    if ([vController isKindOfClass:[BDLuckyDrawViewController class]]) {
+        HNYDetailItemModel *pointsItem = [self.tableViewController getItemWithKey:@"points"];
+        
+        pointsItem.textValue = [NSString stringWithFormat:@"%d 积分",self.personModel.score];
+        pointsItem.value = [NSNumber numberWithInt:self.personModel.score];
+        [self.tableViewController changeViewAryObjectWith:pointsItem atIndex:[self.viewAry indexOfObject:pointsItem]];
+        [self.tableViewController.tableView reloadData];
+    }
 }
 
 
