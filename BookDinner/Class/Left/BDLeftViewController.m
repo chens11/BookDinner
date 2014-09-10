@@ -86,7 +86,7 @@
 
     [self createTopView];
     [self createContentTable];
-//    [self createBottomView];
+    [self createBottomView];
     // Do any additional setup after loading the view.
 }
 
@@ -147,20 +147,11 @@
 }
 
 - (void)createBottomView{
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    imageView.image = [UIImage imageNamed:@"tabBar"];
-    [self.view addSubview:imageView];
-    
-    UIImageView *sImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
-    sImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    sImageView.image = [UIImage imageNamed:@"iconShare"];
-    sImageView.contentMode = UIViewContentModeCenter;
-    [self.view addSubview:sImageView];
-    
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [button setBackgroundImage:[UIImage imageNamed:@"tabBar"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"iconShare"] forState:UIControlStateNormal];
     button.frame = CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49);
     [button addTarget:self action:@selector(touchShareButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
@@ -305,97 +296,17 @@
     [self.customNaviController pushViewController:controller animated:YES];
 }
 - (void)touchShareButton:(UIButton*)sender{
-    
-    {
-        //        NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:APP_TYPE,@"APP_TYPE",HBITVINDUSTRY,@"INDUSTRY",nil];
-        //
-        //        NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionVersionsGetShare];
-        //        NSURL *url = [NSURL URLWithString:urlString];
-        //
-        //        NSLog(@"url = %@ \n param = %@",urlString,param);
-        //
-        //        NSString *jsonString = [param JSONRepresentation];
-        //        NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        //        NSData *base64Data = [[data base64EncodedString] dataUsingEncoding:NSUTF8StringEncoding];
-        
-        //        ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-        //        formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionVersionsGetShare,@"userInfo", nil];
-        //        [formRequest appendPostData:base64Data];
-        //        [formRequest setDelegate:self];
-        //        [formRequest startAsynchronous];
-    }
-    
-    
-    __weak UIButton *button = sender;
-    [UIView animateWithDuration:0.2 animations:^{
-        [button setBackgroundColor:[UIColor lightGrayColor]];
-        button.alpha = 0.3;
-    } completion:^(BOOL finished) {
-        [button setBackgroundColor:[UIColor clearColor]];
-        button.alpha = 1.0;
-    }];
-    
-//    if (self.loginModel.SHARE_PATH || self.loginModel.SHARE_DETAIL) {
-//        NSString *msg = [NSString stringWithFormat:@"%@\n%@",self.loginModel.SHARE_DETAIL,self.loginModel.SHARE_PATH];
-//        [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
-//                                             appKey:UMSocialAppKey
-//                                          shareText:msg
-//                                         shareImage:nil
-//                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToRenren,UMShareToWechatSession,UMShareToDouban,UMShareToQzone,UMShareToEmail,UMShareToWechatTimeline,UMShareToQQ,UMShareToYXSession,UMShareToYXTimeline,nil]
-//                                           delegate:nil];
-//    }
-    
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.yaxinw.com/doc/";
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://www.yaxinw.com/doc/";
+    [UMSocialData defaultData].extConfig.sinaData.urlResource.url = @"http://www.yaxinw.com/doc/";
+    NSString *msg = [NSString stringWithFormat:@"亲们，赶快来订餐吧！http://www.yaxinw.com/doc/"];
+    [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
+                                         appKey:UMSocialAppKey
+                                      shareText:msg
+                                     shareImage:[UIImage imageNamed:@"dinner"]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatSession,UMShareToWechatTimeline,nil]
+                                       delegate:nil];
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
-//- (void)requestFinished:(ASIHTTPRequest *)request
-//{
-    // Use when fetching text data
-//    NSData *data = [NSData dataFromBase64String:request.responseString];
-//    NSString *string=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-//    NSDictionary *dictionary = [string JSONValue];
-//    if ([@"200" isEqualToString:[dictionary objectForKey:@"Status"]]) {
-//        if ([ActionLogin isEqualToString:[request.userInfo objectForKey:@"userInfo"]]) {
-//            [self.hud hide:YES];
-//            HBLoginModel *model = [HNYJSONUitls mappingDictionary:[string JSONValue] toObjectWithClassName:@"HBLoginModel"];
-//            HBMenuColumnModel *homeModel = [[HBMenuColumnModel alloc] init];
-//            homeModel.COLUMN_NAME = @"首页";
-//            homeModel.COLUMN_CODE = @"homeModel";
-//            [model.LIST_COLUMN insertObject:homeModel atIndex:0];
-//            
-//            [[NSUserDefaults standardUserDefaults] setValue:DefaultAccount forKey:CurrentAccount];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:UpdateMenu object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:model,@"loginModel", nil]];
-//        }
-//        else if ([ActionVersionsGetShare isEqualToString:[request.userInfo objectForKey:@"userInfo"]]) {
-//            NSString *msg = [NSString stringWithFormat:@"%@\n%@",[dictionary objectForKey:@"SHARE_DETAIL"],[dictionary objectForKey:@"SHARE_PATH"]];
-//            [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
-//                                                 appKey:UMSocialAppKey
-//                                              shareText:msg
-//                                             shareImage:nil
-//                                        shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToRenren,UMShareToWechatSession,UMShareToDouban,UMShareToQzone,UMShareToEmail,UMShareToWechatTimeline,UMShareToQQ,UMShareToYXSession,UMShareToYXTimeline,nil]
-//                                               delegate:nil];
-//        }
-//        
-//    }
-//    else{
-//        if ([dictionary objectForKey:@"Message"])
-//            self.hud.labelText = [dictionary objectForKey:@"Message"];
-//        else
-//            self.hud.labelText = @"获取数据失败...";
-//        self.hud.mode = MBProgressHUDModeText;
-//        [self.hud hide:YES afterDelay:1.0];
-//    }
-    //    NSDictionary *value = [HNYJSONUitls getDictionaryFromObject:self.loginModel];
-//}
 
 #pragma mark - NSNoticefication
 - (void)logoutNotifcation:(NSNotification*)fication{
