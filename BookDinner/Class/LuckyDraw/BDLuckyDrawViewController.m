@@ -274,6 +274,7 @@ double radians(float degrees) {
             rotationAnimation.removedOnCompletion = NO;
             rotationAnimation.fillMode = kCAFillModeBoth;
             [_rotateStaticImageView.layer addAnimation:rotationAnimation forKey:@"revItUpAnimation"];
+            
         }
     }
     
