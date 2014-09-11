@@ -131,6 +131,7 @@
         cell = [[BDOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
     }
     [cell iniDataWithModel:[self.tableController.list objectAtIndex:indexPath.row]];
+    cell.delegate = self;
     return cell;
 }
 
@@ -188,6 +189,13 @@
         [self.tableController.list removeAllObjects];
         [self getOrderList];
     }
+    else if ([aView isKindOfClass:[BDOrderTableViewCell class]]){
+//        @"touchPayBtn",@"action"
+        BDPayViewController *controller = [[BDPayViewController alloc] init];
+        controller.customNaviController = self.customNaviController;
+        [self.customNaviController pushViewController:controller animated:YES];
+    }
+
 }
 
 #pragma mark - http request

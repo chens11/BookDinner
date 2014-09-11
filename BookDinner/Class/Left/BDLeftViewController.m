@@ -183,6 +183,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BDMenuModel *model = [self.menuAry objectAtIndex:indexPath.row];
+    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:indexPath,@"indexPath", nil];
     if ([@"setting" isEqualToString:model.type]) {
         BDSettingViewController *controller = [[BDSettingViewController alloc] init];
         controller.customNaviController = self.customNaviController;
@@ -194,6 +195,8 @@
             [self login];
         }
         else{
+            [self.delegate viewController:self actionWitnInfo:info];
+
             BDPersonViewController *controller = [[BDPersonViewController alloc] init];
             controller.customNaviController = self.customNaviController;
             [self.customNaviController pushViewController:controller animated:YES];
@@ -212,6 +215,8 @@
         }
     }
     else if ([@"about" isEqualToString:model.type]) {
+        [self.delegate viewController:self actionWitnInfo:info];
+
         BDAboutViewController *controller = [[BDAboutViewController alloc] init];
         controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
@@ -229,7 +234,7 @@
         
     }
     else{
-        [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:indexPath,@"indexPath", nil]];
+        [self.delegate viewController:self actionWitnInfo:info];
     }
 }
 

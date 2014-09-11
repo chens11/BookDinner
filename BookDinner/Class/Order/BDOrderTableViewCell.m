@@ -98,6 +98,7 @@
         
         self.payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.payBtn.titleLabel.font = ButtonTitleFont;
+        self.payBtn.hidden = YES;
         [self.payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [self.payBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [self.payBtn addTarget:self action:@selector(touchPayBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -155,11 +156,15 @@
             if (model.ticker.using_name.length > 2)
                 self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@(%@)",model.ticker.name,model.ticker.using_name];
         }
-        
+        if (model.state == 0)
+            self.payBtn.hidden = NO;
+        else
+            self.payBtn.hidden = YES;
+            
     }
 }
 #pragma mark - ibaction
 - (void)touchPayBtn:(UIButton*)sender{
-    
+    [self.delegate view:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"touchPayBtn",@"action", nil]];
 }
 @end
