@@ -141,7 +141,7 @@
     controller.orderModel = model;
     if (![@"0" isEqualToString:self.orderState])
         controller.editAble = NO;
-    [self.customNaviController pushViewController:controller animated:YES];
+//    [self.customNaviController pushViewController:controller animated:YES];
 
 }
 

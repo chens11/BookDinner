@@ -144,13 +144,18 @@
             [self.headImg setImageWithURL:url placeholderImage:self.headImg.image options:SDWebImageCacheMemoryOnly];
         }
         self.typeLabel.text = [NSString stringWithFormat:@"购买方式: %@",[self.buyTypeAry objectAtIndex:model.using]];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",[model.pricemoney floatValue]];
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",[model.money floatValue]];
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
-        self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.money floatValue]];
+        self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.pricemoney floatValue]];
         self.timeLabel.text = @"送餐时间: 10:30-11:00";
         self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
-        if (model.ticker)
-            self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@(%@)",model.ticker,model.ticker.using_name];
+        model.ticker.using = model.using;
+        if (model.ticker){
+            self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@",model.ticker.name];
+            if (model.ticker.using_name.length > 2)
+                self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@(%@)",model.ticker.name,model.ticker.using_name];
+        }
+        
     }
 }
 #pragma mark - ibaction

@@ -18,9 +18,11 @@
 //状态（1未使用，2已使用，3过期）
 @property (nonatomic) int state;
 @property (nonatomic,strong) NSString *state_name;
+//分类（1再一份，2九折券，3一元购）
 @property (nonatomic) int type;
 @property (nonatomic) int using;
 @property (nonatomic,strong) NSString *using_name;
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *prize;
 
 @end

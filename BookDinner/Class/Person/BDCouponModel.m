@@ -29,5 +29,7 @@
     if (using == 1) {
         self.using_name = @"朋友卷";
     }
+    else if (using == 0)
+        self.using_name = @"";
 }
 @end

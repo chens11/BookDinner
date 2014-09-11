@@ -13,6 +13,8 @@
 @property (strong, nonatomic) UILabel *resultLabel;
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) NSArray *miss;
+@property (strong, nonatomic) NSString *result;
+@property (strong, nonatomic) NSString *info;
 
 @end
 @implementation BDLuckyDrawViewController{
@@ -20,31 +22,46 @@
     float startValue;
     float endValue;
     NSDictionary *awards;
-    NSString *result;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+
         BDCouponModel *coupon = [[BDCouponModel alloc] init];
         coupon.name = @"再接再厉";
         coupon.type = 0;
         
         BDCouponModel *coupon1 = [[BDCouponModel alloc] init];
-        coupon1.name = @"买一送一";
+        coupon1.name = @"一等奖";
         coupon1.type = 1;
         
         BDCouponModel *coupon2 = [[BDCouponModel alloc] init];
-        coupon2.name = @"打折券";
+        coupon2.name = @"二等奖";
         coupon2.type = 2;
         
         BDCouponModel *coupon3 = [[BDCouponModel alloc] init];
-        coupon3.name = @"1元购";
+        coupon3.name = @"三等奖";
         coupon3.type = 3;
+        
+        BDCouponModel *coupon4 = [[BDCouponModel alloc] init];
+        coupon4.name = @"特等奖";
+        coupon4.type = 4;
+        
+        //中奖和没中奖之间的分隔线设有2个弧度的盲区，指针不会旋转到的，避免抽奖的时候起争议。
+        self.data = [NSArray arrayWithObjects:coupon,coupon1,coupon2,coupon3,coupon4, nil];
+        self.miss = @[@{@"min": @47,@"max":@88},
+                      @{@"min": @137,@"max":@178},
+                      @{@"min": @227,@"max":@268},
+                      @{@"min": @317,@"max":@358},];
 
-        self.data = [NSArray arrayWithObjects:coupon,coupon1,coupon2,coupon3, nil];
+        awards = [NSDictionary dictionaryWithObjectsAndKeys:
+                  @[@{@"min": @2,@"max":@43}],[NSString stringWithFormat:@"%d",coupon1.type],
+                  @[@{@"min": @92,@"max":@133}],[NSString stringWithFormat:@"%d",coupon2.type],
+                  @[@{@"min": @182,@"max":@223}],[NSString stringWithFormat:@"%d",coupon3.type],
+                  @[@{@"min": @272,@"max":@313}],[NSString stringWithFormat:@"%d",coupon4.type],
+                  self.miss,[NSString stringWithFormat:@"%d",coupon.type],nil];
         // Custom initialization
     }
     return self;
@@ -85,75 +102,15 @@
     self.resultLabel.backgroundColor = [UIColor clearColor];
     self.resultLabel.text = @"抽奖规则:大转盘是采用用户积分消耗来抽奖领取优惠券，200积分一次抽奖";
     [self.view addSubview:self.resultLabel];
-    
-
-//    @property (nonatomic,strong) NSString *addtime;
-//    @property (nonatomic) int debit;
-//    @property (nonatomic) float discount;
-//    @property (nonatomic,strong) NSString *enddate;
-//    @property (nonatomic,strong) NSString *label;
-//    @property (nonatomic) int id;
-//    //状态（1未使用，2已使用，3过期）
-//    @property (nonatomic) int state;
-//    @property (nonatomic,strong) NSString *state_name;
-//    @property (nonatomic) int type;
-//    @property (nonatomic) int using;
-//    @property (nonatomic,strong) NSString *using_name;
-//    @property (nonatomic,strong) NSString *name;
-//这样吧  一等奖是1元购（自己和朋友）  二等奖是买一送一（没有朋友券） 三等奖是9折（自己和朋友）  这样一共是5种  加上再接再厉 控制在6种
-    
-    
-    
-    
-    self.data = @[@"一等奖",@"二等奖",@"三等奖",@"再接再厉"];
-    
-    //中奖和没中奖之间的分隔线设有2个弧度的盲区，指针不会旋转到的，避免抽奖的时候起争议。
-    self.miss = @[
-             @{@"min": @47,
-               @"max":@89
-               },
-             @{@"min": @90,
-               @"max":@133
-               },
-             @{@"min": @182,
-               @"max":@223
-               },
-             @{@"min": @272,
-               @"max":@314
-               },
-             @{@"min": @315,
-               @"max":@358
-               }
-             ];
-    
-    
-    awards = @{
-               @"一等奖": @[
-                       @{
-                           @"min": @137,
-                           @"max":@178
-                           }
-                       ],
-               @"二等奖": @[
-                       @{
-                           @"min": @227,
-                           @"max":@268
-                           }
-                       ],
-               @"三等奖": @[
-                       @{
-                           @"min": @2,
-                           @"max":@43
-                           }
-                       ],
-               @"再接再厉":self.miss
-               };
-    
 }
 
 - (IBAction)start:(id)sender {
     if (self.personModel.score < 199) {
         [self showTips:@"您的积分不够200，无法参与抽奖"];
+        return;
+    }
+    if (self.result) {
+        [self showTips:@"正在抽奖，请您稍等"];
         return;
     }
     [self luckDraw];
@@ -177,12 +134,31 @@
     srand((unsigned)time(0));
     random = rand() %4;
     int i = random;
-    result = self.data[i];  //TEST DATA ,shoud fetch result from remote service
+    if (!self.result){
+//        BDCouponModel *coupon = self.data[i];
+        BDCouponModel *coupon = self.data[0];
+        self.result = [NSString stringWithFormat:@"%d",coupon.type];
+    }
+//TEST DATA ,shoud fetch result from remote service
 //    if (_labelTextField.text != nil && ![_labelTextField.text isEqualToString:@""]) {
 //        result = _labelTextField.text;
 //    }
+    
+    if ([@"0" isEqualToString:self.result]) {
+        random = rand() %4;
+        i = random;
+        NSDictionary *content = self.miss[i];
+        int min = [content[@"min"] intValue];
+        int max = [content[@"max"] intValue];
+        
+        srand((unsigned)time(0));
+        random = rand() % (max - min) +min;
+        
+        return radians(random + 360*5);
+    }
+    
     for (NSString *str in [awards allKeys]) {
-        if ([str isEqualToString:result]) {
+        if ([str isEqualToString:self.result]) {
             NSDictionary *content = awards[str][0];
             int min = [content[@"min"] intValue];
             int max = [content[@"max"] intValue];
@@ -190,7 +166,6 @@
             
             srand((unsigned)time(0));
             random = rand() % (max - min) +min;
-            
             return radians(random + 360*5);
         }
     }
@@ -221,9 +196,10 @@ double radians(float degrees) {
     }
     
     NSLog(@"startValue = %f",startValue);
-    NSLog(@"result = %@",result);
+    NSLog(@"result = %@",self.result);
     NSLog(@"endValue = %f\n",endValue);
-    self.resultLabel.text = result;
+    self.resultLabel.text = self.info;
+    self.result = nil;
 }
 #pragma mark - http request
 
@@ -261,8 +237,14 @@ double radians(float degrees) {
             [self.delegate viewController:self actionWitnInfo:nil];
             
             BDCouponModel *coupon = [HNYJSONUitls mappingDictionary:value toObjectWithClassName:@"BDCouponModel"];
-            result = [NSString stringWithFormat:@"%@",[dictionary valueForKey:HTTP_INFO]];
-
+            self.result = [NSString stringWithFormat:@"%d",coupon.type];
+            if (coupon.type == 0) {
+                self.info = [NSString stringWithFormat:@"%@",coupon.prize];
+            }else{
+                BDCouponModel *tmp = [self.data objectAtIndex:coupon.type];
+                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.prize,tmp.name];
+            }
+            
             CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             endValue = [self fetchResult];
             rotationAnimation.delegate = self;
@@ -280,7 +262,7 @@ double radians(float degrees) {
     
     else{
         if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
-            result = [dictionary valueForKey:HTTP_INFO];
+            self.info = [dictionary valueForKey:HTTP_INFO];
     }
 }
 
