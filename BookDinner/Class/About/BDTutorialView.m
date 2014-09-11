@@ -73,7 +73,7 @@
 #pragma mark - class method
 + (void)presentTutorialViewWith:(NSArray *)imgAry completion:(void (^)(BOOL))completion{
     BDTutorialView *view = [[BDTutorialView alloc] initWith:imgAry completion:completion];
-    
+    NSLog(@"%@",view);
 }
 
 #pragma mark - UIScrollViewDelegate

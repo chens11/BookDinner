@@ -2024,6 +2024,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "EDBB1176-8652-4DD7-B571-1AD520C65A10";
+				VALID_ARCHS = "i386 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2055,6 +2056,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "EDBB1176-8652-4DD7-B571-1AD520C65A10";
+				VALID_ARCHS = "i386 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
