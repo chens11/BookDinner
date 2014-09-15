@@ -78,6 +78,9 @@
         if (self.tag == 1) {
             [self.headImg setImage:[UIImage imageNamed:@"alipay_logo"]];
         }
+        if (self.tag == 2) {
+            [self.headImg setImage:[UIImage imageNamed:@"my_wallet"]];
+        }
     }
     
 }
