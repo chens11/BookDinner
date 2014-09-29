@@ -34,6 +34,7 @@
 @property (nonatomic) UITapGestureRecognizer *tap;
 @property (nonatomic) CGRect alertViewFrame;
 @property (nonatomic, strong) void (^completion)(BOOL cancelled);
+@property (nonatomic, weak) id<HNYDelegate>delegate;
 
 @end
 
@@ -198,6 +199,149 @@
     return self;
 }
 
+- (id)initAlertWithTitle:(NSString *)title
+                 message:(NSString *)message
+             cancelTitle:(NSString *)cancelTitle
+              otherTitle:(NSString *)otherTitle
+             contentView:(UIView *)contentView
+                delegate:(id<HNYDelegate>)delegate;
+{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        _mainWindow = [self windowWithLevel:UIWindowLevelNormal];
+        _alertWindow = [self windowWithLevel:UIWindowLevelAlert];
+        if (!_alertWindow) {
+            _alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            _alertWindow.windowLevel = UIWindowLevelAlert;
+        }
+        self.frame = _alertWindow.bounds;
+        
+        _backgroundView = [[UIView alloc] initWithFrame:_alertWindow.bounds];
+        _backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.25];
+        _backgroundView.alpha = 0;
+        [self addSubview:_backgroundView];
+        
+        _alertView = [[UIView alloc] init];
+        _alertView.backgroundColor = [UIColor colorWithWhite:1 alpha:1.0];
+        _alertView.layer.cornerRadius = 8.0;
+        _alertView.layer.opacity = .95;
+        _alertView.clipsToBounds = YES;
+        [self addSubview:_alertView];
+        
+        // Title
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(AlertViewContentMargin,
+                                                                AlertViewVerticalElementSpace,
+                                                                AlertViewWidth - AlertViewContentMargin*2,
+                                                                44)];
+        _titleLabel.text = title;
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.textColor = [UIColor grayColor];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.font = [UIFont boldSystemFontOfSize:17];
+        _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _titleLabel.numberOfLines = 0;
+        _titleLabel.frame = [self adjustLabelFrameHeight:self.titleLabel];
+        [_alertView addSubview:_titleLabel];
+        
+        CGFloat messageLabelY = _titleLabel.frame.origin.y + _titleLabel.frame.size.height + AlertViewVerticalElementSpace;
+        
+        // Optional Content View
+        if (contentView) {
+            _contentView = contentView;
+            _contentView.frame = CGRectMake(0,
+                                            messageLabelY,
+                                            _contentView.frame.size.width,
+                                            _contentView.frame.size.height);
+            _contentView.center = CGPointMake(AlertViewWidth/2, _contentView.center.y);
+            [_alertView addSubview:_contentView];
+            messageLabelY += contentView.frame.size.height + AlertViewVerticalElementSpace;
+            if (!message && message.length == 0)
+                messageLabelY -= AlertViewVerticalElementSpace;
+            
+        }
+        
+        // Message
+        _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(AlertViewContentMargin,
+                                                                  messageLabelY,
+                                                                  AlertViewWidth - AlertViewContentMargin*2,
+                                                                  44)];
+        _messageLabel.text = message;
+        _messageLabel.backgroundColor = [UIColor clearColor];
+        _messageLabel.textColor = [UIColor grayColor];
+        _messageLabel.textAlignment = NSTextAlignmentLeft;
+        _messageLabel.font = [UIFont systemFontOfSize:15];
+        _messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _messageLabel.numberOfLines = 0;
+        _messageLabel.frame = [self adjustLabelFrameHeight:self.messageLabel];
+        [_alertView addSubview:_messageLabel];
+        // Line
+        CALayer *lineLayer = [CALayer layer];
+        lineLayer.backgroundColor = [[UIColor colorWithWhite:0.5 alpha:0.6] CGColor];
+        lineLayer.frame = CGRectMake(0, _messageLabel.frame.origin.y + _messageLabel.frame.size.height, AlertViewWidth, 0.5);
+        [_alertView.layer addSublayer:lineLayer];
+        
+        // Buttons
+        _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _cancelButton.tag = 0;
+        if (cancelTitle) {
+            [_cancelButton setTitle:cancelTitle forState:UIControlStateNormal];
+        } else {
+            [_cancelButton setTitle:NSLocalizedString(@"Ok", nil) forState:UIControlStateNormal];
+        }
+        _cancelButton.backgroundColor = [UIColor clearColor];
+        
+        [_cancelButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_cancelButton setTitleColor:[UIColor colorWithWhite:0.25 alpha:1] forState:UIControlStateHighlighted];
+        [_cancelButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_cancelButton addTarget:self action:@selector(setBackgroundColorForButton:) forControlEvents:UIControlEventTouchDown];
+        [_cancelButton addTarget:self action:@selector(clearBackgroundColorForButton:) forControlEvents:UIControlEventTouchDragExit];
+        
+        CGFloat buttonsY = lineLayer.frame.origin.y + lineLayer.frame.size.height;
+        if (otherTitle) {
+            _cancelButton.titleLabel.font = [UIFont systemFontOfSize:17];
+            _cancelButton.frame = CGRectMake(0, buttonsY, AlertViewWidth/2, AlertViewButtonHeight);
+            _otherButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            _otherButton.tag = 1;
+            [_otherButton setTitle:otherTitle forState:UIControlStateNormal];
+            _otherButton.backgroundColor = [UIColor clearColor];
+            _otherButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+            [_otherButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [_otherButton setTitleColor:[UIColor colorWithWhite:0.25 alpha:1] forState:UIControlStateHighlighted];
+            [_otherButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+            [_otherButton addTarget:self action:@selector(setBackgroundColorForButton:) forControlEvents:UIControlEventTouchDown];
+            [_otherButton addTarget:self action:@selector(clearBackgroundColorForButton:) forControlEvents:UIControlEventTouchDragExit];
+            _otherButton.frame = CGRectMake(_cancelButton.frame.size.width, buttonsY, AlertViewWidth/2, 44);
+            [self.alertView addSubview:_otherButton];
+            
+            CALayer *lineLayer = [CALayer layer];
+            lineLayer.backgroundColor = [[UIColor colorWithWhite:0.5 alpha:0.6] CGColor];
+            lineLayer.frame = CGRectMake(_otherButton.frame.origin.x, _otherButton.frame.origin.y, 0.5, AlertViewButtonHeight);
+            [_alertView.layer addSublayer:lineLayer];
+            
+        } else {
+            _cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+            _cancelButton.frame = CGRectMake(0, buttonsY, AlertViewWidth, AlertViewButtonHeight);
+        }
+        
+        [_alertView addSubview:_cancelButton];
+        
+        _alertView.bounds = CGRectMake(0, 0, AlertViewWidth, 150);
+        
+        if (delegate) {
+            _delegate = delegate;
+        }
+        
+        [self resizeViews];
+        
+        _alertView.center = CGPointMake(CGRectGetMidX(_alertWindow.bounds), CGRectGetMidY(_alertWindow.bounds));
+        self.alertViewFrame = self.alertView.frame;
+    }
+    return self;
+}
+
+
 - (void)show
 {
     [[PXAlertViewQueue sharedInstance] add:self];
@@ -264,6 +408,36 @@
     if (self.completion) {
         self.completion(cancelled);
     }
+}
+- (void)clickButton:(UIButton*)sender{
+    [self endEditing:YES];
+    
+    if (self.delegate) {
+        [self.delegate view:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [NSNumber numberWithInt:sender.tag],@"ButtonTag", nil]];
+    }
+//    if ([[[PXAlertViewQueue sharedInstance] alertViews] count] == 1) {
+//        [self dismissAlertAnimation];
+//        if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+//            self.mainWindow.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+//            [self.mainWindow tintColorDidChange];
+//        }
+//        [UIView animateWithDuration:0.2 animations:^{
+//            self.backgroundView.alpha = 0;
+//            [self.mainWindow makeKeyAndVisible];
+//        }];
+//    }
+//    
+//    
+//    
+//    [UIView animateWithDuration:0.2 animations:^{
+//        self.alertView.alpha = 0;
+//    } completion:^(BOOL finished) {
+//        [[PXAlertViewQueue sharedInstance] remove:self];
+//        [[NSNotificationCenter defaultCenter] removeObserver:self];
+//        [self removeFromSuperview];
+//    }];
+    
 }
 
 - (void)dealloc{
@@ -346,6 +520,24 @@
                                                           completion:completion];
     [alertView show];
     return alertView;
+}
+
+
++ (PXAlertView *)showAlertWithTitle:(NSString *)title
+                            message:(NSString *)message
+                        cancelTitle:(NSString *)cancelTitle
+                         otherTitle:(NSString *)otherTitle
+                        contentView:(UIView *)view
+                           delegate:(id<HNYDelegate>)delegate{
+    PXAlertView *alertView = [[PXAlertView alloc] initAlertWithTitle:title
+                                                             message:message
+                                                         cancelTitle:cancelTitle
+                                                          otherTitle:otherTitle
+                                                         contentView:view
+                                                          delegate:delegate];
+    [alertView show];
+    return alertView;
+    
 }
 
 #pragma mark - gestures

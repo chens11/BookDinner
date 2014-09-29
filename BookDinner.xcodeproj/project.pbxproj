@@ -256,6 +256,7 @@
 		CACB3D6219A6563700E27064 /* BDPersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CACB3D6119A6563700E27064 /* BDPersonDetailViewController.m */; };
 		CADC5B6E19A04939005C93B1 /* LLScanIndexEvoucher.png in Resources */ = {isa = PBXBuildFile; fileRef = CADC5B6D19A04939005C93B1 /* LLScanIndexEvoucher.png */; };
 		CADC5B7119A05248005C93B1 /* BDContactBossViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC5B7019A05248005C93B1 /* BDContactBossViewController.m */; };
+		CAE2706019C7361500D88268 /* my_wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = CAE2705F19C7361500D88268 /* my_wallet.png */; };
 		CAF5E35419A793F100C406FE /* ly-plate.png in Resources */ = {isa = PBXBuildFile; fileRef = CAF5E35219A793F100C406FE /* ly-plate.png */; };
 		CAF5E35519A793F100C406FE /* rotate-static.png in Resources */ = {isa = PBXBuildFile; fileRef = CAF5E35319A793F100C406FE /* rotate-static.png */; };
 		CAFCD32A19B34FD2005EDD7D /* BDDinnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFCD32919B34FD2005EDD7D /* BDDinnerModel.m */; };
@@ -675,6 +676,7 @@
 		CADC5B6D19A04939005C93B1 /* LLScanIndexEvoucher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LLScanIndexEvoucher.png; sourceTree = "<group>"; };
 		CADC5B6F19A05248005C93B1 /* BDContactBossViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDContactBossViewController.h; sourceTree = "<group>"; };
 		CADC5B7019A05248005C93B1 /* BDContactBossViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDContactBossViewController.m; sourceTree = "<group>"; };
+		CAE2705F19C7361500D88268 /* my_wallet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = my_wallet.png; sourceTree = "<group>"; };
 		CAF5E35219A793F100C406FE /* ly-plate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ly-plate.png"; sourceTree = "<group>"; };
 		CAF5E35319A793F100C406FE /* rotate-static.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rotate-static.png"; sourceTree = "<group>"; };
 		CAFCD32819B34FD2005EDD7D /* BDDinnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDDinnerModel.h; sourceTree = "<group>"; };
@@ -1372,6 +1374,7 @@
 				CA30D7EA19BDFEC100E74442 /* btn_bg_disable.png */,
 				03C0A0CE19B99A14006D1A62 /* weichat_logo.png */,
 				03C0A0CC19B9981A006D1A62 /* alipay_logo.png */,
+				CAE2705F19C7361500D88268 /* my_wallet.png */,
 				CA16CA9D19B7635600CDE5D8 /* btn_bg.png */,
 				CA16CA9B19B7628A00CDE5D8 /* alert_bg1.png */,
 				CA16CA9919B7607800CDE5D8 /* alert_bg.png */,
@@ -1685,6 +1688,7 @@
 				03BE23F0196E3B3E005C0D03 /* title-bg.png in Resources */,
 				03BE23CA196E3B3E005C0D03 /* UMSLoginViewController.xib in Resources */,
 				03F87F3219B409480019757A /* Alixpay.bundle in Resources */,
+				CAE2706019C7361500D88268 /* my_wallet.png in Resources */,
 				03A22D7E199DDC4100420B4E /* dinner.png in Resources */,
 				03BE23E7196E3B3E005C0D03 /* iconlogin.png in Resources */,
 				CA18CE47198DF89700345DC9 /* LLMenuRemoveRound.png in Resources */,

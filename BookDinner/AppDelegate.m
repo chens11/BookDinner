@@ -13,7 +13,7 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialYixinHandler.h"
 
-@interface AppDelegate()
+@interface AppDelegate()<HNYDelegate>
 @property (nonatomic,strong) BDMainViewController *mainController;
 
 @end
@@ -77,6 +77,7 @@
 {
     [UMSocialSnsService  applicationDidBecomeActive];
     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationAppDidBecomeActive object:nil userInfo:nil ];
+//    [PXAlertView showAlertWithTitle:@"fddd" message:nil cancelTitle:@"重试" otherTitle:nil contentView:nil delegate:self];
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
@@ -118,4 +119,16 @@
         NSLog(@"onGetPermissionState %d",iError);
     }
 }
+#pragma mark - HNYDelegate
+- (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
+    if ([aView isKindOfClass:[PXAlertView class]]) {
+        PXAlertView *alert = (PXAlertView*)aView;
+        if (0) {
+            [alert hide];
+
+        }
+    }
+}
+
+
 @end
