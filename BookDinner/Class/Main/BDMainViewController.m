@@ -37,7 +37,7 @@
     [super viewDidLoad];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
     [self.view addGestureRecognizer:pan];
-    self.title = @"禾美";
+    self.title = @"禾美定食";
 
     [self createContentNaviController];
     [self createCoverView];

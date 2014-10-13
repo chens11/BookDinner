@@ -195,6 +195,9 @@ UIActionSheetDelegate>
         if (size.height > 200) {
             size.height = 200;
         }
+        if (size.height < 100) {
+            size.height = 120;
+        }
         webView.frame = CGRectMake(0, 0, self.view.frame.size.width, size.height);
         [webView loadHTMLString:self.dinnerModel.description baseURL:nil];
         [HNYActionSheet showWithTitle:self.dinnerModel.title contentView:webView cancelBtnTitle:nil sureBtnTitle:nil delegate:self];

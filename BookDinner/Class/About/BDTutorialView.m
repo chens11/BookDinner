@@ -61,7 +61,7 @@
     
     for (int i = 0; i < num; i++) {
         UIImageView *imageView = [[UIImageView alloc] init];
-        imageView.contentMode = UIViewContentModeScaleToFill;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.frame = CGRectMake(self.frame.size.width * i, 0, self.frame.size.width, self.frame.size.height);
         [imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"tutorial%d",i+1]]];
         [self.scroll addSubview:imageView];
