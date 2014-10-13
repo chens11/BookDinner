@@ -52,7 +52,7 @@
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
     self.tableViewController.nameLabelWidth = 80;
-    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
+    self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 50;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
     [self addChildViewController:self.tableViewController];

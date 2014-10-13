@@ -21,7 +21,7 @@
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
     #define MBLabelAlignmentCenter NSTextAlignmentCenter
 #else
-    #define MBLabelAlignmentCenter UITextAlignmentCenter
+    #define MBLabelAlignmentCenter NSTextAlignmentCenter
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000

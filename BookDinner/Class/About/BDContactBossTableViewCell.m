@@ -84,12 +84,12 @@
         if (model.type == 1)
         {
             self.label.text = model.admin_reply;
-            self.label.textAlignment = UITextAlignmentLeft;
+            self.label.textAlignment = NSTextAlignmentLeft;
             self.bubbleImgView.image = [[UIImage imageNamed:@"bubbleBoss"] stretchableImageWithLeftCapWidth:21 topCapHeight:14];
         }
         else{
             self.label.text = model.message;
-            self.label.textAlignment = UITextAlignmentRight;
+            self.label.textAlignment = NSTextAlignmentRight;
             self.bubbleImgView.image = [[UIImage imageNamed:@"bubbleMine"] stretchableImageWithLeftCapWidth:15 topCapHeight:14];
         }
 

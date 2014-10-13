@@ -344,10 +344,10 @@
 
     {
         UILabel *starLabel = [[UILabel alloc] init];
-        starLabel.textAlignment = UITextAlignmentCenter;
+        starLabel.textAlignment = NSTextAlignmentCenter;
         starLabel.frame = CGRectMake(5, 6, 15, cell.frame.size.height);
         starLabel.font = [UIFont systemFontOfSize:30];
-        starLabel.textAlignment = UITextAlignmentRight;
+        starLabel.textAlignment = NSTextAlignmentRight;
         starLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         starLabel.textColor = [UIColor redColor];
         starLabel.backgroundColor = [UIColor clearColor];

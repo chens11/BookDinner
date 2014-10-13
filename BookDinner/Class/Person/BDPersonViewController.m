@@ -78,7 +78,7 @@
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
     self.tableViewController.nameLabelWidth = 100;
-    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
+    self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 50;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
     [self addChildViewController:self.tableViewController];
@@ -107,7 +107,7 @@
     walletItem.viewType = Label;
     walletItem.editable = NO;
     walletItem.height = @"one";
-    walletItem.textAlignment = UITextAlignmentRight;
+    walletItem.textAlignment = NSTextAlignmentRight;
     walletItem.textColor = [UIColor lightGrayColor];
     walletItem.key = @"wallet";
     walletItem.name = @"  我的钱包";
@@ -172,7 +172,7 @@
     couponItem.height = @"one";
     couponItem.key = @"coupon";
     couponItem.name = @"  我的优惠券";
-    couponItem.textAlignment = UITextAlignmentRight;
+    couponItem.textAlignment = NSTextAlignmentRight;
     couponItem.textColor = [UIColor lightGrayColor];
     [_viewAry addObject:couponItem];
     
@@ -181,7 +181,7 @@
     pointItem.viewType = Label;
     pointItem.editable = NO;
     pointItem.height = @"one";
-    pointItem.textAlignment = UITextAlignmentRight;
+    pointItem.textAlignment = NSTextAlignmentRight;
     pointItem.textColor = [UIColor lightGrayColor];
     pointItem.key = @"points";
     pointItem.name = @"  我的积分";

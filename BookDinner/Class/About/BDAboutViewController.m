@@ -57,7 +57,7 @@
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
     self.tableViewController.nameLabelWidth = 90;
-    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
+    self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 50;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
     self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight*9);
@@ -166,7 +166,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.tableViewController.cellHeight*2+10, self.view.frame.size.width, 20)];
         label.backgroundColor = [UIColor clearColor];
         label.text = @"禾美IOS客户端";
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont boldSystemFontOfSize:15.0];
         [numView addSubview:label];
         

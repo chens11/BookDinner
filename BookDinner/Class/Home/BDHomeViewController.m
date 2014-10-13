@@ -76,7 +76,7 @@ UIActionSheetDelegate>
     
     self.numLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, self.view.frame.size.height - 110 , self.view.frame.size.width - 120, 40)];
     self.numLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.numLabel.textAlignment = UITextAlignmentRight;
+    self.numLabel.textAlignment = NSTextAlignmentRight;
     self.numLabel.text = @"剩余10份";
     self.numLabel.textColor = [UIColor colorWithRed:241/255.0 green:90/255.0 blue:36/255.0 alpha:1.0];
     self.numLabel.backgroundColor = [UIColor clearColor];

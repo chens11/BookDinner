@@ -50,7 +50,7 @@
         
         self.dateLabel = [[UILabel alloc] init];
         self.dateLabel.backgroundColor = [UIColor clearColor];
-        self.dateLabel.textAlignment = UITextAlignmentRight;
+        self.dateLabel.textAlignment = NSTextAlignmentRight;
         self.dateLabel.font = [UIFont systemFontOfSize:13.0];
         [self.contentView addSubview:self.dateLabel];
         

@@ -211,7 +211,7 @@
     self.tableViewController.customDelegate = self;
     self.tableViewController.nameLabelWidth = 100;
     self.tableViewController.nameTextFont = [UIFont boldSystemFontOfSize:16.0];
-    self.tableViewController.nameTextAlignment = UITextAlignmentLeft;
+    self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 60;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
     [self addChildViewController:self.tableViewController];
@@ -274,12 +274,16 @@
         return;
     HNYDetailItemModel *item = [self.tableViewController.viewAry objectAtIndex:indexPath.row];
     if ([USER_ADDRESS isEqualToString:item.key]) {
-        BDAddressViewController *controller = [[BDAddressViewController alloc] init];
-        controller.delegate = self;
-        controller.selector = YES;
-        controller.title = @"请选择收货地址";
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+            BDAddressViewController *controller = [[BDAddressViewController alloc] init];
+            controller.delegate = self;
+            controller.selector = YES;
+            controller.title = @"请选择收货地址";
+            controller.customNaviController = self.customNaviController;
+            [self.customNaviController pushViewController:controller animated:YES];
+        }
+        else
+            [self login];
         
     }
     else if ([@"buyType" isEqualToString:item.key]) {
@@ -291,15 +295,20 @@
         sheet.tag = item.tag;
     }
     else if ([@"coupon" isEqualToString:item.key]) {
-        HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
-
-        BDCouponViewController *controller = [[BDCouponViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
-        controller.title = @"请选择优惠券";
-        controller.selector = YES;
-        controller.delegate = self;
-        controller.using = [buyItem.value intValue];
-        [self.customNaviController pushViewController:controller animated:YES];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+            HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
+            
+            BDCouponViewController *controller = [[BDCouponViewController alloc] init];
+            controller.customNaviController = self.customNaviController;
+            controller.title = @"请选择优惠券";
+            controller.selector = YES;
+            controller.delegate = self;
+            controller.using = [buyItem.value intValue];
+            [self.customNaviController pushViewController:controller animated:YES];
+        }
+        else{
+            [self login];
+        }
         
     }
     else if ([@"time" isEqualToString:item.key]){

@@ -28,7 +28,7 @@
         
         self.phoneLabel = [[UILabel alloc] init];
         self.phoneLabel.backgroundColor = [UIColor clearColor];
-        self.phoneLabel.textAlignment = UITextAlignmentRight;
+        self.phoneLabel.textAlignment = NSTextAlignmentRight;
         self.phoneLabel.font = [UIFont systemFontOfSize:16.0];
         [self addSubview:self.phoneLabel];
         
