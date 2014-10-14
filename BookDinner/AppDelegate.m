@@ -10,8 +10,6 @@
 #import "BDMainViewController.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocial.h"
-#import "UMSocialQQHandler.h"
-#import "UMSocialYixinHandler.h"
 
 @interface AppDelegate()<HNYDelegate>
 @property (nonatomic,strong) BDMainViewController *mainController;
@@ -30,9 +28,7 @@
     [self.window setRootViewController:naviController];
     [self.window makeKeyAndVisible];
     
-    [UMSocialWechatHandler setWXAppId:WeiXinAppKey url:@"http://www.umeng.com/social"];
-    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:TencentAppKey url:@"http://www.umeng.com/social"];
-    [UMSocialYixinHandler setYixinAppKey:YiXinAppKey url:@"http://www.umeng.com/social"];
+    [UMSocialWechatHandler setWXAppId:WeiXinAppKey appSecret:@"test" url:@"http://www.umeng.com/social"];
     return YES;
 }
 

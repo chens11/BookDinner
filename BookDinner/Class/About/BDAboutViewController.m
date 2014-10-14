@@ -165,7 +165,7 @@
 
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.tableViewController.cellHeight*2+10, self.view.frame.size.width, 20)];
         label.backgroundColor = [UIColor clearColor];
-        label.text = @"禾美定食IOS客户端";
+        label.text = @"禾美定食";
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont boldSystemFontOfSize:15.0];
         [numView addSubview:label];

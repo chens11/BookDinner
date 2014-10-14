@@ -115,7 +115,6 @@
     
     self.logoMenu = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
     self.logoMenu.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/5);
-    self.logoMenu.backgroundColor = [UIColor colorWithRed:79.0/255 green:89.0/255 blue:100.0/255 alpha:1.0];
     self.logoMenu.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
     self.logoMenu.image = [UIImage imageNamed:@"AppIcon11"];
     [self.view addSubview:self.logoMenu];
