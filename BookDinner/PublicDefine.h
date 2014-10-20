@@ -13,7 +13,7 @@
 #define ButtonTitleFont                 [UIFont boldSystemFontOfSize:16.0]
 
 #define HideWelcomPage                              @"隐藏欢迎页"
-#define UMSocialAppKey                              @"53a0eb3c56240be04d05f9f5"
+#define UMSocialAppKey                              @"54450fd3fd98c5d71500f17d"
 #define WeiXinAppKey                                @"wx99161eb38899bb67"
 #define TencentAppKey                               @"c7394704798a158208a74ab60104f0ba"
 #define YiXinAppKey                                 @"yx35664bdff4db42c2b7be1e29390c1a06"
