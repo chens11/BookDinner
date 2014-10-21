@@ -212,7 +212,6 @@
 		CA51109519ED6986000A5FD3 /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA51108D19ED6986000A5FD3 /* libSocialSina.a */; };
 		CA51109619ED6986000A5FD3 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA51109019ED6986000A5FD3 /* libSocialWechat.a */; };
 		CA51109719ED6986000A5FD3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA51109119ED6986000A5FD3 /* libWeChatSDK.a */; };
-		CA5110B319ED6D09000A5FD3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5110B019ED6D09000A5FD3 /* libWeChatSDK.a */; };
 		CA5110C819ED71B3000A5FD3 /* AlipayRsaLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5110BA19ED71B3000A5FD3 /* AlipayRsaLib.a */; };
 		CA5110C919ED71B4000A5FD3 /* Alixpay.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA5110BC19ED71B3000A5FD3 /* Alixpay.bundle */; };
 		CA5110CA19ED71B4000A5FD3 /* AlixPaylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5110BD19ED71B3000A5FD3 /* AlixPaylib.a */; };
@@ -696,7 +695,6 @@
 				03BE240D196E3E36005C0D03 /* CoreTelephony.framework in Frameworks */,
 				03BE240B196E3E2F005C0D03 /* libicucore.dylib in Frameworks */,
 				CA5110CB19ED71B4000A5FD3 /* AlixPaylib_arc.a in Frameworks */,
-				CA5110B319ED6D09000A5FD3 /* libWeChatSDK.a in Frameworks */,
 				CA51109719ED6986000A5FD3 /* libWeChatSDK.a in Frameworks */,
 				03BE2409196E3E23005C0D03 /* libz.1.2.5.dylib in Frameworks */,
 				CA5110C819ED71B3000A5FD3 /* AlipayRsaLib.a in Frameworks */,

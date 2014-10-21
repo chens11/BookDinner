@@ -130,7 +130,7 @@
     
     self.typeLabel.frame = CGRectMake(110,40,130,20);
     self.couponLabel.frame = CGRectMake(110,65,150,20);
-    self.timeLabel.frame = CGRectMake(110, 90, 150, 20);
+    self.timeLabel.frame = CGRectMake(110, 90, self.contentView.frame.size.width - 110, 20);
     
     self.headImg.frame = CGRectMake(20 ,30,80,self.contentView.frame.size.height - 60);
     self.payBtn.frame = CGRectMake(self.contentView.frame.size.width - 80, self.contentView.frame.size.height - 40, 60, 25);
@@ -148,7 +148,9 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",[model.money floatValue]];
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
         self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.pricemoney floatValue]];
-        self.timeLabel.text = @"送餐时间: 10:30-11:00";
+        if (model.addtime.length > 16) {
+            self.timeLabel.text = [NSString stringWithFormat:@"下单时间:%@",[model.addtime substringToIndex:16]];
+        }
         self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
         model.ticker.using = model.using;
         if (model.ticker){

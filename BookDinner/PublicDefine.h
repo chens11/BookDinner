@@ -79,6 +79,8 @@
 #define ActionGetOrderList                          @"API/?c=product&a=getorder"
 #define ActionLuckyDraw                             @"API/?c=ticker&a=dazhuanpan"
 #define ActionLuckyDrawList                         @"API/?c=ticker&a=getticker"
+#define ActionGetOrderDetail                        @"API/?c=product&a=getorderid"
+
 
 
 

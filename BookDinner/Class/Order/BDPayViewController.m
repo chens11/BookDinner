@@ -136,6 +136,59 @@
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
 }
 
+#pragma mark - http request
+- (void)getPayDetail{
+    [self showRequestingTips:nil];
+//    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+//                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
+//                                  [NSNumber numberWithInt:self.orderModel.id],@"id",
+//                                  [AppInfo headInfo],HTTP_HEAD,nil];
+//    
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderDetail];
+//    NSURL *url = [NSURL URLWithString:urlString];
+//    NSLog(@"url = %@ \n param = %@",urlString,param);
+//    
+//    NSString *jsonString = [param JSONRepresentation];
+//    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+//    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderDetail,HTTP_USER_INFO, nil];
+//    [formRequest appendPostData:data];
+//    [formRequest setDelegate:self];
+//    [formRequest startAsynchronous];
 
+}
+- (void)requestFinished:(ASIHTTPRequest *)request{
+    NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
+    NSDictionary *dictionary = [string JSONValue];
+    NSLog(@"result = %@",string);
+    [self.hud removeFromSuperview];
+    if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
+        if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            NSArray *value = [dictionary valueForKey:HTTP_VALUE];
+            if ([value isKindOfClass:[NSArray class]] && value.count > 0) {
+            }
+        }
+        else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            
+        }
+        
+    }
+    else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
+        if ([ActionPlaceOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+            [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
+        }
+    }
+    else{
+        if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
+        else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
+    }
+}
 
 @end

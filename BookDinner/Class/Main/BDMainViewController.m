@@ -43,7 +43,9 @@
     [self createCoverView];
     [self createLeftNaviController];
     [self createTutorialView];
-    [self autoLogin];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:AutoLogin]){
+        [self autoLogin];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -159,8 +161,6 @@
 #pragma mark - data request
 
 - (void)autoLogin{
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:AutoLogin])
-        return;
     
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT],USER_ACCOUNT,
@@ -211,8 +211,10 @@
 #pragma mark - HBPublicDelegate
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDLeftViewController class]]) {
-        if (self.leftNaviController.view.frame.origin.x > -1)
+        if (self.leftNaviController.view.frame.origin.x > -1){
             [self hideLeftView];
+            [self autoLogin];
+        }
     }
 }
 

@@ -300,10 +300,10 @@
     [self.customNaviController pushViewController:controller animated:YES];
 }
 - (void)touchShareButton:(UIButton*)sender{
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.yaxinw.com/doc/";
-    [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://www.yaxinw.com/doc/";
-    [UMSocialData defaultData].extConfig.sinaData.urlResource.url = @"http://www.yaxinw.com/doc/";
-    NSString *msg = [NSString stringWithFormat:@"亲们，赶快来订餐吧！http://www.yaxinw.com/doc/"];
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://ihomy.cn/";
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://ihomy.cn/";
+    [UMSocialData defaultData].extConfig.sinaData.urlResource.url = @"http://ihomy.cn/";
+    NSString *msg = [NSString stringWithFormat:@"亲们，赶快来订餐吧！http://ihomy.cn/"];
     [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
                                          appKey:UMSocialAppKey
                                       shareText:msg

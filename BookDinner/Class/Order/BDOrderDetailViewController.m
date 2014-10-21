@@ -49,7 +49,12 @@
     [self createTable];
     [self setContent];
     [self createBottomView];
-    [self getDefaultAddress];
+
+    if (self.editAble) {
+        [self getDefaultAddress];
+    }
+    else
+        [self getOrderDetail];
     // Do any additional setup after loading the view.
 }
 
@@ -80,7 +85,7 @@
     
     HNYDetailItemModel *nameItem = [[HNYDetailItemModel alloc] init];
     nameItem.viewType = Label;
-    nameItem.editable = YES;
+    nameItem.editable = self.editAble;
     nameItem.key = @"name";
     nameItem.textAlignment = NSTextAlignmentRight;
     nameItem.textValue = [NSString stringWithFormat:@"￥%@",self.dinnerModel.money];
@@ -94,7 +99,7 @@
     
     HNYDetailItemModel *numItem = [[HNYDetailItemModel alloc] init];
     numItem.viewType = Customer;
-    numItem.editable = YES;
+    numItem.editable = self.editAble;
     numItem.name = @"  购买数量 ";
     numItem.key = @"num";
     numItem.height = @"one";
@@ -109,7 +114,7 @@
     
     HNYDetailItemModel *typeItem = [[HNYDetailItemModel alloc] init];
     typeItem.viewType = Label;
-    typeItem.editable = YES;
+    typeItem.editable = self.editAble;
     typeItem.height = @"one";
     typeItem.textAlignment = NSTextAlignmentRight;
     typeItem.textColor = [UIColor lightGrayColor];
@@ -123,7 +128,7 @@
 
     HNYDetailItemModel *couponItem = [[HNYDetailItemModel alloc] init];
     couponItem.viewType = Label;
-    couponItem.editable = YES;
+    couponItem.editable = self.editAble;
     couponItem.height = @"one";
     couponItem.key = @"coupon";
     couponItem.textValue = @"请选择优惠券";
@@ -136,7 +141,7 @@
     
     HNYDetailItemModel *timeItem = [[HNYDetailItemModel alloc] init];
     timeItem.viewType = Label;
-    timeItem.editable = YES;
+    timeItem.editable = self.editAble;
     timeItem.height = @"one";
     timeItem.key = @"time";
     timeItem.name = @"  送餐时间";
@@ -158,7 +163,7 @@
     
     HNYDetailItemModel *remarkItem = [[HNYDetailItemModel alloc] init];
     remarkItem.viewType = TextView;
-    remarkItem.editable = YES;
+    remarkItem.editable = self.editAble;
     addressItem.height = @"auto";
     addressItem.maxheight = self.tableViewController.cellHeight;
     addressItem.minheight = self.tableViewController.cellHeight;
@@ -528,6 +533,29 @@
     [formRequest startAsynchronous];
     
 }
+
+
+- (void)getOrderDetail{
+    [self showRequestingTips:nil];
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
+                                  [NSNumber numberWithInt:self.orderModel.id],@"id",
+                                  [AppInfo headInfo],HTTP_HEAD,nil];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderDetail];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderDetail,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+}
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
@@ -553,6 +581,9 @@
             [array addObject:controller];
             [self.customNaviController setViewControllers:array animated:YES];
         }
+        else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            
+        }
 
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
@@ -563,6 +594,9 @@
     }
     else{
         if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
+        else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
         else if ([ActionPlaceOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
