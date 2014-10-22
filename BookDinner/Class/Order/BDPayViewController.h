@@ -8,7 +8,12 @@
 
 #import "HNYBaseViewController.h"
 #import "BDPayTableViewCell.h"
+#import "AlixLibService.h"
+#import "BDOrderModel.h"
 
 @interface BDPayViewController : HNYBaseViewController
+@property (nonatomic,strong) BDOrderModel *orderModel;
+
+@property (nonatomic,assign) SEL result;//这里声明为属性方便在于外部传入。
 
 @end

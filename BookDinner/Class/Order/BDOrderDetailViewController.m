@@ -575,6 +575,7 @@
         }
         else if ([ActionPlaceOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             BDPayViewController *controller = [[BDPayViewController alloc] init];
+            controller.orderModel = self.orderModel;
             controller.customNaviController = self.customNaviController;
             NSMutableArray *array = [[self.customNaviController viewControllers] mutableCopy];
             [array removeLastObject];

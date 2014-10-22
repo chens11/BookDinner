@@ -14,7 +14,7 @@
 
 #define HideWelcomPage                              @"隐藏欢迎页"
 #define UMSocialAppKey                              @"54450fd3fd98c5d71500f17d"
-#define WeiXinAppKey                                @"wx99161eb38899bb67"
+#define WeiXinAppKey                                @"wxaf8a85474669b5f7"
 #define TencentAppKey                               @"c7394704798a158208a74ab60104f0ba"
 #define YiXinAppKey                                 @"yx35664bdff4db42c2b7be1e29390c1a06"
 #define BaiDuMapAppKey                              @"ypiiC3pQzaDVHG8ajmLzniMn"
