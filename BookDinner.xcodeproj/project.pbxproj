@@ -190,7 +190,6 @@
 		CA20072B198D48CA00AB3E46 /* BDOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA20072A198D48CA00AB3E46 /* BDOrderTableViewCell.m */; };
 		CA25C95E19741A5300644082 /* BDChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA25C95D19741A5300644082 /* BDChangePasswordViewController.m */; };
 		CA25C96419741A9B00644082 /* BDCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA25C96319741A9B00644082 /* BDCouponViewController.m */; };
-		CA2BA5C519F5597500AC9DA8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2BA5C419F5597500AC9DA8 /* ViewController.m */; };
 		CA2F1E1E19926AD500D3396C /* BDOrderReceiveAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */; };
 		CA2F1E2519927B7C00D3396C /* HNYActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E2219927B7C00D3396C /* HNYActionSheet.m */; };
 		CA2F1E2619927B7C00D3396C /* HNYTActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E2419927B7C00D3396C /* HNYTActionSheetViewController.m */; };
@@ -212,9 +211,7 @@
 		CA51109519ED6986000A5FD3 /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA51108D19ED6986000A5FD3 /* libSocialSina.a */; };
 		CA51109619ED6986000A5FD3 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA51109019ED6986000A5FD3 /* libSocialWechat.a */; };
 		CA51109719ED6986000A5FD3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA51109119ED6986000A5FD3 /* libWeChatSDK.a */; };
-		CA5110C819ED71B3000A5FD3 /* AlipayRsaLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5110BA19ED71B3000A5FD3 /* AlipayRsaLib.a */; };
 		CA5110C919ED71B4000A5FD3 /* Alixpay.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA5110BC19ED71B3000A5FD3 /* Alixpay.bundle */; };
-		CA5110CA19ED71B4000A5FD3 /* AlixPaylib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5110BD19ED71B3000A5FD3 /* AlixPaylib.a */; };
 		CA5110CB19ED71B4000A5FD3 /* AlixPaylib_arc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5110BE19ED71B3000A5FD3 /* AlixPaylib_arc.a */; };
 		CA5110CC19ED71B4000A5FD3 /* AlixPayOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5110C019ED71B3000A5FD3 /* AlixPayOrder.m */; };
 		CA5110CD19ED71B4000A5FD3 /* AlixPayResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5110C219ED71B3000A5FD3 /* AlixPayResult.m */; };
@@ -253,6 +250,7 @@
 		CAE2706019C7361500D88268 /* my_wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = CAE2705F19C7361500D88268 /* my_wallet.png */; };
 		CAF5E35419A793F100C406FE /* ly-plate.png in Resources */ = {isa = PBXBuildFile; fileRef = CAF5E35219A793F100C406FE /* ly-plate.png */; };
 		CAF5E35519A793F100C406FE /* rotate-static.png in Resources */ = {isa = PBXBuildFile; fileRef = CAF5E35319A793F100C406FE /* rotate-static.png */; };
+		CAF8F62019F9525B00DD9539 /* AlipayRsaLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF8F61F19F9525B00DD9539 /* AlipayRsaLib.a */; };
 		CAFCD32A19B34FD2005EDD7D /* BDDinnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFCD32919B34FD2005EDD7D /* BDDinnerModel.m */; };
 		CAFCD32D19B3672A005EDD7D /* BDPersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFCD32C19B3672A005EDD7D /* BDPersonModel.m */; };
 /* End PBXBuildFile section */
@@ -578,8 +576,6 @@
 		CA25C96219741A9B00644082 /* BDCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDCouponViewController.h; sourceTree = "<group>"; };
 		CA25C96319741A9B00644082 /* BDCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDCouponViewController.m; sourceTree = "<group>"; };
 		CA2BA5C219F5597500AC9DA8 /* PartnerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerConfig.h; sourceTree = "<group>"; };
-		CA2BA5C319F5597500AC9DA8 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CA2BA5C419F5597500AC9DA8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CA2F1E1C19926AD500D3396C /* BDOrderReceiveAddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderReceiveAddressView.h; sourceTree = "<group>"; };
 		CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderReceiveAddressView.m; sourceTree = "<group>"; };
 		CA2F1E2119927B7C00D3396C /* HNYActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYActionSheet.h; sourceTree = "<group>"; };
@@ -625,10 +621,8 @@
 		CA5110B019ED6D09000A5FD3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		CA5110B119ED6D09000A5FD3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		CA5110B219ED6D09000A5FD3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		CA5110BA19ED71B3000A5FD3 /* AlipayRsaLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AlipayRsaLib.a; sourceTree = "<group>"; };
 		CA5110BB19ED71B3000A5FD3 /* AlixLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlixLibService.h; sourceTree = "<group>"; };
 		CA5110BC19ED71B3000A5FD3 /* Alixpay.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Alixpay.bundle; sourceTree = "<group>"; };
-		CA5110BD19ED71B3000A5FD3 /* AlixPaylib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AlixPaylib.a; sourceTree = "<group>"; };
 		CA5110BE19ED71B3000A5FD3 /* AlixPaylib_arc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AlixPaylib_arc.a; sourceTree = "<group>"; };
 		CA5110BF19ED71B3000A5FD3 /* AlixPayOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlixPayOrder.h; sourceTree = "<group>"; };
 		CA5110C019ED71B3000A5FD3 /* AlixPayOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlixPayOrder.m; sourceTree = "<group>"; };
@@ -680,6 +674,7 @@
 		CAE2705F19C7361500D88268 /* my_wallet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = my_wallet.png; sourceTree = "<group>"; };
 		CAF5E35219A793F100C406FE /* ly-plate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ly-plate.png"; sourceTree = "<group>"; };
 		CAF5E35319A793F100C406FE /* rotate-static.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rotate-static.png"; sourceTree = "<group>"; };
+		CAF8F61F19F9525B00DD9539 /* AlipayRsaLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AlipayRsaLib.a; sourceTree = "<group>"; };
 		CAFCD32819B34FD2005EDD7D /* BDDinnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDDinnerModel.h; sourceTree = "<group>"; };
 		CAFCD32919B34FD2005EDD7D /* BDDinnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDDinnerModel.m; sourceTree = "<group>"; };
 		CAFCD32B19B3672A005EDD7D /* BDPersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPersonModel.h; sourceTree = "<group>"; };
@@ -696,8 +691,8 @@
 				03BE240B196E3E2F005C0D03 /* libicucore.dylib in Frameworks */,
 				CA5110CB19ED71B4000A5FD3 /* AlixPaylib_arc.a in Frameworks */,
 				CA51109719ED6986000A5FD3 /* libWeChatSDK.a in Frameworks */,
+				CAF8F62019F9525B00DD9539 /* AlipayRsaLib.a in Frameworks */,
 				03BE2409196E3E23005C0D03 /* libz.1.2.5.dylib in Frameworks */,
-				CA5110C819ED71B3000A5FD3 /* AlipayRsaLib.a in Frameworks */,
 				03BE2407196E3E18005C0D03 /* Security.framework in Frameworks */,
 				CA51109619ED6986000A5FD3 /* libSocialWechat.a in Frameworks */,
 				03BE2405196E3E0E005C0D03 /* libstdc++.dylib in Frameworks */,
@@ -706,7 +701,6 @@
 				CA51108119ED6746000A5FD3 /* libUMSocial_Sdk_4.1.a in Frameworks */,
 				CA51109519ED6986000A5FD3 /* libSocialSina.a in Frameworks */,
 				03BE2401196E3DD4005C0D03 /* libiconv.dylib in Frameworks */,
-				CA5110CA19ED71B4000A5FD3 /* AlixPaylib.a in Frameworks */,
 				03BE23FF196E3DBE005C0D03 /* MessageUI.framework in Frameworks */,
 				03BE23FD196E3DB5005C0D03 /* OpenGLES.framework in Frameworks */,
 				03BE23FB196E3DAE005C0D03 /* QuartzCore.framework in Frameworks */,
@@ -1391,8 +1385,6 @@
 			isa = PBXGroup;
 			children = (
 				CA2BA5C219F5597500AC9DA8 /* PartnerConfig.h */,
-				CA2BA5C319F5597500AC9DA8 /* ViewController.h */,
-				CA2BA5C419F5597500AC9DA8 /* ViewController.m */,
 			);
 			path = Pay;
 			sourceTree = "<group>";
@@ -1506,11 +1498,10 @@
 		CA5110B919ED71B3000A5FD3 /* alipay */ = {
 			isa = PBXGroup;
 			children = (
-				CA5110BA19ED71B3000A5FD3 /* AlipayRsaLib.a */,
+				CAF8F61F19F9525B00DD9539 /* AlipayRsaLib.a */,
+				CA5110BE19ED71B3000A5FD3 /* AlixPaylib_arc.a */,
 				CA5110BB19ED71B3000A5FD3 /* AlixLibService.h */,
 				CA5110BC19ED71B3000A5FD3 /* Alixpay.bundle */,
-				CA5110BD19ED71B3000A5FD3 /* AlixPaylib.a */,
-				CA5110BE19ED71B3000A5FD3 /* AlixPaylib_arc.a */,
 				CA5110BF19ED71B3000A5FD3 /* AlixPayOrder.h */,
 				CA5110C019ED71B3000A5FD3 /* AlixPayOrder.m */,
 				CA5110C119ED71B3000A5FD3 /* AlixPayResult.h */,
@@ -1729,7 +1720,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA2BA5C519F5597500AC9DA8 /* ViewController.m in Sources */,
 				03BE23C1196E3B3E005C0D03 /* HNYTreeModel.m in Sources */,
 				CA8448471972D73C00A6CF43 /* BDMainViewController.m in Sources */,
 				03BE23AD196E3B3E005C0D03 /* HNYTRefreshTableViewController.m in Sources */,

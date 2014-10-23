@@ -169,15 +169,14 @@
      */
     
     if (indexPath.row == 1) {
-        NSString *appScheme = @"AlipaySdkDemo";
+        NSString *appScheme = @"ihomy2014";
         NSString* orderInfo = [self getOrderInfo:indexPath.row];
         NSString* signedStr = [self doRsa:orderInfo];
         
-        NSLog(@"%@",signedStr);
         
         NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                                  orderInfo, signedStr, @"RSA"];
-        
+        NSLog(@"result = %@",orderString);
         [AlixLibService payOrder:orderString AndScheme:appScheme seletor:_result target:self];
     }
     
@@ -191,12 +190,17 @@
     AlixPayOrder *order = [[AlixPayOrder alloc] init];
     order.partner = PartnerID;
     order.seller = SellerID;
-    
-    order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
+/*
+ 
+ 
+partner="2088101568358171"&seller_id="alipay-test09@alipay.com"&out_trade_no="0819145412-6177"&subject="《暗黑破坏神3:凯恩之书》"&body="暴雪唯一官方授权中文版!玩家必藏!附赠暗黑精致手绘地图!绝不仅仅是一本暗黑的故事或画册，而是一个栩栩如生的游戏再现。是游戏玩家珍藏的首选。"&total_fee="0.01"&notify_url="http%3A%2F%2Fnotify.msp.hk%2Fnotify.htm"&service="mobile.securitypay.pay"&payment_type="1"&_input_charset="utf-8"&it_b_pay="30m"&show_url="m.alipay.com"&sign="lBBK%2F0w5LOajrMrji7DUgEqNjIhQbidR13GovA5r3TgIbNqv231yC1NksLdw%2Ba3JnfHXoXuet6XNNHtn7VE%2BeCoRO1O%2BR1KugLrQEZMtG5jmJIe2pbjm%2F3kb%2FuGkpG%2BwYQYI51%2BhA3YBbvZHVQBYveBqK%2Bh8mUyb7GM1HxWs9k4%3D"&sign_type="RSA"
+ 
+ */
+    order.tradeNO = [NSString stringWithFormat:@"%@",@"0819145412-6177"];//[self generateTradeNO]; //订单ID（由商家自行制定）
     order.productName = self.orderModel.title; //商品标题
-    order.productDescription = self.orderModel.description; //商品描述
+    order.productDescription = @"ddd";//self.orderModel.description; //商品描述
     order.amount = [NSString stringWithFormat:@"%.2f",[self.orderModel.pricemoney floatValue]]; //商品价格
-    order.notifyURL =  @"http%3A%2F%2Fwwww.xxx.com"; //回调URL
+    order.notifyURL =  @"http%3A%2F%2Fnotify.msp.hk%2Fnotify.htm"; //回调URL
     
     return [order description];
 }

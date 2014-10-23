@@ -191,8 +191,11 @@
     }
     else if ([aView isKindOfClass:[BDOrderTableViewCell class]]){
 //        @"touchPayBtn",@"action"
+        NSIndexPath *indexPath = [self.tableController.tableView indexPathForCell:(UITableViewCell*)aView];
+        BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
         BDPayViewController *controller = [[BDPayViewController alloc] init];
         controller.customNaviController = self.customNaviController;
+        controller.orderModel = model;
         [self.customNaviController pushViewController:controller animated:YES];
     }
 

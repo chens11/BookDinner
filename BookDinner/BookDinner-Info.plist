@@ -32,6 +32,16 @@
 				<string>wxaf8a85474669b5f7</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>alpayihomy</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ihomy2014</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.01</string>
