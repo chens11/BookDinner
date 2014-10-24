@@ -35,6 +35,7 @@
     [super viewDidLoad];
     self.title = @"支付方式";
     [self createTable];
+    [self getPayDetail];
     // Do any additional setup after loading the view.
 }
 
@@ -207,6 +208,7 @@
             NSDictionary *value = [dictionary valueForKey:@"value"];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 [HNYJSONUitls mappingDictionary:value toObject:self.orderModel];
+                [self.tableController.tableView reloadData];
             }
         }
         
