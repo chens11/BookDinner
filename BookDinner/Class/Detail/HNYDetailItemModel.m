@@ -304,7 +304,10 @@
         UIImageView *imgView = [[UIImageView alloc] init];
         imgView.backgroundColor = itemVO.backGroundColor;
         imgView.contentMode = itemVO.contentMode;
-        if ([itemVO.value isKindOfClass:[NSURL class]]) {
+        if ([itemVO.value isKindOfClass:[NSURL class]] && [itemVO.dataSource isKindOfClass:[UIImage class]]) {
+            [imgView setImageWithURL:itemVO.value placeholderImage:itemVO.dataSource];
+        }
+        else if ([itemVO.value isKindOfClass:[NSURL class]]){
             [imgView setImageWithURL:itemVO.value];
         }
         else if ([itemVO.value isKindOfClass:[UIImage class]]){

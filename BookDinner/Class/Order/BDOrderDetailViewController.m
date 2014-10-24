@@ -79,6 +79,7 @@
     imgItem.viewType = ImageView;
     imgItem.value = [NSURL URLWithString:[NSString stringWithFormat:@"%@",self.orderModel.img]];
     imgItem.height = @"four";
+    imgItem.dataSource = [UIImage imageNamed:@"dinner"];
     imgItem.key = @"menu_image";
     [_viewAry addObject:imgItem];
     
