@@ -50,15 +50,8 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    if (self.codeModel.type == 0 || self.codeModel.type == 3) {
-        self.nameLabel.frame = CGRectMake(5, 0, self.frame.size.width - 5, self.frame.size.height);
-    }
-    else if (self.codeModel.type == 1) {
-        self.nameLabel.frame = CGRectMake(25, 0, self.frame.size.width - 25, self.frame.size.height);
-    }
-    else if (self.codeModel.type == 2) {
-        self.nameLabel.frame = CGRectMake(45, 0, self.frame.size.width - 45, self.frame.size.height);
-    }
+    float padding = 15;
+    self.nameLabel.frame = CGRectMake(self.codeModel.expandLevel * (padding + 1), 0, self.frame.size.width - 20 - self.codeModel.expandLevel * padding, self.frame.size.height);
 }
 - (void)iniDataWithModel:(BDCodeModel*)model{
     if ([model isKindOfClass:[BDCodeModel class]]) {

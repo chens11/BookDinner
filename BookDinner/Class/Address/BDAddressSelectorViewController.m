@@ -79,14 +79,39 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BDCodeModel *model  = [self.dataAry objectAtIndex:indexPath.row];
     if (model.type == 0) {
-        if (model.hasSons && model.sons.count == 0) {
+        
+        if (model.hasSons && !model.expanded && model.sons.count == 0) {
             [self getAddressCityWith:model];
         }
+        else if (model.hasSons > 0 && !model.expanded && model.sons.count > 0) {
+            [self expandDepartmentWith:model];
+        }
+        
+        else if (model.expanded){
+            model.expanded = NO;
+            [self unExpandDepartmentWith:model];
+        }
+
+//        if (model.hasSons && model.sons.count == 0) {
+//            [self getAddressCityWith:model];
+//        }
     }
     else if (model.type == 1) {
-        if (model.hasSons && model.sons.count == 0) {
+        if (model.hasSons && !model.expanded && model.sons.count == 0) {
             [self getAddressBlockWith:model];
         }
+        else if (model.hasSons > 0 && !model.expanded && model.sons.count > 0) {
+            [self expandDepartmentWith:model];
+        }
+        
+        else if (model.expanded){
+            model.expanded = NO;
+            [self unExpandDepartmentWith:model];
+        }
+
+//        if (model.hasSons && model.sons.count == 0) {
+//            [self getAddressBlockWith:model];
+//        }
     }
     else if (model.type == 2) {
         self.addressModel.prorince = model.parentCode.parentCode;
@@ -104,6 +129,51 @@
         [self.customNaviController popViewControllerAnimated:YES];
     }
 }
+#pragma mark - instance fun
+//收起操作
+- (void)unExpandDepartmentWith:(BDCodeModel*)model{
+    for (BDCodeModel *subModel in model.sons) {
+        if (subModel.expanded) {
+            [self unExpandDepartmentWith:subModel];
+        }
+    }
+    [self.dataAry removeObjectsInArray:model.sons];
+    
+    NSInteger index = [self.dataAry indexOfObject:model];
+    //展开table 动画
+    NSMutableArray *insers = [NSMutableArray array];
+    for (int i = 1; i < model.sons.count + 1; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index+i inSection:0];
+        [insers addObject:indexPath];
+    }
+    [self.table deleteRowsAtIndexPaths:insers withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+//展开操作
+- (void)expandDepartmentWith:(BDCodeModel*)model{
+    model.expanded = YES;
+    
+    //添加数据到table
+    NSInteger index = [self.dataAry indexOfObject:model];
+    NSRange range = NSMakeRange(index + 1, model.sons.count);
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+    [self.dataAry insertObjects:model.sons atIndexes:indexSet];
+    
+    //展开table 动画
+    NSMutableArray *insers = [NSMutableArray array];
+    for (int i = 1; i < model.sons.count + 1; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index+i inSection:0];
+        [insers addObject:indexPath];
+    }
+    [self.table insertRowsAtIndexPaths:insers withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    
+    for (BDCodeModel *subModel in model.sons) {
+        if (subModel.expanded) {
+            [self expandDepartmentWith:subModel];
+        }
+    }
+}
+
 
 #pragma mark - http request
 - (void)getAddressStreetWith:(BDCodeModel*)model{
@@ -199,6 +269,8 @@
             for (NSDictionary *codeDic in list) {
                 BDCodeModel *model = [HNYJSONUitls mappingDictionary:codeDic toObjectWithClassName:@"BDCodeModel"];
                 model.type = 0;
+                model.expanded = NO;
+                model.expandLevel = 0;
                 model.parentCode = nil;
                 model.hasSons = YES;
                 [self.dataAry addObject:model];
@@ -215,11 +287,14 @@
                 model.type = 1;
                 model.parentCode = self.requestingModel;
                 model.hasSons = YES;
+                model.expanded = NO;
+                model.expandLevel = self.requestingModel.expandLevel + 1;
                 index ++;
                 [self.dataAry insertObject:model atIndex:index];
                 [sons addObject:model];
             }
             self.requestingModel.sons = sons;
+            self.requestingModel.expanded = YES;
             [self.table reloadData];
         }
         else if ([ActionGetAddressBlock isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
@@ -230,6 +305,8 @@
             for (NSDictionary *codeDic in list) {
                 BDCodeModel *model = [HNYJSONUitls mappingDictionary:codeDic toObjectWithClassName:@"BDCodeModel"];
                 model.type = 2;
+                model.expandLevel = self.requestingModel.expandLevel + 1;
+                model.expanded = NO;
                 model.parentCode = self.requestingModel;
                 model.hasSons = NO;
                 index ++;
@@ -237,6 +314,7 @@
                 [sons addObject:model];
             }
             self.requestingModel.sons = sons;
+            self.requestingModel.expanded = YES;
             [self.table reloadData];
         }
         else if ([ActionGetAddressStreet isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
@@ -246,6 +324,7 @@
                 model.type = 3;
                 model.parentCode = nil;
                 model.hasSons = NO;
+                model.expandLevel = 0;
                 [self.dataAry addObject:model];
             }
             if (self.dataAry.count == 0) {
