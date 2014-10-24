@@ -213,7 +213,9 @@
     if ([vController isKindOfClass:[BDLeftViewController class]]) {
         if (self.leftNaviController.view.frame.origin.x > -1){
             [self hideLeftView];
-            [self autoLogin];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:AutoLogin]) {
+                [self autoLogin];
+            }
         }
     }
 }
