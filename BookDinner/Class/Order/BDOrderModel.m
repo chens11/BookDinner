@@ -39,6 +39,8 @@
     else if ([ticker isKindOfClass:[NSDictionary class]]){
         _ticker = [HNYJSONUitls mappingDictionary:ticker toObjectWithClassName:@"BDCouponModel"];
     }
+    else
+        _ticker = ticker;
 }
 - (void)setProduct:(id)product{
     if ([product isKindOfClass:[BDDinnerModel class]]) {
@@ -53,6 +55,8 @@
         self.title = _product.title;
         self.money = _product.money;
     }
+    else
+        _product = product;
 }
 
 - (void)setAddress:(id)address{
@@ -62,6 +66,8 @@
     else if ([address isKindOfClass:[NSDictionary class]]){
         _address = [HNYJSONUitls mappingDictionary:address toObjectWithClassName:@"BDAddressModel"];
     }
+    else
+        _address = address;
 }
 
 @end

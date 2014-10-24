@@ -184,7 +184,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
@@ -213,9 +213,7 @@
     if ([vController isKindOfClass:[BDLeftViewController class]]) {
         if (self.leftNaviController.view.frame.origin.x > -1){
             [self hideLeftView];
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:AutoLogin]) {
-                [self autoLogin];
-            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationAppDidBecomeActive object:nil userInfo:nil ];
         }
     }
 }

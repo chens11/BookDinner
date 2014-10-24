@@ -19,7 +19,7 @@
     else if (state == 2) {
         self.state_name = @"已使用";
     }
-    else if (state == 13) {
+    else if (state == 3) {
         self.state_name = @"已过期";
     }
 }

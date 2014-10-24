@@ -152,8 +152,8 @@
             self.timeLabel.text = [NSString stringWithFormat:@"下单时间:%@",[model.addtime substringToIndex:16]];
         }
         self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
-        model.ticker.using = model.using;
-        if (model.ticker){
+        if ([model.ticker isKindOfClass:[BDCouponModel class]]){
+            model.ticker.using = model.using;
             self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@",model.ticker.name];
             if (model.ticker.using_name.length > 2)
                 self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@(%@)",model.ticker.name,model.ticker.using_name];

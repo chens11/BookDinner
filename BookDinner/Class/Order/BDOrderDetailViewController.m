@@ -414,12 +414,14 @@
         [dictionary setValue:buyItem.value forKey:@"using"];
         [dictionary setValue:[NSNumber numberWithInt:couponModel.id] forKey:@"ticker_id"];
         [dictionary setValue:remarkItem.value forKey:@"remarks"];
-        if (self.orderModel.ticker.type == 1)
-            [dictionary setValue:[NSNumber numberWithInt:[numItem.value intValue]- 1] forKey:@"order_number"];
+        //分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
+//        if (self.orderModel.ticker.type == 2 || self.orderModel.ticker.type == 3){
+//            [dictionary setValue:[NSNumber numberWithInt:[numItem.value intValue]- 1] forKey:@"order_number"];
+//        }
 
         [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
         [dictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
-        [self placeOrderWith:dictionary];
+        [self payOrderWith:dictionary];
     }
 }
 #pragma mark - HNYActionSheetDelegate
@@ -445,12 +447,23 @@
         [self.tableViewController changeViewAryObjectWith:item atIndex:[self.viewAry indexOfObject:item]];
         [self.tableViewController.tableView reloadData];
     }
+    //0本人购买 1赠送朋友
     else if ([@"buyType" isEqualToString:item.key]) {
         NSString *time = [self.buyTypeAry objectAtIndex:index];
         item.value = [NSNumber numberWithInt:index];
         item.textValue = time;
         [self.tableViewController changeViewAryObjectWith:item atIndex:[self.viewAry indexOfObject:item]];
         [self.tableViewController.tableView reloadData];
+        
+        if (!index == self.orderModel.ticker.using) {
+            self.orderModel.ticker = nil;
+            HNYDetailItemModel *couponItem = [self.tableViewController getItemWithKey:@"coupon"];
+            couponItem.textValue = @"请选择优惠券";
+            couponItem.value = nil;
+            [self.tableViewController changeViewAryObjectWith:couponItem atIndex:[self.viewAry indexOfObject:couponItem]];
+            self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",[self calculatePrice]];
+            [self.tableViewController.tableView reloadData];
+        }
     }
 
     [actionSheet hide];
@@ -496,22 +509,30 @@
         couponItem.value = self.orderModel.ticker;
         couponItem.textValue = self.orderModel.ticker.name;
         [self.tableViewController changeViewAryObjectWith:couponItem atIndex:[self.viewAry indexOfObject:couponItem]];
-        if (self.orderModel.ticker.type == 1) {
+        //分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
+        if (self.orderModel.ticker.type == 2 && [numItem.value intValue] < 2) {
             numItem.value = [NSString stringWithFormat:@"%d",[numItem.value intValue] + 1];
             numItem.textValue = numItem.value;
             self.numTextField.text = numItem.value;
             [self.tableViewController changeViewAryObjectWith:numItem atIndex:[self.viewAry indexOfObject:numItem]];
         }
+        else if (self.orderModel.ticker.type == 3 && [numItem.value intValue] < 3) {
+            numItem.value = [NSString stringWithFormat:@"%d",3];
+            numItem.textValue = numItem.value;
+            self.numTextField.text = numItem.value;
+            [self.tableViewController changeViewAryObjectWith:numItem atIndex:[self.viewAry indexOfObject:numItem]];
+        }
+        
         self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",[self calculatePrice]];
         [self.tableViewController.tableView reloadData];
     }
 }
 #pragma mark - http request
 
-- (void)placeOrderWith:(NSDictionary*)params{
+- (void)payOrderWith:(NSDictionary*)params{
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionPlaceOrder];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionPayOrder];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,params);
     
@@ -519,7 +540,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionPlaceOrder,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionPayOrder,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -573,7 +594,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
@@ -587,37 +608,41 @@
                 [self.tableViewController.tableView reloadData];
             }
         }
-        else if ([ActionPlaceOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
-            BDPayViewController *controller = [[BDPayViewController alloc] init];
-            controller.orderModel = self.orderModel;
-            controller.customNaviController = self.customNaviController;
-            NSMutableArray *array = [[self.customNaviController viewControllers] mutableCopy];
-            [array removeLastObject];
-            [array addObject:controller];
-            [self.customNaviController setViewControllers:array animated:YES];
+        else if ([ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                self.orderModel.id = [[value objectForKey:@"id"] intValue];
+                BDPayViewController *controller = [[BDPayViewController alloc] init];
+                controller.orderModel = self.orderModel;
+                controller.customNaviController = self.customNaviController;
+                NSMutableArray *array = [[self.customNaviController viewControllers] mutableCopy];
+                [array removeLastObject];
+                [array addObject:controller];
+                [self.customNaviController setViewControllers:array animated:YES];
+            }
         }
         else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSDictionary *value = [dictionary valueForKey:@"value"];
-            [HNYJSONUitls mappingDictionary:value toObject:self.orderModel];
-            
-            HNYDetailItemModel *timeItem = [self.tableViewController getItemWithKey:@"time"];
-            timeItem.value = self.orderModel.order_date;
-            timeItem.textValue = self.orderModel.order_date;
-            
-            
-            
-            HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
-            addressItem.value = self.orderModel.address;
-            [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
-
-            [self.tableViewController changeViewAryObjectWith:timeItem atIndex:[self.viewAry indexOfObject:timeItem]];
-            [self.tableViewController.tableView reloadData];
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                [HNYJSONUitls mappingDictionary:value toObject:self.orderModel];
+                
+                HNYDetailItemModel *timeItem = [self.tableViewController getItemWithKey:@"time"];
+                timeItem.value = self.orderModel.order_date;
+                timeItem.textValue = self.orderModel.order_date;
+                
+                HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+                addressItem.value = self.orderModel.address;
+                [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
+                
+                [self.tableViewController changeViewAryObjectWith:timeItem atIndex:[self.viewAry indexOfObject:timeItem]];
+                [self.tableViewController.tableView reloadData];
+            }
 
         }
 
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
-        if ([ActionPlaceOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
         }
@@ -629,7 +654,7 @@
         else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionPlaceOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }
@@ -648,18 +673,22 @@
     
     float money = [self.orderModel.money floatValue];
     float price = money;
+    
+    //分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
     HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
     if (self.orderModel.ticker.type == 1) {
         price = money * ([numItem.value intValue] - 1);
+        price = +1;
     }
     else if (self.orderModel.ticker.type == 2){
-        price = money * [numItem.value intValue] * 0.9;
+        price = money * ([numItem.value intValue] - 1);
     }
     else if (self.orderModel.ticker.type == 3){
-        price = money * ([numItem.value intValue] - 1) + 1;
+        price = money * ([numItem.value intValue] - 1);
     }
     else
         price = money * [numItem.value intValue];
+    self.orderModel.pricemoney = [NSString stringWithFormat:@"%f",price];
     return price;
 }
 

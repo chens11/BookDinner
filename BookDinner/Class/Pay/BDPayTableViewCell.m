@@ -72,6 +72,10 @@
     if ([model isKindOfClass:[NSDictionary class]]){
         self.titleLabel.text = [model valueForKey:@"title"];
         self.contentLabel.text = [model valueForKey:@"content"];
+        if (self.contentLabel.text == nil)
+            self.titleLabel.textColor = [UIColor redColor];
+        else
+            self.titleLabel.textColor = [UIColor blackColor];
         if (self.tag == 0) {
             [self.headImg setImage:[UIImage imageNamed:@"weichat_logo"]];
         }

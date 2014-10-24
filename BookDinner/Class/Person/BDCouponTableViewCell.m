@@ -92,10 +92,7 @@
 }
 
 - (void)layoutSubviews{
-    [super layoutSubviews];
-    self.valueLabel.text = @"￥90";
-    self.statusLabel.text = @"可使用";
-    
+    [super layoutSubviews];    
     self.headImg.frame = CGRectMake(15, 15, 40, self.contentView.frame.size.height - 55);
     self.bgImg.frame = CGRectMake(10 ,10,self.contentView.frame.size.width - 20,self.contentView.frame.size.height-20);
     self.nameLabel.frame = CGRectMake(65 ,15,self.contentView.frame.size.width - 75,20);

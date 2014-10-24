@@ -23,6 +23,10 @@
     float endValue;
     NSDictionary *awards;
 }
+//一等奖：一元购
+//二等奖：买一送一、充值10元
+//三等奖：买二送一、充值5元
+//分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -227,7 +231,7 @@ double radians(float degrees) {
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionLuckyDraw isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
@@ -237,14 +241,27 @@ double radians(float degrees) {
             [self.delegate viewController:self actionWitnInfo:nil];
             
             BDCouponModel *coupon = [HNYJSONUitls mappingDictionary:value toObjectWithClassName:@"BDCouponModel"];
-            self.result = [NSString stringWithFormat:@"%d",coupon.type];
-            if (coupon.type == 0) {
-                self.info = [NSString stringWithFormat:@"%@",coupon.prize];
-            }else{
-                BDCouponModel *tmp = [self.data objectAtIndex:coupon.type];
+            BDCouponModel *tmp;
+            if (coupon.type == 1) {
+                tmp = [self.data objectAtIndex:1];
                 self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.prize,tmp.name];
+                self.result = [NSString stringWithFormat:@"%d",1];
             }
-            
+            else if (coupon.type == 2 || coupon.type == 4) {
+                tmp = [self.data objectAtIndex:2];
+                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.prize,tmp.name];
+                self.result = [NSString stringWithFormat:@"%d",2];
+            }
+            else if (coupon.type == 3 || coupon.type == 5) {
+                tmp = [self.data objectAtIndex:3];
+                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.prize,tmp.name];
+                self.result = [NSString stringWithFormat:@"%d",3];
+            }
+            else{
+                tmp = [self.data objectAtIndex:0];
+                self.info = [NSString stringWithFormat:@"%@",coupon.prize];
+                self.result = [NSString stringWithFormat:@"%d",0];
+            }
             CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             endValue = [self fetchResult];
             rotationAnimation.delegate = self;

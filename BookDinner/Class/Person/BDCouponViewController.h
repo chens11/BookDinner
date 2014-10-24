@@ -9,6 +9,7 @@
 #import "HNYBaseViewController.h"
 #import "BDCouponTableViewCell.h"
 #import "BDOrderTopView.h"
+#import "BDLoginViewController.h"
 
 @interface BDCouponViewController : HNYBaseViewController
 @property (nonatomic) BOOL selector;

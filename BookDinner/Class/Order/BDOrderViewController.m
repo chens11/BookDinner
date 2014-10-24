@@ -190,16 +190,25 @@
         [self getOrderList];
     }
     else if ([aView isKindOfClass:[BDOrderTableViewCell class]]){
-//        @"touchPayBtn",@"action"
         NSIndexPath *indexPath = [self.tableController.tableView indexPathForCell:(UITableViewCell*)aView];
         BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
         BDPayViewController *controller = [[BDPayViewController alloc] init];
         controller.customNaviController = self.customNaviController;
         controller.orderModel = model;
+        controller.delegate = self;
         [self.customNaviController pushViewController:controller animated:YES];
     }
 
 }
+
+- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
+    if ([vController isKindOfClass:[BDPayViewController class]]) {
+        if ([[info valueForKey:@"PayResult"] boolValue]) {
+            BDPayViewController *controller = (BDPayViewController*)vController;
+        }
+    }
+}
+
 
 #pragma mark - http request
 
@@ -230,7 +239,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {

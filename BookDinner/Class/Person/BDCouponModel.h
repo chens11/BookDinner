@@ -15,10 +15,10 @@
 @property (nonatomic,strong) NSString *enddate;
 @property (nonatomic,strong) NSString *label;
 @property (nonatomic) int id;
-//状态（1未使用，2已使用，3过期）
+//状态（1未使用，2已使用，3过期 ）
 @property (nonatomic) int state;
 @property (nonatomic,strong) NSString *state_name;
-//分类（1再一份，2九折券，3一元购）
+//分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
 @property (nonatomic) int type;
 @property (nonatomic) int using;
 @property (nonatomic,strong) NSString *using_name;

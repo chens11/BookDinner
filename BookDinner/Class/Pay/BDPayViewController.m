@@ -7,12 +7,11 @@
 //
 
 #import "BDPayViewController.h"
-#import "PartnerConfig.h"
 
-@interface BDPayViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,HNYDelegate>
+@interface BDPayViewController ()<UITableViewDataSource,UITableViewDelegate,HNYDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
 @property (nonatomic,strong) NSString *orderState;
-@property (nonatomic, retain) NSString *subject;
+@property (nonatomic,retain) NSString *subject;
 
 @end
 
@@ -23,6 +22,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.result = @selector(paymentResult:);
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(payNotifcation:)
+                                                     name:NotificationPaySucess object:nil];
         // Custom initialization
     }
     return self;
@@ -54,15 +56,7 @@
     [self addChildViewController:self.tableController];
 }
 
-#pragma mark - UITableViewDataSource,UITableViewDelegate,UIScrolViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self.tableController scrollViewDidScroll:scrollView];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    [self.tableController scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
-}
-
+#pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
@@ -93,7 +87,8 @@
     NSDictionary *dictionary;
     cell.tag = indexPath.row;
     if (indexPath.section == 0) {
-        dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"在线支付: ￥1",@"title", nil];
+        NSString *title = [NSString stringWithFormat:@"在线支付: ￥%.2f",[self.orderModel.pricemoney floatValue]];
+        dictionary = [NSDictionary dictionaryWithObjectsAndKeys:title,@"title", nil];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     else if (indexPath.row == 0){
@@ -118,8 +113,8 @@
     
     if (indexPath.row == 1) {
         NSString *appScheme = @"ihomy2014";
-        NSString* orderInfo = [self getOrderInfo:indexPath.row];
-        NSString* signedStr = [self doRsa:orderInfo];
+        NSString* orderInfo = [BDAlixpay getOrderInfo:self.orderModel];
+        NSString* signedStr = [BDAlixpay doRsa:orderInfo];
         
         
         NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
@@ -129,59 +124,32 @@
     }
     
 }
-#pragma mark - 
+
+
+#pragma mark -
 #pragma mark - alipay
 
--(NSString*)getOrderInfo:(NSInteger)index
-{
-    /*
-     *点击获取prodcut实例并初始化订单信息
-     */
-    AlixPayOrder *order = [[AlixPayOrder alloc] init];
-    order.partner = PartnerID;
-    order.seller = SellerID;
-    order.tradeNO = [NSString stringWithFormat:@"%d",self.orderModel.id];//[self generateTradeNO]; //订单ID（由商家自行制定）
-    order.productName = self.orderModel.title; //商品标题
-    order.productDescription = @"ddd";//self.orderModel.description; //商品描述
-    order.amount = [NSString stringWithFormat:@"%.2f",[self.orderModel.pricemoney floatValue]]; //商品价格
-    order.notifyURL =  NotifyURL; //回调URL
-    
-    return [order description];
-}
-
-
--(NSString*)doRsa:(NSString*)orderInfo
-{
-    id<DataSigner> signer;
-    signer = CreateRSADataSigner(PartnerPrivKey);
-    NSString *signedString = [signer signString:orderInfo];
-    return signedString;
-}
-
--(void)paymentResultDelegate:(NSString *)result
-{
+-(void)paymentResultDelegate:(NSString *)result{
     NSLog(@"%@",result);
 }
 
 //wap回调函数
--(void)paymentResult:(NSString *)resultd
-{
+-(void)paymentResult:(NSString *)resultd{
     AlixPayResult* result = [[AlixPayResult alloc] initWithString:resultd];
     if (result){
         if (result.statusCode == 9000){
             /*
              *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
              */
-            
             //交易成功
             NSString* key = AlipayPubKey;//签约帐户后获取到的支付宝公钥
             id<DataVerifier> verifier;
             verifier = CreateRSADataVerifier(key);
-            
-            if ([verifier verifyString:result.resultString withSign:result.signString])
-            {
-                //验证签名成功，交易结果无篡改
-            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPaySucess object:nil userInfo:nil ];
+
+//            if ([verifier verifyString:result.resultString withSign:result.signString]){
+//                //验证签名成功，交易结果无篡改
+//            }
         }
         else{
             //交易失败
@@ -191,17 +159,10 @@
         //失败
     }
 }
-
-#pragma mark - HNYRefreshTableViewControllerDelegate
-//下拉Table View
--(void)pullDownTable{
-    
-}
-//上拉Table View
--(void)pullUpTable{
-}
-- (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+#pragma mark - NSNoticefication
+- (void)payNotifcation:(NSNotification*)fication{
+    [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"PayResult", nil]];
+    [self.customNaviController popViewControllerAnimated:YES];
 }
 
 #pragma mark - HNYDelegate
@@ -211,30 +172,30 @@
 #pragma mark - http request
 - (void)getPayDetail{
     [self showRequestingTips:nil];
-//    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-//                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-//                                  [NSNumber numberWithInt:self.orderModel.id],@"id",
-//                                  [AppInfo headInfo],HTTP_HEAD,nil];
-//    
-//    
-//    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderDetail];
-//    NSURL *url = [NSURL URLWithString:urlString];
-//    NSLog(@"url = %@ \n param = %@",urlString,param);
-//    
-//    NSString *jsonString = [param JSONRepresentation];
-//    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-//    
-//    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-//    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderDetail,HTTP_USER_INFO, nil];
-//    [formRequest appendPostData:data];
-//    [formRequest setDelegate:self];
-//    [formRequest startAsynchronous];
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
+                                  [NSNumber numberWithInt:self.orderModel.id],@"id",
+                                  [AppInfo headInfo],HTTP_HEAD,nil];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderDetail];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderDetail,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
 
 }
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
@@ -243,7 +204,10 @@
             }
         }
         else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
-            
+            NSDictionary *value = [dictionary valueForKey:@"value"];
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                [HNYJSONUitls mappingDictionary:value toObject:self.orderModel];
+            }
         }
         
     }

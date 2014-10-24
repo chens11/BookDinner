@@ -45,6 +45,7 @@
 #define NotificationActionLogin                     @"NotificationActionLogin"
 #define NotificationActionLogout                    @"NotificationActionLogout"
 #define NotificationAppDidBecomeActive              @"NotificationAppDidBecomeActive"
+#define NotificationPaySucess                       @"NotificationPaySucess"
 
 
 
@@ -53,7 +54,7 @@
 #define AutoLogin                                   @"AutoLogin"
 #define APP_TYPE                                    @"IOS"
 
-#define ServerUrl                                   @"http://www.yaxinw.com/"
+#define ServerUrl                                   @"http://ihomy.cn/"
 #define ActionTest                                  @"API/1.php"
 #define ActionReister                               @"API/?c=user&a=register"
 #define ActionLogin                                 @"API/?c=user&a=login"
@@ -75,7 +76,7 @@
 #define ActionGetMessage                            @"API/?c=info&a=getmessage"
 #define ActionAddMessage                            @"API/?c=info&a=addmessage"
 #define ActionCheckVersion                          @"API/?c=product&a=todayrecommended"
-#define ActionPlaceOrder                            @"API/?c=product&a=addorder"
+#define ActionPayOrder                              @"API/?c=product&a=addorder"
 #define ActionGetOrderList                          @"API/?c=product&a=getorder"
 #define ActionLuckyDraw                             @"API/?c=ticker&a=dazhuanpan"
 #define ActionLuckyDrawList                         @"API/?c=ticker&a=getticker"

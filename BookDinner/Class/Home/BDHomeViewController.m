@@ -228,7 +228,7 @@ UIActionSheetDelegate>
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
 
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
@@ -239,7 +239,7 @@ UIActionSheetDelegate>
             self.numLabel.text = [NSString stringWithFormat:@"剩余%d份",self.dinnerModel.number];
             self.orderBtn.enabled = YES;
             NSURL *url = [NSURL URLWithString:self.dinnerModel.img];
-            [self.imgView setImageWithURL:url];
+            [self.imgView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"dinner"]];
         }
     }
     else{

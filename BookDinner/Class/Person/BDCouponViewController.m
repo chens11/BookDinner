@@ -155,6 +155,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.selector) {
         BDCouponModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+        if (model.state == 2) {
+            [self showTips:@"该优惠券已使用"];
+            return;
+        }
+        else if (model.state == 3) {
+            [self showTips:@"该优惠券过期"];
+            return;
+        }
         if (self.using == 0 && model.using == 1) {
             [self showTips:@"该订单不是赠送朋友不能使用朋友卷"];
         }
@@ -202,6 +210,12 @@
 - (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
 }
+- (void)login{
+    BDLoginViewController *controller = [[BDLoginViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    [self.customNaviController pushViewController:controller animated:YES];
+}
+
 #pragma mark - IBAction
 - (void)touchLoginButton:(UIButton*)sender{
     
@@ -233,7 +247,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionLuckyDrawList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
@@ -251,7 +265,12 @@
                 [self showTips:@"无优惠券"];
         }
     }
-    
+    else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
+        if ([ActionLuckyDrawList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+            [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
+        }
+    }
     else{
         if ([ActionLuckyDrawList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
