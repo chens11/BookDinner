@@ -19,6 +19,7 @@
 @property (nonatomic,strong) NSMutableArray *viewAry;
 @property (nonatomic,strong) UITextField *payTextField;
 @property (nonatomic,strong) HNYDetailTableViewController *tableViewController;
+@property (nonatomic) BOOL needRefresh;
 
 @end
 
@@ -28,6 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.needRefresh = NO;
         _viewAry = [[NSMutableArray alloc] initWithCapacity:0];
         self.menuAry = [NSMutableArray array];
         // Custom initialization
@@ -59,6 +61,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.needRefresh) {
+        self.needRefresh = NO;
+        [self getPersonInfo];
+    }
 }
 
 /*

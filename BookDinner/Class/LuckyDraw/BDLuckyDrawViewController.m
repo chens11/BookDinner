@@ -53,19 +53,34 @@
         coupon4.name = @"特等奖";
         coupon4.type = 4;
         
+//        //中奖和没中奖之间的分隔线设有2个弧度的盲区，指针不会旋转到的，避免抽奖的时候起争议。
+//        self.data = [NSArray arrayWithObjects:coupon,coupon1,coupon2,coupon3,coupon4, nil];
+//        self.miss = @[@{@"min": @47,@"max":@88},
+//                      @{@"min": @137,@"max":@178},
+//                      @{@"min": @227,@"max":@268},
+//                      @{@"min": @317,@"max":@358},];
+//
+//        awards = [NSDictionary dictionaryWithObjectsAndKeys:
+//                  @[@{@"min": @2,@"max":@43}],[NSString stringWithFormat:@"%d",coupon1.type],
+//                  @[@{@"min": @92,@"max":@133}],[NSString stringWithFormat:@"%d",coupon2.type],
+//                  @[@{@"min": @182,@"max":@223}],[NSString stringWithFormat:@"%d",coupon3.type],
+//                  @[@{@"min": @272,@"max":@313}],[NSString stringWithFormat:@"%d",coupon4.type],
+//                  self.miss,[NSString stringWithFormat:@"%d",coupon.type],nil];
+        
         //中奖和没中奖之间的分隔线设有2个弧度的盲区，指针不会旋转到的，避免抽奖的时候起争议。
-        self.data = [NSArray arrayWithObjects:coupon,coupon1,coupon2,coupon3,coupon4, nil];
-        self.miss = @[@{@"min": @47,@"max":@88},
-                      @{@"min": @137,@"max":@178},
-                      @{@"min": @227,@"max":@268},
-                      @{@"min": @317,@"max":@358},];
-
+        self.data = [NSArray arrayWithObjects:coupon,coupon1,coupon2,coupon3, nil];
+        self.miss = @[@{@"min": @48,@"max":@88},
+                      @{@"min": @92,@"max":@130},
+                      @{@"min": @184,@"max":@220},
+                      @{@"min": @274,@"max":@312},
+                      @{@"min": @315,@"max":@358},];
+        
         awards = [NSDictionary dictionaryWithObjectsAndKeys:
-                  @[@{@"min": @2,@"max":@43}],[NSString stringWithFormat:@"%d",coupon1.type],
-                  @[@{@"min": @92,@"max":@133}],[NSString stringWithFormat:@"%d",coupon2.type],
-                  @[@{@"min": @182,@"max":@223}],[NSString stringWithFormat:@"%d",coupon3.type],
-                  @[@{@"min": @272,@"max":@313}],[NSString stringWithFormat:@"%d",coupon4.type],
+                  @[@{@"min": @138,@"max":@177}],[NSString stringWithFormat:@"%d",coupon1.type],
+                  @[@{@"min": @229,@"max":@266}],[NSString stringWithFormat:@"%d",coupon2.type],
+                  @[@{@"min": @2,@"max":@43}],[NSString stringWithFormat:@"%d",coupon3.type],
                   self.miss,[NSString stringWithFormat:@"%d",coupon.type],nil];
+
         // Custom initialization
     }
     return self;
