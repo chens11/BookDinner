@@ -66,12 +66,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BookDinner/Class/Order/BDPayViewController.m"
-            timestampString = "435746916.31818"
+            timestampString = "435820041.123383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "-getOrderInfo:"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "-paymentResult:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -82,11 +82,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BookDinner/Class/Order/BDPayViewController.m"
-            timestampString = "435747333.185632"
+            timestampString = "435820041.123383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "-paymentResultDelegate:"
             landmarkType = "5">
          </BreakpointContent>

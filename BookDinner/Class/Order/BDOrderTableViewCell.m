@@ -145,9 +145,9 @@
             [self.headImg setImageWithURL:url placeholderImage:self.headImg.image options:SDWebImageCacheMemoryOnly];
         }
         self.typeLabel.text = [NSString stringWithFormat:@"购买方式: %@",[self.buyTypeAry objectAtIndex:model.using]];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",[model.money floatValue]];
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",[model.money floatValue]];
         self.numLabel.text = [NSString stringWithFormat:@"x%d",model.order_number];
-        self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.1f",[model.pricemoney floatValue]];
+        self.payLabel.text = [NSString stringWithFormat:@"实际支付￥%.2f",[model.pricemoney floatValue]];
         if (model.addtime.length > 16) {
             self.timeLabel.text = [NSString stringWithFormat:@"下单时间:%@",[model.addtime substringToIndex:16]];
         }

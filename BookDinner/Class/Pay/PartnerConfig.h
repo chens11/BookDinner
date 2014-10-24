@@ -19,6 +19,11 @@
 //收款支付宝账号
 #define SellerID  @"m13430089368@163.com"
 
+#define NotifyURL @"http%3a%2f%2fwww.ihomy.cn%2fAPI%2faliapyapp%2fnotify_url.php"
+//xiaochang2014
+//xiaochang20140904
+
+
 //安全校验码（MD5）密钥，以数字和字母组成的32位字符
 #define MD5_KEY @"c9az8cbwx5713jzikppf3lkb1jwhiggf"
 

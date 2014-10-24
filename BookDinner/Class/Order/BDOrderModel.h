@@ -8,9 +8,12 @@
 
 #import "HNYModel.h"
 #import "BDCouponModel.h"
+#import "BDDinnerModel.h"
+#import "BDAddressModel.h"
 
 @interface BDOrderModel : HNYModel
 @property (nonatomic,strong) NSString *addtime;
+@property (nonatomic,strong) NSString *order_date;
 @property (nonatomic) int id;
 @property (nonatomic,strong) NSString *img;
 @property (nonatomic,strong) NSString *money;
@@ -21,7 +24,10 @@
 @property (nonatomic,strong) NSString *stateName;
 @property (nonatomic) int order_number;
 @property (nonatomic,strong) BDCouponModel *ticker;
+@property (nonatomic,strong) BDDinnerModel *product;
+@property (nonatomic,strong) BDAddressModel *address;
 @property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *remarks;
 @property (nonatomic) int using;
 
 @end

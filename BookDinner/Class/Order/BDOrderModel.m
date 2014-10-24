@@ -11,6 +11,9 @@
 @implementation BDOrderModel
 @synthesize state = _state;
 @synthesize ticker = _ticker;
+@synthesize product = _product;
+@synthesize address = _address;
+
 - (void)setState:(int)state{
     _state = state;
     if (_state == 0) {
@@ -35,6 +38,29 @@
     }
     else if ([ticker isKindOfClass:[NSDictionary class]]){
         _ticker = [HNYJSONUitls mappingDictionary:ticker toObjectWithClassName:@"BDCouponModel"];
+    }
+}
+- (void)setProduct:(id)product{
+    if ([product isKindOfClass:[BDDinnerModel class]]) {
+        _product = product;
+        self.img = _product.img;
+        self.title = _product.title;
+        self.money = _product.money;
+    }
+    else if ([product isKindOfClass:[NSDictionary class]]){
+        _product = [HNYJSONUitls mappingDictionary:product toObjectWithClassName:@"BDDinnerModel"];
+        self.img = _product.img;
+        self.title = _product.title;
+        self.money = _product.money;
+    }
+}
+
+- (void)setAddress:(id)address{
+    if ([address isKindOfClass:[BDAddressModel class]]) {
+        _address = address;
+    }
+    else if ([address isKindOfClass:[NSDictionary class]]){
+        _address = [HNYJSONUitls mappingDictionary:address toObjectWithClassName:@"BDAddressModel"];
     }
 }
 

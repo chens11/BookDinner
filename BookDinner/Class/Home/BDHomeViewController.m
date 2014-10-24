@@ -182,7 +182,7 @@ UIActionSheetDelegate>
 - (void)touchOrderButton:(UIButton*)sender{
     if(self.dinnerModel){
         BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
-        controller.dinnerModel = self.dinnerModel;
+        controller.orderModel.product = self.dinnerModel;
         controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
         

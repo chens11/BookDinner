@@ -87,6 +87,10 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
+    if ([sourceApplication hasPrefix:@"com.alipay"]) {
+        [self parse:url application:application];
+        return YES;
+    }
     return  [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
 }
 

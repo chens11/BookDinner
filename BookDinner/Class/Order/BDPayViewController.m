@@ -26,6 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.result = @selector(paymentResult:);
         // Custom initialization
     }
     return self;
@@ -36,7 +37,6 @@
     [super viewDidLoad];
     self.title = @"支付方式";
     [self createTable];
-    self.result = @selector(paymentResult:);
     // Do any additional setup after loading the view.
 }
 
@@ -44,54 +44,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)dealloc
-{
-#if ! __has_feature(objc_arc)
-    [_products release];
-    [super dealloc];
-#endif
-}
-
-//wap回调函数
--(void)paymentResult:(NSString *)resultd
-{
-    //结果处理
-#if ! __has_feature(objc_arc)
-    AlixPayResult* result = [[[AlixPayResult alloc] initWithString:resultd] autorelease];
-#else
-    AlixPayResult* result = [[AlixPayResult alloc] initWithString:resultd];
-#endif
-    if (result)
-    {
-        
-        if (result.statusCode == 9000)
-        {
-            /*
-             *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
-             */
-            
-            //交易成功
-            NSString* key = AlipayPubKey;//签约帐户后获取到的支付宝公钥
-            id<DataVerifier> verifier;
-            verifier = CreateRSADataVerifier(key);
-            
-            if ([verifier verifyString:result.resultString withSign:result.signString])
-            {
-                //验证签名成功，交易结果无篡改
-            }
-        }
-        else
-        {
-            //交易失败
-        }
-    }
-    else
-    {
-        //失败
-    }
-    
 }
 
 #pragma mark - - (void)createTable{
@@ -177,10 +129,12 @@
         NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                                  orderInfo, signedStr, @"RSA"];
         NSLog(@"result = %@",orderString);
-        [AlixLibService payOrder:orderString AndScheme:appScheme seletor:_result target:self];
+        [AlixLibService payOrder:orderString AndScheme:appScheme seletor:self.result target:self];
     }
     
 }
+#pragma mark - 
+#pragma mark - alipay
 
 -(NSString*)getOrderInfo:(NSInteger)index
 {
@@ -190,36 +144,15 @@
     AlixPayOrder *order = [[AlixPayOrder alloc] init];
     order.partner = PartnerID;
     order.seller = SellerID;
-/*
- 
- 
-partner="2088101568358171"&seller_id="alipay-test09@alipay.com"&out_trade_no="0819145412-6177"&subject="《暗黑破坏神3:凯恩之书》"&body="暴雪唯一官方授权中文版!玩家必藏!附赠暗黑精致手绘地图!绝不仅仅是一本暗黑的故事或画册，而是一个栩栩如生的游戏再现。是游戏玩家珍藏的首选。"&total_fee="0.01"&notify_url="http%3A%2F%2Fnotify.msp.hk%2Fnotify.htm"&service="mobile.securitypay.pay"&payment_type="1"&_input_charset="utf-8"&it_b_pay="30m"&show_url="m.alipay.com"&sign="lBBK%2F0w5LOajrMrji7DUgEqNjIhQbidR13GovA5r3TgIbNqv231yC1NksLdw%2Ba3JnfHXoXuet6XNNHtn7VE%2BeCoRO1O%2BR1KugLrQEZMtG5jmJIe2pbjm%2F3kb%2FuGkpG%2BwYQYI51%2BhA3YBbvZHVQBYveBqK%2Bh8mUyb7GM1HxWs9k4%3D"&sign_type="RSA"
- 
- */
-    order.tradeNO = [NSString stringWithFormat:@"%@",@"0819145412-6177"];//[self generateTradeNO]; //订单ID（由商家自行制定）
+    order.tradeNO = [NSString stringWithFormat:@"%d",self.orderModel.id];//[self generateTradeNO]; //订单ID（由商家自行制定）
     order.productName = self.orderModel.title; //商品标题
     order.productDescription = @"ddd";//self.orderModel.description; //商品描述
     order.amount = [NSString stringWithFormat:@"%.2f",[self.orderModel.pricemoney floatValue]]; //商品价格
-    order.notifyURL =  @"http%3A%2F%2Fnotify.msp.hk%2Fnotify.htm"; //回调URL
+    order.notifyURL =  NotifyURL; //回调URL
     
     return [order description];
 }
 
-- (NSString *)generateTradeNO
-{
-    const int N = 15;
-    
-    NSString *sourceString = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    NSMutableString *result = [[NSMutableString alloc] init] ;
-    srand(time(0));
-    for (int i = 0; i < N; i++)
-    {
-        unsigned index = rand() % [sourceString length];
-        NSString *s = [sourceString substringWithRange:NSMakeRange(index, 1)];
-        [result appendString:s];
-    }
-    return result;
-}
 
 -(NSString*)doRsa:(NSString*)orderInfo
 {
@@ -234,6 +167,34 @@ partner="2088101568358171"&seller_id="alipay-test09@alipay.com"&out_trade_no="08
     NSLog(@"%@",result);
 }
 
+//wap回调函数
+-(void)paymentResult:(NSString *)resultd
+{
+    AlixPayResult* result = [[AlixPayResult alloc] initWithString:resultd];
+    if (result){
+        if (result.statusCode == 9000){
+            /*
+             *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
+             */
+            
+            //交易成功
+            NSString* key = AlipayPubKey;//签约帐户后获取到的支付宝公钥
+            id<DataVerifier> verifier;
+            verifier = CreateRSADataVerifier(key);
+            
+            if ([verifier verifyString:result.resultString withSign:result.signString])
+            {
+                //验证签名成功，交易结果无篡改
+            }
+        }
+        else{
+            //交易失败
+        }
+    }
+    else{
+        //失败
+    }
+}
 
 #pragma mark - HNYRefreshTableViewControllerDelegate
 //下拉Table View

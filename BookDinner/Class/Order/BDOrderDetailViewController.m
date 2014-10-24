@@ -31,6 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.editAble = YES;
+        self.orderModel = [[BDOrderModel alloc] init];
         _viewAry = [[NSMutableArray alloc] initWithCapacity:0];
         self.timeAry = [NSArray arrayWithObjects:@"10:00 - 10:30",@"10:30 - 11:00",@"11:00 - 11:30",@"11:30 - 12:00",@"12:00 - 12:30",@"12:30 - 13:00",@"13:00 - 13:30", nil];
         self.buyTypeAry = [NSArray arrayWithObjects:@"本人购买",@"赠送朋友",nil];
@@ -49,10 +50,8 @@
     [self createTable];
     [self setContent];
     [self createBottomView];
-
-    if (self.editAble) {
+    if (self.editAble)
         [self getDefaultAddress];
-    }
     else
         [self getOrderDetail];
     // Do any additional setup after loading the view.
@@ -78,7 +77,7 @@
     
     HNYDetailItemModel *imgItem = [[HNYDetailItemModel alloc] init];
     imgItem.viewType = ImageView;
-    imgItem.value = [NSURL URLWithString:[NSString stringWithFormat:@"%@",self.dinnerModel.img]];
+    imgItem.value = [NSURL URLWithString:[NSString stringWithFormat:@"%@",self.orderModel.img]];
     imgItem.height = @"four";
     imgItem.key = @"menu_image";
     [_viewAry addObject:imgItem];
@@ -88,12 +87,12 @@
     nameItem.editable = self.editAble;
     nameItem.key = @"name";
     nameItem.textAlignment = NSTextAlignmentRight;
-    nameItem.textValue = [NSString stringWithFormat:@"￥%@",self.dinnerModel.money];
-    nameItem.value = self.dinnerModel.money;
+    nameItem.textValue = [NSString stringWithFormat:@"￥%@",self.orderModel.money];
+    nameItem.value = self.orderModel.product.money;
     nameItem.textColor = [UIColor lightGrayColor];
     nameItem.rightPadding = 10;
     nameItem.textFont = [UIFont systemFontOfSize:16];
-    nameItem.name = [NSString stringWithFormat:@"  %@",self.dinnerModel.title];
+    nameItem.name = [NSString stringWithFormat:@"  %@",self.orderModel.title];
     nameItem.height = @"one";
     [_viewAry addObject:nameItem];
     
@@ -105,8 +104,11 @@
     numItem.height = @"one";
     numItem.keyboardType = UIKeyboardTypeNumberPad;
     numItem.textAlignment = NSTextAlignmentCenter;
-    numItem.textValue = @"1";
-    numItem.value = @"1";
+    if (self.orderModel.order_number < 1)
+        numItem.textValue = @"1";
+    else
+        numItem.textValue = [NSString stringWithFormat:@"%d",self.orderModel.order_number];
+    numItem.value = numItem.textValue;
     numItem.textColor = [UIColor lightGrayColor];
     numItem.textFont = [UIFont boldSystemFontOfSize:16.0];
     [_viewAry addObject:numItem];
@@ -120,8 +122,8 @@
     typeItem.textColor = [UIColor lightGrayColor];
     typeItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     typeItem.key = @"buyType";
-    typeItem.textValue = [self.buyTypeAry objectAtIndex:0];
-    typeItem.value = [NSNumber numberWithInt:0];
+    typeItem.textValue = [self.buyTypeAry objectAtIndex:self.orderModel.using];
+    typeItem.value = [NSNumber numberWithInt:self.orderModel.using];
     typeItem.textColor = [UIColor lightGrayColor];
     typeItem.name = @"  购买方式";
     [_viewAry addObject:typeItem];
@@ -132,6 +134,11 @@
     couponItem.height = @"one";
     couponItem.key = @"coupon";
     couponItem.textValue = @"请选择优惠券";
+    if (!self.orderModel.ticker && !self.editAble)
+        couponItem.textValue = @"未使用";
+    else
+        couponItem.textValue = self.orderModel.ticker.name;
+
     couponItem.textAlignment = NSTextAlignmentRight;
     couponItem.textColor = [UIColor lightGrayColor];
     couponItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -146,6 +153,8 @@
     timeItem.key = @"time";
     timeItem.name = @"  送餐时间";
     timeItem.textValue = @"请您选择送餐时间";
+    if (self.orderModel.order_date)
+        timeItem.textValue = self.orderModel.order_date;
     timeItem.textColor = [UIColor lightGrayColor];
     timeItem.textAlignment = NSTextAlignmentRight;
     timeItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -167,7 +176,7 @@
     addressItem.height = @"auto";
     addressItem.maxheight = self.tableViewController.cellHeight;
     addressItem.minheight = self.tableViewController.cellHeight;
-    addressItem.value = @"";
+    addressItem.value = self.orderModel.remarks;
     remarkItem.key = @"remark";
     remarkItem.name = @"  留   言";
     [_viewAry addObject:remarkItem];
@@ -179,7 +188,7 @@
 - (void)valueDicChange:(HNYDetailTableViewController *)controller withValue:(id)value andKey:(NSString *)key{
     if ([controller isKindOfClass:[HNYDetailTableViewController class]]) {
         if ([@"num" isEqualToString:key]) {
-            self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.1f",[self calculatePrice]];
+            self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",[self calculatePrice]];
         }
         else if ([@"outerUserMobiles" isEqualToString:key]){
         }
@@ -191,7 +200,7 @@
     float price = [self calculatePrice];
     self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.view.frame.size.height - 50, self.view.frame.size.width - 130, 40)];
     self.priceLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.1f",price];
+    self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",price];
     self.priceLabel.backgroundColor = [UIColor clearColor];
     self.priceLabel.textColor = [UIColor redColor];
     self.priceLabel.font = [UIFont boldSystemFontOfSize:16.0];
@@ -199,7 +208,7 @@
     
     UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     buyBtn.tag = 3;
-    buyBtn.enabled = self.editAble;
+    buyBtn.enabled = YES;
     [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
     [buyBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     buyBtn.titleLabel.font = ButtonTitleFont;
@@ -337,28 +346,32 @@
 
 - (void)touchBuyButton:(UIButton*)sender{
     [self.view endEditing:YES];
-//    BDPayViewController *controller = [[BDPayViewController alloc] init];
-//    controller.customNaviController = self.customNaviController;
-//    [self.customNaviController pushViewController:controller animated:YES];
-//    return;
+    
+    if (!self.editAble) {
+        BDPayViewController *controller = [[BDPayViewController alloc] init];
+        controller.customNaviController = self.customNaviController;
+        controller.orderModel = self.orderModel;
+        [self.customNaviController pushViewController:controller animated:YES];
+        return;
+    }
     
     HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
     if (sender.tag == 100) {
         if ([numItem.value intValue] > 1) {
-            if (self.couponModel.type == 1 && [numItem.value intValue] == 2)
+            if (self.orderModel.ticker.type == 1 && [numItem.value intValue] == 2)
                 return;
             numItem.value = [NSString stringWithFormat:@"%d",[numItem.value intValue] - 1];
             numItem.textValue = numItem.value;
             self.numTextField.text = numItem.value;
-            self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.1f",[self calculatePrice]];
+            self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",[self calculatePrice]];
         }
     }
     else if (sender.tag == 101) {
-        if ([numItem.value intValue] < self.dinnerModel.number) {
+        if ([numItem.value intValue] < self.orderModel.product.number) {
             numItem.value = [NSString stringWithFormat:@"%d",[numItem.value intValue] + 1];
             numItem.textValue = numItem.value;
             self.numTextField.text = numItem.value;
-            self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.1f",[self calculatePrice]];
+            self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",[self calculatePrice]];
         }
     }
     else{
@@ -394,14 +407,14 @@
         
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        [dictionary setValue:[NSNumber numberWithInt:self.dinnerModel.id] forKey:@"product_id"];
-        [dictionary setValue:[NSNumber numberWithInt:self.addressModel.id] forKey:@"user_address_id"];
+        [dictionary setValue:[NSNumber numberWithInt:self.orderModel.product.id] forKey:@"product_id"];
+        [dictionary setValue:[NSNumber numberWithInt:self.orderModel.address.id] forKey:@"user_address_id"];
         [dictionary setValue:[NSNumber numberWithInt:[numItem.value intValue]] forKey:@"order_number"];
         [dictionary setValue:timeItem.value forKey:@"order_date"];
         [dictionary setValue:buyItem.value forKey:@"using"];
         [dictionary setValue:[NSNumber numberWithInt:couponModel.id] forKey:@"ticker_id"];
         [dictionary setValue:remarkItem.value forKey:@"remarks"];
-        if (self.couponModel.type == 1)
+        if (self.orderModel.ticker.type == 1)
             [dictionary setValue:[NSNumber numberWithInt:[numItem.value intValue]- 1] forKey:@"order_number"];
 
         [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
@@ -468,28 +481,28 @@
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDAddressViewController class]]) {
         BDAddressModel *model = [info valueForKey:@"BDAddressModel"];
-        self.addressModel = model;
+        self.orderModel.address = model;
         HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
-        addressItem.value = self.addressModel;
+        addressItem.value = self.orderModel.address;
         [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
         [self.tableViewController.tableView reloadData];
     }
     else if ([vController isKindOfClass:[BDCouponViewController class]]) {
         BDCouponModel *model = [info valueForKey:@"BDCouponModel"];
-        self.couponModel = model;
+        self.orderModel.ticker = model;
         HNYDetailItemModel *couponItem = [self.tableViewController getItemWithKey:@"coupon"];
         HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
 
-        couponItem.value = self.couponModel;
-        couponItem.textValue = self.couponModel.name;
+        couponItem.value = self.orderModel.ticker;
+        couponItem.textValue = self.orderModel.ticker.name;
         [self.tableViewController changeViewAryObjectWith:couponItem atIndex:[self.viewAry indexOfObject:couponItem]];
-        if (self.couponModel.type == 1) {
+        if (self.orderModel.ticker.type == 1) {
             numItem.value = [NSString stringWithFormat:@"%d",[numItem.value intValue] + 1];
             numItem.textValue = numItem.value;
             self.numTextField.text = numItem.value;
             [self.tableViewController changeViewAryObjectWith:numItem atIndex:[self.viewAry indexOfObject:numItem]];
         }
-        self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.1f",[self calculatePrice]];
+        self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",[self calculatePrice]];
         [self.tableViewController.tableView reloadData];
     }
 }
@@ -556,6 +569,7 @@
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
 }
+
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
@@ -565,10 +579,10 @@
         if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSArray *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSArray class]] && value.count > 0) {
-                self.addressModel = [HNYJSONUitls mappingDictionary:[value objectAtIndex:0] toObjectWithClassName:@"BDAddressModel"];
+                self.orderModel.address = [HNYJSONUitls mappingDictionary:[value objectAtIndex:0] toObjectWithClassName:@"BDAddressModel"];
                 
                 HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
-                addressItem.value = self.addressModel;
+                addressItem.value = self.orderModel.address;
                 [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
                 [self.tableViewController.tableView reloadData];
             }
@@ -583,7 +597,22 @@
             [self.customNaviController setViewControllers:array animated:YES];
         }
         else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            NSDictionary *value = [dictionary valueForKey:@"value"];
+            [HNYJSONUitls mappingDictionary:value toObject:self.orderModel];
             
+            HNYDetailItemModel *timeItem = [self.tableViewController getItemWithKey:@"time"];
+            timeItem.value = self.orderModel.order_date;
+            timeItem.textValue = self.orderModel.order_date;
+            
+            
+            
+            HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+            addressItem.value = self.orderModel.address;
+            [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
+
+            [self.tableViewController changeViewAryObjectWith:timeItem atIndex:[self.viewAry indexOfObject:timeItem]];
+            [self.tableViewController.tableView reloadData];
+
         }
 
     }
@@ -613,31 +642,25 @@
 }
 
 - (float)calculatePrice{
-    float money = [self.dinnerModel.money floatValue];
+    if (!self.editAble) {
+        return [self.orderModel.pricemoney floatValue];
+    }
+    
+    float money = [self.orderModel.money floatValue];
     float price = money;
     HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
-    if (self.couponModel.type == 1) {
+    if (self.orderModel.ticker.type == 1) {
         price = money * ([numItem.value intValue] - 1);
     }
-    else if (self.couponModel.type == 2){
+    else if (self.orderModel.ticker.type == 2){
         price = money * [numItem.value intValue] * 0.9;
     }
-    else if (self.couponModel.type == 3){
+    else if (self.orderModel.ticker.type == 3){
         price = money * ([numItem.value intValue] - 1) + 1;
     }
     else
         price = money * [numItem.value intValue];
     return price;
-}
-
-- (void)setOrderModel:(BDOrderModel *)orderModel{
-    if ([orderModel isKindOfClass:[BDOrderModel class]]) {
-        _orderModel = orderModel;
-        self.dinnerModel = [[BDDinnerModel alloc] init];
-        self.dinnerModel.title = orderModel.title;
-        self.dinnerModel.img = orderModel.img;
-        self.dinnerModel.money = orderModel.money;        
-    }
 }
 
 @end
