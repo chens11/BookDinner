@@ -8,10 +8,6 @@
 
 #import "BDPayViewController.h"
 #import "PartnerConfig.h"
-#import "DataSigner.h"
-#import "AlixPayResult.h"
-#import "DataVerifier.h"
-#import "AlixPayOrder.h"
 
 @interface BDPayViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,HNYDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;

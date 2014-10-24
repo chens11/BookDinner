@@ -10,9 +10,12 @@
 //  2.点击“商家服务”(https://b.alipay.com/order/myorder.htm)
 //  3.点击“查询合作者身份(pid)”、“查询安全校验码(key)”
 //
-
 #ifndef MQPDemo_PartnerConfig_h
 #define MQPDemo_PartnerConfig_h
+#import "DataSigner.h"
+#import "AlixPayResult.h"
+#import "DataVerifier.h"
+#import "AlixPayOrder.h"
 
 //合作身份者id，以2088开头的16位纯数字
 #define PartnerID @"2088611220647166"

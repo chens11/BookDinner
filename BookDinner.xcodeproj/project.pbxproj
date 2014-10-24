@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030D61F619FA433B006A1A7E /* BDPayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 030D61F319FA433B006A1A7E /* BDPayTableViewCell.m */; };
+		030D61F719FA433B006A1A7E /* BDPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 030D61F519FA433B006A1A7E /* BDPayViewController.m */; };
 		034C16DD19B0176600C2DFF3 /* HNYTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C16DC19B0176600C2DFF3 /* HNYTools.m */; };
 		034C16E019B021D000C2DFF3 /* HNYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C16DF19B021D000C2DFF3 /* HNYTextField.m */; };
 		0361C63919736D19000CDB6C /* BDMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0361C63819736D19000CDB6C /* BDMenuModel.m */; };
@@ -156,10 +158,8 @@
 		03BE240B196E3E2F005C0D03 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE240A196E3E2F005C0D03 /* libicucore.dylib */; };
 		03BE240D196E3E36005C0D03 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE240C196E3E36005C0D03 /* CoreTelephony.framework */; };
 		03BE240F196E3E3F005C0D03 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BE240E196E3E3F005C0D03 /* AssetsLibrary.framework */; };
-		03C0A0CB19B98DC9006D1A62 /* BDPayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C0A0CA19B98DC9006D1A62 /* BDPayTableViewCell.m */; };
 		03C0A0CD19B9981A006D1A62 /* alipay_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03C0A0CC19B9981A006D1A62 /* alipay_logo.png */; };
 		03C0A0CF19B99A14006D1A62 /* weichat_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03C0A0CE19B99A14006D1A62 /* weichat_logo.png */; };
-		03E0364F19B6FCBA008C1084 /* BDPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E0364E19B6FCBA008C1084 /* BDPayViewController.m */; };
 		03E0365219B704CD008C1084 /* BDOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E0365119B704CD008C1084 /* BDOrderModel.m */; };
 		03F4A69E19B81C760039C70C /* BDOrderTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F4A69D19B81C760039C70C /* BDOrderTopView.m */; };
 		03F4A6A119B826220039C70C /* BDOrderTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F4A6A019B826220039C70C /* BDOrderTopItemView.m */; };
@@ -280,6 +280,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		030D61F219FA433B006A1A7E /* BDPayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPayTableViewCell.h; sourceTree = "<group>"; };
+		030D61F319FA433B006A1A7E /* BDPayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPayTableViewCell.m; sourceTree = "<group>"; };
+		030D61F419FA433B006A1A7E /* BDPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPayViewController.h; sourceTree = "<group>"; };
+		030D61F519FA433B006A1A7E /* BDPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPayViewController.m; sourceTree = "<group>"; };
 		034C16DB19B0176600C2DFF3 /* HNYTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYTools.h; sourceTree = "<group>"; };
 		034C16DC19B0176600C2DFF3 /* HNYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNYTools.m; sourceTree = "<group>"; };
 		034C16DE19B021D000C2DFF3 /* HNYTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYTextField.h; sourceTree = "<group>"; };
@@ -522,12 +526,8 @@
 		03BE240A196E3E2F005C0D03 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		03BE240C196E3E36005C0D03 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		03BE240E196E3E3F005C0D03 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		03C0A0C919B98DC9006D1A62 /* BDPayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPayTableViewCell.h; sourceTree = "<group>"; };
-		03C0A0CA19B98DC9006D1A62 /* BDPayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPayTableViewCell.m; sourceTree = "<group>"; };
 		03C0A0CC19B9981A006D1A62 /* alipay_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alipay_logo.png; sourceTree = "<group>"; };
 		03C0A0CE19B99A14006D1A62 /* weichat_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weichat_logo.png; sourceTree = "<group>"; };
-		03E0364D19B6FCBA008C1084 /* BDPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPayViewController.h; sourceTree = "<group>"; };
-		03E0364E19B6FCBA008C1084 /* BDPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPayViewController.m; sourceTree = "<group>"; };
 		03E0365019B704CD008C1084 /* BDOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderModel.h; sourceTree = "<group>"; };
 		03E0365119B704CD008C1084 /* BDOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderModel.m; sourceTree = "<group>"; };
 		03F4A69C19B81C760039C70C /* BDOrderTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderTopView.h; sourceTree = "<group>"; };
@@ -807,10 +807,6 @@
 				0361C66D1973E059000CDB6C /* BDOrderDetailViewController.m */,
 				CA2F1E1C19926AD500D3396C /* BDOrderReceiveAddressView.h */,
 				CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */,
-				03E0364D19B6FCBA008C1084 /* BDPayViewController.h */,
-				03E0364E19B6FCBA008C1084 /* BDPayViewController.m */,
-				03C0A0C919B98DC9006D1A62 /* BDPayTableViewCell.h */,
-				03C0A0CA19B98DC9006D1A62 /* BDPayTableViewCell.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1384,6 +1380,10 @@
 		CA2BA5C119F5597500AC9DA8 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
+				030D61F219FA433B006A1A7E /* BDPayTableViewCell.h */,
+				030D61F319FA433B006A1A7E /* BDPayTableViewCell.m */,
+				030D61F419FA433B006A1A7E /* BDPayViewController.h */,
+				030D61F519FA433B006A1A7E /* BDPayViewController.m */,
 				CA2BA5C219F5597500AC9DA8 /* PartnerConfig.h */,
 			);
 			path = Pay;
@@ -1724,12 +1724,14 @@
 				CA8448471972D73C00A6CF43 /* BDMainViewController.m in Sources */,
 				03BE23AD196E3B3E005C0D03 /* HNYTRefreshTableViewController.m in Sources */,
 				CA16CA9719B7562A00CDE5D8 /* BDAddressViewController.m in Sources */,
+				030D61F619FA433B006A1A7E /* BDPayTableViewCell.m in Sources */,
 				CA1CFDF119AB796900DBD55D /* AppInfo.m in Sources */,
 				CA84484D1972E0F300A6CF43 /* BDLeftTableViewCell.m in Sources */,
 				03BE23A9196E3B3E005C0D03 /* HNYPopoverView.m in Sources */,
 				03BE23A5196E3B3E005C0D03 /* SBJSON.m in Sources */,
 				0361C65019737D8B000CDB6C /* HNYView.m in Sources */,
 				0361C65C1973CA57000CDB6C /* BDSettingViewController.m in Sources */,
+				030D61F719FA433B006A1A7E /* BDPayViewController.m in Sources */,
 				03BE23A3196E3B3E005C0D03 /* NSObject+SBJSON.m in Sources */,
 				03BE23A7196E3B3E005C0D03 /* SBJsonParser.m in Sources */,
 				CA16F00F19B4BC1E005F2F5A /* BDTutorialView.m in Sources */,
@@ -1801,7 +1803,6 @@
 				CA5110CC19ED71B4000A5FD3 /* AlixPayOrder.m in Sources */,
 				CA5110CD19ED71B4000A5FD3 /* AlixPayResult.m in Sources */,
 				03758E00196E8F9400360E2D /* HNYModel.m in Sources */,
-				03C0A0CB19B98DC9006D1A62 /* BDPayTableViewCell.m in Sources */,
 				0361C6671973DBC0000CDB6C /* BDPersonTableViewCell.m in Sources */,
 				CACB3D5419A639D600E27064 /* BDContactBossTableViewCell.m in Sources */,
 				03BE23AC196E3B3E005C0D03 /* HNYRefreshTableViewController.m in Sources */,
@@ -1837,7 +1838,6 @@
 				03BE23C0196E3B3E005C0D03 /* HNYTreeCell.m in Sources */,
 				CA04291E199129E7007BCA4A /* HNYDetailItemModel.m in Sources */,
 				CACB3D6219A6563700E27064 /* BDPersonDetailViewController.m in Sources */,
-				03E0364F19B6FCBA008C1084 /* BDPayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
