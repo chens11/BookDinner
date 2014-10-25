@@ -44,6 +44,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - - (void)createTable{
 - (void)createTable{
@@ -163,7 +166,6 @@
 #pragma mark - NSNoticefication
 - (void)payNotifcation:(NSNotification*)fication{
     [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"PayResult", nil]];
-    [self.customNaviController popViewControllerAnimated:YES];
 }
 
 #pragma mark - HNYDelegate

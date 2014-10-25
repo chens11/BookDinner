@@ -163,13 +163,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BookDinner/AppDelegate.m"
-            timestampString = "435850169.751827"
+            filePath = "BookDinner/Class/Left/BDLeftViewController.m"
+            timestampString = "435851790.633102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "-parse:application:"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "-requestFinished:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -179,12 +179,28 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BookDinner/Class/Left/BDLeftViewController.m"
-            timestampString = "435851790.633102"
+            filePath = "BookDinner/Class/Pay/BDPayViewController.m"
+            timestampString = "435946358.844774"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-paymentResult:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BookDinner/Class/Order/BDOrderDetailViewController.m"
+            timestampString = "435947642.864444"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "622"
+            endingLineNumber = "622"
             landmarkName = "-requestFinished:"
             landmarkType = "5">
          </BreakpointContent>

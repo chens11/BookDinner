@@ -177,12 +177,24 @@ UIActionSheetDelegate>
     int index = scrollView.contentOffset.x / scrollView.frame.size.width;
     [self.pageControl setCurrentPage:index];
 }
+#pragma mark - HNYDelegate
+
+- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
+    if ([vController isKindOfClass:[BDPayViewController class]]) {
+        if ([[info valueForKey:@"PayResult"] boolValue]) {
+            [self.customNaviController popViewControllerAnimated:YES];
+        }
+    }
+}
 
 #pragma mark - ibaction
 - (void)touchOrderButton:(UIButton*)sender{
     if(self.dinnerModel){
         BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
         controller.orderModel.product = self.dinnerModel;
+        controller.editAble = YES;
+        controller.orderState = @"0";
+        controller.delegate = self;
         controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
         

@@ -40,7 +40,7 @@
         _ticker = [HNYJSONUitls mappingDictionary:ticker toObjectWithClassName:@"BDCouponModel"];
     }
     else
-        _ticker = ticker;
+        _ticker = nil;
 }
 - (void)setProduct:(id)product{
     if ([product isKindOfClass:[BDDinnerModel class]]) {
@@ -56,7 +56,7 @@
         self.money = _product.money;
     }
     else
-        _product = product;
+        _product = nil;
 }
 
 - (void)setAddress:(id)address{
@@ -67,7 +67,7 @@
         _address = [HNYJSONUitls mappingDictionary:address toObjectWithClassName:@"BDAddressModel"];
     }
     else
-        _address = address;
+        _address = nil;
 }
 
 @end

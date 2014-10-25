@@ -62,7 +62,6 @@
     [super didReceiveMemoryWarning];
     // Dose of any resources that can be recreated.
 }
-
 /*
 #pragma mark - Navigation
 
@@ -209,7 +208,6 @@
     
     UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     buyBtn.tag = 3;
-    buyBtn.enabled = YES;
     [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
     [buyBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     buyBtn.titleLabel.font = ButtonTitleFont;
@@ -217,6 +215,8 @@
     buyBtn.frame = CGRectMake(self.view.frame.size.width - 110, self.view.frame.size.height - 50, 100, 40);
     buyBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [buyBtn addTarget:self action:@selector(touchBuyButton:) forControlEvents:UIControlEventTouchUpInside];
+    if (![@"0" isEqualToString:self.orderState])
+        buyBtn.enabled = NO;
     [self.view addSubview:buyBtn];
 }
 
@@ -352,6 +352,7 @@
         BDPayViewController *controller = [[BDPayViewController alloc] init];
         controller.customNaviController = self.customNaviController;
         controller.orderModel = self.orderModel;
+        controller.delegate = self;
         [self.customNaviController pushViewController:controller animated:YES];
         return;
     }
@@ -501,6 +502,13 @@
         [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
         [self.tableViewController.tableView reloadData];
     }
+    else if ([vController isKindOfClass:[BDPayViewController class]]){
+        if ([[info valueForKey:@"PayResult"] boolValue]) {
+            [self.customNaviController popViewControllerAnimated:NO];
+            [self.delegate viewController:self actionWitnInfo:info];
+        }
+
+    }
     else if ([vController isKindOfClass:[BDCouponViewController class]]) {
         BDCouponModel *model = [info valueForKey:@"BDCouponModel"];
         self.orderModel.ticker = model;
@@ -615,6 +623,7 @@
                 self.orderModel.id = [[value objectForKey:@"id"] intValue];
                 BDPayViewController *controller = [[BDPayViewController alloc] init];
                 controller.orderModel = self.orderModel;
+                controller.delegate = self.delegate;
                 controller.customNaviController = self.customNaviController;
                 NSMutableArray *array = [[self.customNaviController viewControllers] mutableCopy];
                 [array removeLastObject];
@@ -650,7 +659,7 @@
     }
     else{
         if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
-            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+//            [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
         else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];

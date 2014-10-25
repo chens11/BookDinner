@@ -140,8 +140,9 @@
     BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
     controller.customNaviController = self.customNaviController;
     controller.orderModel = model;
-    if (![@"0" isEqualToString:self.orderState])
-        controller.editAble = NO;
+    controller.editAble = NO;
+    controller.delegate = self;
+    controller.orderState = [NSString stringWithFormat:@"%d",model.state];
     [self.customNaviController pushViewController:controller animated:YES];
 
 }
@@ -204,7 +205,13 @@
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDPayViewController class]]) {
         if ([[info valueForKey:@"PayResult"] boolValue]) {
+            [self.customNaviController popViewControllerAnimated:YES];
             BDPayViewController *controller = (BDPayViewController*)vController;
+        }
+    }
+    else if ([vController isKindOfClass:[BDOrderDetailViewController class]]) {
+        if ([[info valueForKey:@"PayResult"] boolValue]) {
+            [self.customNaviController popViewControllerAnimated:YES];
         }
     }
 }
