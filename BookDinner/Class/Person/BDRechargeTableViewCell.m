@@ -30,5 +30,9 @@
 
     // Configure the view for the selected state
 }
-
+- (void)iniDataWithModel:(BDOrderModel*)model{
+    if ([model isKindOfClass:[BDOrderModel class]]) {
+        self.textLabel.text = model.money;
+    }
+}
 @end

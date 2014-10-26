@@ -8,6 +8,7 @@
 
 #import "BDWalletViewController.h"
 #import "BDRechargeTableViewCell.h"
+#import "BDPayViewController.h"
 
 @interface BDWalletViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,HNYDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
@@ -30,6 +31,8 @@
 {
     [super viewDidLoad];
     self.title = @"充值记录";
+    [self createTable];
+    [self getRechargeList];
     // Do any additional setup after loading the view.
 }
 
@@ -47,13 +50,13 @@
 #pragma mark - create subview
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
-    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + 44, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - 44);
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];
     self.tableController.delegate = self;
     self.tableController.pageNum = 1;
-    self.tableController.pageSize = 10;
+    self.tableController.pageSize = 20;
     [self.view addSubview:self.tableController.view];
     [self addChildViewController:self.tableController];
 }
@@ -84,7 +87,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150.0;
+    return 50.0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentify = @"BDRechargeTableViewCell";
@@ -97,15 +100,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
-//    BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
-//    controller.customNaviController = self.customNaviController;
-//    controller.orderModel = model;
-//    controller.editAble = NO;
-//    controller.delegate = self;
-//    controller.orderState = [NSString stringWithFormat:@"%d",model.state];
-//    [self.customNaviController pushViewController:controller animated:YES];
-    
+    BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+    [self createPayViewController:model];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -145,10 +141,45 @@
 
 #pragma mark - IBAction
 - (void)touchAddRechargeBarItem:(HNYNaviBarItem*)item{
-    
+    [self recharge];
+}
+
+- (void)createPayViewController:(BDOrderModel*)model{
+    model.pricemoney = model.money;
+    model.type = 1;
+    model.product = [[BDDinnerModel alloc] init];
+    model.product.description = @"充值";
+    model.title = @"充值";
+    BDPayViewController *controller = [[BDPayViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    controller.orderModel = model;
+    controller.delegate = self;
+    [self.customNaviController pushViewController:controller animated:YES];
 }
 
 #pragma mark - http request
+
+- (void)recharge{
+    [self showRequestingTips:nil];
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
+                                  [NSNumber numberWithInt:1],@"money",
+                                  [AppInfo headInfo],HTTP_HEAD,nil];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionRecharge];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionRecharge,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+}
 
 - (void)getRechargeList{
     [self showRequestingTips:nil];
@@ -182,41 +213,34 @@
     [self.hud removeFromSuperview];
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
-//            NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
-//            self.personModel = [HNYJSONUitls mappingDictionary:value toObjectWithClassName:@"BDPersonModel"];
-//            self.personModel.account = [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT];
-//            
-//            if ([value isKindOfClass:[NSDictionary class]]) {
-//                HNYDetailItemModel *walletItem = [self.tableViewController getItemWithKey:@"wallet"];
-//                HNYDetailItemModel *pointsItem = [self.tableViewController getItemWithKey:@"points"];
-//                
-//                walletItem.textValue = [NSString stringWithFormat:@"￥%@",self.personModel.money];
-//                walletItem.value = self.personModel.money;
-//                
-//                pointsItem.textValue = [NSString stringWithFormat:@"%d 积分",self.personModel.score];
-//                pointsItem.value = [NSNumber numberWithInt:self.personModel.score];
-//                
-//                
-//                [self.tableViewController changeViewAryObjectWith:walletItem atIndex:[self.viewAry indexOfObject:walletItem]];
-//                [self.tableViewController changeViewAryObjectWith:pointsItem atIndex:[self.viewAry indexOfObject:pointsItem]];
-//                [self.tableViewController.tableView reloadData];
-//            }
+        if ([ActionGetRechargeRecordList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDOrderModel"];
+            [self.tableController doneRefresh];
+            [self.tableController.list addObjectsFromArray:value];
+            [self.tableController.tableView reloadData];
+            if (value.count < self.tableController.pageSize)
+                self.tableController.enbleFooterLoad = NO;
+            else
+                self.tableController.enbleFooterLoad = YES;
             
+            if (self.tableController.list.count == 0)
+                [self showTips:@"无充值记录"];
         }
-        else if ([ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
+            BDOrderModel *model = [[BDOrderModel alloc] init];
+            [self createPayViewController:model];
         }
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([ActionGetRechargeRecordList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
         }
     }
     
     else{
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

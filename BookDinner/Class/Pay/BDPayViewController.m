@@ -35,7 +35,8 @@
     [super viewDidLoad];
     self.title = @"支付方式";
     [self createTable];
-    [self getPayDetail];
+    if (self.orderModel.type == 0)
+        [self getPayDetail];
     // Do any additional setup after loading the view.
 }
 

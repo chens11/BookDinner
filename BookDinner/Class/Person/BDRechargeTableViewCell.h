@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HNYTableViewCell.h"
+#import "BDOrderModel.h"
 
 @interface BDRechargeTableViewCell : HNYTableViewCell
 

@@ -22,7 +22,7 @@
     order.seller = SellerID;
     order.tradeNO = [NSString stringWithFormat:@"%d",model.id];//[self generateTradeNO]; //订单ID（由商家自行制定）
     order.productName = model.title; //商品标题
-    order.productDescription = @"ddd";//self.orderModel.description; //商品描述
+    order.productDescription = model.product.description; //商品描述
     order.amount = [NSString stringWithFormat:@"%.2f",[model.pricemoney floatValue]]; //商品价格
     order.notifyURL =  NotifyURL; //回调URL
     

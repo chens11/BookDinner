@@ -204,12 +204,13 @@
     if ([vController isKindOfClass:[BDPayViewController class]]) {
         if ([[info valueForKey:@"PayResult"] boolValue]) {
             [self.customNaviController popViewControllerAnimated:YES];
-            BDPayViewController *controller = (BDPayViewController*)vController;
+            [self pullDownTable];
         }
     }
     else if ([vController isKindOfClass:[BDOrderDetailViewController class]]) {
         if ([[info valueForKey:@"PayResult"] boolValue]) {
             [self.customNaviController popViewControllerAnimated:YES];
+            [self pullDownTable];
         }
     }
 }
