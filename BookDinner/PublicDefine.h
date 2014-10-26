@@ -58,7 +58,9 @@
 #define ActionTest                                  @"API/1.php"
 #define ActionReister                               @"API/?c=user&a=register"
 #define ActionLogin                                 @"API/?c=user&a=login"
+#define ActionGetConfirmCode                        @"API/?c=server&a=captcha"
 #define ActionChangePassWord                        @"API/?c=user&a=editpassword"
+#define ActionResetPassWord                         @"API/?c=user&a=getpassword"
 #define ActionGetPersonInfo                         @"API/?c=user&a=getinfo"
 #define ActionSavePersonInfo                        @"API/?c=user&a=editinfo"
 #define ActionSavePersonImg                         @"API/?c=user&a=editimg"
@@ -73,6 +75,7 @@
 #define ActionGetTodayRecommend                     @"API/?c=product&a=todayrecommended"
 #define ActionSing                                  @"API/?c=user&a=sign"
 #define ActionGetDeclaration                        @"API/?c=info&a=getdeclaration"
+#define ActionGetBossInfo                           @"API/?c=server&a=info"
 #define ActionGetMessage                            @"API/?c=info&a=getmessage"
 #define ActionAddMessage                            @"API/?c=info&a=addmessage"
 #define ActionCheckVersion                          @"API/?c=product&a=todayrecommended"
@@ -81,6 +84,9 @@
 #define ActionLuckyDraw                             @"API/?c=ticker&a=dazhuanpan"
 #define ActionLuckyDrawList                         @"API/?c=ticker&a=getticker"
 #define ActionGetOrderDetail                        @"API/?c=product&a=getorderid"
+#define ActionGetRechargeRecordList                 @"API/?c=user&a=getmoney"
+#define ActionRecharge                              @"API/?c=user&a=addmoney"
+#define ActionRechargeRecordById                    @"API/?c=user&a=getmoneyid"
 
 
 

@@ -189,6 +189,8 @@
 		CA20072B198D48CA00AB3E46 /* BDOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA20072A198D48CA00AB3E46 /* BDOrderTableViewCell.m */; };
 		CA25C95E19741A5300644082 /* BDChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA25C95D19741A5300644082 /* BDChangePasswordViewController.m */; };
 		CA25C96419741A9B00644082 /* BDCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA25C96319741A9B00644082 /* BDCouponViewController.m */; };
+		CA29065219FCB713004EF534 /* BDWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA29065119FCB713004EF534 /* BDWalletViewController.m */; };
+		CA29065519FCB97C004EF534 /* BDResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA29065419FCB97C004EF534 /* BDResetPasswordViewController.m */; };
 		CA2F1E1E19926AD500D3396C /* BDOrderReceiveAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */; };
 		CA2F1E2519927B7C00D3396C /* HNYActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E2219927B7C00D3396C /* HNYActionSheet.m */; };
 		CA2F1E2619927B7C00D3396C /* HNYTActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2F1E2419927B7C00D3396C /* HNYTActionSheetViewController.m */; };
@@ -246,6 +248,7 @@
 		CACB3D5C19A63EFE00E27064 /* bubbleMine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CACB3D5819A63EFE00E27064 /* bubbleMine@2x.png */; };
 		CACB3D5F19A64E4A00E27064 /* BDContactBossInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = CACB3D5E19A64E4A00E27064 /* BDContactBossInputView.m */; };
 		CACB3D6219A6563700E27064 /* BDPersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CACB3D6119A6563700E27064 /* BDPersonDetailViewController.m */; };
+		CACDB3A219FD1E6100C85710 /* BDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CACDB3A119FD1E6100C85710 /* BDRechargeTableViewCell.m */; };
 		CADC5B6E19A04939005C93B1 /* LLScanIndexEvoucher.png in Resources */ = {isa = PBXBuildFile; fileRef = CADC5B6D19A04939005C93B1 /* LLScanIndexEvoucher.png */; };
 		CADC5B7119A05248005C93B1 /* BDContactBossViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC5B7019A05248005C93B1 /* BDContactBossViewController.m */; };
 		CAE2706019C7361500D88268 /* my_wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = CAE2705F19C7361500D88268 /* my_wallet.png */; };
@@ -574,6 +577,10 @@
 		CA25C95D19741A5300644082 /* BDChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDChangePasswordViewController.m; sourceTree = "<group>"; };
 		CA25C96219741A9B00644082 /* BDCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDCouponViewController.h; sourceTree = "<group>"; };
 		CA25C96319741A9B00644082 /* BDCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDCouponViewController.m; sourceTree = "<group>"; };
+		CA29065019FCB713004EF534 /* BDWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDWalletViewController.h; sourceTree = "<group>"; };
+		CA29065119FCB713004EF534 /* BDWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDWalletViewController.m; sourceTree = "<group>"; };
+		CA29065319FCB97C004EF534 /* BDResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDResetPasswordViewController.h; sourceTree = "<group>"; };
+		CA29065419FCB97C004EF534 /* BDResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDResetPasswordViewController.m; sourceTree = "<group>"; };
 		CA2F1E1C19926AD500D3396C /* BDOrderReceiveAddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderReceiveAddressView.h; sourceTree = "<group>"; };
 		CA2F1E1D19926AD500D3396C /* BDOrderReceiveAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderReceiveAddressView.m; sourceTree = "<group>"; };
 		CA2F1E2119927B7C00D3396C /* HNYActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYActionSheet.h; sourceTree = "<group>"; };
@@ -669,6 +676,8 @@
 		CACB3D5E19A64E4A00E27064 /* BDContactBossInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDContactBossInputView.m; sourceTree = "<group>"; };
 		CACB3D6019A6563700E27064 /* BDPersonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPersonDetailViewController.h; sourceTree = "<group>"; };
 		CACB3D6119A6563700E27064 /* BDPersonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPersonDetailViewController.m; sourceTree = "<group>"; };
+		CACDB3A019FD1E6100C85710 /* BDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDRechargeTableViewCell.h; sourceTree = "<group>"; };
+		CACDB3A119FD1E6100C85710 /* BDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		CADC5B6D19A04939005C93B1 /* LLScanIndexEvoucher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LLScanIndexEvoucher.png; sourceTree = "<group>"; };
 		CADC5B6F19A05248005C93B1 /* BDContactBossViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDContactBossViewController.h; sourceTree = "<group>"; };
 		CADC5B7019A05248005C93B1 /* BDContactBossViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDContactBossViewController.m; sourceTree = "<group>"; };
@@ -751,6 +760,7 @@
 		0361C65D1973CB6E000CDB6C /* Person */ = {
 			isa = PBXGroup;
 			children = (
+				CA29064F19FCB6DF004EF534 /* Wallet */,
 				0361C65E1973CB90000CDB6C /* BDPersonViewController.h */,
 				0361C65F1973CB90000CDB6C /* BDPersonViewController.m */,
 				CAFCD32B19B3672A005EDD7D /* BDPersonModel.h */,
@@ -1037,6 +1047,8 @@
 				03BE224A196E3B3D005C0D03 /* BDLoginViewController.m */,
 				0361C6561973896C000CDB6C /* BDRegisterViewController.h */,
 				0361C6571973896C000CDB6C /* BDRegisterViewController.m */,
+				CA29065319FCB97C004EF534 /* BDResetPasswordViewController.h */,
+				CA29065419FCB97C004EF534 /* BDResetPasswordViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1374,6 +1386,17 @@
 				CA16CA9119B7562A00CDE5D8 /* BDCodeModel.m */,
 			);
 			path = Address;
+			sourceTree = "<group>";
+		};
+		CA29064F19FCB6DF004EF534 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				CA29065019FCB713004EF534 /* BDWalletViewController.h */,
+				CA29065119FCB713004EF534 /* BDWalletViewController.m */,
+				CACDB3A019FD1E6100C85710 /* BDRechargeTableViewCell.h */,
+				CACDB3A119FD1E6100C85710 /* BDRechargeTableViewCell.m */,
+			);
+			name = Wallet;
 			sourceTree = "<group>";
 		};
 		CA2BA5C119F5597500AC9DA8 /* Pay */ = {
@@ -1751,6 +1774,7 @@
 				03BE2397196E3B3E005C0D03 /* ELCAssetCell.m in Sources */,
 				CA16CA9519B7562A00CDE5D8 /* BDAddressSelectorViewController.m in Sources */,
 				CA2F1E2619927B7C00D3396C /* HNYTActionSheetViewController.m in Sources */,
+				CACDB3A219FD1E6100C85710 /* BDRechargeTableViewCell.m in Sources */,
 				03BE23AB196E3B3E005C0D03 /* EGORefreshTableHeaderView.m in Sources */,
 				03B6A14319AD82DC009F905F /* HNYDownTableView.m in Sources */,
 				03758E10196E907F00360E2D /* HNYTabBarItem.m in Sources */,
@@ -1758,6 +1782,7 @@
 				03BE23B1196E3B3E005C0D03 /* SDWebImageCompat.m in Sources */,
 				03BE2398196E3B3E005C0D03 /* ELCAssetTablePicker.m in Sources */,
 				03758E0A196E905300360E2D /* HNYNaviBarItem.m in Sources */,
+				CA29065519FCB97C004EF534 /* BDResetPasswordViewController.m in Sources */,
 				03BE2388196E3B3E005C0D03 /* ASIAuthenticationDialog.m in Sources */,
 				039BA93A19B4756A00B49FA2 /* EAIntroPage.m in Sources */,
 				03BE23A8196E3B3E005C0D03 /* SBJsonWriter.m in Sources */,
@@ -1816,6 +1841,7 @@
 				CA25C96419741A9B00644082 /* BDCouponViewController.m in Sources */,
 				0361C6581973896C000CDB6C /* BDRegisterViewController.m in Sources */,
 				03BE238D196E3B3E005C0D03 /* ASIHTTPRequest.m in Sources */,
+				CA29065219FCB713004EF534 /* BDWalletViewController.m in Sources */,
 				03BE23AA196E3B3E005C0D03 /* EGORefreshTableFooterView.m in Sources */,
 				03BE23B5196E3B3E005C0D03 /* SDWebImageManager.m in Sources */,
 				03BE23B4196E3B3E005C0D03 /* SDWebImageDownloaderOperation.m in Sources */,

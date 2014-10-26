@@ -13,6 +13,7 @@
 #import "BDLuckyDrawViewController.h"
 #import "HNYDetailTableViewController.h"
 #import "BDOrderViewController.h"
+#import "BDWalletViewController.h"
 
 @interface BDPersonViewController ()<HNYDetailTableViewControllerDelegate>
 @property (nonatomic,strong) NSMutableArray *menuAry;
@@ -256,20 +257,9 @@
         [self.customNaviController pushViewController:controller animated:YES];
     }
     else if ([@"wallet" isEqualToString:model.key]) {
-        self.payTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 250, 40)];
-        self.payTextField.keyboardType = UIKeyboardTypeNumberPad;
-        self.payTextField.placeholder = @"请输入您要充值的金额";
-        
-        [PXAlertView showAlertWithTitle:@"充值" message:nil cancelTitle:@"取消" otherTitle:@"充值" contentView:self.payTextField completion:^(BOOL cancelled) {
-            [self.view endEditing:YES];
-            if (!cancelled) {
-                BDPayViewController *controller = [[BDPayViewController alloc] init];
-                controller.delegate = self;
-                controller.customNaviController = self.customNaviController;
-                [self.customNaviController pushViewController:controller animated:YES];
-            }
-            self.payTextField.text = nil;
-        }];
+        BDWalletViewController *controller = [[BDWalletViewController alloc] init];
+        controller.customNaviController = self.customNaviController;
+        [self.customNaviController pushViewController:controller animated:YES];
     }
     
     else{

@@ -10,6 +10,7 @@
 #import "HNYCheckButton.h"
 #import "PXAlertView.h"
 #import "BDRegisterViewController.h"
+#import "BDResetPasswordViewController.h"
 
 @interface BDLoginViewController ()<UITextFieldDelegate,HNYCheckButtonDelegate>
 @property (nonatomic,strong) HNYCheckButton *rememberBtn;
@@ -169,33 +170,10 @@
 
 - (void)touchForgetButton:(UIButton*)sender{
     [self.view endEditing:YES];
-    UITextField *userField = [[UITextField alloc] initWithFrame:CGRectMake(10, 6, AlertViewWidth - 20, 30)];
-    userField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    userField.placeholder = @"请输入账号";
-    userField.backgroundColor = [UIColor colorWithWhite:125 alpha:0.5];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, AlertViewWidth, 44)];
-    view.backgroundColor = [UIColor clearColor];
-    [view addSubview:userField];
-    [PXAlertView showAlertWithTitle:@"找回密码" message:nil cancelTitle:@"取消" otherTitle:@"发送密码到手机" contentView:view completion:^(BOOL cancelled) {
-        if (!cancelled) {
-            if (userField.text.length == 0) {
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                // Configure for text only and offset down
-                hud.mode = MBProgressHUDModeText;
-                hud.margin = 10.f;
-                hud.yOffset = 80.f;
-                hud.removeFromSuperViewOnHide = YES;
-                hud.labelText = @"请您输入账号!";
-                [hud hide:YES afterDelay:2];
-                
-            }
-            else{
-                self.forgetAccount = userField.text;
-                [self getNewPassWord];
-            }
-        }
-    }];
+    BDResetPasswordViewController *controller = [[BDResetPasswordViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    [self.customNaviController pushViewController:controller animated:YES];
 }
 
 - (void)touchRegisterButton:(UIButton*)sender{
@@ -247,27 +225,6 @@
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
-
-}
-
-- (void)getNewPassWord{
-//    [self showRequestingTips:nil];
-//    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.forgetAccount,@"ACCOUNT",nil];
-//    
-//    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLoginActionCheckAccountPhone];
-//    NSURL *url = [NSURL URLWithString:urlString];
-//    
-//    NSLog(@"url = %@ \n param = %@",urlString,param);
-//    
-//    NSString *jsonString = [param JSONRepresentation];
-//    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-//    NSData *base64Data = [[data base64EncodedString] dataUsingEncoding:NSUTF8StringEncoding];
-//    
-//    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-//    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionLoginActionCheckAccountPhone,@"userInfo", nil];
-//    [formRequest appendPostData:base64Data];
-//    [formRequest setDelegate:self];
-//    [formRequest startAsynchronous];
 
 }
 

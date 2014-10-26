@@ -182,7 +182,7 @@
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
     [self.hud removeFromSuperview];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionChangePassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {

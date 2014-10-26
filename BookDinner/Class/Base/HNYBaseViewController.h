@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HNYRefreshTableViewController.h"
+#import "HNYDetailTableViewController.h"
 #import "PublicDefine.h"
 #import "HNYDelegate.h"
 #import "HNYNaviBar.h"
@@ -26,6 +27,7 @@
 #import "HNYTools.h"
 #import "HNYTextField.h"
 #import "BDPersonModel.h"
+#import "HNYDetailItemModel.h"
 
 @interface HNYBaseViewController : UIViewController <HNYDelegate>
 @property (nonatomic,strong) UINavigationController *customNaviController;

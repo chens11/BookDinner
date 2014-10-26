@@ -13,6 +13,7 @@
 @synthesize ticker = _ticker;
 @synthesize product = _product;
 @synthesize address = _address;
+@synthesize state_refund = _state_refund;
 
 - (void)setState:(int)state{
     _state = state;
@@ -69,5 +70,30 @@
     else
         _address = nil;
 }
+- (void)setState_refund:(int)state_refund{
+    _state_refund = state_refund;
+    // ： 退款状态（0无，1有退款，2不同意退款，3等买家退货，4等卖家收货，5退款成功，6退款关闭）
+    if (_state_refund == 0) {
+        self.state_refund_name = @"";
+    }
+    else if (_state_refund == 1){
+        self.state_refund_name = @"有退款";
+    }
+    else if (_state_refund == 2){
+        self.state_refund_name = @"不同意退款";
+    }
+    else if (_state_refund == 3){
+        self.state_refund_name = @"等买家退货";
+    }
+    else if (_state_refund == 4){
+        self.state_refund_name = @"等卖家收货";
+    }
+    else if (_state_refund == 5){
+        self.state_refund_name = @"退款成功";
+    }
+    else if (_state_refund == 6){
+        self.state_refund_name = @"退款关闭";
+    }
 
+}
 @end

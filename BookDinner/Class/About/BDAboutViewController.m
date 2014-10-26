@@ -40,7 +40,7 @@
     [self createTable];
     [self setContent];
     [self getDeclaration];
-
+    [self getBossInfo];
     self.webView = [[UIWebView alloc] init];
     [self.view addSubview:self.webView];
     // Do any additional setup after loading the view.
@@ -242,6 +242,26 @@
     [formRequest startAsynchronous];
 }
 
+- (void)getBossInfo{
+    [self showRequestingTips:nil];
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [AppInfo headInfo],HTTP_HEAD,
+                                  nil];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetBossInfo];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetBossInfo,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+}
+
 
 - (void)checkVersion{
     
@@ -269,7 +289,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
-    NSLog(@"result = %@",string);
+    NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
@@ -285,12 +305,26 @@
                 }
             }];
         }
+        else  if ([ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            NSLog(@"dd");
+//            email = "admin@yaxinw.com";
+//            icp = "\U7ca4ICP\U5907 0123456789-1";
+//            name = "\U79be\U7f8e\U5b9a\U98df";
+//            phone = 13800138000;
+//            qq = 659599263;
+//            tel = "0663-8888888";
+//            username = "\U67d0\U751f";
+
+        }
     }
     else{
         if ([ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
         else  if ([ActionCheckVersion isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
+        else  if ([ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

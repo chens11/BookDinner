@@ -46,8 +46,6 @@
 #pragma mark - create subview
 - (void)createNaviBarItems{
     [super createNaviBarItems];
-//    HNYNaviBarItem *barItem = [HNYNaviBarItem initWithTitle:@"编辑" target:self action:@selector(touchDeleteBarItem:)];
-//    self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
 }
 
 - (void)createTopView{
