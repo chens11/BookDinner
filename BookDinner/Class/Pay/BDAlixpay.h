@@ -19,7 +19,9 @@
 //收款支付宝账号
 #define SellerID  @"m13430089368@163.com"
 
-#define NotifyURL @"http%3a%2f%2fwww.ihomy.cn%2fAPI%2faliapyapp%2fnotify_url.php"
+#define NotifyURL @"http%3a%2f%2fwww.ihomy.cn%2fAPI%2falipayapp%2fnotify_url.php"
+
+
 //xiaochang2014
 //xiaochang20140904
 

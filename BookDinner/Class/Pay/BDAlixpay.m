@@ -21,6 +21,10 @@
     order.partner = PartnerID;
     order.seller = SellerID;
     order.tradeNO = [NSString stringWithFormat:@"%d",model.id];//[self generateTradeNO]; //订单ID（由商家自行制定）
+    //1表示充值
+    if (model.type == 1) {
+        order.tradeNO = [NSString stringWithFormat:@"money%d",model.id];//[self generateTradeNO]; //订单ID（由商家自行制定）
+    }
     order.productName = model.title; //商品标题
     order.productDescription = model.product.description; //商品描述
     order.amount = [NSString stringWithFormat:@"%.2f",[model.pricemoney floatValue]]; //商品价格

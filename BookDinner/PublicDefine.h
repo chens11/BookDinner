@@ -87,8 +87,5 @@
 #define ActionGetRechargeRecordList                 @"API/?c=user&a=getmoney"
 #define ActionRecharge                              @"API/?c=user&a=money"
 #define ActionRechargeRecordById                    @"API/?c=user&a=getmoneyid"
-
-
-
-
+#define ActionPayByWallet                           @"API/?c=product&a=alipaygoods"
 

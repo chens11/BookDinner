@@ -28,7 +28,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.moneyAry = [NSArray arrayWithObjects:@"1",@"50",@"100",@"200",@"500",@"1000", nil];
+        self.moneyAry = [NSArray arrayWithObjects:@"￥ 1",@"￥ 50",@"￥ 100",@"￥ 200",@"￥ 500",@"￥ 1000", nil];
 
         // Custom initialization
     }
