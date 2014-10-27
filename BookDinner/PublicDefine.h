@@ -85,7 +85,7 @@
 #define ActionLuckyDrawList                         @"API/?c=ticker&a=getticker"
 #define ActionGetOrderDetail                        @"API/?c=product&a=getorderid"
 #define ActionGetRechargeRecordList                 @"API/?c=user&a=getmoney"
-#define ActionRecharge                              @"API/?c=user&a=addmoney"
+#define ActionRecharge                              @"API/?c=user&a=money"
 #define ActionRechargeRecordById                    @"API/?c=user&a=getmoneyid"
 
 

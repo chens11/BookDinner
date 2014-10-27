@@ -9,9 +9,15 @@
 #import "BDWalletViewController.h"
 #import "BDRechargeTableViewCell.h"
 #import "BDPayViewController.h"
+#import "BDLoginViewController.h"
+#import "BDOrderTopView.h"
+#import "HNYActionSheet.h"
 
-@interface BDWalletViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,HNYDelegate>
+@interface BDWalletViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,HNYDelegate,HNYActionSheetDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
+@property (nonatomic,strong) NSString *money;
+@property (nonatomic,strong) NSArray *moneyAry;
+@property (nonatomic,strong) NSString *orderState;
 
 
 @end
@@ -22,6 +28,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.moneyAry = [NSArray arrayWithObjects:@"1",@"50",@"100",@"200",@"500",@"1000", nil];
+
         // Custom initialization
     }
     return self;
@@ -31,8 +39,8 @@
 {
     [super viewDidLoad];
     self.title = @"充值记录";
+    [self createTopView];
     [self createTable];
-    [self getRechargeList];
     // Do any additional setup after loading the view.
 }
 
@@ -48,9 +56,42 @@
     self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
 }
 #pragma mark - create subview
+- (void)createTopView{
+    BDOrderTopView *topView = [[BDOrderTopView alloc] initWithFrame:CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, 44)];
+    topView.delegate = self;
+    [self.view addSubview:topView];
+    //（0待付款，1已付款，2派送中，3成交，4失效）
+    BDMenuModel *all = [[BDMenuModel alloc] init];
+    all.title = @"全部";
+    all.type = @"0,1,2,3,4";
+    
+    BDMenuModel *unPay = [[BDMenuModel alloc] init];
+    unPay.title = @"待付款";
+    unPay.type = @"0";
+    
+    BDMenuModel *payed = [[BDMenuModel alloc] init];
+    payed.title = @"已付款";
+    payed.type = @"1";
+    
+    BDMenuModel *sending = [[BDMenuModel alloc] init];
+    sending.title = @"充值中";
+    sending.type = @"2";
+    
+    BDMenuModel *done = [[BDMenuModel alloc] init];
+    done.title = @"成交";
+    done.type = @"3";
+    
+    BDMenuModel *out = [[BDMenuModel alloc] init];
+    out.title = @"失效";
+    out.type = @"4";
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:all,unPay,payed,sending,done,out, nil];
+    topView.subMenuAry = array;
+    topView.defaultSelectedIndex = 0;
+}
+
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
-    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height+44, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height-44);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];
@@ -59,6 +100,16 @@
     self.tableController.pageSize = 20;
     [self.view addSubview:self.tableController.view];
     [self addChildViewController:self.tableController];
+}
+
+#pragma mark - HNYActionSheetDelegate
+// caled when select the String ary
+- (void)hNYActionSheet:(HNYActionSheet *)actionSheet didSelectStringAryAtIndex:(NSInteger)index{
+    [actionSheet hide];
+    if (actionSheet.tag == 100) {
+        self.money = [self.moneyAry objectAtIndex:index];
+        [self recharge];
+    }
 }
 
 
@@ -87,7 +138,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50.0;
+    return 100;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentify = @"BDRechargeTableViewCell";
@@ -95,6 +146,7 @@
     if (!cell) {
         cell = [[BDRechargeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
     }
+    cell.delegate = self;
     [cell iniDataWithModel:[self.tableController.list objectAtIndex:indexPath.row]];
     return cell;
 }
@@ -141,7 +193,12 @@
 
 #pragma mark - IBAction
 - (void)touchAddRechargeBarItem:(HNYNaviBarItem*)item{
-    [self recharge];
+    HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择充值金额"
+                                            withStringAry:self.moneyAry
+                                           cancelBtnTitle:nil
+                                             sureBtnTitle:nil
+                                                 delegate:self];
+    sheet.tag = 100;
 }
 
 - (void)createPayViewController:(BDOrderModel*)model{
@@ -156,6 +213,35 @@
     controller.delegate = self;
     [self.customNaviController pushViewController:controller animated:YES];
 }
+#pragma mark - instance fun
+- (void)login{
+    BDLoginViewController *controller = [[BDLoginViewController alloc] init];
+    controller.customNaviController = self.customNaviController;
+    [self.customNaviController pushViewController:controller animated:YES];
+}
+#pragma mark - HNYDelegate
+- (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
+    if ([aView isKindOfClass:[BDOrderTopView class]]) {
+        BDMenuModel *model = [info valueForKey:@"subMenuSelected"];
+        self.orderState = model.type;
+        [self.tableController.list removeAllObjects];
+        [self getRechargeList];
+    }
+    else if ([aView isKindOfClass:[BDRechargeTableViewCell class]]){
+        NSIndexPath *indexPath = [self.tableController.tableView indexPathForCell:(UITableViewCell*)aView];
+        BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+        [self createPayViewController:model];
+    }
+
+}
+- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
+    if ([vController isKindOfClass:[BDPayViewController class]]) {
+        if ([[info valueForKey:@"PayResult"] boolValue]) {
+            [self.customNaviController popViewControllerAnimated:YES];
+            [self pullDownTable];
+        }
+    }
+}
 
 #pragma mark - http request
 
@@ -163,7 +249,7 @@
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  [NSNumber numberWithInt:1],@"money",
+                                  [NSNumber numberWithInt:[self.money intValue]],@"money",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
@@ -187,7 +273,7 @@
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   [NSNumber numberWithInt:self.tableController.pageNum],@"pagenum",
                                   [NSNumber numberWithInt:self.tableController.pageSize],@"pagesize",
-                                  @"0,1,2,3,4",@"state",
+                                  self.orderState,@"state",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
@@ -224,12 +310,18 @@
                 self.tableController.enbleFooterLoad = YES;
             
             if (self.tableController.list.count == 0)
-                [self showTips:@"无充值记录"];
+                [self showTips:@"无记录"];
         }
         else if ([ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
-            BDOrderModel *model = [[BDOrderModel alloc] init];
-            [self createPayViewController:model];
+            NSDictionary *value = [dictionary valueForKey:@"value"];
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                BDOrderModel *model = [[BDOrderModel alloc] init];
+                model.money = self.money;
+                model.id = [[value valueForKey:@"id"] intValue];
+                [self createPayViewController:model];
+            }
+
         }
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){

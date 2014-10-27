@@ -42,6 +42,10 @@
 {
     [super viewDidLoad];
     self.title = @"个人中心";
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loginNotifcation:)
+                                                 name:NotificationActionLogin object:nil];
+
     [self createTable];
     [self setContent];
     [self getPersonInfo];
@@ -62,6 +66,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -278,6 +286,9 @@
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
     controller.customNaviController = self.customNaviController;
     [self.customNaviController pushViewController:controller animated:YES];
+}
+- (void)loginNotifcation:(NSNotification*)fication{
+    self.needRefresh = YES;
 }
 
 #pragma mark - 

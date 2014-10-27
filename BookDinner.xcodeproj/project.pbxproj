@@ -37,6 +37,7 @@
 		03758E0A196E905300360E2D /* HNYNaviBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 03758E09196E905300360E2D /* HNYNaviBarItem.m */; };
 		03758E0D196E906B00360E2D /* HNYTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 03758E0C196E906B00360E2D /* HNYTabBar.m */; };
 		03758E10196E907F00360E2D /* HNYTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 03758E0F196E907F00360E2D /* HNYTabBarItem.m */; };
+		0391785E19FDE31300DB9587 /* BDIhomyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0391785D19FDE31300DB9587 /* BDIhomyModel.m */; };
 		039BA93A19B4756A00B49FA2 /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 039BA93719B4756A00B49FA2 /* EAIntroPage.m */; };
 		039BA93B19B4756A00B49FA2 /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 039BA93919B4756A00B49FA2 /* EAIntroView.m */; };
 		03A22D7C199DB47100420B4E /* button_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03A22D7B199DB47100420B4E /* button_info@2x.png */; };
@@ -336,6 +337,8 @@
 		03758E0C196E906B00360E2D /* HNYTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNYTabBar.m; sourceTree = "<group>"; };
 		03758E0E196E907F00360E2D /* HNYTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYTabBarItem.h; sourceTree = "<group>"; };
 		03758E0F196E907F00360E2D /* HNYTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNYTabBarItem.m; sourceTree = "<group>"; };
+		0391785C19FDE31300DB9587 /* BDIhomyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDIhomyModel.h; sourceTree = "<group>"; };
+		0391785D19FDE31300DB9587 /* BDIhomyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDIhomyModel.m; sourceTree = "<group>"; };
 		039BA93619B4756A00B49FA2 /* EAIntroPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroPage.h; sourceTree = "<group>"; };
 		039BA93719B4756A00B49FA2 /* EAIntroPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroPage.m; sourceTree = "<group>"; };
 		039BA93819B4756A00B49FA2 /* EAIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroView.h; sourceTree = "<group>"; };
@@ -786,6 +789,8 @@
 			children = (
 				0361C6621973CC10000CDB6C /* BDAboutViewController.h */,
 				0361C6631973CC10000CDB6C /* BDAboutViewController.m */,
+				0391785C19FDE31300DB9587 /* BDIhomyModel.h */,
+				0391785D19FDE31300DB9587 /* BDIhomyModel.m */,
 				CADC5B6F19A05248005C93B1 /* BDContactBossViewController.h */,
 				CADC5B7019A05248005C93B1 /* BDContactBossViewController.m */,
 				CACB3D5219A639D600E27064 /* BDContactBossTableViewCell.h */,
@@ -1838,6 +1843,7 @@
 				03BE23BE196E3B3E005C0D03 /* MBProgressHUD.m in Sources */,
 				CACB3D5F19A64E4A00E27064 /* BDContactBossInputView.m in Sources */,
 				03BE23BC196E3B3E005C0D03 /* UIImageView+WebCache.m in Sources */,
+				0391785E19FDE31300DB9587 /* BDIhomyModel.m in Sources */,
 				CA25C96419741A9B00644082 /* BDCouponViewController.m in Sources */,
 				0361C6581973896C000CDB6C /* BDRegisterViewController.m in Sources */,
 				03BE238D196E3B3E005C0D03 /* ASIHTTPRequest.m in Sources */,

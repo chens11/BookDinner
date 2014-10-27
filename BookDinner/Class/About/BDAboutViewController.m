@@ -9,11 +9,11 @@
 #import "BDAboutViewController.h"
 #import "HNYDetailTableViewController.h"
 #import "BDContactBossViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface BDAboutViewController ()<HNYDetailTableViewControllerDelegate,HNYDelegate>
+@interface BDAboutViewController ()<HNYDetailTableViewControllerDelegate,HNYDelegate,MFMailComposeViewControllerDelegate>
 @property (nonatomic,strong) NSMutableArray *viewAry;
 @property (nonatomic,strong) HNYDetailTableViewController *tableViewController;
-@property (nonatomic,strong) NSString *introduction;
 @property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,strong) UITextField *phoneField;
 @property (nonatomic,strong) UITextField *userNameField;
@@ -27,6 +27,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.ihomyModel = [[BDIhomyModel alloc] init];
+        self.ihomyModel.developerEmail = @"o.m.g@foxmail.com";
         _viewAry = [[NSMutableArray alloc] initWithCapacity:0];
         // Custom initialization
     }
@@ -60,9 +62,7 @@
     self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 50;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
-    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight*9);
-    if (self.tableViewController.cellHeight * 9 > self.view.frame.size.height - self.naviBar.frame.size.height)
-        self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
+    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
     [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     [self.view addSubview:self.tableViewController.view];
     [self addChildViewController:self.tableViewController];
@@ -78,7 +78,7 @@
     HNYDetailItemModel *numItem = [[HNYDetailItemModel alloc] init];
     numItem.viewType = Label;
     numItem.editable = YES;
-    numItem.name = @"  欢迎页";
+    numItem.name = @"  欢 迎 页";
     numItem.key = @"welocome";
     numItem.height = @"one";
     numItem.textFont = [UIFont systemFontOfSize:15.0];
@@ -88,7 +88,7 @@
     HNYDetailItemModel *declareItem = [[HNYDetailItemModel alloc] init];
     declareItem.viewType = Label;
     declareItem.editable = YES;
-    declareItem.name = @"  介绍";
+    declareItem.name = @"  介     绍";
     declareItem.key = @"declare";
     declareItem.height = @"one";
     declareItem.textFont = [UIFont systemFontOfSize:15.0];
@@ -100,8 +100,8 @@
     typeItem.editable = YES;
     typeItem.height = @"one";
     typeItem.key = @"check_version";
-    typeItem.textValue = @"2.03";
-    typeItem.name = @"  检查更新";
+    typeItem.textValue = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString*)kCFBundleVersionKey];
+    typeItem.name = @"  版     本";
     typeItem.textFont = [UIFont systemFontOfSize:15.0];
     typeItem.textAlignment = NSTextAlignmentRight;
     typeItem.textColor = [UIColor lightGrayColor];
@@ -113,28 +113,57 @@
     phoneItem.editable = YES;
     phoneItem.height = @"one";
     phoneItem.key = @"phone";
-    phoneItem.textValue = @"18988995051";
-    phoneItem.value = @"18988995051";
-    phoneItem.name = @"  客服电话";
+    phoneItem.textValue = self.ihomyModel.phone;
+    phoneItem.value = self.ihomyModel.phone;
+    phoneItem.name = @"  老板手机";
     phoneItem.textFont = [UIFont systemFontOfSize:15.0];
     phoneItem.textAlignment = NSTextAlignmentRight;
     phoneItem.textColor = [UIColor lightGrayColor];
     phoneItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:phoneItem];
     
-    HNYDetailItemModel *developItem = [[HNYDetailItemModel alloc] init];
-    developItem.viewType = Label;
-    developItem.editable = YES;
-    developItem.height = @"one";
-    developItem.key = @"developer";
-    developItem.textValue = @"o.m.g@foxmail.com";
-    developItem.value = @"o.m.g@foxmail.com";
-    developItem.name = @"  开发者";
-    developItem.textFont = [UIFont systemFontOfSize:15.0];
-    developItem.textAlignment = NSTextAlignmentRight;
-    developItem.textColor = [UIColor lightGrayColor];
-    developItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    [_viewAry addObject:developItem];
+    HNYDetailItemModel *telItem = [[HNYDetailItemModel alloc] init];
+    telItem.viewType = Label;
+    telItem.editable = YES;
+    telItem.height = @"one";
+    telItem.key = @"tel";
+    telItem.textValue = self.ihomyModel.tel;
+    telItem.value = self.ihomyModel.tel;
+    telItem.name = @"  老板固话";
+    telItem.textFont = [UIFont systemFontOfSize:15.0];
+    telItem.textAlignment = NSTextAlignmentRight;
+    telItem.textColor = [UIColor lightGrayColor];
+    telItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [_viewAry addObject:telItem];
+    
+    HNYDetailItemModel *qqItem = [[HNYDetailItemModel alloc] init];
+    qqItem.viewType = Label;
+    qqItem.editable = YES;
+    qqItem.height = @"one";
+    qqItem.key = @"qq";
+    qqItem.textValue = self.ihomyModel.qq;
+    qqItem.value = self.ihomyModel.qq;
+    qqItem.name = @"  老板QQ";
+    qqItem.textFont = [UIFont systemFontOfSize:15.0];
+    qqItem.textAlignment = NSTextAlignmentRight;
+    qqItem.textColor = [UIColor lightGrayColor];
+    qqItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [_viewAry addObject:qqItem];
+    
+    HNYDetailItemModel *emailItem = [[HNYDetailItemModel alloc] init];
+    emailItem.viewType = Label;
+    emailItem.editable = YES;
+    emailItem.height = @"one";
+    emailItem.key = @"email";
+    emailItem.textValue = self.ihomyModel.email;
+    emailItem.value = self.ihomyModel.email;
+    emailItem.name = @"  老板邮箱";
+    emailItem.textFont = [UIFont systemFontOfSize:15.0];
+    emailItem.textAlignment = NSTextAlignmentRight;
+    emailItem.textColor = [UIColor lightGrayColor];
+    emailItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [_viewAry addObject:emailItem];
+    
     
     HNYDetailItemModel *bossItem = [[HNYDetailItemModel alloc] init];
     bossItem.viewType = Label;
@@ -148,7 +177,21 @@
     bossItem.textAlignment = NSTextAlignmentRight;
     bossItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:bossItem];
+
     
+    HNYDetailItemModel *developItem = [[HNYDetailItemModel alloc] init];
+    developItem.viewType = Label;
+    developItem.editable = YES;
+    developItem.height = @"one";
+    developItem.key = @"developer";
+    developItem.textValue = self.ihomyModel.developerEmail;
+    developItem.value = self.ihomyModel.developerEmail;
+    developItem.name = @"  开发者";
+    developItem.textFont = [UIFont systemFontOfSize:15.0];
+    developItem.textAlignment = NSTextAlignmentRight;
+    developItem.textColor = [UIColor lightGrayColor];
+    developItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [_viewAry addObject:developItem];
     self.tableViewController.viewAry = _viewAry;
     [self.tableViewController.tableView reloadData];
 }
@@ -163,7 +206,7 @@
         [imgView setImage:[UIImage imageNamed:@"AppIcon11"]];
         [numView addSubview:imgView];
 
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.tableViewController.cellHeight*2+10, self.view.frame.size.width, 20)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.tableViewController.cellHeight*2+15, self.view.frame.size.width, 20)];
         label.backgroundColor = [UIColor clearColor];
         label.text = @"禾美定食";
         label.textAlignment = NSTextAlignmentCenter;
@@ -193,7 +236,7 @@
     else if ([@"declare" isEqualToString:model.key]){
         HNYBaseViewController *controller = [[HNYBaseViewController alloc] init];
         UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height)];
-        [webView loadHTMLString:self.introduction baseURL:nil];
+        [webView loadHTMLString:self.ihomyModel.introduction baseURL:nil];
         [controller.view addSubview:webView];
         controller.title = @"介绍";
         controller.customNaviController = self.customNaviController;
@@ -205,14 +248,48 @@
     else if ([@"phone" isEqualToString:model.key]){
         [self.webView loadHTMLString:nil baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",model.value]]];
     }
+    else if ([@"tel" isEqualToString:model.key]){
+        [self.webView loadHTMLString:nil baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",model.value]]];
+    }
     else if ([@"developer" isEqualToString:model.key]){
-        [self.webView loadHTMLString:nil baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"mail:%@",model.value]]];
+//        [self writeMail:model.value];
+    }
+    else if ([@"email" isEqualToString:model.key]){
+//        [self writeMail:model.value];
     }
     else if ([@"welocome" isEqualToString:model.key]){
         [BDTutorialView presentTutorialViewWith:nil completion:^(BOOL done) {
             
         }];
     }
+}
+
+-(void)writeMail:(NSString*)email
+{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    
+    [picker setSubject:@""];
+    
+    // Set up recipients
+    NSArray *toRecipients = [NSArray arrayWithObject:email];
+    
+    
+    [picker setToRecipients:toRecipients];
+    
+    // Attach an image to the email
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"" ofType:@"png"];
+//    NSData *myData = [NSData dataWithContentsOfFile:path];
+//    [picker addAttachmentData:myData mimeType:@"image/png" fileName:@""];
+    
+    // Fill out the email body text
+    
+    [self presentModalViewController:picker animated:YES];
+    
+}
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
+    [controller dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
 }
 #pragma mark - instance fun
 - (void)login{
@@ -295,7 +372,7 @@
         if ([ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSDictionary *value = [dictionary valueForKey:@"value"];
             if ([value isKindOfClass:[NSDictionary class]]) {
-                self.introduction = [value valueForKey:@"content"];
+                self.ihomyModel.introduction = [value valueForKey:@"content"];
             }
         }
         else  if ([ActionCheckVersion isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
@@ -306,15 +383,31 @@
             }];
         }
         else  if ([ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
-            NSLog(@"dd");
-//            email = "admin@yaxinw.com";
-//            icp = "\U7ca4ICP\U5907 0123456789-1";
-//            name = "\U79be\U7f8e\U5b9a\U98df";
-//            phone = 13800138000;
-//            qq = 659599263;
-//            tel = "0663-8888888";
-//            username = "\U67d0\U751f";
+            NSDictionary *value = [dictionary valueForKey:@"value"];
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                [HNYJSONUitls mappingDictionary:value toObject:self.ihomyModel];
+                
+                HNYDetailItemModel *phoneItem = [self.tableViewController getItemWithKey:@"phone"];
+                HNYDetailItemModel *telItem = [self.tableViewController getItemWithKey:@"tel"];
+                HNYDetailItemModel *qqItem = [self.tableViewController getItemWithKey:@"qq"];
+                HNYDetailItemModel *emailItem = [self.tableViewController getItemWithKey:@"email"];
+                phoneItem.value = self.ihomyModel.phone;
+                phoneItem.textValue = self.ihomyModel.phone;
+                telItem.value = self.ihomyModel.tel;
+                telItem.textValue = self.ihomyModel.tel;
+                qqItem.value = self.ihomyModel.qq;
+                qqItem.textValue = self.ihomyModel.qq;
+                emailItem.value = self.ihomyModel.email;
+                emailItem.textValue = self.ihomyModel.email;
+                
+                
+                [self.tableViewController changeViewAryObjectWith:phoneItem atIndex:[self.viewAry indexOfObject:phoneItem]];
+                [self.tableViewController changeViewAryObjectWith:telItem atIndex:[self.viewAry indexOfObject:telItem]];
+                [self.tableViewController changeViewAryObjectWith:qqItem atIndex:[self.viewAry indexOfObject:qqItem]];
+                [self.tableViewController changeViewAryObjectWith:emailItem atIndex:[self.viewAry indexOfObject:emailItem]];
+                [self.tableViewController.tableView reloadData];
 
+            }
         }
     }
     else{

@@ -9,7 +9,8 @@
 #import "HNYBaseViewController.h"
 #import "BDTutorialView.h"
 #import "BDLoginViewController.h"
+#import "BDIhomyModel.h"
 
 @interface BDAboutViewController : HNYBaseViewController
-
+@property (nonatomic,strong) BDIhomyModel *ihomyModel;
 @end
