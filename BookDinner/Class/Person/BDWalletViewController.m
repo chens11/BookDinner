@@ -28,7 +28,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.moneyAry = [NSArray arrayWithObjects:@"￥ 1",@"￥ 50",@"￥ 100",@"￥ 200",@"￥ 500",@"￥ 1000", nil];
+        self.moneyAry = [NSArray arrayWithObjects:@"1",@"50",@"100",@"200",@"500",@"1000", nil];
 
         // Custom initialization
     }
@@ -193,7 +193,7 @@
 
 #pragma mark - IBAction
 - (void)touchAddRechargeBarItem:(HNYNaviBarItem*)item{
-    HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择充值金额"
+    HNYActionSheet *sheet = [HNYActionSheet showWithTitle:@"请选择充值金额(元)"
                                             withStringAry:self.moneyAry
                                            cancelBtnTitle:nil
                                              sureBtnTitle:nil

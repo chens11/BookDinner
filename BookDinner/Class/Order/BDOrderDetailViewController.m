@@ -360,7 +360,7 @@
     HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
     if (sender.tag == 100) {
         if ([numItem.value intValue] > 1) {
-            if (self.orderModel.ticker.type == 1 && [numItem.value intValue] == 2)
+            if ([numItem.value intValue] == 3)
                 return;
             numItem.value = [NSString stringWithFormat:@"%d",[numItem.value intValue] - 1];
             numItem.textValue = numItem.value;
@@ -520,13 +520,13 @@
         [self.tableViewController changeViewAryObjectWith:couponItem atIndex:[self.viewAry indexOfObject:couponItem]];
         //分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
         if (self.orderModel.ticker.type == 2 && [numItem.value intValue] < 2) {
-            numItem.value = [NSString stringWithFormat:@"%d",[numItem.value intValue] + 1];
-            numItem.textValue = numItem.value;
-            self.numTextField.text = numItem.value;
-            [self.tableViewController changeViewAryObjectWith:numItem atIndex:[self.viewAry indexOfObject:numItem]];
+//            numItem.value = [NSString stringWithFormat:@"%d",[numItem.value intValue] + 1];
+//            numItem.textValue = numItem.value;
+//            self.numTextField.text = numItem.value;
+//            [self.tableViewController changeViewAryObjectWith:numItem atIndex:[self.viewAry indexOfObject:numItem]];
         }
-        else if (self.orderModel.ticker.type == 3 && [numItem.value intValue] < 3) {
-            numItem.value = [NSString stringWithFormat:@"%d",3];
+        else if (self.orderModel.ticker.type == 3 && [numItem.value intValue] < 2) {
+            numItem.value = [NSString stringWithFormat:@"%d",2];
             numItem.textValue = numItem.value;
             self.numTextField.text = numItem.value;
             [self.tableViewController changeViewAryObjectWith:numItem atIndex:[self.viewAry indexOfObject:numItem]];
@@ -688,14 +688,14 @@
     HNYDetailItemModel *numItem = [self.tableViewController getItemWithKey:@"num"];
     if (self.orderModel.ticker.type == 1) {
         price = money * ([numItem.value intValue] - 1);
-        price = +1;
+        price += 1.00;
     }
-    else if (self.orderModel.ticker.type == 2){
-        price = money * ([numItem.value intValue] - 1);
-    }
-    else if (self.orderModel.ticker.type == 3){
-        price = money * ([numItem.value intValue] - 1);
-    }
+//    else if (self.orderModel.ticker.type == 2){
+//        price = money * ([numItem.value intValue] - 1);
+//    }
+//    else if (self.orderModel.ticker.type == 3){
+//        price = money * ([numItem.value intValue] - 1);
+//    }
     else
         price = money * [numItem.value intValue];
     self.orderModel.pricemoney = [NSString stringWithFormat:@"%f",price];
