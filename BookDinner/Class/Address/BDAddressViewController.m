@@ -86,21 +86,19 @@
     if (self.selector) {
         BDAddressModel *model = [self.menuAry objectAtIndex:indexPath.row];
         [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:model,@"BDAddressModel", nil]];
-        [self.customNaviController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }else{
         BDAddressDetailViewController *controller = [[BDAddressDetailViewController alloc] init];
         controller.delegate = self;
         controller.addressModel = [self.menuAry objectAtIndex:indexPath.row];
-        controller.customNaviController  = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
 #pragma mark - instance fun
 - (void)login{
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 
@@ -112,8 +110,7 @@
     controller.delegate = self;
     if (self.menuAry.count == 0)
         controller.isDefault = YES;
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - http request

@@ -11,6 +11,7 @@
 
 @interface BDHomeViewController : HNYBaseViewController
 @property (nonatomic,strong) BDDinnerModel *dinnerModel;
+@property (nonatomic,strong) UINavigationController *customNaviController;
 
 - (void)getTodayRecommend;
 

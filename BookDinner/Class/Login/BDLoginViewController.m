@@ -172,15 +172,13 @@
     [self.view endEditing:YES];
     
     BDResetPasswordViewController *controller = [[BDResetPasswordViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)touchRegisterButton:(UIButton*)sender{
     [self.view endEditing:YES];
     BDRegisterViewController *controller = [[BDRegisterViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - HNYCheckButtonDelegate
@@ -258,7 +256,7 @@
 }
 
 - (void)popViewController{
-    [self.customNaviController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

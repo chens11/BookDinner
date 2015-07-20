@@ -30,7 +30,6 @@
 #import "HNYDetailItemModel.h"
 
 @interface HNYBaseViewController : UIViewController <HNYDelegate>
-@property (nonatomic,strong) UINavigationController *customNaviController;
 @property (nonatomic,strong) HNYNaviBar *naviBar;
 @property (nonatomic,strong) HNYTabBar *tabBar;
 @property (nonatomic,weak) id <HNYDelegate> delegate;

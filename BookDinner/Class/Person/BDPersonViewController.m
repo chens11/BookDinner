@@ -216,7 +216,7 @@
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:USER_IS_LOGIN];
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:HTTP_TOKEN];
     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationActionLogout object:nil userInfo:nil];
-    [self.customNaviController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
   
 }
 #pragma mark - HNYDetailTableViewControllerDelegate
@@ -231,43 +231,36 @@
     if ([@"account" isEqualToString:model.key]) {
         BDPersonDetailViewController *controller = [[BDPersonDetailViewController alloc] init];
         controller.personModel = self.personModel;
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
 
     }
     else if ([@"password" isEqualToString:model.key]) {
         BDChangePasswordViewController *controller = [[BDChangePasswordViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([@"address" isEqualToString:model.key]) {
         BDAddressViewController *controller = [[BDAddressViewController alloc] init];
         controller.title = @"管理收货地址";
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([@"coupon" isEqualToString:model.key]) {
         BDCouponViewController *controller = [[BDCouponViewController alloc] init];
         controller.title = @"我的优惠券";
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([@"points" isEqualToString:model.key]) {
         BDLuckyDrawViewController *controller = [[BDLuckyDrawViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
         controller.personModel = self.personModel;
         controller.delegate = self;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([@"order" isEqualToString:model.key]) {
         BDOrderViewController *controller = [[BDOrderViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([@"wallet" isEqualToString:model.key]) {
         BDWalletViewController *controller = [[BDWalletViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     
     else{
@@ -284,8 +277,7 @@
 #pragma mark - instance fun
 - (void)login{
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 - (void)loginNotifcation:(NSNotification*)fication{
     self.needRefresh = YES;

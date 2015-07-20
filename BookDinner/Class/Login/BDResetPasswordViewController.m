@@ -267,7 +267,7 @@
                 HNYDetailItemModel *passwordItem = [self.tableViewController getItemWithKey:@"password"];
                 [[NSUserDefaults standardUserDefaults] setValue:passwordItem.textValue forKey:USER_PASSWORD];
             }
-            [self.customNaviController performSelector:@selector(popViewControllerAnimated:) withObject:nil afterDelay:1];
+            [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:nil afterDelay:1];
         }
     }
     else{

@@ -136,12 +136,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
     BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
     controller.orderModel = model;
     controller.editAble = NO;
     controller.delegate = self;
     controller.orderState = [NSString stringWithFormat:@"%d",model.state];
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 
 }
 
@@ -192,10 +191,9 @@
         NSIndexPath *indexPath = [self.tableController.tableView indexPathForCell:(UITableViewCell*)aView];
         BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
         BDPayViewController *controller = [[BDPayViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
         controller.orderModel = model;
         controller.delegate = self;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 
 }
@@ -203,13 +201,13 @@
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDPayViewController class]]) {
         if ([[info valueForKey:@"PayResult"] boolValue]) {
-            [self.customNaviController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
             [self pullDownTable];
         }
     }
     else if ([vController isKindOfClass:[BDOrderDetailViewController class]]) {
         if ([[info valueForKey:@"PayResult"] boolValue]) {
-            [self.customNaviController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
             [self pullDownTable];
         }
     }

@@ -185,7 +185,6 @@
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:indexPath,@"indexPath", nil];
     if ([@"setting" isEqualToString:model.type]) {
         BDSettingViewController *controller = [[BDSettingViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
     }
     else if ([@"center" isEqualToString:model.type]) {
@@ -197,7 +196,6 @@
             [self.delegate viewController:self actionWitnInfo:info];
 
             BDPersonViewController *controller = [[BDPersonViewController alloc] init];
-            controller.customNaviController = self.customNaviController;
             [self.customNaviController pushViewController:controller animated:YES];
         }
         
@@ -209,7 +207,6 @@
         else{
 
         BDOrderViewController *controller = [[BDOrderViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
         }
     }
@@ -217,7 +214,6 @@
         [self.delegate viewController:self actionWitnInfo:info];
 
         BDAboutViewController *controller = [[BDAboutViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
     }
     else if ([@"points" isEqualToString:model.type]) {
@@ -227,7 +223,6 @@
         else{
 
         BDCouponViewController *controller = [[BDCouponViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
         }
         
@@ -296,7 +291,6 @@
 #pragma mark - instance fun
 - (void)login{
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
     [self.customNaviController pushViewController:controller animated:YES];
 }
 - (void)touchShareButton:(UIButton*)sender{

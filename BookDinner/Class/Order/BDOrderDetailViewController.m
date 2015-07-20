@@ -294,8 +294,7 @@
             controller.delegate = self;
             controller.selector = YES;
             controller.title = @"请选择收货地址";
-            controller.customNaviController = self.customNaviController;
-            [self.customNaviController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }
         else
             [self login];
@@ -314,12 +313,11 @@
             HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
             
             BDCouponViewController *controller = [[BDCouponViewController alloc] init];
-            controller.customNaviController = self.customNaviController;
             controller.title = @"请选择优惠券";
             controller.selector = YES;
             controller.delegate = self;
             controller.using = [buyItem.value intValue];
-            [self.customNaviController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }
         else{
             [self login];
@@ -350,10 +348,9 @@
     
     if (!self.editAble) {
         BDPayViewController *controller = [[BDPayViewController alloc] init];
-        controller.customNaviController = self.customNaviController;
         controller.orderModel = self.orderModel;
         controller.delegate = self;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
         return;
     }
     
@@ -504,7 +501,7 @@
     }
     else if ([vController isKindOfClass:[BDPayViewController class]]){
         if ([[info valueForKey:@"PayResult"] boolValue]) {
-            [self.customNaviController popViewControllerAnimated:NO];
+            [self.navigationController popViewControllerAnimated:NO];
             [self.delegate viewController:self actionWitnInfo:info];
         }
 
@@ -624,11 +621,10 @@
                 BDPayViewController *controller = [[BDPayViewController alloc] init];
                 controller.orderModel = self.orderModel;
                 controller.delegate = self.delegate;
-                controller.customNaviController = self.customNaviController;
-                NSMutableArray *array = [[self.customNaviController viewControllers] mutableCopy];
+                NSMutableArray *array = [[self.navigationController viewControllers] mutableCopy];
                 [array removeLastObject];
                 [array addObject:controller];
-                [self.customNaviController setViewControllers:array animated:YES];
+                [self.navigationController setViewControllers:array animated:YES];
             }
         }
         else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
@@ -672,8 +668,7 @@
 #pragma mark - instance fun
 - (void)login{
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (float)calculatePrice{

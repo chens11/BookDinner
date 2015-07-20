@@ -195,7 +195,6 @@ UIActionSheetDelegate>
         controller.editAble = YES;
         controller.orderState = @"0";
         controller.delegate = self;
-        controller.customNaviController = self.customNaviController;
         [self.customNaviController pushViewController:controller animated:YES];
         
     }

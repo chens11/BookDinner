@@ -171,7 +171,7 @@
         }
         else{
             [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:model,@"BDCouponModel", nil]];
-            [self.customNaviController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
     
@@ -212,8 +212,7 @@
 }
 - (void)login{
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - IBAction

@@ -74,7 +74,7 @@
 
 #pragma mark - IBAciton
 - (void)touchLeftBarItem:(UIBarButtonItem*)sender{
-    [self.customNaviController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - instance fun
@@ -105,7 +105,7 @@
 }
 
 - (void)popViewController{
-    [self.customNaviController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - data request

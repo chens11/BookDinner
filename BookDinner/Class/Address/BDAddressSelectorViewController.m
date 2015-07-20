@@ -120,13 +120,13 @@
         
         [self.delegate viewController:self
                        actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
-        [self.customNaviController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else if (model.type == 3){
         self.addressModel.street = model;
         [self.delegate viewController:self
                        actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
-        [self.customNaviController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 #pragma mark - instance fun

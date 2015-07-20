@@ -208,16 +208,14 @@
     model.product.description = @"充值";
     model.title = @"充值";
     BDPayViewController *controller = [[BDPayViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
     controller.orderModel = model;
     controller.delegate = self;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 #pragma mark - instance fun
 - (void)login{
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 #pragma mark - HNYDelegate
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
@@ -237,7 +235,7 @@
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDPayViewController class]]) {
         if ([[info valueForKey:@"PayResult"] boolValue]) {
-            [self.customNaviController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
             [self pullDownTable];
         }
     }

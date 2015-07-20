@@ -189,8 +189,7 @@
         controller.title = @"请选择地区";
         controller.delegate = self;
         controller.addressModel = self.addressModel;
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([item.key isEqualToString:USER_ADDRESS_STREET]) {
         BDAddressSelectorViewController *controller = [[BDAddressSelectorViewController alloc] init];
@@ -198,8 +197,7 @@
         controller.delegate = self;
         controller.getStreet = YES;
         controller.addressModel = self.addressModel;
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     
 }

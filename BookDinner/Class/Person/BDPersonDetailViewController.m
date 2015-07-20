@@ -285,7 +285,7 @@
     }
 }
 - (void)popViewController{
-    [self.customNaviController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextFieldDelegate

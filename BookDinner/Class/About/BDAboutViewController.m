@@ -229,8 +229,7 @@
             [self login];
         }else{
             BDContactBossViewController *controller = [[BDContactBossViewController alloc] init];
-            controller.customNaviController = self.customNaviController;
-            [self.customNaviController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }
     }
     else if ([@"declare" isEqualToString:model.key]){
@@ -239,8 +238,7 @@
         [webView loadHTMLString:self.ihomyModel.introduction baseURL:nil];
         [controller.view addSubview:webView];
         controller.title = @"介绍";
-        controller.customNaviController = self.customNaviController;
-        [self.customNaviController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([@"check_version" isEqualToString:model.key]){
         [self checkVersion];
@@ -294,8 +292,7 @@
 #pragma mark - instance fun
 - (void)login{
     BDLoginViewController *controller = [[BDLoginViewController alloc] init];
-    controller.customNaviController = self.customNaviController;
-    [self.customNaviController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - http request
