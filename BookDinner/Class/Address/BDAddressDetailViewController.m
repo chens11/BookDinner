@@ -76,7 +76,7 @@
     HNYDetailItemModel *nameItem = [[HNYDetailItemModel alloc] init];
     nameItem.viewType = TextField;
     nameItem.editable = YES;
-    nameItem.key = USER_NAME;
+    nameItem.key = KUSER_NAME;
     nameItem.textValue = self.addressModel.name;
     nameItem.value = self.addressModel.name;
     nameItem.rightPadding = 10;
@@ -91,7 +91,7 @@
     numItem.value = self.addressModel.tel;
     numItem.keyboardType = UIKeyboardTypeNumberPad;
     numItem.name = @"  手机 ";
-    numItem.key = USER_PHONE_NUM;
+    numItem.key = KUSER_PHONE_NUM;
     numItem.height = @"one";
     [_viewAry addObject:numItem];
     
@@ -106,7 +106,7 @@
                               self.addressModel.city.name,
                               self.addressModel.district.name];
     codeItem.value = self.addressModel;
-    codeItem.key = USER_ADDRESS_CODE;
+    codeItem.key = KUSER_ADDRESS_CODE;
     codeItem.name = @"  地区";
     [_viewAry addObject:codeItem];
     
@@ -118,7 +118,7 @@
     if (self.addressModel.street.name)
         streetItem.textValue = [NSString stringWithFormat:@"%@",self.addressModel.street.name];
     streetItem.value = self.addressModel;
-    streetItem.key = USER_ADDRESS_STREET;
+    streetItem.key = KUSER_ADDRESS_STREET;
     streetItem.name = @"  街道";
     [_viewAry addObject:streetItem];
     
@@ -130,7 +130,7 @@
     addreItem.minheight = 60;
     addreItem.textValue = self.addressModel.address;
     addreItem.value = self.addressModel.address;
-    addreItem.key = USER_ADDRESS;
+    addreItem.key = KUSER_ADDRESS;
     addreItem.name = @"  地址";
     [_viewAry addObject:addreItem];
 
@@ -162,7 +162,7 @@
         UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         saveBtn.frame = CGRectMake(15, 5 , self.view.frame.size.width - 30, 40);
         saveBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        saveBtn.titleLabel.font = ButtonTitleFont;
+        saveBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
         [saveBtn addTarget:self action:@selector(touchSaveAddressButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -172,7 +172,7 @@
         UIButton *defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         defaultBtn.frame = CGRectMake(15, 50 , self.view.frame.size.width - 30, 40);
         defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        defaultBtn.titleLabel.font = ButtonTitleFont;
+        defaultBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [defaultBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [defaultBtn setTitle:@"设为默认地址" forState:UIControlStateNormal];
         [defaultBtn addTarget:self action:@selector(touchDefaultAddressButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -184,14 +184,14 @@
 
 - (void)tableViewController:(HNYDetailTableViewController *)tableViewController didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     HNYDetailItemModel *item = [self.tableViewController.viewAry objectAtIndex:indexPath.row];
-    if ([item.key isEqualToString:USER_ADDRESS_CODE]) {
+    if ([item.key isEqualToString:KUSER_ADDRESS_CODE]) {
         BDAddressSelectorViewController *controller = [[BDAddressSelectorViewController alloc] init];
         controller.title = @"请选择地区";
         controller.delegate = self;
         controller.addressModel = self.addressModel;
         [self.navigationController pushViewController:controller animated:YES];
     }
-    else if ([item.key isEqualToString:USER_ADDRESS_STREET]) {
+    else if ([item.key isEqualToString:KUSER_ADDRESS_STREET]) {
         BDAddressSelectorViewController *controller = [[BDAddressSelectorViewController alloc] init];
         controller.title = @"请选择街道";
         controller.delegate = self;
@@ -204,10 +204,10 @@
 
 #pragma mark - IBAction
 - (void)touchSaveAddressButton:(UIButton*)sender{
-    HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_NAME];
-    HNYDetailItemModel *phoneItem = [self.tableViewController getItemWithKey:USER_PHONE_NUM];
-    HNYDetailItemModel *codeItem = [self.tableViewController getItemWithKey:USER_ADDRESS_CODE];
-    HNYDetailItemModel *addItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+    HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_NAME];
+    HNYDetailItemModel *phoneItem = [self.tableViewController getItemWithKey:KUSER_PHONE_NUM];
+    HNYDetailItemModel *codeItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS_CODE];
+    HNYDetailItemModel *addItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS];
     if (!nameItem.value) {
         [self showTips:@"请您输入名称"];
         return;
@@ -273,8 +273,8 @@
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDAddressSelectorViewController class]]) {
         
-        HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_ADDRESS_CODE];
-        HNYDetailItemModel *streetItem = [self.tableViewController getItemWithKey:USER_ADDRESS_STREET];
+        HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS_CODE];
+        HNYDetailItemModel *streetItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS_STREET];
         
         nameItem.textValue = [NSString stringWithFormat:@"%@ %@ %@",self.addressModel.prorince.name,self.addressModel.city.name,self.addressModel.district.name];
         nameItem.value = self.addressModel;

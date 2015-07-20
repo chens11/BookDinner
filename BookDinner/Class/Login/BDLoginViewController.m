@@ -63,8 +63,8 @@
     self.passwordField.secureTextEntry = YES;
     [self.view addSubview:self.passwordField];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:RememberPassWord]) {
-        self.userNameField.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT];
-        self.passwordField.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD];
+        self.userNameField.text = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_ACCOUNT];
+        self.passwordField.text = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_PASSWORD];
     }
 
     
@@ -88,7 +88,7 @@
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     loginBtn.frame = CGRectMake(5, self.naviBar.frame.size.height + 160, self.view.frame.size.width - 10, 40);
     [loginBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-    loginBtn.titleLabel.font = ButtonTitleFont;
+    loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
@@ -97,7 +97,7 @@
     UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     forgetBtn.frame = CGRectMake(5, self.naviBar.frame.size.height + 205, (self.view.frame.size.width - 20)/2, 40);
     [forgetBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-    forgetBtn.titleLabel.font = ButtonTitleFont;
+    forgetBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgetBtn addTarget:self action:@selector(touchForgetButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:forgetBtn];
@@ -105,7 +105,7 @@
  
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     registerBtn.frame = CGRectMake((self.view.frame.size.width - 20)/2 + 15, self.naviBar.frame.size.height + 205, (self.view.frame.size.width - 20)/2, 40);
-    registerBtn.titleLabel.font = ButtonTitleFont;
+    registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [registerBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(touchRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -138,12 +138,12 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if (textField.tag == 0) {
         if (textField.text.length != 0) {
-            [[NSUserDefaults standardUserDefaults] setValue:textField.text forKey:USER_ACCOUNT];
+            [[NSUserDefaults standardUserDefaults] setValue:textField.text forKey:KUSER_ACCOUNT];
         }
     }
     else if (textField.tag == 1){
         if (textField.text.length != 0) {
-            [[NSUserDefaults standardUserDefaults] setValue:textField.text forKey:USER_PASSWORD];
+            [[NSUserDefaults standardUserDefaults] setValue:textField.text forKey:KUSER_PASSWORD];
         }
     }
 }
@@ -194,7 +194,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:checkButton.selected forKey:RememberPassWord];
         if (checkButton.selected == NO) {
             self.autoBtn.selected = NO;
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_PASSWORD];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:KUSER_PASSWORD];
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:AutoLogin];
         }
     }
@@ -207,8 +207,8 @@
     [self showRequestingTips:@"正在登录..."];
     
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  self.userNameField.text,USER_ACCOUNT,
-                                  self.passwordField.text,USER_PASSWORD,
+                                  self.userNameField.text,KUSER_ACCOUNT,
+                                  self.passwordField.text,KUSER_PASSWORD,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLogin];
@@ -235,10 +235,10 @@
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationActionLogin object:nil userInfo:nil ];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Action_Login object:nil userInfo:nil ];
 
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USER_IS_LOGIN];
-            [[NSUserDefaults standardUserDefaults] setValue:self.userNameField.text forKey:USER_ACCOUNT];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KUSER_IS_LOGIN];
+            [[NSUserDefaults standardUserDefaults] setValue:self.userNameField.text forKey:KUSER_ACCOUNT];
             if ([[dictionary objectForKey:HTTP_VALUE] isKindOfClass:[NSDictionary class]])
             {
                 [[NSUserDefaults standardUserDefaults] setValue:[[dictionary objectForKey:HTTP_VALUE] objectForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];

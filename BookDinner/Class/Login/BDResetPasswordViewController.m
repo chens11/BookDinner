@@ -58,7 +58,7 @@
     nameItem.viewType = TextField;
     nameItem.key = @"phone";
     nameItem.editable = YES;
-    nameItem.textValue = [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT];
+    nameItem.textValue = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_ACCOUNT];
     nameItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     nameItem.name = @"  手机号码:";
     nameItem.placeholder = @"请输入手机号";
@@ -148,7 +148,7 @@
         addBtn.frame = CGRectMake(numView.frame.size.width - 110, 8, 100, self.tableViewController.cellHeight - 16);
         addBtn.tag = 101;
         addBtn.enabled = YES;
-        addBtn.titleLabel.font = ButtonTitleFont;
+        addBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [addBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [addBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(touchButtons:) forControlEvents:UIControlEventTouchUpInside];
@@ -164,7 +164,7 @@
         addBtn.frame = CGRectMake(10, 8, self.view.frame.size.width - 20, self.tableViewController.cellHeight - 16);
         addBtn.tag = 102;
         addBtn.enabled = YES;
-        addBtn.titleLabel.font = ButtonTitleFont;
+        addBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [addBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [addBtn setTitle:@"重置密码" forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(touchButtons:) forControlEvents:UIControlEventTouchUpInside];
@@ -188,7 +188,7 @@
 
     if (sender.tag == 101) {
         NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      phoneItem.textValue,USER_ACCOUNT,
+                                      phoneItem.textValue,KUSER_ACCOUNT,
                                       [AppInfo headInfo],HTTP_HEAD,
                                       nil];
         [self getConfirmCode:param];
@@ -205,8 +205,8 @@
             return;
         }
         NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      phoneItem.textValue,USER_ACCOUNT,
-                                      passwordItem.textValue,USER_PASSWORD,
+                                      phoneItem.textValue,KUSER_ACCOUNT,
+                                      passwordItem.textValue,KUSER_PASSWORD,
                                       codeItem.textValue,@"captcha",
                                       [AppInfo headInfo],HTTP_HEAD,nil];
         [self changePassword:param];
@@ -265,7 +265,7 @@
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:RememberPassWord]) {
                 HNYDetailItemModel *passwordItem = [self.tableViewController getItemWithKey:@"password"];
-                [[NSUserDefaults standardUserDefaults] setValue:passwordItem.textValue forKey:USER_PASSWORD];
+                [[NSUserDefaults standardUserDefaults] setValue:passwordItem.textValue forKey:KUSER_PASSWORD];
             }
             [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:nil afterDelay:1];
         }

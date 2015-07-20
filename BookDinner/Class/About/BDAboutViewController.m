@@ -225,7 +225,7 @@
 - (void)tableViewController:(HNYDetailTableViewController *)tableViewController didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     HNYDetailItemModel *model = [self.tableViewController.viewAry objectAtIndex:indexPath.row];
     if ([@"contactBoss" isEqualToString:model.key]) {
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
             [self login];
         }else{
             BDContactBossViewController *controller = [[BDContactBossViewController alloc] init];

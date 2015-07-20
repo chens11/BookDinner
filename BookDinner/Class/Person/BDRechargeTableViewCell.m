@@ -65,7 +65,7 @@
         
         
         self.payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.payBtn.titleLabel.font = ButtonTitleFont;
+        self.payBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         self.payBtn.hidden = YES;
         [self.payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [self.payBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];

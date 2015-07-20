@@ -162,7 +162,7 @@
 
     HNYDetailItemModel *addressItem = [[HNYDetailItemModel alloc] init];
     addressItem.viewType = Customer;
-    addressItem.key = USER_ADDRESS;
+    addressItem.key = KUSER_ADDRESS;
     addressItem.height = @"auto";
     addressItem.maxheight = 80;
     addressItem.minheight = 80;
@@ -210,7 +210,7 @@
     buyBtn.tag = 3;
     [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
     [buyBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-    buyBtn.titleLabel.font = ButtonTitleFont;
+    buyBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     buyBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     buyBtn.frame = CGRectMake(self.view.frame.size.width - 110, self.view.frame.size.height - 50, 100, 40);
     buyBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -238,7 +238,7 @@
 
 
 - (id)createViewWith:(HNYDetailItemModel *)item{
-    if ([USER_ADDRESS isEqualToString:item.key]) {
+    if ([KUSER_ADDRESS isEqualToString:item.key]) {
         
         BDOrderReceiveAddressView *addressView = [[BDOrderReceiveAddressView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 70, 0 , 40, self.tableViewController.cellHeight*3)];
         addressView.addressModel = item.value;
@@ -288,8 +288,8 @@
     if (!self.editAble)
         return;
     HNYDetailItemModel *item = [self.tableViewController.viewAry objectAtIndex:indexPath.row];
-    if ([USER_ADDRESS isEqualToString:item.key]) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+    if ([KUSER_ADDRESS isEqualToString:item.key]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
             BDAddressViewController *controller = [[BDAddressViewController alloc] init];
             controller.delegate = self;
             controller.selector = YES;
@@ -309,7 +309,7 @@
         sheet.tag = item.tag;
     }
     else if ([@"coupon" isEqualToString:item.key]) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
             HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
             
             BDCouponViewController *controller = [[BDCouponViewController alloc] init];
@@ -374,12 +374,12 @@
         }
     }
     else{
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
             [self login];
             return;
         }
         HNYDetailItemModel *timeItem = [self.tableViewController getItemWithKey:@"time"];
-        HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+        HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS];
         HNYDetailItemModel *buyItem = [self.tableViewController getItemWithKey:@"buyType"];
         HNYDetailItemModel *couponItem = [self.tableViewController getItemWithKey:@"coupon"];
         HNYDetailItemModel *remarkItem = [self.tableViewController getItemWithKey:@"remark"];
@@ -494,7 +494,7 @@
     if ([vController isKindOfClass:[BDAddressViewController class]]) {
         BDAddressModel *model = [info valueForKey:@"BDAddressModel"];
         self.orderModel.address = model;
-        HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+        HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS];
         addressItem.value = self.orderModel.address;
         [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
         [self.tableViewController.tableView reloadData];
@@ -608,7 +608,7 @@
             if ([value isKindOfClass:[NSArray class]] && value.count > 0) {
                 self.orderModel.address = [HNYJSONUitls mappingDictionary:[value objectAtIndex:0] toObjectWithClassName:@"BDAddressModel"];
                 
-                HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+                HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS];
                 addressItem.value = self.orderModel.address;
                 [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
                 [self.tableViewController.tableView reloadData];
@@ -636,7 +636,7 @@
                 timeItem.value = self.orderModel.order_date;
                 timeItem.textValue = self.orderModel.order_date;
                 
-                HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:USER_ADDRESS];
+                HNYDetailItemModel *addressItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS];
                 addressItem.value = self.orderModel.address;
                 [self.tableViewController changeViewAryObjectWith:addressItem atIndex:[self.viewAry indexOfObject:addressItem]];
                 

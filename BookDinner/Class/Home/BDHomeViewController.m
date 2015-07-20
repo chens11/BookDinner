@@ -44,7 +44,7 @@ UIActionSheetDelegate>
     self.view.backgroundColor = [UIColor whiteColor];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(getTodayRecommend)
-                                                 name:NotificationAppDidBecomeActive object:nil];
+                                                 name:KNotification_App_Did_Become_Active object:nil];
     [self createScrollView];
     [self createDateView];
     [self getTodayRecommend];
@@ -87,7 +87,7 @@ UIActionSheetDelegate>
     self.orderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.orderBtn.frame = CGRectMake(15, self.view.frame.size.height - 55 , self.view.frame.size.width - 30, 40);
     self.orderBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.orderBtn.titleLabel.font = ButtonTitleFont;
+    self.orderBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     self.orderBtn.enabled = NO;
     [self.orderBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_disable"] forState:UIControlStateDisabled];
     [self.orderBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];

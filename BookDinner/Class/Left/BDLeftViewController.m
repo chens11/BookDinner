@@ -43,10 +43,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loginNotifcation:)
-                                                 name:NotificationActionLogin object:nil];
+                                                 name:KNotification_Action_Login object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(logoutNotifcation:)
-                                                 name:NotificationActionLogout object:nil];
+                                                 name:KNotification_Action_Logout object:nil];
 
     self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.bgImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -121,7 +121,7 @@
     
     self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loginBtn.frame = CGRectMake(self.view.frame.size.width - 80, self.view.frame.size.height*2/5 - 35, 75, 40);
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN])
         [self.loginBtn setTitle:@"签到" forState:UIControlStateNormal];
     else
         [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
@@ -189,7 +189,7 @@
     }
     else if ([@"center" isEqualToString:model.type]) {
         
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
             [self login];
         }
         else{
@@ -201,7 +201,7 @@
         
     }
     else if ([@"order" isEqualToString:model.type]) {
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
             [self login];
         }
         else{
@@ -217,7 +217,7 @@
         [self.customNaviController pushViewController:controller animated:YES];
     }
     else if ([@"points" isEqualToString:model.type]) {
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
             [self login];
         }
         else{
@@ -237,7 +237,7 @@
 - (void)touchSginButton:(UIButton *)sender{
     
     NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN];
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_IS_LOGIN]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
         [self login];
         return;
     }
@@ -299,7 +299,7 @@
     [UMSocialData defaultData].extConfig.sinaData.urlResource.url = @"http://ihomy.cn/";
     NSString *msg = [NSString stringWithFormat:@"亲们，赶快来订餐吧！http://ihomy.cn/"];
     [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
-                                         appKey:UMSocialAppKey
+                                         appKey:KAPP_UMSocialApp
                                       shareText:msg
                                      shareImage:[UIImage imageNamed:@"dinner"]
                                 shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatSession,UMShareToWechatTimeline,nil]

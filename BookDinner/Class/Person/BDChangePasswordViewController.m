@@ -42,7 +42,7 @@
 
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     saveBtn.frame = CGRectMake(10, self.naviBar.frame.size.height + 155, self.view.frame.size.width - 20, 40);
-    saveBtn.titleLabel.font = ButtonTitleFont;
+    saveBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
     [saveBtn setTitle:@"提交修改密码" forState:UIControlStateNormal];
     [saveBtn addTarget:self action:@selector(touchSaveButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -89,7 +89,7 @@
     HNYDetailItemModel *passwordItem = [[HNYDetailItemModel alloc] init];
     passwordItem.viewType = TextField;
     passwordItem.editable = YES;
-    passwordItem.key = USER_PASSWORD;
+    passwordItem.key = KUSER_PASSWORD;
     passwordItem.secureTextEntry = YES;
     passwordItem.placeholder = @"请您输入原密码";
     passwordItem.name = @"  原始密码";
@@ -102,7 +102,7 @@
     newItem.name = @"  新密码 ";
     newItem.secureTextEntry = YES;
     newItem.placeholder = @"请您输入新密码";
-    newItem.key = USER_NEW_PASSWORD;
+    newItem.key = KUSER_NEW_PASSWORD;
     newItem.height = @"one";
     [_viewAry addObject:newItem];
     
@@ -110,7 +110,7 @@
     confirmItem.viewType = TextField;
     confirmItem.editable = YES;
     confirmItem.height = @"one";
-    confirmItem.key = USER_CONFIRM_PASSWORD;
+    confirmItem.key = KUSER_CONFIRM_PASSWORD;
     confirmItem.name = @"  确认密码";
     confirmItem.secureTextEntry = YES;
     confirmItem.placeholder = @"请您输入确认密码";
@@ -124,9 +124,9 @@
 #pragma mark - IBAction
 - (void)touchSaveButton:(UIButton*)sender{
     [self.view endEditing:YES];
-    HNYDetailItemModel *oldItem = [self.tableViewController getItemWithKey:USER_PASSWORD];
-    HNYDetailItemModel *newItem = [self.tableViewController getItemWithKey:USER_NEW_PASSWORD];
-    HNYDetailItemModel *confirmItem = [self.tableViewController getItemWithKey:USER_CONFIRM_PASSWORD];
+    HNYDetailItemModel *oldItem = [self.tableViewController getItemWithKey:KUSER_PASSWORD];
+    HNYDetailItemModel *newItem = [self.tableViewController getItemWithKey:KUSER_NEW_PASSWORD];
+    HNYDetailItemModel *confirmItem = [self.tableViewController getItemWithKey:KUSER_CONFIRM_PASSWORD];
 
     if (!oldItem.value) {
         [self showTips:@"请您输入旧密码"];
@@ -150,8 +150,8 @@
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setValue:oldItem.value forKey:@"old_password"];
-    [dictionary setValue:newItem.value forKey:USER_NEW_PASSWORD];
-    [dictionary setValue:confirmItem.value forKey:USER_CONFIRM_PASSWORD];
+    [dictionary setValue:newItem.value forKey:KUSER_NEW_PASSWORD];
+    [dictionary setValue:confirmItem.value forKey:KUSER_CONFIRM_PASSWORD];
     [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
 
     [self changePassword:dictionary];
@@ -186,10 +186,10 @@
         if ([ActionChangePassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:RememberPassWord];
-            HNYDetailItemModel *newItem = [self.tableViewController getItemWithKey:USER_NEW_PASSWORD];
+            HNYDetailItemModel *newItem = [self.tableViewController getItemWithKey:KUSER_NEW_PASSWORD];
 
             if ([[NSUserDefaults standardUserDefaults] boolForKey:RememberPassWord])
-                [[NSUserDefaults standardUserDefaults] setValue:newItem.value forKey:USER_PASSWORD];
+                [[NSUserDefaults standardUserDefaults] setValue:newItem.value forKey:KUSER_PASSWORD];
             [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         }
     }

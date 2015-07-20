@@ -72,7 +72,7 @@
     
     HNYDetailItemModel *imgItem = [[HNYDetailItemModel alloc] init];
     imgItem.viewType = Customer;
-    imgItem.key = USER_IMG;
+    imgItem.key = KUSER_IMG;
     imgItem.contentMode = UIViewContentModeScaleAspectFit;
     imgItem.height = @"two";
     imgItem.value = [UIImage imageNamed:@"AppIcon11"];
@@ -89,7 +89,7 @@
     HNYDetailItemModel *accountItem = [[HNYDetailItemModel alloc] init];
     accountItem.viewType = TextField;
     accountItem.editable = NO;
-    accountItem.key = USER_ACCOUNT;
+    accountItem.key = KUSER_ACCOUNT;
     accountItem.textValue = self.personModel.account;
     accountItem.rightPadding = 10;
     accountItem.textColor = [UIColor lightGrayColor];
@@ -103,7 +103,7 @@
     nameItem.textValue = self.personModel.username;
     nameItem.value = self.personModel.username;
     nameItem.name = @"  昵称";
-    nameItem.key = USER_NAME;
+    nameItem.key = KUSER_NAME;
     nameItem.height = @"one";
     [_viewAry addObject:nameItem];
     
@@ -114,7 +114,7 @@
     if (self.personModel.sex < 3)
         sexItem.textValue = [self.sexAry objectAtIndex:self.personModel.sex];;
     sexItem.value = [NSNumber numberWithInt:self.personModel.sex];
-    sexItem.key = USER_SEX;
+    sexItem.key = KUSER_SEX;
     sexItem.name = @"  性别";
     [_viewAry addObject:sexItem];
     
@@ -129,7 +129,7 @@
 }
 #pragma mark - HNYDetailTableViewControllerDelegate
 - (id)createViewWith:(HNYDetailItemModel *)item{
-    if ([USER_SEX isEqualToString:item.key]) {
+    if ([KUSER_SEX isEqualToString:item.key]) {
         UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - self.tableViewController.nameLabelWidth, self.tableViewController.cellHeight)];
         
         self.sexTextField = [[HNYTextField alloc] initWithFrame:CGRectMake(0, self.tableViewController.cellHeight/2 - 10 , numView.frame.size.width, 20)];
@@ -143,7 +143,7 @@
         
         return numView;
     }
-    else if ([USER_IMG isEqualToString:item.key]) {
+    else if ([KUSER_IMG isEqualToString:item.key]) {
         UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.tableViewController.cellHeight * 2)];
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.tableViewController.cellHeight * 2 - 16, self.tableViewController.cellHeight * 2)];
@@ -167,7 +167,7 @@
         
         UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         saveBtn.frame = CGRectMake(15, 5, self.view.frame.size.width - 30, 40);
-        saveBtn.titleLabel.font = ButtonTitleFont;
+        saveBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [saveBtn setTitle:@"保存个人信息" forState:UIControlStateNormal];
         [saveBtn addTarget:self action:@selector(touchSaveButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -180,7 +180,7 @@
 #pragma mark - IBAction
 - (void)touchSaveButton:(UIButton*)sender{
     [self.view endEditing:YES];
-    HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_NAME];
+    HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_NAME];
 
     if (nameItem.value == nil) {
         [self showTips:@"昵称不能为空"];
@@ -195,23 +195,23 @@
 
 - (void)savePersonInfo{
     [self showRequestingTips:@"正在保存..."];
-    HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:USER_SEX];
-    HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_NAME];
-    HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
+    HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:KUSER_SEX];
+    HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_NAME];
+    HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:KUSER_IMG];
     
     
 
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  sexItem.value,USER_SEX,
-                                  nameItem.value,USER_NAME,
+                                  sexItem.value,KUSER_SEX,
+                                  nameItem.value,KUSER_NAME,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     if (self.imgChange && [imgItem.value isKindOfClass:[UIImage class]])
     {
         NSData *imageData = UIImagePNGRepresentation(imgItem.value);
         NSString *string = [imageData base64EncodedString];
-        [param setValue:string forKey:USER_IMG];
-        [param setValue:@"png" forKey:USER_IMG_TYPE];
+        [param setValue:string forKey:KUSER_IMG];
+        [param setValue:@"png" forKey:KUSER_IMG_TYPE];
     }
     NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionSavePersonInfo];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -237,17 +237,17 @@
         if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSDictionary class]]) {
-                HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:USER_SEX];
-                HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_NAME];
-                HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
+                HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:KUSER_SEX];
+                HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_NAME];
+                HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:KUSER_IMG];
 
-                nameItem.textValue = [value valueForKey:USER_NAME];
-                nameItem.value = [value valueForKey:USER_NAME];
-                if ([[value valueForKey:USER_SEX] intValue] < 3) {
-                    sexItem.textValue = [self.sexAry objectAtIndex:[[value valueForKey:USER_SEX] intValue]];;
+                nameItem.textValue = [value valueForKey:KUSER_NAME];
+                nameItem.value = [value valueForKey:KUSER_NAME];
+                if ([[value valueForKey:KUSER_SEX] intValue] < 3) {
+                    sexItem.textValue = [self.sexAry objectAtIndex:[[value valueForKey:KUSER_SEX] intValue]];;
                 }
-                sexItem.value = [value valueForKey:USER_SEX];
-                NSString *uslStr = [value valueForKey:USER_IMG];
+                sexItem.value = [value valueForKey:KUSER_SEX];
+                NSString *uslStr = [value valueForKey:KUSER_IMG];
                 NSURL *url = [NSURL URLWithString:uslStr];
                 imgItem.value = url;
                 
@@ -259,8 +259,8 @@
         }
         else if ([ActionSavePersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
-            HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:USER_SEX];
-            HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_NAME];
+            HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:KUSER_SEX];
+            HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_NAME];
             
             self.personModel.sex = [sexItem.value intValue];
             self.personModel.username = nameItem.value;
@@ -268,7 +268,7 @@
         }
         else if ([ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
-            HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
+            HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:KUSER_IMG];
             self.personModel.userimage = imgItem.value;
         }
     }
@@ -298,7 +298,7 @@
 #pragma mark - HNYPopoverViewDelegate
 // caled when select the String ary
 - (void)hNYPopoverView:(HNYPopoverView *)popover didSelectStringAryAtIndex:(NSInteger)index{
-    HNYDetailItemModel *item = [self.tableViewController getItemWithKey:USER_SEX];
+    HNYDetailItemModel *item = [self.tableViewController getItemWithKey:KUSER_SEX];
     item.textValue = [self.sexAry objectAtIndex:index];
     item.value = [NSString stringWithFormat:@"%d",index];
     self.sexTextField.text = item.textValue;
@@ -363,7 +363,7 @@
 	for (NSDictionary *dict in info) {
         UIImage *image = [dict objectForKey:UIImagePickerControllerOriginalImage];
         self.imgChange = YES;
-        HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
+        HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:KUSER_IMG];
         imgItem.value = image;
         [self.tableViewController changeViewAryObjectWith:imgItem atIndex:[self.viewAry indexOfObject:imgItem]];
         break;

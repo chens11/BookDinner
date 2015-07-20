@@ -67,7 +67,7 @@
     
     HNYDetailItemModel *imgItem = [[HNYDetailItemModel alloc] init];
     imgItem.viewType = ImageView;
-    imgItem.key = USER_IMG;
+    imgItem.key = KUSER_IMG;
     imgItem.contentMode = UIViewContentModeCenter;
     imgItem.height = @"two";
     imgItem.value = [UIImage imageNamed:@"AppIcon11"];
@@ -76,7 +76,7 @@
     HNYDetailItemModel *accountItem = [[HNYDetailItemModel alloc] init];
     accountItem.viewType = TextField;
     accountItem.editable = YES;
-    accountItem.key = USER_ACCOUNT;
+    accountItem.key = KUSER_ACCOUNT;
     accountItem.rightPadding = 10;
     accountItem.name = @"  账号";
     accountItem.height = @"one";
@@ -88,7 +88,7 @@
     nameItem.viewType = TextField;
     nameItem.editable = YES;
     nameItem.name = @"  昵称";
-    nameItem.key = USER_NAME;
+    nameItem.key = KUSER_NAME;
     nameItem.height = @"one";
     nameItem.placeholder = @"请您输入昵称";
     [self.viewAry addObject:nameItem];
@@ -99,7 +99,7 @@
     sexItem.textValue = @"保密";
     sexItem.value = [NSString stringWithFormat:@"0"];
     sexItem.height = @"one";
-    sexItem.key = USER_SEX;
+    sexItem.key = KUSER_SEX;
     sexItem.name = @"  性别";
     [self.viewAry addObject:sexItem];
     
@@ -107,7 +107,7 @@
     passwordItem.viewType = TextField;
     passwordItem.editable = YES;
     passwordItem.height = @"one";
-    passwordItem.key = USER_PASSWORD;
+    passwordItem.key = KUSER_PASSWORD;
     passwordItem.name = @"  密码";
     passwordItem.secureTextEntry = YES;
     passwordItem.placeholder = @"请您输入密码";
@@ -117,7 +117,7 @@
     conPasswordItem.viewType = TextField;
     conPasswordItem.editable = YES;
     conPasswordItem.height = @"one";
-    conPasswordItem.key = USER_CONFIRM_PASSWORD;
+    conPasswordItem.key = KUSER_CONFIRM_PASSWORD;
     conPasswordItem.name = @"确认密码";
     conPasswordItem.placeholder = @"请您输入确认密码";
     conPasswordItem.secureTextEntry = YES;
@@ -148,23 +148,23 @@
 - (void)touchRegisterButton:(UIButton*)sender{
     [self.view endEditing:YES];
     
-    if (![self.params valueForKey:USER_ACCOUNT]) {
+    if (![self.params valueForKey:KUSER_ACCOUNT]) {
         [self showTips:@"账号不能为空"];
         return;
     }
-    if (![AppInfo isValidateMobile:[self.params valueForKey:USER_ACCOUNT]]) {
+    if (![AppInfo isValidateMobile:[self.params valueForKey:KUSER_ACCOUNT]]) {
         [self showTips:@"请输入正确的手机号码"];
         return;
     }
-    if (![self.params valueForKey:USER_PASSWORD]) {
+    if (![self.params valueForKey:KUSER_PASSWORD]) {
         [self showTips:@"密码不能为空"];
         return;
     }
-    if (![[self.params valueForKey:USER_PASSWORD] isEqualToString:[self.params valueForKey:USER_CONFIRM_PASSWORD]]) {
+    if (![[self.params valueForKey:KUSER_PASSWORD] isEqualToString:[self.params valueForKey:KUSER_CONFIRM_PASSWORD]]) {
         [self showTips:@"密码不一致"];
         return;
     }
-    if (![self.params valueForKey:USER_NAME]) {
+    if (![self.params valueForKey:KUSER_NAME]) {
         [self showTips:@"昵称不能为空"];
         return;
     }
@@ -179,11 +179,11 @@
 
 - (void)touchButtons:(UIButton*)sender{
     [self.view endEditing:YES];
-    HNYDetailItemModel *codeItem = [self.tableViewController getItemWithKey:USER_ACCOUNT];
+    HNYDetailItemModel *codeItem = [self.tableViewController getItemWithKey:KUSER_ACCOUNT];
     
     if (sender.tag == 101) {
         NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      codeItem.textValue,USER_ACCOUNT,
+                                      codeItem.textValue,KUSER_ACCOUNT,
                                       [AppInfo headInfo],HTTP_HEAD,
                                       nil];
         [self getConfirmCode:param];
@@ -270,7 +270,7 @@
 }
 
 - (id)createViewWith:(HNYDetailItemModel *)item{
-    if ([USER_SEX isEqualToString:item.key]) {
+    if ([KUSER_SEX isEqualToString:item.key]) {
         UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - self.tableViewController.nameLabelWidth, self.tableViewController.cellHeight)];
         
         self.sexTextField = [[HNYTextField alloc] initWithFrame:CGRectMake(10, self.tableViewController.cellHeight/2 - 10 , self.view.frame.size.width - self.tableViewController.nameLabelWidth, 20)];
@@ -289,7 +289,7 @@
         UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         registerBtn.frame = CGRectMake(10, 5, self.view.frame.size.width - 20, 40);
         [registerBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-        registerBtn.titleLabel.font = ButtonTitleFont;
+        registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
         [registerBtn addTarget:self action:@selector(touchRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
         [temp addSubview:registerBtn];
@@ -316,7 +316,7 @@
         addBtn.frame = CGRectMake(numView.frame.size.width - 110, 8, 100, self.tableViewController.cellHeight - 16);
         addBtn.tag = 101;
         addBtn.enabled = YES;
-        addBtn.titleLabel.font = ButtonTitleFont;
+        addBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [addBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
         [addBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(touchButtons:) forControlEvents:UIControlEventTouchUpInside];
@@ -337,11 +337,11 @@
 #pragma mark - HNYPopoverViewDelegate
 // caled when select the String ary
 - (void)hNYPopoverView:(HNYPopoverView *)popover didSelectStringAryAtIndex:(NSInteger)index{
-    HNYDetailItemModel *item = [self.tableViewController getItemWithKey:USER_SEX];
+    HNYDetailItemModel *item = [self.tableViewController getItemWithKey:KUSER_SEX];
     item.textValue = [self.sexAry objectAtIndex:index];
     item.value = [NSString stringWithFormat:@"%d",index];
     self.sexTextField.text = item.textValue;
-    [self.params setValue:item.value forKeyPath:USER_SEX];
+    [self.params setValue:item.value forKeyPath:KUSER_SEX];
     [popover dismissPopoverAnimated:YES];
 }
 

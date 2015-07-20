@@ -9,51 +9,50 @@
 #import <UIKit/UIKit.h>
 
 
-#define ButtonNormalColor               [UIColor colorWithRed:236.0/255 green:95.0/255 blue:52.0/255 alpha:1.0]
-#define ButtonTitleFont                 [UIFont boldSystemFontOfSize:16.0]
-
-#define HideWelcomPage                              @"隐藏欢迎页"
-#define UMSocialAppKey                              @"54450fd3fd98c5d71500f17d"
-#define WeiXinAppKey                                @"wxaf8a85474669b5f7"
-#define TencentAppKey                               @"c7394704798a158208a74ab60104f0ba"
-#define YiXinAppKey                                 @"yx35664bdff4db42c2b7be1e29390c1a06"
-#define BaiDuMapAppKey                              @"ypiiC3pQzaDVHG8ajmLzniMn"
+#define KAPP_UMSocialApp                                    @"54450fd3fd98c5d71500f17d"
+#define KAPP_WeiXinApp                                      @"wxaf8a85474669b5f7"
+#define KAPP_TencentApp                                     @"c7394704798a158208a74ab60104f0ba"
+#define KAPP_YiXinApp                                       @"yx35664bdff4db42c2b7be1e29390c1a06"
+#define KAPP_BaiDuMapApp                                    @"ypiiC3pQzaDVHG8ajmLzniMn"
 
 
-#define HTTP_HEAD                                   @"head"
-#define HTTP_RESULT                                 @"status"
-#define HTTP_INFO                                   @"info"
-#define HTTP_VALUE                                  @"value"
-#define HTTP_USER_INFO                              @"user_info"
-#define HTTP_TOKEN                                  @"token"
+#define HTTP_HEAD                                           @"head"
+#define HTTP_RESULT                                         @"status"
+#define HTTP_INFO                                           @"info"
+#define HTTP_VALUE                                          @"value"
+#define HTTP_USER_INFO                                      @"user_info"
+#define HTTP_TOKEN                                          @"token"
 
 
-#define USER_ACCOUNT                                @"account"
-#define USER_PASSWORD                               @"password"
-#define USER_NEW_PASSWORD                           @"new_password"
-#define USER_CONFIRM_PASSWORD                       @"confirm_password"
-#define USER_NAME                                   @"username"
-#define USER_PHONE_NUM                              @"phone_num"
-#define USER_SEX                                    @"sex"
-#define USER_IMG                                    @"userimage"
-#define USER_IMG_TYPE                               @"userimagetype"
-#define USER_ADDRESS                                @"address"
-#define USER_ADDRESS_CODE                           @"address_code"
-#define USER_ADDRESS_STREET                         @"street"
-#define USER_IS_LOGIN                               @"user_is_login"
-
-#define NotificationActionLogin                     @"NotificationActionLogin"
-#define NotificationActionLogout                    @"NotificationActionLogout"
-#define NotificationAppDidBecomeActive              @"NotificationAppDidBecomeActive"
-#define NotificationPaySucess                       @"NotificationPaySucess"
-
-#define KFONT_SIZE_MAX_16                           16
-#define KFONT_SIZE_MIDDLE_14                        14
-#define KFONT_SIZE_MIN_12                           12
+#define KUSER_ACCOUNT                                       @"account"
+#define KUSER_PASSWORD                                      @"password"
+#define KUSER_NEW_PASSWORD                                  @"new_password"
+#define KUSER_CONFIRM_PASSWORD                              @"confirm_password"
+#define KUSER_NAME                                          @"username"
+#define KUSER_PHONE_NUM                                     @"phone_num"
+#define KUSER_SEX                                           @"sex"
+#define KUSER_IMG                                           @"userimage"
+#define KUSER_IMG_TYPE                                      @"userimagetype"
+#define KUSER_ADDRESS                                       @"address"
+#define KUSER_ADDRESS_CODE                                  @"address_code"
+#define KUSER_ADDRESS_STREET                                @"street"
+#define KUSER_IS_LOGIN                                      @"user_is_login"
 
 
-#define KCOLOR_VIEW_BACKGROUND                       [UIColor colorWithRed:250.0/255 green:250.0/255 blue:250.0/255 alpha:1.0]
-#define KSCREEN_SCALE           [UIScreen mainScreen].scale
+#define KNotification_Action_Login                          @"NotificationActionLogin"
+#define KNotification_Action_Logout                         @"NotificationActionLogout"
+#define KNotification_App_Did_Become_Active                 @"NotificationAppDidBecomeActive"
+#define KNotification_Pay_Sucess                            @"NotificationPaySucess"
+
+
+#define KFONT_SIZE_MAX_16                                   16
+#define KFONT_SIZE_MIDDLE_14                                14
+#define KFONT_SIZE_MIN_12                                   12
+
+
+#define KCOLOR_VIEW_BACKGROUND                              [UIColor colorWithRed:250.0/255 green:250.0/255 blue:250.0/255 alpha:1.0]
+#define KCOLOR_BUTTON_NORMAL                                [UIColor colorWithRed:236.0/255 green:95.0/255 blue:52.0/255 alpha:1.0]
+#define KSCREEN_SCALE                                       [UIScreen mainScreen].scale
 
 
 #define HadShowTutorial                             @"HadShowTutorial"

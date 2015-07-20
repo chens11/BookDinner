@@ -163,8 +163,8 @@
 - (void)autoLogin{
     
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT],USER_ACCOUNT,
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD],USER_PASSWORD,
+                                  [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_ACCOUNT],KUSER_ACCOUNT,
+                                  [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_PASSWORD],KUSER_PASSWORD,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLogin];
@@ -190,8 +190,8 @@
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
 
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationActionLogin object:nil userInfo:nil ];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USER_IS_LOGIN];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Action_Login object:nil userInfo:nil ];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KUSER_IS_LOGIN];
             [[NSUserDefaults standardUserDefaults] setValue:[dictionary objectForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
         }
     }
@@ -213,7 +213,7 @@
     if ([vController isKindOfClass:[BDLeftViewController class]]) {
         if (self.leftNaviController.view.frame.origin.x > -1){
             [self hideLeftView];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationAppDidBecomeActive object:nil userInfo:nil ];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_App_Did_Become_Active object:nil userInfo:nil ];
         }
     }
 }

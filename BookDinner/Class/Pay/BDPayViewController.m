@@ -24,7 +24,7 @@
         self.result = @selector(paymentResult:);
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(payNotifcation:)
-                                                     name:NotificationPaySucess object:nil];
+                                                     name:KNotification_Pay_Sucess object:nil];
         // Custom initialization
     }
     return self;
@@ -158,7 +158,7 @@
             NSString* key = AlipayPubKey;//签约帐户后获取到的支付宝公钥
             id<DataVerifier> verifier;
             verifier = CreateRSADataVerifier(key);
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPaySucess object:nil userInfo:nil ];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Pay_Sucess object:nil userInfo:nil ];
 
 //            if ([verifier verifyString:result.resultString withSign:result.signString]){
 //                //验证签名成功，交易结果无篡改

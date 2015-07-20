@@ -28,7 +28,7 @@
     [self.window setRootViewController:naviController];
     [self.window makeKeyAndVisible];
     
-    [UMSocialWechatHandler setWXAppId:WeiXinAppKey appSecret:@"test" url:@"http://www.umeng.com/social"];
+    [UMSocialWechatHandler setWXAppId:KAPP_WeiXinApp appSecret:@"test" url:@"http://www.umeng.com/social"];
     return YES;
 }
 
@@ -72,7 +72,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [UMSocialSnsService  applicationDidBecomeActive];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationAppDidBecomeActive object:nil userInfo:nil ];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_App_Did_Become_Active object:nil userInfo:nil ];
 //    [PXAlertView showAlertWithTitle:@"fddd" message:nil cancelTitle:@"重试" otherTitle:nil contentView:nil delegate:self];
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -153,7 +153,7 @@
             NSString* key = @"签约帐户后获取到的支付宝公钥";
 			id<DataVerifier> verifier;
             verifier = CreateRSADataVerifier(key);
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPaySucess object:nil userInfo:nil ];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Pay_Sucess object:nil userInfo:nil ];
 
 //			if ([verifier verifyString:result.resultString withSign:result.signString])
 //            {

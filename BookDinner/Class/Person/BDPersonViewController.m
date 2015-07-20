@@ -44,7 +44,7 @@
     self.title = @"个人中心";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loginNotifcation:)
-                                                 name:NotificationActionLogin object:nil];
+                                                 name:KNotification_Action_Login object:nil];
 
     [self createTable];
     [self setContent];
@@ -54,7 +54,7 @@
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     logoutBtn.frame = CGRectMake(5, self.view.frame.size.height - 55, self.view.frame.size.width - 10, 40);
     [logoutBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-    logoutBtn.titleLabel.font = ButtonTitleFont;
+    logoutBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
     [logoutBtn addTarget:self action:@selector(touchLogoutButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:logoutBtn];
@@ -114,7 +114,7 @@
     nameItem.editable = NO;
     nameItem.key = @"account";
     nameItem.textAlignment = NSTextAlignmentRight;
-    nameItem.textValue = [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT];
+    nameItem.textValue = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_ACCOUNT];
     nameItem.textColor = [UIColor lightGrayColor];
     nameItem.name = @"  账号";
     nameItem.height = @"one";
@@ -213,9 +213,9 @@
 #pragma mark -
 #pragma mark - ibaction
 - (void)touchLogoutButton:(UIButton*)sender{
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:USER_IS_LOGIN];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KUSER_IS_LOGIN];
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:HTTP_TOKEN];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationActionLogout object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Action_Logout object:nil userInfo:nil];
     [self.navigationController popViewControllerAnimated:YES];
   
 }
@@ -329,7 +329,7 @@
         if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             self.personModel = [HNYJSONUitls mappingDictionary:value toObjectWithClassName:@"BDPersonModel"];
-            self.personModel.account = [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT];
+            self.personModel.account = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_ACCOUNT];
             
             if ([value isKindOfClass:[NSDictionary class]]) {
                 HNYDetailItemModel *walletItem = [self.tableViewController getItemWithKey:@"wallet"];
