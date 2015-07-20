@@ -12,6 +12,6 @@
 @interface HNYTreeCell : UITableViewCell
 @property (nonatomic) int expandLevel;
 @property (nonatomic) BOOL expanded;
-- (void)iniDataWithModel:(id)model;
+- (void)configureCellWith:(id)model;
 
 @end

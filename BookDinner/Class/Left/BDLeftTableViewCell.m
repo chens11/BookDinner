@@ -61,7 +61,7 @@
     self.tailView.frame = CGRectMake(self.frame.size.width - 20, (self.frame.size.height - 20)/2, 20, 20);
     self.label.frame = CGRectMake(50, 0, self.frame.size.width - 60 - 20, self.frame.size.height);
 }
-- (void)iniDataWithModel:(id)model{
+- (void)configureCellWith:(id)model{
     if ([model isKindOfClass:[BDMenuModel class]]) {
         BDMenuModel *cModel = model;
         

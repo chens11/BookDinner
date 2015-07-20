@@ -16,6 +16,7 @@
 @property (nonatomic,strong) UILabel *topLine;
 @property (nonatomic,weak) id<HNYDelegate> delegate;
 
-- (void)iniDataWithModel:(id)model;
+- (void)configureCellWith:(id)model;
++ (NSInteger)cellHeightWith:(id)model maxWidth:(CGFloat)maxWidth;
 
 @end

@@ -68,7 +68,7 @@
         self.titleLabel.frame = CGRectMake(5, 0, self.frame.size.width - 5, self.frame.size.height);
     }
 }
-- (void)iniDataWithModel:(NSDictionary*)model{
+- (void)configureCellWith:(NSDictionary*)model{
     if ([model isKindOfClass:[NSDictionary class]]){
         self.titleLabel.text = [model valueForKey:@"title"];
         self.contentLabel.text = [model valueForKey:@"content"];

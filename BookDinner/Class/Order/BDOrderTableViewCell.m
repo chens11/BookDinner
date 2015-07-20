@@ -136,7 +136,7 @@
     self.payBtn.frame = CGRectMake(self.contentView.frame.size.width - 80, self.contentView.frame.size.height - 40, 60, 25);
     self.payLabel.frame = CGRectMake(20, self.contentView.frame.size.height - 35, 150, 20);
 }
-- (void)iniDataWithModel:(BDOrderModel*)model{
+- (void)configureCellWith:(BDOrderModel*)model{
     if ([model isKindOfClass:[BDOrderModel class]]) {
         self.nameLabel.text = model.title;
         self.statusLabel.text = model.stateName;

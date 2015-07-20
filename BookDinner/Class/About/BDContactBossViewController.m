@@ -117,7 +117,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.tag = indexPath.row;
-    [cell iniDataWithModel:[self.tableController.list objectAtIndex:indexPath.row]];
+    [cell configureCellWith:[self.tableController.list objectAtIndex:indexPath.row]];
     return cell;
 }
 

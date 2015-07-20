@@ -46,7 +46,13 @@
     // Configure the view for the selected state
 }
 
-- (void)iniDataWithModel:(id)model{
+- (void)configureCellWith:(id)model
+{
     
+}
+
++ (NSInteger)cellHeightWith:(id)model maxWidth:(CGFloat)maxWidth
+{
+    return 44;
 }
 @end

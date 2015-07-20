@@ -51,9 +51,9 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     float padding = 15;
-    self.nameLabel.frame = CGRectMake(self.codeModel.expandLevel * (padding + 1), 0, self.frame.size.width - 20 - self.codeModel.expandLevel * padding, self.frame.size.height);
+    self.nameLabel.frame = CGRectMake(padding * (self.codeModel.expandLevel + 1), 0, self.frame.size.width - 15 - padding * (self.codeModel.expandLevel + 1), self.frame.size.height);
 }
-- (void)iniDataWithModel:(BDCodeModel*)model{
+- (void)configureCellWith:(BDCodeModel*)model{
     if ([model isKindOfClass:[BDCodeModel class]]) {
         self.codeModel = model;
         self.nameLabel.text = model.name;

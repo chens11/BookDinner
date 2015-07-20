@@ -77,7 +77,7 @@
 //    self.headLabel.frame = CGRectMake(5, 0, self.frame.size.width - 25, self.frame.size.height);
 //    self.tailLabel.frame = CGRectMake(5, 0, self.frame.size.width - 25, self.frame.size.height);
 }
-- (void)iniDataWithModel:(BDContactMessageModel*)model{
+- (void)configureCellWith:(BDContactMessageModel*)model{
 
     if ([model isKindOfClass:[BDContactMessageModel class]]) {
         self.model = model;

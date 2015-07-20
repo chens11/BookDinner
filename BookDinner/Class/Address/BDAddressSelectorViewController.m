@@ -72,7 +72,7 @@
         cell = [[BDAddressSelectorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
     BDCodeModel *model  = [self.dataAry objectAtIndex:indexPath.row];
-    [cell iniDataWithModel:model];
+    [cell configureCellWith:model];
     return cell;
 }
 

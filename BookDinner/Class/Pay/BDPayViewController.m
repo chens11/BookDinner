@@ -108,7 +108,7 @@
     else if (indexPath.row == 2){
         dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"我的钱包支付",@"title",@"钱包余额充足可使用",@"content", nil];
     }
-    [cell iniDataWithModel:dictionary];
+    [cell configureCellWith:dictionary];
     return cell;
 }
 

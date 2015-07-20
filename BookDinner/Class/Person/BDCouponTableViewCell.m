@@ -102,7 +102,7 @@
     self.dateLabel.frame = CGRectMake(0, self.contentView.frame.size.height - 35, self.contentView.frame.size.width-20, 20);
 
 }
-- (void)iniDataWithModel:(BDCouponModel*)model{
+- (void)configureCellWith:(BDCouponModel*)model{
     [self.headImg setImage:[UIImage imageNamed:@"LLScanIndexEvoucher"]];
     if ([model isKindOfClass:[BDCouponModel class]]) {
         self.nameLabel.text = model.name;

@@ -78,7 +78,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.tag = indexPath.row;
-    [cell iniDataWithModel:[self.menuAry objectAtIndex:indexPath.row]];;
+    [cell configureCellWith:[self.menuAry objectAtIndex:indexPath.row]];;
     return cell;
 }
 

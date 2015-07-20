@@ -30,7 +30,7 @@
 
     // Configure the view for the selected state
 }
-- (void)iniDataWithModel:(id)model{
+- (void)configureCellWith:(id)model{
     if ([model isKindOfClass:[HNYTreeModel class]]) {
         HNYTreeModel *treeModel = model;
         self.textLabel.text = [treeModel title];

@@ -65,7 +65,7 @@
     self.headLabel.frame = CGRectMake(5, 0, self.frame.size.width - 25, self.frame.size.height);
     self.tailLabel.frame = CGRectMake(5, 0, self.frame.size.width - 25, self.frame.size.height);
 }
-- (void)iniDataWithModel:(id)model{
+- (void)configureCellWith:(id)model{
     if ([model isKindOfClass:[BDMenuModel class]]) {
         BDMenuModel *cModel = model;
         self.headLabel.text = cModel.title;

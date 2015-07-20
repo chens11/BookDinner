@@ -80,7 +80,7 @@
         else
             cell = [[HNYTreeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
     }
-    [cell iniDataWithModel:[self getOriginalModelWithIndexPath:indexPath]];
+    [cell configureCellWith:[self getOriginalModelWithIndexPath:indexPath]];
     return cell;
 }
 

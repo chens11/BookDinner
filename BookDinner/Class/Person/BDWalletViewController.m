@@ -147,7 +147,7 @@
         cell = [[BDRechargeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
     }
     cell.delegate = self;
-    [cell iniDataWithModel:[self.tableController.list objectAtIndex:indexPath.row]];
+    [cell configureCellWith:[self.tableController.list objectAtIndex:indexPath.row]];
     return cell;
 }
 

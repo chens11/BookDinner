@@ -65,7 +65,7 @@
         self.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1.0];
     }
 }
-- (void)iniDataWithModel:(id)model{
+- (void)configureCellWith:(id)model{
     if ([model isKindOfClass:[BDAddressModel class]]) {
         BDAddressModel *cModel = model;
         self.nameLabel.text = cModel.name;
