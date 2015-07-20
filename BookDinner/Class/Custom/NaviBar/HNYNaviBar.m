@@ -68,14 +68,14 @@
     self.bottomLine.frame = CGRectMake(0, frame.size.height - 1, frame.size.width, 1);
     float labelX = 0;
     for (HNYNaviBarItem *item in self.leftItems) {
-        int index = [self.leftItems indexOfObject:item];
-        item.center = CGPointMake(item.frame.size.width/2 + item.frame.size.width * index, (self.frame.size.height + self.offset)/2);
+        item.center = CGPointMake(item.frame.size.width/2 + labelX, (self.frame.size.height + self.offset)/2);
         labelX += item.frame.size.width;
     }
     
+    labelX = 0;
     for (HNYNaviBarItem *item in self.rightItems) {
-        int index = [self.rightItems indexOfObject:item];
-        item.center = CGPointMake(self.frame.size.width -(item.frame.size.width/2 + item.frame.size.width * index), (self.frame.size.height + self.offset)/2);
+        item.center = CGPointMake(self.frame.size.width -(item.frame.size.width/2 + labelX), (self.frame.size.height + self.offset)/2);
+        labelX += item.frame.size.width;
     }
     
     self.label.frame = CGRectMake(0, self.offset, frame.size.width, frame.size.height - self.offset);
@@ -84,18 +84,20 @@
 }
 - (void)setLeftItems:(NSArray *)leftItems{
     _leftItems = leftItems;
+    float labelX = 0;
     for (HNYNaviBarItem *item in leftItems) {
-        int index = [leftItems indexOfObject:item];
-        item.center = CGPointMake(item.frame.size.width/2 + item.frame.size.width * index, (self.frame.size.height + self.offset)/2);
+        item.center = CGPointMake(item.frame.size.width/2 + labelX, (self.frame.size.height + self.offset)/2);
+        labelX += item.frame.size.width;
         [self addSubview:item];
     }
 }
 
 - (void)setRightItems:(NSArray *)rightItems{
     _rightItems = rightItems;
+    float labelX = 0;
     for (HNYNaviBarItem *item in rightItems) {
-        int index = [rightItems indexOfObject:item];
-        item.center = CGPointMake(self.frame.size.width -(item.frame.size.width/2 + item.frame.size.width * index), (self.frame.size.height + self.offset)/2);
+        item.center = CGPointMake(self.frame.size.width -(item.frame.size.width/2 + labelX), (self.frame.size.height + self.offset)/2);
+        labelX += item.frame.size.width;
         [self addSubview:item];
     }
 }
@@ -114,15 +116,15 @@
 }
 
 - (void)resizeTitleLabel{
-    if (self.label.text.length > 0) {
-        CGSize size = [self.label.text sizeWithFont:[UIFont systemFontOfSize:18.0] constrainedToSize:CGSizeMake(600, 22) lineBreakMode:NSLineBreakByWordWrapping];
-        if (size.width > (self.frame.size.width - self.offset - HNYNaviBarItemWidth * self.leftItems.count)) {
-            CGRect frame = self.label.frame;
-            frame.origin.x = self.offset + HNYNaviBarItemWidth * self.leftItems.count;
-            frame.size.width = self.frame.size.width - self.offset - HNYNaviBarItemWidth * self.leftItems.count;
-            self.label.frame = frame;
-        }
-    }
+//    if (self.label.text.length > 0) {
+//        CGSize size = [self.label.text sizeWithFont:self.label.font constrainedToSize:CGSizeMake(600, 22) lineBreakMode:NSLineBreakByWordWrapping];
+//        if (size.width > (self.frame.size.width - self.offset - HNYNaviBarItemWidth * self.leftItems.count)) {
+//            CGRect frame = self.label.frame;
+//            frame.origin.x = self.offset + HNYNaviBarItemWidth * self.leftItems.count;
+//            frame.size.width = self.frame.size.width - self.offset - HNYNaviBarItemWidth * self.leftItems.count;
+//            self.label.frame = frame;
+//        }
+//    }
 }
 
 #pragma mark - UIScrollViewDelegate

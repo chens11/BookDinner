@@ -22,25 +22,6 @@
 @implementation HNYNaviBarItem
 @synthesize selected = _selected;
 
-- (id)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.label = [[UILabel alloc] init];
-        self.label.backgroundColor = [UIColor clearColor];
-        self.label.textAlignment = NSTextAlignmentCenter;
-        self.label.font = [UIFont systemFontOfSize:14];
-        [self addSubview:self.label];
-        
-        self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.button.showsTouchWhenHighlighted = YES;
-        [self.button addTarget:self action:@selector(touchButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.button];
-        
-        
-    }
-    return self;
-}
-
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGRect frame = self.frame;
@@ -53,35 +34,70 @@
 
 
 + (HNYNaviBarItem *)initWithNormalImage:(UIImage *)normalImg downImage:(UIImage *)downImg target:(id)target action:(SEL)action{
-    HNYNaviBarItem *item = [[HNYNaviBarItem alloc] initWithFrame:CGRectMake(0, 0, HNYNaviBarItemWidth, 44)];
-    [item initWithNormalImage:normalImg downImage:downImg target:target action:action];
+    HNYNaviBarItem *item = [[HNYNaviBarItem alloc] initWithNormalImage:normalImg downImage:downImg target:target action:action];
     return item;
 }
 
 
 + (HNYNaviBarItem *)initWithTitle:(NSString *)title target:(id)target action:(SEL)action{
-    HNYNaviBarItem *item = [[HNYNaviBarItem alloc] initWithFrame:CGRectMake(0, 0, HNYNaviBarItemWidth, 44)];
-    [item initWithTitle:title target:target action:action];
+    HNYNaviBarItem *item = [[HNYNaviBarItem alloc] initWithTitle:title target:target action:action];
     return item;
 }
 
 #pragma mark - init fun
-- (void)initWithNormalImage:(UIImage *)normalImg downImage:(UIImage *)downImg target:(id)target action:(SEL)action{
-    self.normalImg = normalImg;
-    self.downImg = downImg;
-    self.label.hidden = YES;
-    self.target = target;
-    self.action = action;
-    [self.button setImage:normalImg forState:UIControlStateNormal];
+- (HNYNaviBarItem *)initWithNormalImage:(UIImage *)normalImg downImage:(UIImage *)downImg target:(id)target action:(SEL)action{
+    
+    self = [super initWithFrame:CGRectMake(0, 0, normalImg.size.width + 16, 44)];
+    if (self) {
+        self.label = [[UILabel alloc] init];
+        self.label.backgroundColor = [UIColor clearColor];
+        self.label.textAlignment = NSTextAlignmentCenter;
+        self.label.font = [UIFont systemFontOfSize:14];
+        [self addSubview:self.label];
+        
+        self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.button.showsTouchWhenHighlighted = YES;
+        [self.button addTarget:self action:@selector(touchButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.button];
+        
+        self.normalImg = normalImg;
+        self.downImg = downImg;
+        self.label.hidden = YES;
+        self.target = target;
+        self.action = action;
+        [self.button setImage:normalImg forState:UIControlStateNormal];
+
+    }
+    
+    return self;
 }
 
 
-- (void)initWithTitle:(NSString *)title target:(id)target action:(SEL)action{
-    [self.button setTitle:title forState:UIControlStateNormal];
-    self.button.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.target = target;
-    self.action = action;
+- (HNYNaviBarItem *)initWithTitle:(NSString *)title target:(id)target action:(SEL)action{
+    CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:14.0] constrainedToSize:CGSizeMake(150, 44) lineBreakMode:NSLineBreakByWordWrapping];
+    self = [super initWithFrame:CGRectMake(0, 0, size.width + 16, 44)];
+    if (self) {
+        self.label = [[UILabel alloc] init];
+        self.label.backgroundColor = [UIColor clearColor];
+        self.label.textAlignment = NSTextAlignmentCenter;
+        self.label.font = [UIFont systemFontOfSize:14];
+        [self addSubview:self.label];
+        
+        self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.button.showsTouchWhenHighlighted = YES;
+        [self.button addTarget:self action:@selector(touchButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.button];
+        
+        self.button.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        [self.button setTitle:title forState:UIControlStateNormal];
+        [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        self.target = target;
+        self.action = action;
+        
+    }
+    
+    return self;
+
     
 }
 #pragma mark - IBAction

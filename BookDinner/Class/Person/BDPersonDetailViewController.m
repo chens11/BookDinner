@@ -200,16 +200,16 @@
     HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
     
     
-    NSData *imageData = UIImagePNGRepresentation(imgItem.value);
-    NSString *string = [imageData base64EncodedString];
 
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   sexItem.value,USER_SEX,
                                   nameItem.value,USER_NAME,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
-    if (self.imgChange)
+    if (self.imgChange && [imgItem.value isKindOfClass:[UIImage class]])
     {
+        NSData *imageData = UIImagePNGRepresentation(imgItem.value);
+        NSString *string = [imageData base64EncodedString];
         [param setValue:string forKey:USER_IMG];
         [param setValue:@"png" forKey:USER_IMG_TYPE];
     }

@@ -57,12 +57,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BookDinner/Class/Person/BDPersonDetailViewController.m"
-            timestampString = "459053347.371835"
+            filePath = "BookDinner/Class/About/BDAboutViewController.m"
+            timestampString = "459067678.687124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "-requestFinished:"
             landmarkType = "5">
          </BreakpointContent>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BookDinner/Class/About/BDAboutViewController.m"
-            timestampString = "459067678.687124"
+            filePath = "BookDinner/Class/Custom/NaviBar/HNYNaviBarItem.m"
+            timestampString = "459071825.877665"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
-            landmarkName = "-requestFinished:"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "-layoutSubviews"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
