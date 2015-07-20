@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
-    self.view.backgroundColor = [UIColor colorWithRed:237.0/255 green:234.0/255 blue:225.0/255 alpha:1.0];//[UIColor colorWithWhite:0.92 alpha:1.0];
+    self.view.backgroundColor = KCOLOR_VIEW_BACKGROUND;
     [self createNaviBar];
     [self createNaviBarItems];
     // Do any additional setup after loading the view.

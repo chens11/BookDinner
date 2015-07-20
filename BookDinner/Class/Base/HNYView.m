@@ -14,7 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:237.0/255 green:234.0/255 blue:225.0/255 alpha:1.0];
+        self.backgroundColor = KCOLOR_VIEW_BACKGROUND;
         // Initialization code
     }
     return self;

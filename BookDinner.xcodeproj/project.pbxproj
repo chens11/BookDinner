@@ -1600,9 +1600,10 @@
 				ORGANIZATIONNAME = chenzq;
 				TargetAttributes = {
 					03BE21BA196E3AB4005C0D03 = {
-						DevelopmentTeam = X78J75TA52;
+						DevelopmentTeam = ZK59BC588E;
 					};
 					03BE21D5196E3AB5005C0D03 = {
+						DevelopmentTeam = ZK59BC588E;
 						TestTargetID = 03BE21BA196E3AB4005C0D03;
 					};
 				};
@@ -2026,7 +2027,7 @@
 					"$(PROJECT_DIR)/BookDinner/Common/WeChatSDK_64",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EDBB1176-8652-4DD7-B571-1AD520C65A10";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2052,7 +2053,7 @@
 					"$(PROJECT_DIR)/BookDinner/Common/WeChatSDK_64",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EDBB1176-8652-4DD7-B571-1AD520C65A10";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

@@ -52,7 +52,7 @@
 #define KFONT_SIZE_MIN_12                           12
 
 
-#define KCOLOR_VIEW_BACKGROUND                       [UIColor colorWithRed:236.0/255 green:95.0/255 blue:52.0/255 alpha:1.0]
+#define KCOLOR_VIEW_BACKGROUND                       [UIColor colorWithRed:250.0/255 green:250.0/255 blue:250.0/255 alpha:1.0]
 #define KSCREEN_SCALE           [UIScreen mainScreen].scale
 
 
