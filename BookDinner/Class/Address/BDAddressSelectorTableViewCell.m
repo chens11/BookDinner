@@ -26,7 +26,7 @@
         
         self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.backgroundColor = [UIColor clearColor];
-        self.nameLabel.font = [UIFont systemFontOfSize:16.0];
+        self.nameLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
         self.nameLabel.numberOfLines = 0;
         self.nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         [self.contentView addSubview:self.nameLabel];

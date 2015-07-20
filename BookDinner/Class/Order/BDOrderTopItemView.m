@@ -29,7 +29,7 @@
 //        [self addSubview:self.bgImageView];
         
         self.label = [[UILabel alloc] init];
-        self.label.font = [UIFont boldSystemFontOfSize:14.0];
+        self.label.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MIDDLE_14];
         self.label.backgroundColor = [UIColor clearColor];
         self.label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.label];

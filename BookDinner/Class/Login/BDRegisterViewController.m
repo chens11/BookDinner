@@ -15,6 +15,7 @@
 @property (nonatomic,strong) HNYDetailTableViewController *tableViewController;
 @property (nonatomic,strong) UITextField *sexTextField;
 @property (nonatomic,strong) NSArray *sexAry;
+@property (nonatomic,strong) UITextField *codeTextField;
 
 @end
 
@@ -51,7 +52,7 @@
     self.tableViewController = [[HNYDetailTableViewController alloc] init];
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
-    self.tableViewController.nameLabelWidth = 80;
+    self.tableViewController.nameLabelWidth = 90;
     self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 50;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
@@ -122,6 +123,16 @@
     conPasswordItem.secureTextEntry = YES;
     [self.viewAry addObject:conPasswordItem];
     
+    HNYDetailItemModel *numItem = [[HNYDetailItemModel alloc] init];
+    numItem.viewType = Customer;
+    numItem.editable = YES;
+    numItem.name = @"   验 证 码";
+    numItem.placeholder = @"请输入验证码";
+    numItem.key = @"captcha";
+    numItem.height = @"one";
+    numItem.textFont = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
+    [_viewAry addObject:numItem];
+    
     HNYDetailItemModel *buttonItem = [[HNYDetailItemModel alloc] init];
     buttonItem.viewType = Customer;
     buttonItem.height = @"one";
@@ -158,9 +169,47 @@
         return;
     }
     
+    if (![self.params valueForKey:@"captcha"]) {
+        [self showTips:@"验证码不能为空"];
+        return;
+    }
+    
     [self registerAccount];
 }
+
+- (void)touchButtons:(UIButton*)sender{
+    [self.view endEditing:YES];
+    HNYDetailItemModel *codeItem = [self.tableViewController getItemWithKey:USER_ACCOUNT];
+    
+    if (sender.tag == 101) {
+        NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      codeItem.textValue,USER_ACCOUNT,
+                                      [AppInfo headInfo],HTTP_HEAD,
+                                      nil];
+        [self getConfirmCode:param];
+        
+    }
+}
 #pragma mark - http request
+- (void)getConfirmCode:(NSDictionary*)params{
+    [self showRequestingTips:nil];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetConfirmCode];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSLog(@"url = %@ \n param = %@",urlString,params);
+    
+    NSString *jsonString = [params JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetConfirmCode,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+    
+}
+
 - (void)registerAccount{
     [self showRequestingTips:@"正在注册..."];
     
@@ -198,13 +247,22 @@
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         }
+        else if ([ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
+
     }
     else{
         if ([ActionReister isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
+        else if ([ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
+
     }
 }
+
 #pragma mark - HNYDetailTableViewControllerDelegate
 //item值改变的时候，改delegate传出值
 - (void)valueDicChange:(HNYDetailTableViewController *)controller withValue:(id)value andKey:(NSString *)key{
@@ -237,6 +295,35 @@
         [temp addSubview:registerBtn];
         
         return temp;
+    }
+   else if ([@"captcha" isEqualToString:item.key]){
+        UIView *numView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - self.tableViewController.nameLabelWidth, self.tableViewController.cellHeight)];
+        
+        self.codeTextField = [[HNYTextField alloc] initWithFrame:CGRectMake(0, 0, numView.frame.size.width - 110, self.tableViewController.cellHeight)];
+        self.codeTextField.enabled = item.editable;
+        self.codeTextField.tag = item.tag;
+        self.codeTextField.backgroundColor = item.backGroundColor;
+        self.codeTextField.text = item.textValue;
+        self.codeTextField.delegate = self.tableViewController;
+        self.codeTextField.secureTextEntry = item.secureTextEntry;
+        self.codeTextField.font = item.textFont;
+        self.codeTextField.textColor = item.textColor;
+        self.codeTextField.returnKeyType = item.returnKeyType;
+        self.codeTextField.keyboardType = item.keyboardType;
+        self.codeTextField.placeholder = item.placeholder;
+        
+        UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        addBtn.frame = CGRectMake(numView.frame.size.width - 110, 8, 100, self.tableViewController.cellHeight - 16);
+        addBtn.tag = 101;
+        addBtn.enabled = YES;
+        addBtn.titleLabel.font = ButtonTitleFont;
+        [addBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
+        [addBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [addBtn addTarget:self action:@selector(touchButtons:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [numView addSubview:self.codeTextField];
+        [numView addSubview:addBtn];
+        return numView;
     }
 
     return nil;

@@ -309,7 +309,6 @@
 - (void)getPersonInfo{
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     

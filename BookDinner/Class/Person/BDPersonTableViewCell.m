@@ -28,12 +28,12 @@
         
         self.headLabel = [[UILabel alloc] init];
         self.headLabel.backgroundColor = [UIColor clearColor];
-        self.headLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.headLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.headLabel];
         
         self.tailLabel = [[UILabel alloc] init];
         self.tailLabel.backgroundColor = [UIColor clearColor];
-        self.tailLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.tailLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.tailLabel];
         
         self.tailView = [[UIImageView alloc] init];

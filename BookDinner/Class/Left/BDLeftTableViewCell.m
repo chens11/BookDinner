@@ -29,7 +29,7 @@
         self.label = [[UILabel alloc] init];
         self.label.backgroundColor = [UIColor clearColor];
         self.label.textColor = [UIColor whiteColor];
-        self.label.font = [UIFont boldSystemFontOfSize:15.0];
+        self.label.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.label];
         
         self.tailView = [[UIImageView alloc] init];

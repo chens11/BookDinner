@@ -28,13 +28,13 @@
         
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.backgroundColor = [UIColor clearColor];
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.titleLabel];
         
         self.contentLabel = [[UILabel alloc] init];
         self.contentLabel.backgroundColor = [UIColor clearColor];
         self.contentLabel.textColor = [UIColor lightGrayColor];
-        self.contentLabel.font = [UIFont boldSystemFontOfSize:13.0];
+        self.contentLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MIN_12];
         [self addSubview:self.contentLabel];
         
         self.headImg = [[UIImageView alloc] init];

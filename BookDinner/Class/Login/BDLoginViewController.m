@@ -241,7 +241,10 @@
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USER_IS_LOGIN];
             [[NSUserDefaults standardUserDefaults] setValue:self.userNameField.text forKey:USER_ACCOUNT];
-            [[NSUserDefaults standardUserDefaults] setValue:[dictionary objectForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
+            if ([[dictionary objectForKey:HTTP_VALUE] isKindOfClass:[NSDictionary class]])
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[dictionary objectForKey:HTTP_VALUE] objectForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
+            }
             [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         }
     }

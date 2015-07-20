@@ -30,7 +30,7 @@
         self.monthLabel.text = [monthAry objectAtIndex:[HNYTools getMonthNumByDate:[NSDate date]]];
         self.monthLabel.textAlignment = NSTextAlignmentCenter;
         self.monthLabel.textColor = [UIColor blackColor];
-        self.monthLabel.font = [UIFont systemFontOfSize:14];
+        self.monthLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         self.monthLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.monthLabel];
 

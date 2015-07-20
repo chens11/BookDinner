@@ -4,6 +4,7 @@
 //  Copyright (c) 2013 Evgeny Aleksandrov. License: MIT.
 
 #import "EAIntroPage.h"
+#import "PublicDefine.h"
 
 @interface EAIntroPage ()
 
@@ -21,10 +22,10 @@
     newPage.titlePositionY  = 160.0f;
     newPage.descPositionY   = 140.0f;
     newPage.title = @"";
-    newPage.titleFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0];
+    newPage.titleFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:KFONT_SIZE_MAX_16];
     newPage.titleColor = [UIColor whiteColor];
     newPage.desc = @"";
-    newPage.descFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
+    newPage.descFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:KFONT_SIZE_MIN_12];
     newPage.descColor = [UIColor whiteColor];
     newPage.showTitleView = YES;
     

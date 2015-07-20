@@ -46,45 +46,45 @@
         
         self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.backgroundColor = [UIColor clearColor];
-        self.nameLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.nameLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self.contentView addSubview:self.nameLabel];
         
         self.statusLabel = [[UILabel alloc] init];
         self.statusLabel.textAlignment = NSTextAlignmentRight;
         self.statusLabel.textColor = [UIColor redColor];
         self.statusLabel.backgroundColor = [UIColor clearColor];
-        self.statusLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.statusLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self.contentView addSubview:self.statusLabel];
         
         self.priceLabel = [[UILabel alloc] init];
         self.priceLabel.textAlignment = NSTextAlignmentRight;
         self.priceLabel.backgroundColor = [UIColor clearColor];
-        self.priceLabel.font = [UIFont systemFontOfSize:14.0];
+        self.priceLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         self.priceLabel.textColor = [UIColor redColor];
         [self.contentView addSubview:self.priceLabel];
         
         self.typeLabel = [[UILabel alloc] init];
         self.typeLabel.textAlignment = NSTextAlignmentLeft;
         self.typeLabel.backgroundColor = [UIColor clearColor];
-        self.typeLabel.font = [UIFont systemFontOfSize:14.0];
+        self.typeLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         [self.contentView addSubview:self.typeLabel];
         
         self.couponLabel = [[UILabel alloc] init];
         self.couponLabel.textAlignment = NSTextAlignmentLeft;
         self.couponLabel.backgroundColor = [UIColor clearColor];
-        self.couponLabel.font = [UIFont systemFontOfSize:14.0];
+        self.couponLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         [self.contentView addSubview:self.couponLabel];
         
         self.timeLabel = [[UILabel alloc] init];
         self.timeLabel.textAlignment = NSTextAlignmentLeft;
         self.timeLabel.backgroundColor = [UIColor clearColor];
-        self.timeLabel.font = [UIFont systemFontOfSize:14.0];
+        self.timeLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         [self.contentView addSubview:self.timeLabel];
         
         self.numLabel = [[UILabel alloc] init];
         self.numLabel.textAlignment = NSTextAlignmentRight;
         self.numLabel.backgroundColor = [UIColor clearColor];
-        self.numLabel.font = [UIFont systemFontOfSize:14.0];
+        self.numLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         self.numLabel.textColor = [UIColor redColor];
         [self.contentView addSubview:self.numLabel];
         
@@ -92,7 +92,7 @@
         self.payLabel.textAlignment = NSTextAlignmentLeft;
         self.payLabel.textColor = [UIColor redColor];
         self.payLabel.backgroundColor = [UIColor clearColor];
-        self.payLabel.font = [UIFont systemFontOfSize:14.0];
+        self.payLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         [self.contentView addSubview:self.payLabel];
 
         

@@ -35,8 +35,8 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.bottomLine.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
-    self.topLine.frame = CGRectMake(0, 0, self.frame.size.width, 1);
+    self.bottomLine.frame = CGRectMake(0, self.frame.size.height - 1/KSCREEN_SCALE, self.frame.size.width, 1/KSCREEN_SCALE);
+    self.topLine.frame = CGRectMake(0, 0, self.frame.size.width, 1/KSCREEN_SCALE);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

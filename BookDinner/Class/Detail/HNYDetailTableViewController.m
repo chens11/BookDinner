@@ -7,6 +7,7 @@
 //
 
 #import "HNYDetailTableViewController.h"
+#import "PublicDefine.h"
 
 @interface HNYDetailTableViewController ()
 @property (nonatomic, assign) CGFloat totalCellHeight;
@@ -41,9 +42,9 @@
         // Custom initialization
         self.totalCellHeight = 0;
         self.nameTextAlignment = NSTextAlignmentRight;
-        self.nameTextFont = [UIFont systemFontOfSize:17.0];
+        self.nameTextFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
         self.nameTextColor = [UIColor blackColor];
-        self.valueTextFont = [UIFont systemFontOfSize:17.0];
+        self.valueTextFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
         self.valueTextColor = [UIColor blackColor];
         self.cellHeight = 40.0;
         self.nameLabelWidth = 80.0;

@@ -91,7 +91,7 @@
     nameItem.value = self.orderModel.product.money;
     nameItem.textColor = [UIColor lightGrayColor];
     nameItem.rightPadding = 10;
-    nameItem.textFont = [UIFont systemFontOfSize:16];
+    nameItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     nameItem.name = [NSString stringWithFormat:@"  %@",self.orderModel.title];
     nameItem.height = @"one";
     [_viewAry addObject:nameItem];
@@ -110,7 +110,7 @@
         numItem.textValue = [NSString stringWithFormat:@"%d",self.orderModel.order_number];
     numItem.value = numItem.textValue;
     numItem.textColor = [UIColor lightGrayColor];
-    numItem.textFont = [UIFont boldSystemFontOfSize:16.0];
+    numItem.textFont = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [_viewAry addObject:numItem];
     
     
@@ -203,7 +203,7 @@
     self.priceLabel.text = [NSString stringWithFormat:@"合计: ￥%.2f",price];
     self.priceLabel.backgroundColor = [UIColor clearColor];
     self.priceLabel.textColor = [UIColor redColor];
-    self.priceLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    self.priceLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [self.view addSubview:self.priceLabel];
     
     UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -225,7 +225,7 @@
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
     self.tableViewController.nameLabelWidth = 100;
-    self.tableViewController.nameTextFont = [UIFont boldSystemFontOfSize:16.0];
+    self.tableViewController.nameTextFont = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 60;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];

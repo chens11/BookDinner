@@ -10,29 +10,29 @@
 	<string>BookDinner</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C6EED661-A66F-419C-8A49-E1A3C3BEBFA2</key>
+		<key>157EEE1B5DB8D9BD676FAF6947CBF2B660A20B6B</key>
 		<string>https://github.com/chens11/bookdinner.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BookDinner.xcodeproj/project.xcworkspace</string>
+	<string>BookDinner.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C6EED661-A66F-419C-8A49-E1A3C3BEBFA2</key>
+		<key>157EEE1B5DB8D9BD676FAF6947CBF2B660A20B6B</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/chens11/bookdinner.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C6EED661-A66F-419C-8A49-E1A3C3BEBFA2</string>
+	<string>157EEE1B5DB8D9BD676FAF6947CBF2B660A20B6B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C6EED661-A66F-419C-8A49-E1A3C3BEBFA2</string>
+			<string>157EEE1B5DB8D9BD676FAF6947CBF2B660A20B6B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>bookdinner</string>
 		</dict>

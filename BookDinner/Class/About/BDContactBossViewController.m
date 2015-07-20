@@ -105,7 +105,7 @@
     if (model.type == 1)
         string = model.admin_reply;
     
-    CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:16.0] constrainedToSize:CGSizeMake(self.view.frame.size.width - 65, 999) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:KFONT_SIZE_MAX_16] constrainedToSize:CGSizeMake(self.view.frame.size.width - 65, 999) lineBreakMode:NSLineBreakByWordWrapping];
     size.height = size.height + 30;
     return size.height;
 }

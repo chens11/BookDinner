@@ -18,7 +18,8 @@
 @property (nonatomic,strong) NSMutableArray *viewAry;
 @property (nonatomic,strong) NSArray *sexAry;
 @property (nonatomic,strong) HNYDetailTableViewController *tableViewController;
-@property (nonatomic, strong) ALAssetsLibrary *specialLibrary;
+@property (nonatomic,strong) ALAssetsLibrary *specialLibrary;
+@property (nonatomic,assign) BOOL imgChange;
 @property (nonatomic, copy) NSArray *chosenImages;
 
 @end
@@ -29,6 +30,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.imgChange = NO;
         _viewAry = [[NSMutableArray alloc] initWithCapacity:0];
         self.sexAry = [NSArray arrayWithObjects:@"保密",@"男",@"女", nil];
         // Custom initialization
@@ -74,11 +76,11 @@
     imgItem.contentMode = UIViewContentModeScaleAspectFit;
     imgItem.height = @"two";
     imgItem.value = [UIImage imageNamed:@"AppIcon11"];
-    if ([self.personModel.img isKindOfClass:[UIImage class]]){
-        imgItem.value = self.personModel.img;
+    if ([self.personModel.userimage isKindOfClass:[UIImage class]]){
+        imgItem.value = self.personModel.userimage;
     }
-    else if ([self.personModel.img isKindOfClass:[NSString class]] && self.personModel.img.length > 10){
-        NSURL *url = [NSURL URLWithString:self.personModel.img];
+    else if ([self.personModel.userimage isKindOfClass:[NSString class]] && self.personModel.userimage.length > 10){
+        NSURL *url = [NSURL URLWithString:self.personModel.userimage];
         imgItem.value = url;
     }
     
@@ -191,40 +193,26 @@
 
 #pragma mark - http request
 
-- (void)getPersonInfo{
-    [self showRequestingTips:nil];
-    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  [AppInfo headInfo],HTTP_HEAD,nil];
-
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetPersonInfo];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"url = %@ \n param = %@",urlString,param);
-    
-    NSString *jsonString = [param JSONRepresentation];
-    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    
-    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetPersonInfo,HTTP_USER_INFO, nil];
-    [formRequest appendPostData:data];
-    [formRequest setDelegate:self];
-    [formRequest startAsynchronous];
-    
-}
-
-
 - (void)savePersonInfo{
     [self showRequestingTips:@"正在保存..."];
     HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:USER_SEX];
     HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:USER_NAME];
+    HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
+    
+    
+    NSData *imageData = UIImagePNGRepresentation(imgItem.value);
+    NSString *string = [imageData base64EncodedString];
 
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   sexItem.value,USER_SEX,
                                   nameItem.value,USER_NAME,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
+    if (self.imgChange)
+    {
+        [param setValue:string forKey:USER_IMG];
+        [param setValue:@"png" forKey:USER_IMG_TYPE];
+    }
     NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionSavePersonInfo];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
@@ -238,36 +226,6 @@
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
 }
-
-- (void)savePersonImg{
-    HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
-    
-
-    NSData *imageData = UIImagePNGRepresentation(imgItem.value);
-    NSString *string = [imageData base64EncodedString];
-//    png   jpg  gif
-
-    
-    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  string,USER_IMG,
-                                  @"png",USER_IMG_TYPE,
-                                  [AppInfo headInfo],HTTP_HEAD,nil];
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionSavePersonImg];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"url = %@ \n param = %@",urlString,param);
-    
-    NSString *jsonString = [param JSONRepresentation];
-    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    
-    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionSavePersonImg,HTTP_USER_INFO, nil];
-//    [formRequest addData:imageData withFileName:@"im_name" andContentType:@"image/jpeg" forKey:USER_IMG];
-    [formRequest appendPostData:data];
-    [formRequest setDelegate:self];
-    [formRequest startAsynchronous];
-}
-
 
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
@@ -311,7 +269,7 @@
         else if ([ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
-            self.personModel.img = imgItem.value;
+            self.personModel.userimage = imgItem.value;
         }
     }
     else{
@@ -401,17 +359,15 @@
 - (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info{
     [self dismissViewControllerAnimated:YES completion:nil];
 	
-    BOOL select  = NO;
+    self.imgChange = NO;
 	for (NSDictionary *dict in info) {
         UIImage *image = [dict objectForKey:UIImagePickerControllerOriginalImage];
-        select = YES;
+        self.imgChange = YES;
         HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:USER_IMG];
         imgItem.value = image;
         [self.tableViewController changeViewAryObjectWith:imgItem atIndex:[self.viewAry indexOfObject:imgItem]];
         break;
 	}
-    if (select)
-        [self savePersonImg];
 }
 
 - (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker{

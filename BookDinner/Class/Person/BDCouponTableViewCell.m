@@ -39,25 +39,25 @@
 
         self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.backgroundColor = [UIColor clearColor];
-        self.nameLabel.font = [UIFont systemFontOfSize:16.0];
+        self.nameLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
         [self.contentView addSubview:self.nameLabel];
         
         self.statusLabel = [[UILabel alloc] init];
         self.statusLabel.backgroundColor = [UIColor colorWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1.0];
         self.statusLabel.backgroundColor = [UIColor clearColor];
-        self.statusLabel.font = [UIFont systemFontOfSize:14.0];
+        self.statusLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         [self.contentView addSubview:self.statusLabel];
         
         self.dateLabel = [[UILabel alloc] init];
         self.dateLabel.backgroundColor = [UIColor clearColor];
         self.dateLabel.textAlignment = NSTextAlignmentRight;
-        self.dateLabel.font = [UIFont systemFontOfSize:13.0];
+        self.dateLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIN_12];
         [self.contentView addSubview:self.dateLabel];
         
         self.valueLabel = [[UILabel alloc] init];
         self.valueLabel.textAlignment = NSTextAlignmentCenter;
         self.valueLabel.backgroundColor = [UIColor clearColor];
-        self.valueLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.valueLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self.contentView addSubview:self.valueLabel];
         
         self.ruleLabel = [[UILabel alloc] init];
@@ -66,7 +66,7 @@
         self.ruleLabel.backgroundColor = [UIColor clearColor];
         self.ruleLabel.numberOfLines = 0;
         self.ruleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.ruleLabel.font = [UIFont systemFontOfSize:13.0];
+        self.ruleLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIN_12];
         [self.contentView addSubview:self.ruleLabel];
         
         self.tailImg = [[UIImageView alloc] init];

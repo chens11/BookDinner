@@ -59,7 +59,7 @@
     nameItem.key = @"phone";
     nameItem.editable = YES;
     nameItem.textValue = [[NSUserDefaults standardUserDefaults] valueForKey:USER_ACCOUNT];
-    nameItem.textFont = [UIFont systemFontOfSize:16];
+    nameItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     nameItem.name = @"  手机号码:";
     nameItem.placeholder = @"请输入手机号";
     nameItem.height = @"one";
@@ -70,7 +70,7 @@
     passwordItem.key = @"password";
     passwordItem.editable = YES;
     passwordItem.secureTextEntry = YES;
-    passwordItem.textFont = [UIFont systemFontOfSize:16];
+    passwordItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     passwordItem.name = @"   新 密 码:";
     passwordItem.height = @"one";
     passwordItem.placeholder =  @"请输入新密码";
@@ -84,7 +84,7 @@
     numItem.placeholder = @"请输入验证码";
     numItem.key = @"code";
     numItem.height = @"one";
-    numItem.textFont = [UIFont boldSystemFontOfSize:16.0];
+    numItem.textFont = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [_viewAry addObject:numItem];
     
     HNYDetailItemModel *changeItem = [[HNYDetailItemModel alloc] init];
@@ -92,7 +92,7 @@
     changeItem.editable = YES;
     changeItem.key = @"change";
     changeItem.height = @"one";
-    changeItem.textFont = [UIFont boldSystemFontOfSize:16.0];
+    changeItem.textFont = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     [_viewAry addObject:changeItem];
     
     self.tableViewController.viewAry = _viewAry;
@@ -116,7 +116,7 @@
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
     self.tableViewController.nameLabelWidth = 90;
-    self.tableViewController.nameTextFont = [UIFont boldSystemFontOfSize:16.0];
+    self.tableViewController.nameTextFont = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
     self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
     self.tableViewController.cellHeight = 60;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];

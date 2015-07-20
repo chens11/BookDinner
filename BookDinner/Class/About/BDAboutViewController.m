@@ -81,7 +81,7 @@
     numItem.name = @"  欢 迎 页";
     numItem.key = @"welocome";
     numItem.height = @"one";
-    numItem.textFont = [UIFont systemFontOfSize:15.0];
+    numItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     numItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:numItem];
     
@@ -91,7 +91,7 @@
     declareItem.name = @"  介     绍";
     declareItem.key = @"declare";
     declareItem.height = @"one";
-    declareItem.textFont = [UIFont systemFontOfSize:15.0];
+    declareItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     declareItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [_viewAry addObject:declareItem];
     
@@ -102,7 +102,7 @@
     typeItem.key = @"check_version";
     typeItem.textValue = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString*)kCFBundleVersionKey];
     typeItem.name = @"  版     本";
-    typeItem.textFont = [UIFont systemFontOfSize:15.0];
+    typeItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     typeItem.textAlignment = NSTextAlignmentRight;
     typeItem.textColor = [UIColor lightGrayColor];
     typeItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -116,7 +116,7 @@
     phoneItem.textValue = self.ihomyModel.phone;
     phoneItem.value = self.ihomyModel.phone;
     phoneItem.name = @"  老板手机";
-    phoneItem.textFont = [UIFont systemFontOfSize:15.0];
+    phoneItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     phoneItem.textAlignment = NSTextAlignmentRight;
     phoneItem.textColor = [UIColor lightGrayColor];
     phoneItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -130,7 +130,7 @@
     telItem.textValue = self.ihomyModel.tel;
     telItem.value = self.ihomyModel.tel;
     telItem.name = @"  老板固话";
-    telItem.textFont = [UIFont systemFontOfSize:15.0];
+    telItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     telItem.textAlignment = NSTextAlignmentRight;
     telItem.textColor = [UIColor lightGrayColor];
     telItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -144,7 +144,7 @@
     qqItem.textValue = self.ihomyModel.qq;
     qqItem.value = self.ihomyModel.qq;
     qqItem.name = @"  老板QQ";
-    qqItem.textFont = [UIFont systemFontOfSize:15.0];
+    qqItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     qqItem.textAlignment = NSTextAlignmentRight;
     qqItem.textColor = [UIColor lightGrayColor];
     qqItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -158,7 +158,7 @@
     emailItem.textValue = self.ihomyModel.email;
     emailItem.value = self.ihomyModel.email;
     emailItem.name = @"  老板邮箱";
-    emailItem.textFont = [UIFont systemFontOfSize:15.0];
+    emailItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     emailItem.textAlignment = NSTextAlignmentRight;
     emailItem.textColor = [UIColor lightGrayColor];
     emailItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -172,7 +172,7 @@
     bossItem.key = @"contactBoss";
     bossItem.name = @"  联系老板";
     bossItem.textValue = @"老板会根据您的留言赠送积分哦";
-    bossItem.textFont = [UIFont systemFontOfSize:14.0];
+    bossItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     bossItem.textColor = [UIColor lightGrayColor];
     bossItem.textAlignment = NSTextAlignmentRight;
     bossItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -187,7 +187,7 @@
     developItem.textValue = self.ihomyModel.developerEmail;
     developItem.value = self.ihomyModel.developerEmail;
     developItem.name = @"  开发者";
-    developItem.textFont = [UIFont systemFontOfSize:15.0];
+    developItem.textFont = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
     developItem.textAlignment = NSTextAlignmentRight;
     developItem.textColor = [UIColor lightGrayColor];
     developItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -210,7 +210,7 @@
         label.backgroundColor = [UIColor clearColor];
         label.text = @"禾美定食";
         label.textAlignment = NSTextAlignmentCenter;
-        label.font = [UIFont boldSystemFontOfSize:15.0];
+        label.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [numView addSubview:label];
         
         return numView;
@@ -370,7 +370,7 @@
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
-            NSDictionary *value = [dictionary valueForKey:@"value"];
+            NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 self.ihomyModel.introduction = [value valueForKey:@"content"];
             }
@@ -383,7 +383,7 @@
             }];
         }
         else  if ([ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
-            NSDictionary *value = [dictionary valueForKey:@"value"];
+            NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 [HNYJSONUitls mappingDictionary:value toObject:self.ihomyModel];
                 

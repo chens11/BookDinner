@@ -37,12 +37,12 @@
         self.label.backgroundColor = [UIColor clearColor];
         self.label.numberOfLines = 0;
         self.label.lineBreakMode = NSLineBreakByWordWrapping;
-        self.label.font = [UIFont systemFontOfSize:16.0];
+        self.label.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.label];
         
         self.tailLabel = [[UILabel alloc] init];
         self.tailLabel.backgroundColor = [UIColor clearColor];
-        self.tailLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.tailLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.tailLabel];
         // Initialization code
     }
@@ -63,7 +63,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    CGSize size = [self.label.text sizeWithFont:[UIFont systemFontOfSize:16.0] constrainedToSize:CGSizeMake(self.frame.size.width - 65, 999) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize size = [self.label.text sizeWithFont:[UIFont systemFontOfSize:KFONT_SIZE_MAX_16] constrainedToSize:CGSizeMake(self.frame.size.width - 65, 999) lineBreakMode:NSLineBreakByWordWrapping];
 
 
     if (self.model.type == 1) {

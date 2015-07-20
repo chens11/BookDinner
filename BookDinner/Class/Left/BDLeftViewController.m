@@ -125,7 +125,7 @@
         [self.loginBtn setTitle:@"签到" forState:UIControlStateNormal];
     else
         [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    self.loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    self.loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MIDDLE_14];
     [self.loginBtn setTintColor:[UIColor whiteColor]];
     self.loginBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
     [self.loginBtn addTarget:self action:@selector(touchSginButton:) forControlEvents:UIControlEventTouchUpInside];

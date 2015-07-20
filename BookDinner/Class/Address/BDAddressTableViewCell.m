@@ -22,20 +22,20 @@
     if (self) {
         self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.backgroundColor = [UIColor clearColor];
-        self.nameLabel.font = [UIFont systemFontOfSize:16.0];
+        self.nameLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.nameLabel];
 
         self.phoneLabel = [[UILabel alloc] init];
         self.phoneLabel.backgroundColor = [UIColor clearColor];
         self.phoneLabel.textAlignment = NSTextAlignmentRight;
-        self.phoneLabel.font = [UIFont systemFontOfSize:16.0];
+        self.phoneLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
         [self addSubview:self.phoneLabel];
         
         self.addressLabel = [[UILabel alloc] init];
         self.addressLabel.numberOfLines = 0;
         self.addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.addressLabel.backgroundColor = [UIColor clearColor];
-        self.addressLabel.font = [UIFont systemFontOfSize:14.0];
+        self.addressLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         self.addressLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:self.addressLabel];
 

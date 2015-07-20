@@ -9,7 +9,7 @@
 #import "HNYModel.h"
 
 @interface BDPersonModel : HNYModel
-@property (nonatomic,strong) NSString *img;
+@property (nonatomic,strong) NSString *userimage;
 @property (nonatomic,strong) NSString *money;
 @property (nonatomic,strong) NSString *username;
 @property (nonatomic,strong) NSString *account;

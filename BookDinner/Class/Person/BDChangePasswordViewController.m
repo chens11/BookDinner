@@ -152,9 +152,7 @@
     [dictionary setValue:oldItem.value forKey:@"old_password"];
     [dictionary setValue:newItem.value forKey:USER_NEW_PASSWORD];
     [dictionary setValue:confirmItem.value forKey:USER_CONFIRM_PASSWORD];
-    
     [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
-    [dictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
 
     [self changePassword:dictionary];
 }
