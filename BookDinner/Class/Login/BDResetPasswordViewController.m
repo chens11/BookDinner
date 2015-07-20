@@ -218,7 +218,7 @@
 - (void)getConfirmCode:(NSDictionary*)params{
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetConfirmCode];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetConfirmCode];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSLog(@"url = %@ \n param = %@",urlString,params);
@@ -227,7 +227,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetConfirmCode,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetConfirmCode,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -236,7 +236,7 @@
 - (void)changePassword:(NSDictionary*)params{
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionResetPassWord];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionResetPassWord];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSLog(@"url = %@ \n param = %@",urlString,params);
@@ -245,7 +245,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionResetPassWord,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionResetPassWord,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -258,12 +258,12 @@
     [self.hud removeFromSuperview];
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionResetPassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionResetPassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:RememberPassWord]) {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:KAPPINFO_RememberPassWord]) {
                 HNYDetailItemModel *passwordItem = [self.tableViewController getItemWithKey:@"password"];
                 [[NSUserDefaults standardUserDefaults] setValue:passwordItem.textValue forKey:KUSER_PASSWORD];
             }
@@ -271,11 +271,11 @@
         }
     }
     else{
-        if ([ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             
         }
-        else if ([ActionResetPassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionResetPassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

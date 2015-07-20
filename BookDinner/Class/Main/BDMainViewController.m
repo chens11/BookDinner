@@ -43,7 +43,7 @@
     [self createCoverView];
     [self createLeftNaviController];
     [self createTutorialView];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:AutoLogin]){
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:KAPPINFO_AutoLogin]){
         [self autoLogin];
     }
     // Do any additional setup after loading the view.
@@ -103,8 +103,8 @@
 }
 
 - (void)createTutorialView{
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:HadShowTutorial]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HadShowTutorial];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:KAPPINFO_HadShowTutorial]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KAPPINFO_HadShowTutorial];
         [BDTutorialView presentTutorialViewWith:nil completion:^(BOOL done) {
             
         }];
@@ -167,7 +167,7 @@
                                   [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_PASSWORD],KUSER_PASSWORD,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLogin];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionLogin];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -175,7 +175,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionLogin,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionLogin,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -188,7 +188,7 @@
     [self.hud removeFromSuperview];
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
 
             [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Action_Login object:nil userInfo:nil ];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KUSER_IS_LOGIN];
@@ -196,7 +196,7 @@
         }
     }
     else{
-        if ([ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSLog(@"auto login failed");
         }
     }

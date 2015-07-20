@@ -226,7 +226,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderList];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetOrderList];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -234,7 +234,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderList,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetOrderList,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -246,7 +246,7 @@
     NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
 
             NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDOrderModel"];
             [self.tableController doneRefresh];
@@ -263,7 +263,7 @@
     }
     
     else{
-        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
+        if ([KAPI_ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
     }
 }

@@ -175,7 +175,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,
                                   nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetMessage];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetMessage];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -183,7 +183,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetMessage,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetMessage,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -196,7 +196,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,
                                   nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionAddMessage];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionAddMessage];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -204,7 +204,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionAddMessage,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionAddMessage,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -216,7 +216,7 @@
     NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSArray *array = [dictionary valueForKey:@"value"];
             self.tableController.headerIsUpdateing = NO;
             if (self.tableController.loadType == 0) {
@@ -258,7 +258,7 @@
             else
                 self.tableController.enbleHeaderRefresh = YES;
         }
-       else if ([ActionAddMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+       else if ([KAPI_ActionAddMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             BDContactMessageModel *model = [[BDContactMessageModel alloc] init];
             model.message = self.sendMsg;
             [self.tableController.list addObject:model];
@@ -274,11 +274,11 @@
     }
 
     else{
-        if ([ActionAddMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionAddMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             self.inputView.msgTextView.text = self.sendMsg;
         }
-        else if ([ActionGetMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionGetMessage isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

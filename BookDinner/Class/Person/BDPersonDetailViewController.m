@@ -213,7 +213,7 @@
         [param setValue:string forKey:KUSER_IMG];
         [param setValue:@"png" forKey:KUSER_IMG_TYPE];
     }
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionSavePersonInfo];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionSavePersonInfo];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -221,7 +221,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionSavePersonInfo,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionSavePersonInfo,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -234,7 +234,7 @@
     [self.hud removeFromSuperview];
 
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:KUSER_SEX];
@@ -257,7 +257,7 @@
             }
             
         }
-        else if ([ActionSavePersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionSavePersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             HNYDetailItemModel *sexItem = [self.tableViewController getItemWithKey:KUSER_SEX];
             HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_NAME];
@@ -266,20 +266,20 @@
             self.personModel.username = nameItem.value;
             [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         }
-        else if ([ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             HNYDetailItemModel *imgItem = [self.tableViewController getItemWithKey:KUSER_IMG];
             self.personModel.userimage = imgItem.value;
         }
     }
     else{
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionSavePersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionSavePersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

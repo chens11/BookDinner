@@ -538,7 +538,7 @@
 - (void)payOrderWith:(NSDictionary*)params{
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionPayOrder];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionPayOrder];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,params);
     
@@ -546,7 +546,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionPayOrder,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionPayOrder,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -559,7 +559,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetAddressList];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressList];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -567,7 +567,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetAddressList,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetAddressList,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -583,7 +583,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetOrderDetail];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetOrderDetail];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -591,7 +591,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetOrderDetail,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetOrderDetail,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -603,7 +603,7 @@
     NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSArray *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSArray class]] && value.count > 0) {
                 self.orderModel.address = [HNYJSONUitls mappingDictionary:[value objectAtIndex:0] toObjectWithClassName:@"BDAddressModel"];
@@ -614,7 +614,7 @@
                 [self.tableViewController.tableView reloadData];
             }
         }
-        else if ([ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 self.orderModel.id = [[value objectForKey:@"id"] intValue];
@@ -627,7 +627,7 @@
                 [self.navigationController setViewControllers:array animated:YES];
             }
         }
-        else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSDictionary *value = [dictionary valueForKey:@"value"];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 [HNYJSONUitls mappingDictionary:value toObject:self.orderModel];
@@ -648,19 +648,19 @@
 
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
-        if ([ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
         }
     }
     else{
-        if ([ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
 //            [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionPayOrder isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

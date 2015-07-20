@@ -302,7 +302,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,
                                   nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetDeclaration];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetDeclaration];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -310,7 +310,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetDeclaration,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetDeclaration,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -322,7 +322,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,
                                   nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetBossInfo];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetBossInfo];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -330,7 +330,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetBossInfo,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetBossInfo,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -345,7 +345,7 @@
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionCheckVersion];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionCheckVersion];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -353,7 +353,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionCheckVersion,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionCheckVersion,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -366,20 +366,20 @@
     NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 self.ihomyModel.introduction = [value valueForKey:@"content"];
             }
         }
-        else  if ([ActionCheckVersion isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else  if ([KAPI_ActionCheckVersion isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [PXAlertView showAlertWithTitle:nil message:@"更新信息" cancelTitle:@"取消" otherTitle:@"更新" completion:^(BOOL cancelled) {
                 if (!cancelled) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/fifa/id756904853?l=en&mt=8"]];
                 }
             }];
         }
-        else  if ([ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else  if ([KAPI_ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 [HNYJSONUitls mappingDictionary:value toObject:self.ihomyModel];
@@ -408,13 +408,13 @@
         }
     }
     else{
-        if ([ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetDeclaration isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else  if ([ActionCheckVersion isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else  if ([KAPI_ActionCheckVersion isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else  if ([ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else  if ([KAPI_ActionGetBossInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

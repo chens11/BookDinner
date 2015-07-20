@@ -295,7 +295,7 @@
     [self.view endEditing:YES];
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionDeleteAddress];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionDeleteAddress];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,params);
     
@@ -303,7 +303,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionDeleteAddress,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionDeleteAddress,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -313,7 +313,7 @@
     [self.view endEditing:YES];
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionSaveAddress];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionSaveAddress];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,params);
     
@@ -321,7 +321,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionSaveAddress,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionSaveAddress,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -330,7 +330,7 @@
     [self.view endEditing:YES];
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionAddAddress];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionAddAddress];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,params);
     
@@ -340,7 +340,7 @@
     
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionAddAddress,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionAddAddress,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -352,14 +352,14 @@
     NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionSaveAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionSaveAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionAddAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionAddAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             self.isAddAddress = NO;
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionDeleteAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionDeleteAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
         [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"RefreshTable",@"action", nil]];
@@ -367,10 +367,10 @@
 
     }
     else{
-        if ([ActionSaveAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionSaveAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionAddAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionAddAddress isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

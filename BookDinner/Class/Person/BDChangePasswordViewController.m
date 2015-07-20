@@ -162,7 +162,7 @@
     [self showRequestingTips:@"正在修改密码..."];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionChangePassWord];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionChangePassWord];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -170,7 +170,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionChangePassWord,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionChangePassWord,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -183,18 +183,18 @@
     NSLog(@"result = %@",dictionary);
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionChangePassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionChangePassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:RememberPassWord];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KAPPINFO_RememberPassWord];
             HNYDetailItemModel *newItem = [self.tableViewController getItemWithKey:KUSER_NEW_PASSWORD];
 
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:RememberPassWord])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:KAPPINFO_RememberPassWord])
                 [[NSUserDefaults standardUserDefaults] setValue:newItem.value forKey:KUSER_PASSWORD];
             [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         }
     }
     else{
-        if ([ActionChangePassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionChangePassWord isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

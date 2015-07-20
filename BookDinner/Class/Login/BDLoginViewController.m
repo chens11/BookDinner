@@ -62,13 +62,13 @@
     self.passwordField.tag = 1;
     self.passwordField.secureTextEntry = YES;
     [self.view addSubview:self.passwordField];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:RememberPassWord]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:KAPPINFO_RememberPassWord]) {
         self.userNameField.text = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_ACCOUNT];
         self.passwordField.text = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_PASSWORD];
     }
 
     
-    NSNumber *remNum = [NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:RememberPassWord]];
+    NSNumber *remNum = [NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:KAPPINFO_RememberPassWord]];
     NSMutableDictionary *rememberDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"记住密码",@"name",remNum,@"value",@"remember",@"id", nil];
     self.rememberBtn = [[HNYCheckButton alloc] initWithFrame:CGRectMake(20, self.naviBar.frame.size.height + 115, 100, 30)];
     self.rememberBtn.delegate = self;
@@ -76,7 +76,7 @@
     [self.rememberBtn setUpWithObject:rememberDic];
     [self.view addSubview:self.rememberBtn];
     
-    NSNumber *autNum = [NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:AutoLogin]];
+    NSNumber *autNum = [NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:KAPPINFO_AutoLogin]];
     NSMutableDictionary *autoDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"自动登录",@"name",autNum,@"value",@"auto",@"id", nil];
     self.autoBtn = [[HNYCheckButton alloc] initWithFrame:CGRectMake(150, self.naviBar.frame.size.height + 115, 100, 30)];
     self.autoBtn.delegate = self;
@@ -184,18 +184,18 @@
 #pragma mark - HNYCheckButtonDelegate
 - (void)checkButton:(HNYCheckButton *)checkButton selectedBySender:(UIButton *)sender{
     if (checkButton.exTag == 1) {
-        [[NSUserDefaults standardUserDefaults] setBool:checkButton.selected forKey:AutoLogin];
+        [[NSUserDefaults standardUserDefaults] setBool:checkButton.selected forKey:KAPPINFO_AutoLogin];
         if (checkButton.selected == YES) {
             self.rememberBtn.selected = YES;
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:RememberPassWord];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KAPPINFO_RememberPassWord];
         }
     }
     else if (checkButton.exTag == 0){
-        [[NSUserDefaults standardUserDefaults] setBool:checkButton.selected forKey:RememberPassWord];
+        [[NSUserDefaults standardUserDefaults] setBool:checkButton.selected forKey:KAPPINFO_RememberPassWord];
         if (checkButton.selected == NO) {
             self.autoBtn.selected = NO;
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:KUSER_PASSWORD];
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:AutoLogin];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KAPPINFO_AutoLogin];
         }
     }
 }
@@ -211,7 +211,7 @@
                                   self.passwordField.text,KUSER_PASSWORD,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLogin];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionLogin];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -219,7 +219,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionLogin,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionLogin,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -233,7 +233,7 @@
     [self.hud removeFromSuperview];
 
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Action_Login object:nil userInfo:nil ];
 
@@ -247,7 +247,7 @@
         }
     }
     else{
-        if ([ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionLogin isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
 
         }

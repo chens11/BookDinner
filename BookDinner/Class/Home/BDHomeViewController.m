@@ -222,7 +222,7 @@ UIActionSheetDelegate>
                                   [AppInfo headInfo],HTTP_HEAD,
                                   nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetTodayRecommend];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetTodayRecommend];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -230,7 +230,7 @@ UIActionSheetDelegate>
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetTodayRecommend,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetTodayRecommend,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -243,7 +243,7 @@ UIActionSheetDelegate>
     [self.hud removeFromSuperview];
 
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetTodayRecommend isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetTodayRecommend isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             self.dinnerModel  = [HNYJSONUitls mappingDictionary:[dictionary valueForKey:@"value"] toObjectWithClassName:@"BDDinnerModel"];
             self.nameLabel.text = self.dinnerModel.title;
             self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.dinnerModel.money];
@@ -254,7 +254,7 @@ UIActionSheetDelegate>
         }
     }
     else{
-        if ([ActionGetTodayRecommend isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetTodayRecommend isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             self.orderBtn.enabled = NO;
 //            [self showTips:@"获取今日推荐菜单失败"];
             [self showTips:[dictionary valueForKey:HTTP_INFO]];

@@ -194,7 +194,7 @@
 - (void)getConfirmCode:(NSDictionary*)params{
     [self showRequestingTips:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetConfirmCode];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetConfirmCode];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSLog(@"url = %@ \n param = %@",urlString,params);
@@ -203,7 +203,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetConfirmCode,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetConfirmCode,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -214,7 +214,7 @@
     [self showRequestingTips:@"正在注册..."];
     
     [self.params setValue:[AppInfo headInfo] forKeyPath:HTTP_HEAD];
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionReister];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionReister];
     NSURL *url = [NSURL URLWithString:urlString];
     
 //    NSData *imageData = UIImagePNGRepresentation([UIImage imageNamed:@"AppIcon11"]);
@@ -226,7 +226,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionReister,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionReister,HTTP_USER_INFO, nil];
 //    [formRequest addData:imageData withFileName:photoName andContentType:@"image/jpeg" forKey:USER_IMG];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
@@ -242,21 +242,21 @@
     [self.hud removeFromSuperview];
 
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionReister isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionReister isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         }
-        else if ([ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
 
     }
     else{
-        if ([ActionReister isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionReister isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionGetConfirmCode isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
 

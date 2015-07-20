@@ -229,7 +229,7 @@ double radians(float degrees) {
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionLuckyDraw];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionLuckyDraw];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -237,7 +237,7 @@ double radians(float degrees) {
     NSData *pData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionLuckyDraw,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionLuckyDraw,HTTP_USER_INFO, nil];
     [formRequest appendPostData:pData];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -249,7 +249,7 @@ double radians(float degrees) {
     NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionLuckyDraw isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionLuckyDraw isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSDictionary *value = [dictionary valueForKey:@"value"];
             self.personModel.score = [[value valueForKey:@"scroe"] intValue];
             self.pointLabel.text = [NSString stringWithFormat:@"我的积分: %d",self.personModel.score];
@@ -293,7 +293,7 @@ double radians(float degrees) {
     }
     
     else{
-        if ([ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
+        if ([KAPI_ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
             self.info = [dictionary valueForKey:HTTP_INFO];
     }
 }

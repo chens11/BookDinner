@@ -304,7 +304,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetPersonInfo];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetPersonInfo];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -312,7 +312,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetPersonInfo,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetPersonInfo,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -326,7 +326,7 @@
     [self.hud removeFromSuperview];
 
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSDictionary *value = [dictionary valueForKey:HTTP_VALUE];
             self.personModel = [HNYJSONUitls mappingDictionary:value toObjectWithClassName:@"BDPersonModel"];
             self.personModel.account = [[NSUserDefaults standardUserDefaults] valueForKey:KUSER_ACCOUNT];
@@ -348,19 +348,19 @@
             }
             
         }
-        else if ([ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionSavePersonImg isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
         }
     }
 
     else{
-        if ([ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetPersonInfo isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

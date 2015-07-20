@@ -183,7 +183,7 @@
                                   [NSNumber numberWithInt:model.code],@"code",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetAddressStreet];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressStreet];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -193,7 +193,7 @@
     
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetAddressStreet,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetAddressStreet,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -206,7 +206,7 @@
                                   [NSNumber numberWithInt:model.code],@"code",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetAddressBlock];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressBlock];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -216,7 +216,7 @@
     
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetAddressBlock,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetAddressBlock,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -229,7 +229,7 @@
                                   [NSNumber numberWithInt:model.code],@"code",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetAddressCity];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressCity];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -239,7 +239,7 @@
     
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetAddressCity,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetAddressCity,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -247,12 +247,12 @@
 
 - (void)getAddressProvince{
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetAddressProvince];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressProvince];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@@",urlString);
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetAddressProvince,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetAddressProvince,HTTP_USER_INFO, nil];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
 }
@@ -264,7 +264,7 @@
     [self.hud removeFromSuperview];
     NSLog(@"result = %@",dictionary);
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetAddressProvince isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetAddressProvince isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSArray *list = [dictionary valueForKey:HTTP_VALUE];
             for (NSDictionary *codeDic in list) {
                 BDCodeModel *model = [HNYJSONUitls mappingDictionary:codeDic toObjectWithClassName:@"BDCodeModel"];
@@ -277,7 +277,7 @@
             }
             [self.table reloadData];
         }
-        else if ([ActionGetAddressCity isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionGetAddressCity isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSArray *list = [dictionary valueForKey:HTTP_VALUE];
             NSMutableArray *sons = [NSMutableArray array];
             int index = [self.dataAry indexOfObject:self.requestingModel];
@@ -297,7 +297,7 @@
             self.requestingModel.expanded = YES;
             [self.table reloadData];
         }
-        else if ([ActionGetAddressBlock isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionGetAddressBlock isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSArray *list = [dictionary valueForKey:HTTP_VALUE];
             NSMutableArray *sons = [NSMutableArray array];
             int index = [self.dataAry indexOfObject:self.requestingModel];
@@ -317,7 +317,7 @@
             self.requestingModel.expanded = YES;
             [self.table reloadData];
         }
-        else if ([ActionGetAddressStreet isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        else if ([KAPI_ActionGetAddressStreet isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSArray *list = [dictionary valueForKey:HTTP_VALUE];
             for (NSDictionary *codeDic in list) {
                 BDCodeModel *model = [HNYJSONUitls mappingDictionary:codeDic toObjectWithClassName:@"BDCodeModel"];
@@ -335,16 +335,16 @@
 
     }
     else{
-        if ([ActionGetAddressProvince isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetAddressProvince isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionGetAddressCity isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionGetAddressCity isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionGetAddressBlock isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionGetAddressBlock isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
-        else if ([ActionGetAddressStreet isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionGetAddressStreet isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }

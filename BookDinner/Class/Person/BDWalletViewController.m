@@ -251,7 +251,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionRecharge];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionRecharge];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -259,7 +259,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionRecharge,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionRecharge,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -275,7 +275,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",ServerUrl,ActionGetRechargeRecordList];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetRechargeRecordList];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"url = %@ \n param = %@",urlString,param);
     
@@ -283,7 +283,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
-    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:ActionGetRechargeRecordList,HTTP_USER_INFO, nil];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetRechargeRecordList,HTTP_USER_INFO, nil];
     [formRequest appendPostData:data];
     [formRequest setDelegate:self];
     [formRequest startAsynchronous];
@@ -297,7 +297,7 @@
     [self.hud removeFromSuperview];
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
-        if ([ActionGetRechargeRecordList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetRechargeRecordList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDOrderModel"];
             [self.tableController doneRefresh];
             [self.tableController.list addObjectsFromArray:value];
@@ -310,7 +310,7 @@
             if (self.tableController.list.count == 0)
                 [self showTips:@"无记录"];
         }
-        else if ([ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+        else if ([KAPI_ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             NSDictionary *value = [dictionary valueForKey:@"value"];
             if ([value isKindOfClass:[NSDictionary class]]) {
@@ -323,14 +323,14 @@
         }
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){
-        if ([ActionGetRechargeRecordList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionGetRechargeRecordList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             [self performSelector:@selector(login) withObject:nil afterDelay:1.0];
         }
     }
     
     else{
-        if ([ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+        if ([KAPI_ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
         }
     }
