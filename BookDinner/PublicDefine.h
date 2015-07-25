@@ -62,7 +62,7 @@
 
 #pragma mark - 接口
 #define KAPI_ServerUrl                                   @"http://gangrong.yaxinw.com/"
-#define KAPI_ActionTest                                  @"API/1.php"
+#define KAPI_ActionTest                                  @"?m=Test&a=post"
 #define KAPI_ActionReister                               @"?c=User&a=reg"
 #define KAPI_ActionLogin                                 @"?c=User&a=login"
 #define KAPI_ActionGetConfirmCode                        @"?c=server&a=captcha"
@@ -79,7 +79,16 @@
 #define KAPI_ActionAddAddress                            @"API/?c=user&a=addaddress"
 #define KAPI_ActionSaveAddress                           @"API/?c=user&a=editaddressid"
 #define KAPI_ActionDeleteAddress                         @"API/?c=user&a=deleteaddressid"
-#define KAPI_ActionGetTodayRecommend                     @"API/?c=product&a=todayrecommended"
+
+#define KAPI_ActionProductsCategory                         @"?c=Product&a=getProductType"
+#define KAPI_ActionProductsList                             @"?c=Product&a=getProductList"
+#define KAPI_ActionProductDetail                            @"?c=Product&a=getProductId"
+
+#define KAPI_ActionNewsCategory                             @"?c=News&a=getNewsType"
+#define KAPI_ActionNewsList                                 @"?c=News&a=getNewsList"
+#define KAPI_ActionNewDetail                                @"?c=News&a=getNewsId"
+
+
 #define KAPI_ActionSing                                  @"API/?c=user&a=sign"
 #define KAPI_ActionGetDeclaration                        @"API/?c=info&a=getdeclaration"
 #define KAPI_ActionGetBossInfo                           @"?c=Server&a=configs"

@@ -223,6 +223,13 @@
 		CA68CA98197979810062B8E7 /* atc_tagedit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA68CA97197979810062B8E7 /* atc_tagedit@2x.png */; };
 		CA70587319FA80D300E613F0 /* BDAlixpay.m in Sources */ = {isa = PBXBuildFile; fileRef = CA70587219FA80D300E613F0 /* BDAlixpay.m */; };
 		CA70587519FA83E600E613F0 /* AlipayRsaLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA70587419FA83E600E613F0 /* AlipayRsaLib.a */; };
+		CA8109D61B63C97D00909FF4 /* BDProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8109D51B63C97D00909FF4 /* BDProductsViewController.m */; };
+		CA8109D91B63CE4200909FF4 /* BDNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8109D81B63CE4200909FF4 /* BDNewsViewController.m */; };
+		CA8109DC1B63D57200909FF4 /* BDCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8109DB1B63D57200909FF4 /* BDCategoryModel.m */; };
+		CA8109DF1B63D58900909FF4 /* BDProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8109DE1B63D58900909FF4 /* BDProductModel.m */; };
+		CA8109E21B63DD2700909FF4 /* BDNewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8109E11B63DD2700909FF4 /* BDNewModel.m */; };
+		CA8109E51B63E25D00909FF4 /* BDProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8109E41B63E25D00909FF4 /* BDProductCell.m */; };
+		CA8109E81B63E3EE00909FF4 /* BDNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8109E71B63E3EE00909FF4 /* BDNewsCell.m */; };
 		CA8448471972D73C00A6CF43 /* BDMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8448461972D73C00A6CF43 /* BDMainViewController.m */; };
 		CA84484A1972E0C300A6CF43 /* BDLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8448491972E0C300A6CF43 /* BDLeftViewController.m */; };
 		CA84484D1972E0F300A6CF43 /* BDLeftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA84484C1972E0F300A6CF43 /* BDLeftTableViewCell.m */; };
@@ -645,6 +652,20 @@
 		CA70587119FA80D300E613F0 /* BDAlixpay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDAlixpay.h; sourceTree = "<group>"; };
 		CA70587219FA80D300E613F0 /* BDAlixpay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAlixpay.m; sourceTree = "<group>"; };
 		CA70587419FA83E600E613F0 /* AlipayRsaLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AlipayRsaLib.a; sourceTree = "<group>"; };
+		CA8109D41B63C97D00909FF4 /* BDProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDProductsViewController.h; sourceTree = "<group>"; };
+		CA8109D51B63C97D00909FF4 /* BDProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDProductsViewController.m; sourceTree = "<group>"; };
+		CA8109D71B63CE4200909FF4 /* BDNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsViewController.h; sourceTree = "<group>"; };
+		CA8109D81B63CE4200909FF4 /* BDNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsViewController.m; sourceTree = "<group>"; };
+		CA8109DA1B63D57200909FF4 /* BDCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDCategoryModel.h; sourceTree = "<group>"; };
+		CA8109DB1B63D57200909FF4 /* BDCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDCategoryModel.m; sourceTree = "<group>"; };
+		CA8109DD1B63D58900909FF4 /* BDProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDProductModel.h; sourceTree = "<group>"; };
+		CA8109DE1B63D58900909FF4 /* BDProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDProductModel.m; sourceTree = "<group>"; };
+		CA8109E01B63DD2700909FF4 /* BDNewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewModel.h; sourceTree = "<group>"; };
+		CA8109E11B63DD2700909FF4 /* BDNewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewModel.m; sourceTree = "<group>"; };
+		CA8109E31B63E25D00909FF4 /* BDProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDProductCell.h; sourceTree = "<group>"; };
+		CA8109E41B63E25D00909FF4 /* BDProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDProductCell.m; sourceTree = "<group>"; };
+		CA8109E61B63E3EE00909FF4 /* BDNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsCell.h; sourceTree = "<group>"; };
+		CA8109E71B63E3EE00909FF4 /* BDNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsCell.m; sourceTree = "<group>"; };
 		CA8448451972D73C00A6CF43 /* BDMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDMainViewController.h; sourceTree = "<group>"; };
 		CA8448461972D73C00A6CF43 /* BDMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDMainViewController.m; sourceTree = "<group>"; };
 		CA8448481972E0C300A6CF43 /* BDLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDLeftViewController.h; sourceTree = "<group>"; };
@@ -947,6 +968,8 @@
 		03BE21ED196E3B3D005C0D03 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				CA8109D21B63C94600909FF4 /* News */,
+				CA8109D31B63C94600909FF4 /* Product */,
 				CA2BA5C119F5597500AC9DA8 /* Pay */,
 				CA16CA8319B7562A00CDE5D8 /* Address */,
 				CA36ECFA1993CB9400299636 /* LuckyDraw */,
@@ -1550,6 +1573,34 @@
 			path = RSA;
 			sourceTree = "<group>";
 		};
+		CA8109D21B63C94600909FF4 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				CA8109D71B63CE4200909FF4 /* BDNewsViewController.h */,
+				CA8109D81B63CE4200909FF4 /* BDNewsViewController.m */,
+				CA8109E61B63E3EE00909FF4 /* BDNewsCell.h */,
+				CA8109E71B63E3EE00909FF4 /* BDNewsCell.m */,
+				CA8109E01B63DD2700909FF4 /* BDNewModel.h */,
+				CA8109E11B63DD2700909FF4 /* BDNewModel.m */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		CA8109D31B63C94600909FF4 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				CA8109D41B63C97D00909FF4 /* BDProductsViewController.h */,
+				CA8109D51B63C97D00909FF4 /* BDProductsViewController.m */,
+				CA8109E31B63E25D00909FF4 /* BDProductCell.h */,
+				CA8109E41B63E25D00909FF4 /* BDProductCell.m */,
+				CA8109DA1B63D57200909FF4 /* BDCategoryModel.h */,
+				CA8109DB1B63D57200909FF4 /* BDCategoryModel.m */,
+				CA8109DD1B63D58900909FF4 /* BDProductModel.h */,
+				CA8109DE1B63D58900909FF4 /* BDProductModel.m */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1600,7 +1651,7 @@
 				ORGANIZATIONNAME = chenzq;
 				TargetAttributes = {
 					03BE21BA196E3AB4005C0D03 = {
-						DevelopmentTeam = ZK59BC588E;
+						DevelopmentTeam = V2F6ZPW5K6;
 					};
 					03BE21D5196E3AB5005C0D03 = {
 						DevelopmentTeam = ZK59BC588E;
@@ -1756,6 +1807,7 @@
 				CA1CFDF119AB796900DBD55D /* AppInfo.m in Sources */,
 				CA84484D1972E0F300A6CF43 /* BDLeftTableViewCell.m in Sources */,
 				03BE23A9196E3B3E005C0D03 /* HNYPopoverView.m in Sources */,
+				CA8109DF1B63D58900909FF4 /* BDProductModel.m in Sources */,
 				03BE23A5196E3B3E005C0D03 /* SBJSON.m in Sources */,
 				0361C65019737D8B000CDB6C /* HNYView.m in Sources */,
 				0361C65C1973CA57000CDB6C /* BDSettingViewController.m in Sources */,
@@ -1769,6 +1821,7 @@
 				03758DFD196E8F3D00360E2D /* HNYBaseViewController.m in Sources */,
 				03BE2378196E3B3E005C0D03 /* PXAlertView.m in Sources */,
 				03BE239F196E3B3E005C0D03 /* HNTModel.m in Sources */,
+				CA8109DC1B63D57200909FF4 /* BDCategoryModel.m in Sources */,
 				03BE238B196E3B3E005C0D03 /* ASIDownloadCache.m in Sources */,
 				CADC5B7119A05248005C93B1 /* BDContactBossViewController.m in Sources */,
 				CA16CA9219B7562A00CDE5D8 /* BDAddressDetailViewController.m in Sources */,
@@ -1800,22 +1853,26 @@
 				034C16DD19B0176600C2DFF3 /* HNYTools.m in Sources */,
 				03758E0D196E906B00360E2D /* HNYTabBar.m in Sources */,
 				03BE23A1196E3B3E005C0D03 /* HNYJSONUitls.m in Sources */,
+				CA8109E81B63E3EE00909FF4 /* BDNewsCell.m in Sources */,
 				CA20072B198D48CA00AB3E46 /* BDOrderTableViewCell.m in Sources */,
 				03BE23B9196E3B3E005C0D03 /* UIImage+MultiFormat.m in Sources */,
 				03BE23AE196E3B3E005C0D03 /* MKAnnotationView+WebCache.m in Sources */,
 				CA16CA9619B7562A00CDE5D8 /* BDAddressTableViewCell.m in Sources */,
 				03BE2385196E3B3E005C0D03 /* BDLoginViewController.m in Sources */,
 				03BE238F196E3B3E005C0D03 /* ASINetworkQueue.m in Sources */,
+				CA8109D61B63C97D00909FF4 /* BDProductsViewController.m in Sources */,
 				CAFCD32D19B3672A005EDD7D /* BDPersonModel.m in Sources */,
 				CA16CA9819B7562A00CDE5D8 /* BDCodeModel.m in Sources */,
 				CA70587319FA80D300E613F0 /* BDAlixpay.m in Sources */,
 				0361C65319737E2C000CDB6C /* BDHomeDateView.m in Sources */,
+				CA8109D91B63CE4200909FF4 /* BDNewsViewController.m in Sources */,
 				CA45265019B2308D00B01A4F /* BDContactMessageModel.m in Sources */,
 				CA16CA9319B7562A00CDE5D8 /* BDAddressModel.m in Sources */,
 				03BE2389196E3B3E005C0D03 /* ASIDataCompressor.m in Sources */,
 				034C16E019B021D000C2DFF3 /* HNYTextField.m in Sources */,
 				CA16CA9419B7562A00CDE5D8 /* BDAddressSelectorTableViewCell.m in Sources */,
 				03758E03196E8FBD00360E2D /* HNYTableViewCell.m in Sources */,
+				CA8109E21B63DD2700909FF4 /* BDNewModel.m in Sources */,
 				03BE23A6196E3B3E005C0D03 /* SBJsonBase.m in Sources */,
 				0361C66B1973DF3D000CDB6C /* BDOrderViewController.m in Sources */,
 				0361C66E1973E059000CDB6C /* BDOrderDetailViewController.m in Sources */,
@@ -1838,6 +1895,7 @@
 				CACB3D5419A639D600E27064 /* BDContactBossTableViewCell.m in Sources */,
 				03BE23AC196E3B3E005C0D03 /* HNYRefreshTableViewController.m in Sources */,
 				0361C6601973CB90000CDB6C /* BDPersonViewController.m in Sources */,
+				CA8109E51B63E25D00909FF4 /* BDProductCell.m in Sources */,
 				03758E07196E903900360E2D /* HNYNaviBar.m in Sources */,
 				CA84484A1972E0C300A6CF43 /* BDLeftViewController.m in Sources */,
 				CAAC3208197576380088DE19 /* BDCouponTableViewCell.m in Sources */,
@@ -2017,7 +2075,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BookDinner/BookDinner-Prefix.pch";
 				INFOPLIST_FILE = "BookDinner/BookDinner-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BookDinner/Common/UMSocial_Sdk_4.1",
@@ -2028,6 +2086,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2043,7 +2102,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BookDinner/BookDinner-Prefix.pch";
 				INFOPLIST_FILE = "BookDinner/BookDinner-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BookDinner/Common/UMSocial_Sdk_4.1",
@@ -2054,6 +2113,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
