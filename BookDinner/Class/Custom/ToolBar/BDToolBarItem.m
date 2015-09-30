@@ -9,7 +9,6 @@
 #import "BDToolBarItem.h"
 
 @interface BDToolBarItem()<HNYDelegate>
-@property (nonatomic,strong) UIImageView *bgImageView;
 @property (nonatomic,strong) UILabel *label;
 @property (nonatomic,strong) UILabel *rightLine;
 

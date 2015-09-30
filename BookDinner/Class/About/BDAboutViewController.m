@@ -281,13 +281,12 @@
 //    [picker addAttachmentData:myData mimeType:@"image/png" fileName:@""];
     
     // Fill out the email body text
-    
-    [self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:nil];
     
 }
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
-    [controller dismissModalViewControllerAnimated:YES];
-    [self dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - instance fun
 - (void)login{

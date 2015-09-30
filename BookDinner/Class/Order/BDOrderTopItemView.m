@@ -9,7 +9,6 @@
 #import "BDOrderTopItemView.h"
 
 @interface BDOrderTopItemView()<HNYDelegate>
-@property (nonatomic,strong) UIImageView *bgImageView;
 @property (nonatomic,strong) UILabel *label;
 @property (nonatomic,strong) UILabel *rightLine;
 

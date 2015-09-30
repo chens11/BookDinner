@@ -186,7 +186,7 @@
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  [NSNumber numberWithInt:self.orderModel.ids],@"id",
+                                  self.orderModel.ids,@"id",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     

@@ -8,7 +8,6 @@
 
 #import "BDHomeDateView.h"
 @interface BDHomeDateView()
-@property (nonatomic,strong) UIImageView *bgImageView;
 @property (nonatomic,strong) UILabel *monthLabel;
 @property (nonatomic,strong) UILabel *dateLabel;
 

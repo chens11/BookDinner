@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BookDinner/Class/About/BDAboutViewController.m"
-            timestampString = "459067678.687124"
+            timestampString = "465293666.106955"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "-requestFinished:"
             landmarkType = "5">
          </BreakpointContent>

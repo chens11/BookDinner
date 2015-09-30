@@ -111,7 +111,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    BDNewModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+//    BDNewModel *model = [self.tableController.list objectAtIndex:indexPath.row];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {

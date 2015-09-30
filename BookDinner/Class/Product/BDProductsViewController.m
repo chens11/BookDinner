@@ -99,7 +99,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-        BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+//        BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {

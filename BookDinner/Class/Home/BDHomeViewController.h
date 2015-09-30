@@ -13,6 +13,5 @@
 @property (nonatomic,strong) BDProductModel *dinnerModel;
 @property (nonatomic,strong) UINavigationController *customNaviController;
 
-- (void)getTodayRecommend;
 
 @end
