@@ -131,11 +131,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+//    BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"%d", indexPath.row);
+        NSLog(@"%ld", (long)indexPath.row);
         [self.tableController.list removeObjectAtIndex:[indexPath row]];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
     }
@@ -200,7 +200,7 @@
                 [self.cartView removeProduct:cell.productModel];
             }
         }
-        cell.numLabel.text = [NSString stringWithFormat:@"%d",cell.productModel.number];
+        cell.numLabel.text = [NSString stringWithFormat:@"%ld",(long)cell.productModel.number];
     }
     else if ([aView isKindOfClass:[BDShoppingCartView class]]) {
         

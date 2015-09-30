@@ -136,8 +136,6 @@
             }
             NSLog(@"reslut = %@",resultDic);
         }];
-
-//        [AlixLibService payOrder:orderString AndScheme:appScheme seletor:self.result target:self];
     }
     else if (indexPath.row == 2){
         [self payByMyWallet];

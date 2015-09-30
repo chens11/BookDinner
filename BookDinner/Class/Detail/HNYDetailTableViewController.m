@@ -13,7 +13,7 @@
 @property (nonatomic, assign) CGFloat totalCellHeight;
 @property (nonatomic, strong) NSMutableArray  *views;
 @property (nonatomic, strong) NSMutableArray *keys;
-- (void)changeViewAryWith:(id)value inIndex:(int)index;
+- (void)changeViewAryWith:(id)value inIndex:(NSInteger)index;
 
 @end
 
@@ -397,7 +397,7 @@
     self.views = [NSMutableArray arrayWithCapacity:0];
     self.keys = [NSMutableArray arrayWithCapacity:0];
     for (HNYDetailItemModel *itemVO in viewAry) {
-        int index = [viewAry indexOfObject:itemVO];
+        NSInteger index = [viewAry indexOfObject:itemVO];
         itemVO.tag = index;
         [self.keys addObject:itemVO.key];
         if (itemVO.viewType == Customer) {
@@ -410,7 +410,7 @@
     _viewAry = viewAry;
 }
 
-- (void)changeViewAryWith:(id)value inIndex:(int)index
+- (void)changeViewAryWith:(id)value inIndex:(NSInteger)index
 {
     HNYDetailItemModel *itemVo = [self.viewAry objectAtIndex:index];
 
@@ -423,7 +423,7 @@
     }
 }
 
-- (void)changeViewAryObjectWith:(HNYDetailItemModel *)item atIndex:(int)index
+- (void)changeViewAryObjectWith:(HNYDetailItemModel *)item atIndex:(NSInteger)index
 {
     HNYDetailItemModel *itemVo = [self.viewAry objectAtIndex:index];
 
@@ -454,7 +454,7 @@
 }
 
 - (HNYDetailItemModel *)getItemWithKey:(NSString *)key{
-    int index = [self.keys indexOfObject:key];
+    NSInteger index = [self.keys indexOfObject:key];
     if (index < _viewAry.count) {
         return [_viewAry objectAtIndex:index];
     }

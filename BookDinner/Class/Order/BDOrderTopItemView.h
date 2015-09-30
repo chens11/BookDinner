@@ -12,7 +12,7 @@
 @interface BDOrderTopItemView : HNYView
 @property (nonatomic,strong) BDMenuModel *menuModel;
 @property (nonatomic,strong) UIButton *button;
-@property (nonatomic) int exTag;
+@property (nonatomic) NSInteger exTag;
 @property (nonatomic) BOOL selected;
 
 - (void)touchButton:(UIButton*)sender;

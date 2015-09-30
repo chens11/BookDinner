@@ -10,13 +10,13 @@
 
 @implementation HNYTools
 
-+ (int)getMonthNumByDate:(NSDate *)date{
++ (NSInteger)getMonthNumByDate:(NSDate *)date{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSCalendarUnitMonth fromDate:date];
     return [components month];
 }
 
-+ (int)getDateNumByDate:(NSDate *)date{
++ (NSInteger)getDateNumByDate:(NSDate *)date{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSCalendarUnitMonth|NSCalendarUnitDay fromDate:date];
     return [components day];

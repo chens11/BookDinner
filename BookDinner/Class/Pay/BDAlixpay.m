@@ -25,7 +25,7 @@
     
     [discription appendFormat:@"&subject=\"%@\"", model.title];
     
-    [discription appendFormat:@"&body=\"%@\"", model.product.description];
+    [discription appendFormat:@"&body=\"%@\"", model.descriptions];
     
     [discription appendFormat:@"&total_fee=\"%@\"", [NSString stringWithFormat:@"%.2f",[model.price floatValue]]];
     

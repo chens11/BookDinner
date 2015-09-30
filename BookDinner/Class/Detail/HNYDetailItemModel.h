@@ -98,7 +98,7 @@ typedef enum HNYViewType{
 @property (nonatomic) UITableViewCellAccessoryType    accessoryType;
 @property(nonatomic) BOOL secureTextEntry;       // default is NO
 @property(nonatomic) UIViewContentMode contentMode;                // default is UIViewContentModeScaleToFill
-@property (nonatomic) int tag;
+@property (nonatomic) NSInteger tag;
 
 + (id)createViewWith:(HNYDetailItemModel *)itemVO andTarget:(id)target;
 

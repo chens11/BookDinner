@@ -51,7 +51,7 @@
     self.topImageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     self.bottomLine.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
     for (BDOrderTopItemView *item in self.items) {
-        int index = [self.items indexOfObject:item];
+        NSInteger index = [self.items indexOfObject:item];
         item.frame = CGRectMake(SubMenuWidth * index , 0, SubMenuWidth, self.frame.size.height);
     }
 }
@@ -67,7 +67,7 @@
         self.scrollView.contentSize = CGSizeMake(SubMenuWidth * subMenuAry.count, self.frame.size.height);
     }
     for (BDMenuModel *model in subMenuAry) {
-        int index = [subMenuAry indexOfObject:model];
+        NSInteger index = [subMenuAry indexOfObject:model];
         BDOrderTopItemView *item = [[BDOrderTopItemView alloc] init];
         item.delegate = self;
         item.menuModel = model;
@@ -78,7 +78,7 @@
     [self layoutSubviews];
 }
 
-- (void)setDefaultSelectedIndex:(int)defaultSelectedIndex{
+- (void)setDefaultSelectedIndex:(NSInteger)defaultSelectedIndex{
     _defaultSelectedIndex = defaultSelectedIndex;
     if (self.subMenuAry.count > 0 && defaultSelectedIndex < self.subMenuAry.count) {
         self.selectIndex = defaultSelectedIndex;

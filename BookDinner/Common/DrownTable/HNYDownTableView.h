@@ -11,7 +11,7 @@
 
 @protocol HNYDownTableViewDelegate <NSObject>
 
-- (void)hnyDownTableView:(HNYDownTableView*)view didSelectIndex:(int)index;
+- (void)hnyDownTableView:(HNYDownTableView*)view didSelectIndex:(NSInteger)index;
 
 @end
 

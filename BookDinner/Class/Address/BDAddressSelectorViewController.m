@@ -177,7 +177,7 @@
     [self showRequestingTips:nil];
     self.requestingModel = model;
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:model.code],@"code",
+                                  [NSNumber numberWithInteger:model.code],@"code",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressStreet];
@@ -200,7 +200,7 @@
     [self showRequestingTips:nil];
     self.requestingModel = model;
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:model.code],@"code",
+                                  [NSNumber numberWithInteger:model.code],@"code",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressBlock];
@@ -223,7 +223,7 @@
     [self showRequestingTips:nil];
     self.requestingModel = model;
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:model.code],@"code",
+                                  [NSNumber numberWithInteger:model.code],@"code",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressCity];
@@ -287,7 +287,7 @@
         else if ([KAPI_ActionGetAddressCity isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSArray *list = [dictionary valueForKey:HTTP_VALUE];
             NSMutableArray *sons = [NSMutableArray array];
-            int index = [self.dataAry indexOfObject:self.requestingModel];
+            NSInteger index = [self.dataAry indexOfObject:self.requestingModel];
 
             for (NSDictionary *codeDic in list) {
                 BDCodeModel *model = [HNYJSONUitls mappingDictionary:codeDic toObjectWithClassName:@"BDCodeModel"];
@@ -307,7 +307,7 @@
         else if ([KAPI_ActionGetAddressBlock isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSArray *list = [dictionary valueForKey:HTTP_VALUE];
             NSMutableArray *sons = [NSMutableArray array];
-            int index = [self.dataAry indexOfObject:self.requestingModel];
+            NSInteger index = [self.dataAry indexOfObject:self.requestingModel];
             
             for (NSDictionary *codeDic in list) {
                 BDCodeModel *model = [HNYJSONUitls mappingDictionary:codeDic toObjectWithClassName:@"BDCodeModel"];

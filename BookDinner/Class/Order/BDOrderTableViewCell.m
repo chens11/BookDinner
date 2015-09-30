@@ -128,7 +128,7 @@
             sum += [product.money doubleValue] * (float)product.number;
             num += product.number;
         }
-        self.numLabel.text = [NSString stringWithFormat:@"合计        x%d",num];
+        self.numLabel.text = [NSString stringWithFormat:@"合计        x%ld",(long)num];
         self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
 
         if ([model.ticker isKindOfClass:[BDCouponModel class]]){

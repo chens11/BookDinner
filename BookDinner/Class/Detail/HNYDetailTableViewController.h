@@ -45,7 +45,7 @@
 @property (nonatomic) float nameLabelWidth;
 
 //外部修改viewAry里面的内容某个item的值
-- (void)changeViewAryObjectWith:(HNYDetailItemModel*)item atIndex:(int)index;
+- (void)changeViewAryObjectWith:(HNYDetailItemModel*)item atIndex:(NSInteger)index;
 
 - (HNYDetailItemModel*)getItemWithKey:(NSString*)key;
 

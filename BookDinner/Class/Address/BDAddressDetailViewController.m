@@ -246,7 +246,7 @@
         [self addAddress:dictionary];
     }
     else{
-        [dictionary setValue:[NSNumber numberWithInt:self.addressModel.ids] forKey:@"id"];
+        [dictionary setValue:[NSNumber numberWithInteger:self.addressModel.ids] forKey:@"id"];
         [self saveAddress:dictionary];
     }
 }
@@ -258,7 +258,7 @@
     [PXAlertView showAlertWithTitle:@"确实是否删除改地址" message:nil cancelTitle:@"取消" otherTitle:@"确定" completion:^(BOOL cancelled) {
         if (!cancelled) {
             NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-            [dictionary setValue:[NSNumber numberWithInt:self.addressModel.ids] forKey:@"id"];
+            [dictionary setValue:[NSNumber numberWithInteger:self.addressModel.ids] forKey:@"id"];
             [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
             [self deleteAddress:dictionary];
         }

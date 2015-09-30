@@ -146,7 +146,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"indexPath.row = %d@",indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"indexPath.row = %ld@",(long)indexPath.row];
     // Configure the cell...
     
     return cell;

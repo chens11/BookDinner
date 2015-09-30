@@ -35,7 +35,7 @@
 
         
         self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height/3, frame.size.width,frame.size.height*2/3)];
-        self.dateLabel.text = [NSString stringWithFormat:@"%d",[HNYTools getDateNumByDate:[NSDate date]]];
+        self.dateLabel.text = [NSString stringWithFormat:@"%ld",(long)[HNYTools getDateNumByDate:[NSDate date]]];
         self.dateLabel.textAlignment = NSTextAlignmentCenter;
         self.dateLabel.textColor = [UIColor blackColor];
         self.dateLabel.font = [UIFont boldSystemFontOfSize:24];

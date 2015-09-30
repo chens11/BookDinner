@@ -287,12 +287,12 @@
         NSMutableArray *array = [NSMutableArray array];
 
         for (BDProductModel *model in self.orderModel.product) {
-            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:model.ids],@"id",[NSNumber numberWithInt:model.number],@"number", nil];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:model.ids],@"id",[NSNumber numberWithInteger:model.number],@"number", nil];
             [array addObject:dic];
         }
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         [dictionary setValue:array forKey:@"order"];
-        [dictionary setValue:[NSNumber numberWithInt:self.orderModel.address.ids] forKey:@"address_id"];
+        [dictionary setValue:[NSNumber numberWithInteger:self.orderModel.address.ids] forKey:@"address_id"];
         [dictionary setValue:timeItem.value forKey:@"order_date"];
         [dictionary setValue:[NSNumber numberWithInt:couponModel.ids] forKey:@"ticker_id"];
         [dictionary setValue:remarkItem.value forKey:@"remark"];

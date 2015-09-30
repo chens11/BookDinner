@@ -10,7 +10,7 @@
 #import "BDOrderTopItemView.h"
 @interface BDOrderTopView : HNYView
 @property (nonatomic,strong) NSMutableArray *subMenuAry;
-@property (nonatomic) int selectIndex;
-@property (nonatomic) int defaultSelectedIndex;
+@property (nonatomic) NSInteger selectIndex;
+@property (nonatomic) NSInteger defaultSelectedIndex;
 
 @end

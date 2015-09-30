@@ -12,8 +12,8 @@
 @interface HNYTabBar : UIView
 
 @property (nonatomic,strong) NSArray *tabItemsAry;
-@property (nonatomic) int selectIndex;
-@property (nonatomic) int defaultSelectedIndex;
+@property (nonatomic) NSInteger selectIndex;
+@property (nonatomic) NSInteger defaultSelectedIndex;
 
-- (void)selectTabItemByIndex:(int)Index;
+- (void)selectTabItemByIndex:(NSInteger)Index;
 @end

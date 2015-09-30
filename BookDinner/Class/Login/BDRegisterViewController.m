@@ -339,7 +339,7 @@
 - (void)hNYPopoverView:(HNYPopoverView *)popover didSelectStringAryAtIndex:(NSInteger)index{
     HNYDetailItemModel *item = [self.tableViewController getItemWithKey:KUSER_SEX];
     item.textValue = [self.sexAry objectAtIndex:index];
-    item.value = [NSString stringWithFormat:@"%d",index];
+    item.value = [NSString stringWithFormat:@"%ld",(long)index];
     self.sexTextField.text = item.textValue;
     [self.params setValue:item.value forKeyPath:KUSER_SEX];
     [popover dismissPopoverAnimated:YES];

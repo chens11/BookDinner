@@ -57,7 +57,7 @@
         num += model.number;
     }
     self.priceLabel.text = [NSString stringWithFormat:@"$ %f",sum];
-    self.numLabel.text = [NSString stringWithFormat:@"%d",num];
+    self.numLabel.text = [NSString stringWithFormat:@"%ld",(long)num];
 }
 
 - (void)touchButton:(UIButton*)sender{

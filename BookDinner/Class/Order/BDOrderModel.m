@@ -13,7 +13,7 @@
 @synthesize product = _product;
 @synthesize state_refund = _state_refund;
 
-- (void)setState:(int)state{
+- (void)setState:(NSInteger)state{
     _state = state;
     if (_state == 0) {
         self.stateName = @"待付款";
@@ -72,7 +72,7 @@
     else
         _address = nil;
 }
-- (void)setState_refund:(int)state_refund{
+- (void)setState_refund:(NSInteger)state_refund{
     _state_refund = state_refund;
     // ： 退款状态（0无，1有退款，2不同意退款，3等买家退货，4等卖家收货，5退款成功，6退款关闭）
     if (_state_refund == 0) {
@@ -97,5 +97,17 @@
         self.state_refund_name = @"退款关闭";
     }
 
+}
+- (NSString *)title{
+    
+    if (!_title) {
+        return _title;
+    }
+    else if (1 == self.type) {
+        return  @"充值";
+    }
+    else {
+        return  @"订餐";
+    }
 }
 @end

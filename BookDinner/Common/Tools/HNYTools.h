@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface HNYTools : NSObject
-+ (int)getMonthNumByDate:(NSDate*)date;
-+ (int)getDateNumByDate:(NSDate*)date;
++ (NSInteger)getMonthNumByDate:(NSDate*)date;
++ (NSInteger)getDateNumByDate:(NSDate*)date;
 
 @end

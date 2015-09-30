@@ -102,9 +102,9 @@
             if (sons.count == 0) {
                 
             }else{
-                int index = [self.list indexOfObject:model];
+                NSInteger index = [self.list indexOfObject:model];
                 for (NSObject *object in sons) {
-                    int offset = [sons indexOfObject:object];
+                    NSInteger offset = [sons indexOfObject:object];
                     [self.list insertObject:object atIndex:index + offset];
                 }
                 [tableView reloadData];

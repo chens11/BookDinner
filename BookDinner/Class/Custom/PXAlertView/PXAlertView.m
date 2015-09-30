@@ -414,7 +414,7 @@
     
     if (self.delegate) {
         [self.delegate view:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                 [NSNumber numberWithInt:sender.tag],@"ButtonTag", nil]];
+                                                 [NSNumber numberWithInteger:sender.tag],@"ButtonTag", nil]];
     }
 //    if ([[[PXAlertViewQueue sharedInstance] alertViews] count] == 1) {
 //        [self dismissAlertAnimation];

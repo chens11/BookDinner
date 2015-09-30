@@ -139,14 +139,14 @@
     controller.orderModel = model;
     controller.editAble = NO;
     controller.delegate = self;
-    controller.orderState = [NSString stringWithFormat:@"%d",model.state];
+    controller.orderState = [NSString stringWithFormat:@"%ld",(long)model.state];
     [self.navigationController pushViewController:controller animated:YES];
 
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"%d", indexPath.row);
+        NSLog(@"%ld", (long)indexPath.row);
         [self.tableController.list removeObjectAtIndex:[indexPath row]];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
     }

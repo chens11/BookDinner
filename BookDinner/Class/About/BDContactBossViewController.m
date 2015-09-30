@@ -220,7 +220,7 @@
             NSArray *array = [dictionary valueForKey:@"value"];
             self.tableController.headerIsUpdateing = NO;
             if (self.tableController.loadType == 0) {
-                for (int i = array.count - 1; i > -1; i--) {
+                for (NSInteger i = array.count - 1; i > -1; i--) {
                     BDContactMessageModel *model = [HNYJSONUitls mappingDictionary:[array objectAtIndex:i] toObjectWithClassName:@"BDContactMessageModel"];
                     BDContactMessageModel *bossModel = [HNYJSONUitls mappingDictionary:[array objectAtIndex:i] toObjectWithClassName:@"BDContactMessageModel"];
                     

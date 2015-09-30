@@ -62,7 +62,7 @@
     
     for (HNYTabBarItem *item in self.tabItemsAry) {
         
-        int index = [self.tabItemsAry indexOfObject:item];
+        NSInteger index = [self.tabItemsAry indexOfObject:item];
         item.frame = CGRectMake(offset + frame.size.width*index/5, 0, frame.size.width/5, frame.size.height);
         [item setNeedsDisplay];
     }
@@ -91,7 +91,7 @@
     //    self.scrollView.contentOffset = CGPointMake(sender.frame.size.width * self.selectIndex, 0);
 }
 
-- (void)setDefaultSelectedIndex:(int)defaultSelectedIndex{
+- (void)setDefaultSelectedIndex:(NSInteger)defaultSelectedIndex{
     _defaultSelectedIndex = defaultSelectedIndex;
     if (self.tabItemsAry.count > 0 && defaultSelectedIndex < self.tabItemsAry.count) {
         HNYTabBarItem *barItem = [self.tabItemsAry objectAtIndex:defaultSelectedIndex];
@@ -99,7 +99,7 @@
     }
 }
 
-- (void)selectTabItemByIndex:(int)Index{
+- (void)selectTabItemByIndex:(NSInteger)Index{
     if (self.tabItemsAry.count > 0 && Index < self.tabItemsAry.count) {
         CGPoint point = self.scrollView.contentOffset;
         HNYTabBarItem *barItem = [self.tabItemsAry objectAtIndex:Index];
