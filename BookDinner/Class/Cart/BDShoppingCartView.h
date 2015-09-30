@@ -14,6 +14,7 @@
 
 - (void)addProduct:(BDProductModel *)model;
 - (void)removeProduct:(BDProductModel *)model;
+- (void)clearProoducts;
 - (BDProductModel*)getProductByProductId:(NSInteger )ids;
 
 @end

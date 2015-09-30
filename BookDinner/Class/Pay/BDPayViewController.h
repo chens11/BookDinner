@@ -8,9 +8,8 @@
 
 #import "HNYBaseViewController.h"
 #import "BDPayTableViewCell.h"
-#import "AlixLibService.h"
 #import "BDOrderModel.h"
-#import "BDAlixpay.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface BDPayViewController : HNYBaseViewController
 @property (nonatomic,strong) BDOrderModel *orderModel;

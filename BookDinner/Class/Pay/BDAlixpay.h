@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataSigner.h"
-#import "AlixPayResult.h"
-#import "DataVerifier.h"
-#import "AlixPayOrder.h"
+#import <AlipaySDK/AlipaySDK.h>
 #import "BDOrderModel.h"
 
 

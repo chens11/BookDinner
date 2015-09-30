@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AlixPayResult.h"
-#import "DataVerifier.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

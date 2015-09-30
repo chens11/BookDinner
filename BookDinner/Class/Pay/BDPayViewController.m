@@ -7,6 +7,7 @@
 //
 
 #import "BDPayViewController.h"
+#import "BDAlixpay.h"
 
 @interface BDPayViewController ()<UITableViewDataSource,UITableViewDelegate,HNYDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
@@ -128,7 +129,15 @@
         NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                                  orderInfo, signedStr, @"RSA"];
         NSLog(@"result = %@",orderString);
-        [AlixLibService payOrder:orderString AndScheme:appScheme seletor:self.result target:self];
+        
+        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+            if ([resultDic isKindOfClass:[NSDictionary class]] && 9000 == [[resultDic valueForKey:@"resultStatus"] integerValue]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Pay_Sucess object:nil userInfo:nil ];
+            }
+            NSLog(@"reslut = %@",resultDic);
+        }];
+
+//        [AlixLibService payOrder:orderString AndScheme:appScheme seletor:self.result target:self];
     }
     else if (indexPath.row == 2){
         [self payByMyWallet];
@@ -147,31 +156,31 @@
 }
 
 //wap回调函数
--(void)paymentResult:(NSString *)resultd{
-    AlixPayResult* result = [[AlixPayResult alloc] initWithString:resultd];
-    if (result){
-        if (result.statusCode == 9000){
-            /*
-             *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
-             */
-            //交易成功
-            NSString* key = AlipayPubKey;//签约帐户后获取到的支付宝公钥
-            id<DataVerifier> verifier;
-            verifier = CreateRSADataVerifier(key);
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Pay_Sucess object:nil userInfo:nil ];
-
-//            if ([verifier verifyString:result.resultString withSign:result.signString]){
-//                //验证签名成功，交易结果无篡改
-//            }
-        }
-        else{
-            //交易失败
-        }
-    }
-    else{
-        //失败
-    }
-}
+//-(void)paymentResult:(NSString *)resultd{
+//    AlixPayResult* result = [[AlixPayResult alloc] initWithString:resultd];
+//    if (result){
+//        if (result.statusCode == 9000){
+//            /*
+//             *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
+//             */
+//            //交易成功
+//            NSString* key = AlipayPubKey;//签约帐户后获取到的支付宝公钥
+//            id<DataVerifier> verifier;
+//            verifier = CreateRSADataVerifier(key);
+//            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Pay_Sucess object:nil userInfo:nil ];
+//
+////            if ([verifier verifyString:result.resultString withSign:result.signString]){
+////                //验证签名成功，交易结果无篡改
+////            }
+//        }
+//        else{
+//            //交易失败
+//        }
+//    }
+//    else{
+//        //失败
+//    }
+//}
 #pragma mark - NSNoticefication
 - (void)payNotifcation:(NSNotification*)fication{
     [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],@"PayResult", nil]];

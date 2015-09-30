@@ -167,6 +167,15 @@
 - (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
 }
+#pragma mark - HNYDelegate
+
+- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
+    if ([[info valueForKey:@"PayResult"] boolValue]) {
+        [self.cartView clearProoducts];
+        [self.customNaviController popViewControllerAnimated:YES];
+    }
+}
+
 
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
     if ([aView isKindOfClass:[BDToolBar class]]) {

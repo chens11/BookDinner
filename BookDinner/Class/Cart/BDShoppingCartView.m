@@ -85,6 +85,11 @@
     [self updatePrice];
 }
 
+- (void)clearProoducts{
+    [self.products removeAllObjects];
+    [self updatePrice];
+}
+
 - (BDProductModel *)getProductByProductId:(NSInteger)ids{
     for (BDProductModel *model in self.products) {
         if (ids == model.ids) {
