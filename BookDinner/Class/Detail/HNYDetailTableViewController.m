@@ -363,7 +363,7 @@
         label.frame = CGRectMake(starLabel.frame.size.width, 0, self.nameLabelWidth - starLabel.frame.size.width, cell.frame.size.height);
         label.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         label.numberOfLines = 2;
-        label.lineBreakMode = UILineBreakModeCharacterWrap;
+        label.lineBreakMode = NSLineBreakByCharWrapping;
         label.font = self.nameTextFont;
         label.textColor = self.nameTextColor;
         label.backgroundColor = [UIColor clearColor];
@@ -379,7 +379,7 @@
         view.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
 
         if (itemVO.viewType == Switch) {
-            view.frame = CGRectMake(label.frame.size.width + label.frame.origin.x + 5, (cell.frame.size.height - view.frame.size.height) / 2, view.frame.size.width - itemVO.rightPadding, cell.frame.size.height);
+            view.frame = CGRectMake(label.frame.size.width + label.frame.origin.x + 15, (cell.frame.size.height - view.frame.size.height) / 2, view.frame.size.width - itemVO.rightPadding, cell.frame.size.height);
         }
         else {
             view.frame = CGRectMake(label.frame.size.width + label.frame.origin.x, 0, cell.frame.size.width - label.frame.size.width - label.frame.origin.x  - itemVO.rightPadding, cell.frame.size.height);

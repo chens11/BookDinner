@@ -37,10 +37,7 @@
     self.table.dataSource = self;
     self.table.delegate = self;
     [self.view addSubview:self.table];
-    if (self.getStreet)
-        [self getAddressStreetWith:self.addressModel.district];
-    else
-        [self getAddressProvince];
+    [self getAddressProvince];
     
     // Do any additional setup after loading the view.
 }
@@ -114,20 +111,20 @@
 //        }
     }
     else if (model.type == 2) {
-        self.addressModel.prorince = model.parentCode.parentCode;
-        self.addressModel.city = model.parentCode;
-        self.addressModel.district = model;
+        self.addressModel.province = model.parentCode.parentCode.name;
+        self.addressModel.city = model.parentCode.name;
+        self.addressModel.area = model.name;
         
         [self.delegate viewController:self
                        actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else if (model.type == 3){
-        self.addressModel.street = model;
-        [self.delegate viewController:self
-                       actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+//    else if (model.type == 3){
+//        self.addressModel.street = model;
+//        [self.delegate viewController:self
+//                       actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.addressModel,@"BDAddressModel", nil]];
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 #pragma mark - instance fun
 //收起操作
@@ -249,11 +246,21 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionGetAddressProvince];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"url = %@@",urlString);
+    NSLog(@"url = %@",urlString);
     
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [AppInfo headInfo],HTTP_HEAD,nil];
+    
+    
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+
     ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
     formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionGetAddressProvince,HTTP_USER_INFO, nil];
     [formRequest setDelegate:self];
+    [formRequest appendPostData:data];
     [formRequest startAsynchronous];
 }
 

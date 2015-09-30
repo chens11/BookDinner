@@ -10,6 +10,7 @@
 #import "BDLeftViewController.h"
 #import "PXAlertView.h"
 #import "BDHomeViewController.h"
+#import "BDNewsViewController.h"
 
 
 @interface BDMainViewController ()<UITabBarControllerDelegate,UIGestureRecognizerDelegate,UIScrollViewDelegate>
@@ -28,6 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleShowLeftNotification:) name:@"handleShowLeftNotification" object:nil];
         // Custom initialization
     }
     return self;
@@ -56,6 +58,9 @@
 }
 
 #pragma mark - init sub view
+- (void)createNaviBar{
+    
+}
 
 - (void)createCoverView{
     self.coverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -67,22 +72,20 @@
 
 }
 
-- (void)createNaviBarItems{
-    
-    HNYNaviBarItem *leftBarItem = [HNYNaviBarItem initWithNormalImage:[UIImage imageNamed:@"button_menu"] downImage:[UIImage imageNamed:@"button_menu"] target:self action:@selector(touchLeftBarItem:)];
-    self.naviBar.leftItems = [NSArray arrayWithObjects:leftBarItem, nil];
-}
 
 - (void)createContentNaviController{
     self.contentNaviController = [[UINavigationController alloc] init];
     self.contentNaviController.view.backgroundColor = [UIColor whiteColor];
-    self.contentNaviController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
+    self.contentNaviController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.contentNaviController.navigationBarHidden = YES;
     [self.view addSubview:self.contentNaviController.view];
     [self addChildViewController:self.contentNaviController];
     
-    BDHomeViewController *controller = [[BDHomeViewController alloc] init];
-    controller.customNaviController = self.navigationController;
+    BDMenuModel *model = [[BDMenuModel alloc] init];
+    model.title = @"订餐";
+    model.type = @"recommended";
+
+    HNYBaseViewController *controller = [self getViewController:model];
     [self.contentNaviController setViewControllers:[NSArray arrayWithObjects:controller, nil]];
 }
 
@@ -111,6 +114,10 @@
         
     }
     
+}
+#pragma mark - notification
+- (void)handleShowLeftNotification:(NSNotification*)fication{
+    [self showLeftView];
 }
 
 #pragma mark - UIGestureRecognizer
@@ -192,7 +199,10 @@
 
             [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_Action_Login object:nil userInfo:nil ];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KUSER_IS_LOGIN];
-            [[NSUserDefaults standardUserDefaults] setValue:[dictionary objectForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
+            if ([[dictionary objectForKey:HTTP_VALUE] isKindOfClass:[NSDictionary class]])
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[dictionary valueForKey:HTTP_VALUE] valueForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
+            }
         }
     }
     else{
@@ -211,11 +221,28 @@
 #pragma mark - HBPublicDelegate
 - (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
     if ([vController isKindOfClass:[BDLeftViewController class]]) {
+        HNYBaseViewController *controller = [self getViewController:[info valueForKey:@"model"]];
         if (self.leftNaviController.view.frame.origin.x > -1){
             [self hideLeftView];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNotification_App_Did_Become_Active object:nil userInfo:nil ];
+            if (![[self.contentNaviController.viewControllers objectAtIndex:0] isEqual:controller]) {
+                [self.contentNaviController setViewControllers:@[controller] animated:YES];
+            }
         }
     }
+}
+- (HNYBaseViewController*)getViewController:(BDMenuModel*)model
+{
+    if ([@"recommended" isEqualToString:model.type]) {
+        BDHomeViewController *controller = [[BDHomeViewController alloc] init];
+        controller.customNaviController = self.contentNaviController;
+        return controller;
+    }
+    else if ([@"news" isEqualToString:model.type]){
+        BDNewsViewController *controller = [[BDNewsViewController alloc] init];
+        controller.customNaviController = self.contentNaviController;
+        return controller;
+    }
+    return  [[BDHomeViewController alloc] init];
 }
 
 #pragma mark - show or hide left view

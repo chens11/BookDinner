@@ -225,7 +225,6 @@
                                   [NSNumber numberWithInt:self.tableController.pageNum],@"pagenum",
                                   [NSNumber numberWithInt:self.tableController.pageSize],@"pagesize",
                                   [NSNumber numberWithInt:[self.orderState intValue]],@"state",
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     

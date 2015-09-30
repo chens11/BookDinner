@@ -22,7 +22,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.isDefault = NO;
         _viewAry = [[NSMutableArray alloc] initWithCapacity:0];
         self.addressModel = [[BDAddressModel alloc] init];
         // Custom initialization
@@ -61,12 +60,12 @@
     self.tableViewController = [[HNYDetailTableViewController alloc] init];
     self.tableViewController.delegate = self;
     self.tableViewController.customDelegate = self;
-    self.tableViewController.nameLabelWidth = 60;
-    self.tableViewController.nameTextAlignment = NSTextAlignmentLeft;
+    self.tableViewController.nameLabelWidth = 80;
+    self.tableViewController.nameTextAlignment = NSTextAlignmentRight;
     self.tableViewController.cellHeight = 50;
     self.tableViewController.cellBackGroundColor = [UIColor whiteColor];
     [self addChildViewController:self.tableViewController];
-    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight * 7 +10);
+    self.tableViewController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.tableViewController.cellHeight * 6 +10);
     [self.tableViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth)];
     [self.view addSubview:self.tableViewController.view];
     [self addChildViewController:self.tableViewController];
@@ -80,7 +79,7 @@
     nameItem.textValue = self.addressModel.name;
     nameItem.value = self.addressModel.name;
     nameItem.rightPadding = 10;
-    nameItem.name = @"  称呼 ";
+    nameItem.name = @"称    呼：";
     nameItem.height = @"one";
     [_viewAry addObject:nameItem];
     
@@ -90,7 +89,7 @@
     numItem.textValue = self.addressModel.tel;
     numItem.value = self.addressModel.tel;
     numItem.keyboardType = UIKeyboardTypeNumberPad;
-    numItem.name = @"  手机 ";
+    numItem.name = @"手    机：";
     numItem.key = KUSER_PHONE_NUM;
     numItem.height = @"one";
     [_viewAry addObject:numItem];
@@ -100,14 +99,14 @@
     codeItem.editable = YES;
     codeItem.height = @"one";
     codeItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    if (self.addressModel.prorince.name && self.addressModel.city.name && self.addressModel.district.name)
+    if (self.addressModel.province && self.addressModel.city && self.addressModel.area)
         codeItem.textValue = [NSString stringWithFormat:@"%@ %@ %@",
-                              self.addressModel.prorince.name,
-                              self.addressModel.city.name,
-                              self.addressModel.district.name];
+                              self.addressModel.province,
+                              self.addressModel.city,
+                              self.addressModel.area];
     codeItem.value = self.addressModel;
     codeItem.key = KUSER_ADDRESS_CODE;
-    codeItem.name = @"  地区";
+    codeItem.name = @"地    区：";
     [_viewAry addObject:codeItem];
     
     HNYDetailItemModel *streetItem = [[HNYDetailItemModel alloc] init];
@@ -115,12 +114,10 @@
     streetItem.editable = YES;
     streetItem.height = @"one";
     streetItem.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    if (self.addressModel.street.name)
-        streetItem.textValue = [NSString stringWithFormat:@"%@",self.addressModel.street.name];
     streetItem.value = self.addressModel;
     streetItem.key = KUSER_ADDRESS_STREET;
-    streetItem.name = @"  街道";
-    [_viewAry addObject:streetItem];
+    streetItem.name = @"街    道：";
+//    [_viewAry addObject:streetItem];
     
     HNYDetailItemModel *addreItem = [[HNYDetailItemModel alloc] init];
     addreItem.viewType = TextView;
@@ -131,13 +128,24 @@
     addreItem.textValue = self.addressModel.address;
     addreItem.value = self.addressModel.address;
     addreItem.key = KUSER_ADDRESS;
-    addreItem.name = @"  地址";
+    addreItem.name = @"地    址：";
     [_viewAry addObject:addreItem];
+
+    
+    HNYDetailItemModel *switchItem = [[HNYDetailItemModel alloc] init];
+    switchItem.viewType = Switch;
+    switchItem.height = @"one";
+    switchItem.key = @"is_default";
+    switchItem.editable = YES;
+    switchItem.name = @"默认地址：";
+    switchItem.backGroundColor = [UIColor greenColor];
+    [_viewAry addObject:switchItem];
 
     HNYDetailItemModel *buttonItem = [[HNYDetailItemModel alloc] init];
     buttonItem.viewType = Customer;
-    buttonItem.height = @"two";
+    buttonItem.height = @"one";
     buttonItem.key = @"button";
+    buttonItem.value = [NSNumber numberWithBool:self.addressModel.is_default];
     [_viewAry addObject:buttonItem];
     
     self.tableViewController.viewAry = _viewAry;
@@ -157,7 +165,7 @@
 
 - (id)createViewWith:(HNYDetailItemModel *)item{
     if ([@"button" isEqualToString:item.key]) {
-        UIView *temp = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.tableViewController.cellHeight*2)];
+        UIView *temp = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.tableViewController.cellHeight)];
         
         UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         saveBtn.frame = CGRectMake(15, 5 , self.view.frame.size.width - 30, 40);
@@ -168,15 +176,6 @@
         [saveBtn addTarget:self action:@selector(touchSaveAddressButton:) forControlEvents:UIControlEventTouchUpInside];
         [temp addSubview:saveBtn];
         
-        
-        UIButton *defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        defaultBtn.frame = CGRectMake(15, 50 , self.view.frame.size.width - 30, 40);
-        defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        defaultBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
-        [defaultBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-        [defaultBtn setTitle:@"设为默认地址" forState:UIControlStateNormal];
-        [defaultBtn addTarget:self action:@selector(touchDefaultAddressButton:) forControlEvents:UIControlEventTouchUpInside];
-        [temp addSubview:defaultBtn];
         return temp;
     }
     return [[UIView alloc] init];
@@ -208,6 +207,7 @@
     HNYDetailItemModel *phoneItem = [self.tableViewController getItemWithKey:KUSER_PHONE_NUM];
     HNYDetailItemModel *codeItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS_CODE];
     HNYDetailItemModel *addItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS];
+    HNYDetailItemModel *defaultItem = [self.tableViewController getItemWithKey:@"is_default"];
     if (!nameItem.value) {
         [self showTips:@"请您输入名称"];
         return;
@@ -230,29 +230,27 @@
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setValue:nameItem.value forKey:@"name"];
     [dictionary setValue:phoneItem.value forKey:@"tel"];
-    [dictionary setValue:[NSNumber numberWithInt:self.addressModel.prorince.code]
-                  forKey:@"prorince"];
-    [dictionary setValue:[NSNumber numberWithInt:self.addressModel.city.code]
+    [dictionary setValue:self.addressModel.province
+                  forKey:@"province"];
+    [dictionary setValue:self.addressModel.city
                   forKey:@"city"];
-    [dictionary setValue:[NSNumber numberWithInt:self.addressModel.district.code]
-                  forKey:@"district"];
-    [dictionary setValue:[NSNumber numberWithInt:self.addressModel.street.code]
-                  forKey:@"street"];
-    [dictionary setValue:[NSNumber numberWithBool:self.isDefault] forKey:@"isdefault"];
+    [dictionary setValue:self.addressModel.area
+                  forKey:@"area"];
+//    [dictionary setValue:[NSNumber numberWithInt:self.addressModel.street.code]
+//                  forKey:@"street"];
+    [dictionary setValue:defaultItem.value forKey:@"is_default"];
     [dictionary setValue:addItem.value forKey:@"address"];
 
     [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
-    [dictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
     if (self.isAddAddress) {
         [self addAddress:dictionary];
     }
     else{
-        [dictionary setValue:[NSNumber numberWithInt:self.addressModel.id] forKey:@"id"];
+        [dictionary setValue:[NSNumber numberWithInt:self.addressModel.ids] forKey:@"id"];
         [self saveAddress:dictionary];
     }
 }
 - (void)touchDefaultAddressButton:(UIButton*)sender{
-    self.isDefault = YES;
     [self touchSaveAddressButton:nil];
 }
 
@@ -260,9 +258,8 @@
     [PXAlertView showAlertWithTitle:@"确实是否删除改地址" message:nil cancelTitle:@"取消" otherTitle:@"确定" completion:^(BOOL cancelled) {
         if (!cancelled) {
             NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-            [dictionary setValue:[NSNumber numberWithInt:self.addressModel.id] forKey:@"id"];
+            [dictionary setValue:[NSNumber numberWithInt:self.addressModel.ids] forKey:@"id"];
             [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
-            [dictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN] forKey:HTTP_TOKEN];
             [self deleteAddress:dictionary];
         }
     }];
@@ -274,16 +271,10 @@
     if ([vController isKindOfClass:[BDAddressSelectorViewController class]]) {
         
         HNYDetailItemModel *nameItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS_CODE];
-        HNYDetailItemModel *streetItem = [self.tableViewController getItemWithKey:KUSER_ADDRESS_STREET];
         
-        nameItem.textValue = [NSString stringWithFormat:@"%@ %@ %@",self.addressModel.prorince.name,self.addressModel.city.name,self.addressModel.district.name];
+        nameItem.textValue = [NSString stringWithFormat:@"%@ %@ %@",self.addressModel.province,self.addressModel.city,self.addressModel.area];
         nameItem.value = self.addressModel;
         
-        if (self.addressModel.street.name) {
-            streetItem.textValue = [NSString stringWithFormat:@"%@",self.addressModel.street.name];
-            streetItem.value = self.addressModel;
-            [self.tableViewController changeViewAryObjectWith:streetItem atIndex:[self.viewAry indexOfObject:streetItem]];
-        }
         
         [self.tableViewController changeViewAryObjectWith:nameItem atIndex:[self.viewAry indexOfObject:nameItem]];
 

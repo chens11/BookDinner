@@ -54,8 +54,12 @@
     [self.view addSubview:self.bgImageView];
     
     BDMenuModel *model = [[BDMenuModel alloc] init];
-    model.title = @"今日推荐";
+    model.title = @"订餐";
     model.type = @"recommended";
+    
+    BDMenuModel *newsmodel = [[BDMenuModel alloc] init];
+    newsmodel.title = @"资讯";
+    newsmodel.type = @"news";
     
     BDMenuModel *centermodel = [[BDMenuModel alloc] init];
     centermodel.title = @"个人中心";
@@ -78,6 +82,7 @@
     pointsmodel.type = @"points";
     
     [self.menuAry addObject:model];
+    [self.menuAry addObject:newsmodel];
     [self.menuAry addObject:centermodel];
 //    [self.menuAry addObject:ordermodel];
 //    [self.menuAry addObject:settingmodel];
@@ -130,7 +135,7 @@
     self.loginBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
     [self.loginBtn addTarget:self action:@selector(touchSginButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.loginBtn setImage:[UIImage imageNamed:@"tmall_baby_info_edit"] forState:UIControlStateNormal];
-    [self.view addSubview:self.loginBtn];
+//    [self.view addSubview:self.loginBtn];
     
 }
 
@@ -182,7 +187,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BDMenuModel *model = [self.menuAry objectAtIndex:indexPath.row];
-    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:indexPath,@"indexPath", nil];
+    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:indexPath,@"indexPath",model,@"model", nil];
     if ([@"setting" isEqualToString:model.type]) {
         BDSettingViewController *controller = [[BDSettingViewController alloc] init];
         [self.customNaviController pushViewController:controller animated:YES];

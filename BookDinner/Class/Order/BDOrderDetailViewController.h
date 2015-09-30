@@ -7,7 +7,6 @@
 //
 
 #import "HNYBaseViewController.h"
-#import "BDDinnerModel.h"
 #import "BDAddressModel.h"
 #import "BDLoginViewController.h"
 #import "BDPayViewController.h"

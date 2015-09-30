@@ -259,22 +259,22 @@ double radians(float degrees) {
             BDCouponModel *tmp;
             if (coupon.type == 1) {
                 tmp = [self.data objectAtIndex:1];
-                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.prize,tmp.name];
+                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.money,tmp.name];
                 self.result = [NSString stringWithFormat:@"%d",1];
             }
             else if (coupon.type == 2 || coupon.type == 4) {
                 tmp = [self.data objectAtIndex:2];
-                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.prize,tmp.name];
+                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.money,tmp.name];
                 self.result = [NSString stringWithFormat:@"%d",2];
             }
             else if (coupon.type == 3 || coupon.type == 5) {
                 tmp = [self.data objectAtIndex:3];
-                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.prize,tmp.name];
+                self.info = [NSString stringWithFormat:@"恭喜您抽中-张%@(%@)",coupon.money,tmp.name];
                 self.result = [NSString stringWithFormat:@"%d",3];
             }
             else{
                 tmp = [self.data objectAtIndex:0];
-                self.info = [NSString stringWithFormat:@"%@",coupon.prize];
+                self.info = [NSString stringWithFormat:@"%@",coupon.money];
                 self.result = [NSString stringWithFormat:@"%d",0];
             }
             CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];

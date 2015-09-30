@@ -7,10 +7,10 @@
 //
 
 #import "HNYBaseViewController.h"
-#import "BDDinnerModel.h"
+#import "BDProductModel.h"
 
 @interface BDHomeViewController : HNYBaseViewController
-@property (nonatomic,strong) BDDinnerModel *dinnerModel;
+@property (nonatomic,strong) BDProductModel *dinnerModel;
 @property (nonatomic,strong) UINavigationController *customNaviController;
 
 - (void)getTodayRecommend;

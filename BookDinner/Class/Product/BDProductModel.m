@@ -10,4 +10,22 @@
 
 @implementation BDProductModel
 
+- (BDProductModel*)copy{
+    BDProductModel *model = [[BDProductModel alloc] init];
+    model.ids = self.ids;
+    model.title = self.title;
+    model.type_id = self.type_id;
+    model.number = self.number;
+    model.img = self.img;
+    model.addtime = self.addtime;
+    model.money = self.money;
+    model.descriptions = self.descriptions;
+    return model;
+}
+- (BOOL)isEqual:(BDProductModel*)object{
+    if ([object isKindOfClass:[BDProductModel class]] && self.ids == object.ids) {
+        return true;
+    }
+    return false;
+}
 @end

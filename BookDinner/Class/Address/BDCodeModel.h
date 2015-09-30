@@ -10,7 +10,7 @@
 
 @interface BDCodeModel : HNYModel
 
-@property (nonatomic) int code;
+@property (nonatomic) NSInteger code;
 @property (nonatomic,strong) NSString *name;
 //0是表示第一层 无父节点
 @property (nonatomic,strong) BDCodeModel *parentCode;

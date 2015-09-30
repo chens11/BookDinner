@@ -206,7 +206,8 @@
         }
         NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                       phoneItem.textValue,KUSER_ACCOUNT,
-                                      passwordItem.textValue,KUSER_PASSWORD,
+                                      passwordItem.textValue,KUSER_NEW_PASSWORD,
+                                      passwordItem.textValue,KUSER_CONFIRM_PASSWORD,
                                       codeItem.textValue,@"captcha",
                                       [AppInfo headInfo],HTTP_HEAD,nil];
         [self changePassword:param];

@@ -10,9 +10,7 @@
 
 @implementation BDOrderModel
 @synthesize state = _state;
-@synthesize ticker = _ticker;
 @synthesize product = _product;
-@synthesize address = _address;
 @synthesize state_refund = _state_refund;
 
 - (void)setState:(int)state{
@@ -43,23 +41,27 @@
     else
         _ticker = nil;
 }
-- (void)setProduct:(id)product{
-    if ([product isKindOfClass:[BDDinnerModel class]]) {
-        _product = product;
-        self.img = _product.img;
-        self.title = _product.title;
-        self.money = _product.money;
-    }
-    else if ([product isKindOfClass:[NSDictionary class]]){
-        _product = [HNYJSONUitls mappingDictionary:product toObjectWithClassName:@"BDDinnerModel"];
-        self.img = _product.img;
-        self.title = _product.title;
-        self.money = _product.money;
-    }
-    else
-        _product = nil;
-}
 
+- (void)setProduct:(NSMutableArray *)product{
+
+    NSMutableArray *array = [NSMutableArray array];
+    for (id object in product) {
+        if ([object isKindOfClass:[NSDictionary class]]) {
+            BDProductModel *model = [[BDProductModel alloc] init];
+            model.ids = [[object valueForKey:@"product_id"] integerValue];
+            model.img = [object valueForKey:@"product_img"];
+            model.money = [object valueForKey:@"product_money"];
+            model.number = [[object valueForKey:@"product_number"] integerValue];
+            model.title = [object valueForKey:@"product_title"];
+            
+            [array addObject:model];
+        }
+        else if ([object isKindOfClass:[BDProductModel class]]) {
+            [array addObject:object];
+        }
+    }
+    _product = array;
+}
 - (void)setAddress:(id)address{
     if ([address isKindOfClass:[BDAddressModel class]]) {
         _address = address;

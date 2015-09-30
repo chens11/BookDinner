@@ -95,7 +95,7 @@
     NSDictionary *dictionary;
     cell.tag = indexPath.row;
     if (indexPath.section == 0) {
-        NSString *title = [NSString stringWithFormat:@"在线支付: ￥%.2f",[self.orderModel.pricemoney floatValue]];
+        NSString *title = [NSString stringWithFormat:@"在线支付: ￥%.2f",[self.orderModel.price floatValue]];
         dictionary = [NSDictionary dictionaryWithObjectsAndKeys:title,@"title", nil];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
@@ -186,7 +186,7 @@
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  [NSNumber numberWithInt:self.orderModel.id],@"id",
+                                  [NSNumber numberWithInt:self.orderModel.ids],@"id",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
@@ -207,8 +207,7 @@
 - (void)getPayDetail{
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  [NSNumber numberWithInt:self.orderModel.id],@"id",
+                                  self.orderModel.ids,@"id",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
@@ -240,7 +239,7 @@
         else if ([KAPI_ActionGetOrderDetail isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             NSDictionary *value = [dictionary valueForKey:@"value"];
             if ([value isKindOfClass:[NSDictionary class]]) {
-                [HNYJSONUitls mappingDictionary:value toObject:self.orderModel];
+                [HNYJSONUitls mappingDictionary:[value valueForKey:@"data"] toObject:self.orderModel];
                 [self.tableController.tableView reloadData];
             }
         }

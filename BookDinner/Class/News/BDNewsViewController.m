@@ -10,13 +10,15 @@
 #import "BDCategoryModel.h"
 #import "BDNewModel.h"
 #import "BDNewsCell.h"
+#import "BDToolBar.h"
 
 @interface BDNewsViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
 
-@property (nonatomic,strong) NSArray *categorys;
+@property (nonatomic,strong) NSMutableArray *categorys;
 @property (nonatomic,strong) NSMutableArray *products;
-@property (nonatomic,strong) UIView *topView;
+@property (nonatomic,strong) BDToolBar *topView;
+@property (nonatomic) int type_id;
 
 @end
 
@@ -24,7 +26,9 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
+        self.type_id = 0;
         self.products = [NSMutableArray array];
+        self.categorys = [NSMutableArray array];
     }
     return self;
 }
@@ -32,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self createTopView];
     [self createTable];
     [self requestNewsCategory];
     // Do any additional setup after loading the view.
@@ -41,6 +46,19 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)createNaviBarItems{
+    
+    HNYNaviBarItem *leftBarItem = [HNYNaviBarItem initWithNormalImage:[UIImage imageNamed:@"button_menu"] downImage:[UIImage imageNamed:@"button_menu"] target:self action:@selector(touchLeftBarItem:)];
+    self.naviBar.leftItems = [NSArray arrayWithObjects:leftBarItem, nil];
+}
+
+
+- (void)createTopView{
+    self.topView = [[BDToolBar alloc] initWithFrame:CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, 44)];
+    self.topView.delegate = self;
+    [self.view addSubview:self.topView];
+}
+
 
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
@@ -54,8 +72,10 @@
     [self.view addSubview:self.tableController.view];
     [self addChildViewController:self.tableController];
 }
-- (void)createNaviBar{
-    
+
+#pragma mark - IBAction
+- (void)touchLeftBarItem:(UIBarButtonItem*)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"handleShowLeftNotification" object:nil];
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate,UIScrolViewDelegate
@@ -84,6 +104,7 @@
     BDNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
     if (!cell) {
         cell = [[BDNewsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     [cell configureCellWith:[self.tableController.list objectAtIndex:indexPath.row]];
     return cell;
@@ -126,6 +147,13 @@
 - (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
 }
+- (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
+    if ([aView isKindOfClass:[BDToolBar class]]) {
+        BDMenuModel *model = [info valueForKey:@"subMenuSelected"];
+        self.type_id = [model.type intValue];
+        [self pullDownTable];
+    }
+}
 
 #pragma mark - http request
 - (void)requestNewsCategory{
@@ -154,7 +182,7 @@
                                   [AppInfo headInfo],HTTP_HEAD,
                                   @1,@"page",
                                   @20,@"list_number",
-                                  @0,@"type_id",
+                                  [NSNumber numberWithInt:self.type_id],@"type_id",
                                   nil];
     
     
@@ -180,10 +208,30 @@
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([KAPI_ActionNewsCategory isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self.categorys removeAllObjects];
+
+            BDCategoryModel *model = [[BDCategoryModel alloc] init];
+            model.ids = 0;
+            model.name = @"全部";
+            
+            BDMenuModel *all = [[BDMenuModel alloc] init];
+            all.orignalModel = model;
+            all.title = model.name;
+            all.type = [NSString stringWithFormat:@"%ld",(long)model.ids];
+            [self.categorys addObject:all];
+
             if ([[dictionary valueForKey:@"value"] isKindOfClass:[NSDictionary class]]) {
-                self.categorys = [HNYJSONUitls mappingDicAry:[[dictionary valueForKey:@"value"] valueForKey:@"data"] toObjectAryWithClassName:@"BDCategoryModel"];
+                for (NSDictionary *dic in [[dictionary valueForKey:@"value"] valueForKey:@"data"]) {
+                    BDCategoryModel *category = [HNYJSONUitls mappingDictionary:dic toObjectWithClassName:@"BDCategoryModel"];
+                    BDMenuModel *menu = [[BDMenuModel alloc] init];
+                    menu.orignalModel = category;
+                    menu.title = category.name;
+                    menu.type = [NSString stringWithFormat:@"%ld",(long)category.ids];
+                    [self.categorys addObject:menu];
+                }
             }
-            [self requestNewList];
+            self.topView.subMenuAry = self.categorys;
+            self.topView.defaultSelectedIndex = 0;
         }
         else if ([KAPI_ActionNewsList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             if ([[dictionary valueForKey:@"value"] isKindOfClass:[NSDictionary class]]) {
@@ -197,7 +245,7 @@
                     self.tableController.enbleFooterLoad = YES;
                 
                 if (self.tableController.list.count == 0)
-                    [self showTips:@"无优惠券"];
+                    [self showTips:@"暂无数据"];
 
             }
         }

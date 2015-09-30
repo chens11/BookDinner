@@ -12,6 +12,5 @@
 @interface BDAddressDetailViewController : HNYBaseViewController
 @property (nonatomic,strong) BDAddressModel *addressModel;
 @property (nonatomic) BOOL isAddAddress;
-@property (nonatomic) BOOL isDefault;
 
 @end

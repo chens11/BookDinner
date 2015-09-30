@@ -7,263 +7,312 @@
 //
 
 #import "BDHomeViewController.h"
-#import "BDHomeDateView.h"
-#import "BDLoginViewController.h"
+#import "BDProductModel.h"
+#import "BDCategoryModel.h"
+#import "BDProductCell.h"
+#import "BDToolBar.h"
+#import "BDShoppingCartView.h"
 #import "BDOrderDetailViewController.h"
-#import "HNYActionSheet.h"
-#import "BDProductsViewController.h"
-#import "BDNewsViewController.h"
 
-@interface BDHomeViewController ()<UIScrollViewDelegate,HNYActionSheetDelegate,
-UIActionSheetDelegate>
-
-@property (nonatomic,strong) UIImageView *bgImageView;
-@property (nonatomic,strong) UIButton *orderBtn;
-@property (nonatomic,strong) UIScrollView *mScrollView;
-@property (nonatomic,strong) UIImageView *imgView;
-@property (nonatomic,strong) UIPageControl *pageControl;
-@property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UILabel *priceLabel;
-@property (nonatomic,strong) UILabel *numLabel;
-@property (nonatomic,strong) HNYActionSheet *sheet;
-@property (nonatomic,strong) HNYTabBar *tabBar;
-@property (nonatomic,strong) UINavigationController *contenNaviController;
-@property (nonatomic,strong) BDProductsViewController *productsController;
-@property (nonatomic,strong) BDNewsViewController *newsContoller;
+@interface BDHomeViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong) HNYRefreshTableViewController *tableController;
+@property (nonatomic,strong) NSMutableArray *categorys;
+@property (nonatomic,strong) NSMutableArray *products;
+@property (nonatomic,strong) BDToolBar *topView;
+@property (nonatomic,strong) BDShoppingCartView *cartView;
+@property (nonatomic) int type_id;
 
 @end
 
 @implementation BDHomeViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (instancetype)init{
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.type_id = 0;
+        self.products = [NSMutableArray array];
+        self.categorys = [NSMutableArray array];
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(getTodayRecommend)
-                                                 name:KNotification_App_Did_Become_Active object:nil];
-//    [self createScrollView];
-//    [self createDateView];
-//    [self getTodayRecommend];
-    [self createTabBar];
-    [self createContentNaviController];
-    [self createTabBarItems];
-
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(self.view.frame.size.width - 55, self.view.frame.size.height - 200 , 40, 40);
-//    btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    [btn setImage:[UIImage imageNamed:@"button_info"] forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(touchInfoButton:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:btn];
-//
-//    
-//    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.view.frame.size.height - 150 , self.view.frame.size.width - 30, 40)];
-//    self.nameLabel.textAlignment = NSTextAlignmentCenter;
-//    self.nameLabel.text = @"香辣猪扒饭";
-//    self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    self.nameLabel.backgroundColor = [UIColor clearColor];
-//    self.nameLabel.font = [UIFont systemFontOfSize:18.0];
-//    [self.view addSubview:self.nameLabel];
-//    
-//    
-//    self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.view.frame.size.height - 110 , 80, 40)];
-//    self.priceLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    self.priceLabel.backgroundColor = [UIColor clearColor];
-//    self.priceLabel.text = @"￥30.0";
-//    self.priceLabel.textColor = [UIColor colorWithRed:241/255.0 green:90/255.0 blue:36/255.0 alpha:1.0];
-//    self.priceLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
-//    [self.view addSubview:self.priceLabel];
-//    
-//    self.numLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, self.view.frame.size.height - 110 , self.view.frame.size.width - 120, 40)];
-//    self.numLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    self.numLabel.textAlignment = NSTextAlignmentRight;
-//    self.numLabel.text = @"剩余10份";
-//    self.numLabel.textColor = [UIColor colorWithRed:241/255.0 green:90/255.0 blue:36/255.0 alpha:1.0];
-//    self.numLabel.backgroundColor = [UIColor clearColor];
-//    self.numLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
-//    [self.view addSubview:self.numLabel];
-//    
-//    
-//    self.orderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.orderBtn.frame = CGRectMake(15, self.view.frame.size.height - 55 , self.view.frame.size.width - 30, 40);
-//    self.orderBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    self.orderBtn.titleLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
-//    self.orderBtn.enabled = NO;
-//    [self.orderBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_disable"] forState:UIControlStateDisabled];
-//    [self.orderBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-//    [self.orderBtn setTitle:@"订餐" forState:UIControlStateNormal];
-//    [self.orderBtn addTarget:self action:@selector(touchOrderButton:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:self.orderBtn];
-
+    [self createTopView];
+    [self createCart];
+    [self createTable];
+    [self requestProductCategory];
+    
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.mScrollView.contentSize = CGSizeMake(self.mScrollView.frame.size.width, self.mScrollView.frame.size.height);
-}
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-#pragma mark - create sub view
-- (void)createTabBar{
-    self.tabBar = [[HNYTabBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
-    self.tabBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.view addSubview:self.tabBar];
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+#pragma mark - draw subviews
+
+- (void)createNaviBarItems{
+    
+    HNYNaviBarItem *leftBarItem = [HNYNaviBarItem initWithNormalImage:[UIImage imageNamed:@"button_menu"] downImage:[UIImage imageNamed:@"button_menu"] target:self action:@selector(touchLeftBarItem:)];
+    self.naviBar.leftItems = [NSArray arrayWithObjects:leftBarItem, nil];
 }
 
-- (void)createTabBarItems{
-    HNYTabBarItem *productItem = [HNYTabBarItem initWithNormalImage:nil downImage:nil title:@"订餐" target:self action:@selector(touchTabBarItem:)];
-    productItem.exTag = 0;
-    
-    HNYTabBarItem *newsItem = [HNYTabBarItem initWithNormalImage:nil downImage:nil title:@"资讯" target:self action:@selector(touchTabBarItem:)];
-    newsItem.exTag = 1;
-    
-    self.tabBar.tabItemsAry = [NSArray arrayWithObjects:productItem,newsItem, nil];
-    self.tabBar.defaultSelectedIndex = 0;
-}
-- (void)createContentNaviController{
-    self.productsController = [[BDProductsViewController alloc] init];
-    self.newsContoller = [[BDNewsViewController alloc] init];
-    
-    self.contenNaviController = [[UINavigationController alloc] init];
-    self.contenNaviController.navigationBarHidden = YES;
-    self.contenNaviController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - self.tabBar.frame.size.height);
-    self.contenNaviController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:self.contenNaviController.view];
-    [self addChildViewController:self.contenNaviController];
-}
-- (void)createBgView{
-    self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    self.bgImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    self.bgImageView.image = [UIImage imageNamed:@"iconHomebg"];
-    [self.view addSubview:self.bgImageView];
+- (void)createTopView{
+    self.topView = [[BDToolBar alloc] initWithFrame:CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, 44)];
+    self.topView.delegate = self;
+    [self.view addSubview:self.topView];
 }
 
-- (void)createDateView{
-    BDHomeDateView *dateView = [[BDHomeDateView alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
-    dateView.center = CGPointMake(self.view.frame.size.width - 50, 50);
-    [self.view addSubview:dateView];
-
+- (void)createTable{
+    self.tableController = [[HNYRefreshTableViewController alloc] init];
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + self.topView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - self.topView.frame.size.height - self.cartView.frame.size.height);
+    self.tableController.tableView.delegate = self;
+    self.tableController.tableView.dataSource = self;
+    self.tableController.tableView.separatorColor = [UIColor clearColor];
+    self.tableController.pageNum = 1;
+    self.tableController.pageSize = 10;
+    self.tableController.delegate = self;
+    [self.view addSubview:self.tableController.view];
+    [self addChildViewController:self.tableController];
 }
-- (void)createNaviBar{
+
+- (void)createCart{
+    self.cartView = [[BDShoppingCartView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
+    self.cartView.delegate = self;
+    self.cartView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:self.cartView];
+}
+#pragma mark - IBAction
+- (void)touchLeftBarItem:(UIBarButtonItem*)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"handleShowLeftNotification" object:nil];
+}
+
+
+#pragma mark - UITableViewDataSource,UITableViewDelegate,UIScrolViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.tableController scrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.tableController scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.tableController.list.count;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 95;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentify = @"BDProductCell";
+    BDProductCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
+    if (!cell) {
+        cell = [[BDProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
+    }
+    cell.delegate = self;
+    [cell configureCellWith:[self.tableController.list objectAtIndex:indexPath.row]];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"%d", indexPath.row);
+        [self.tableController.list removeObjectAtIndex:[indexPath row]];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
 
-- (void)createScrollView{
-    self.mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 150 - self.naviBar.frame.size.height)];
-    self.mScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleTopMargin;
-    self.mScrollView.showsVerticalScrollIndicator = NO;
-    self.mScrollView.backgroundColor = [UIColor whiteColor];
-    self.mScrollView.delegate = self;
-    self.mScrollView.contentSize = CGSizeMake(self.mScrollView.frame.size.width * 1, self.mScrollView.frame.size.height);
-    self.mScrollView.contentOffset = CGPointMake(0, 0);
-    self.mScrollView.pagingEnabled = YES;
-    
-    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 70, self.view.frame.size.width, 20)];
-    self.pageControl.currentPage = 0;
-    self.pageControl.numberOfPages = 4;
-    self.pageControl.hidden = YES;
-    
-//    for (int i = 0; i < 1; i++) {
-//        UIImageView *imageView = [[UIImageView alloc] init];
-//        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//        imageView.contentMode = UIViewContentModeScaleAspectFill;
-//        imageView.frame = CGRectMake(self.view.frame.size.width * i, 0, self.view.frame.size.width, self.view.frame.size.height - 150);
-//        [imageView setImage:[UIImage imageNamed:@"dinner"]];
-//        [self.mScrollView addSubview:imageView];
-//    }
-    self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 150 - self.naviBar.frame.size.height)];
-    self.imgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.imgView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.imgView setImage:[UIImage imageNamed:@"dinner"]];
-    [self.mScrollView addSubview:self.imgView];
-
-    [self.view addSubview:self.mScrollView];
-    [self.view addSubview:self.pageControl];
-    
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    int index = scrollView.contentOffset.x / scrollView.frame.size.width;
-    [self.pageControl setCurrentPage:index];
+#pragma mark - HNYRefreshTableViewControllerDelegate
+//下拉Table View
+-(void)pullDownTable{
+    [self.tableController.list removeAllObjects];
+    [self.tableController.tableView reloadData];
+    self.tableController.loadType = 0;
+    self.tableController.pageNum = 1;
+    self.tableController.enbleFooterLoad = YES;
+    [self requestProductList];
+    
 }
-#pragma mark - HNYDelegate
+//上拉Table View
+-(void)pullUpTable{
+    self.tableController.loadType = 1;
+    self.tableController.pageNum += 1;
+    [self requestProductList];
+}
+- (NSString *)descriptionOfTableCellAtIndexPath:(NSIndexPath *)indexPath{
+    return nil;
+}
 
-- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
-    if ([vController isKindOfClass:[BDPayViewController class]]) {
-        if ([[info valueForKey:@"PayResult"] boolValue]) {
-            [self.customNaviController popViewControllerAnimated:YES];
+- (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
+    if ([aView isKindOfClass:[BDToolBar class]]) {
+        BDMenuModel *model = [info valueForKey:@"subMenuSelected"];
+        self.type_id = [model.type intValue];
+        [self pullDownTable];
+    }
+    else if ([aView isKindOfClass:[BDProductCell class]]) {
+        
+        BDProductCell *cell = (BDProductCell*)aView;
+
+        if ([@"add" isEqualToString:[info valueForKey:@"action"]]) {
+            cell.productModel.number += 1;
+            [self.cartView addProduct:cell.productModel];
         }
+        else if ([@"remove" isEqualToString:[info valueForKey:@"action"]]) {
+            if (cell.productModel.number == 0) {
+                cell.productModel.number = 0;
+            }
+            else{
+                cell.productModel.number -= 1;
+                [self.cartView removeProduct:cell.productModel];
+            }
+        }
+        cell.numLabel.text = [NSString stringWithFormat:@"%d",cell.productModel.number];
     }
-}
-
-#pragma mark - ibaction
-- (void)touchTabBarItem:(HNYTabBarItem*)barItem
-{
-    if (barItem.exTag == 0)
-    {
-        [self.contenNaviController setViewControllers:[NSArray arrayWithObject:self.productsController]];
-    }
-    else if (barItem.exTag == 1)
-    {
-        [self.contenNaviController setViewControllers:[NSArray arrayWithObject:self.newsContoller]];
-    }
-}
-- (void)touchOrderButton:(UIButton*)sender{
-    if(self.dinnerModel){
+    else if ([aView isKindOfClass:[BDShoppingCartView class]]) {
+        
         BDOrderDetailViewController *controller = [[BDOrderDetailViewController alloc] init];
-        controller.orderModel.product = self.dinnerModel;
+        controller.orderModel.product = self.cartView.products;
         controller.editAble = YES;
         controller.orderState = @"0";
         controller.delegate = self;
         [self.customNaviController pushViewController:controller animated:YES];
-        
-    }
-}
-- (void)touchInfoButton:(UIButton*)sender{
-    if (self.dinnerModel.description) {
-        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
-        CGSize size = [self.dinnerModel.description sizeWithFont:[UIFont systemFontOfSize:18] constrainedToSize:CGSizeMake(self.view.frame.size.width, 2000) lineBreakMode:NSLineBreakByWordWrapping ];
-        if (size.height > 200) {
-            size.height = 200;
-        }
-        if (size.height < 100) {
-            size.height = 120;
-        }
-        webView.frame = CGRectMake(0, 0, self.view.frame.size.width, size.height);
-        [webView loadHTMLString:self.dinnerModel.description baseURL:nil];
-        [HNYActionSheet showWithTitle:self.dinnerModel.title contentView:webView cancelBtnTitle:nil sureBtnTitle:nil delegate:self];
     }
 }
 
 #pragma mark - http request
+- (void)requestProductCategory{
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [AppInfo headInfo],HTTP_HEAD,
+                                  nil];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionProductsCategory];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionProductsCategory,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+}
+
+- (void)requestProductList{
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [AppInfo headInfo],HTTP_HEAD,
+                                  @1,@"page",
+                                  @20,@"list_number",
+                                  [NSNumber numberWithInt:self.type_id],@"type_id",
+                                  nil];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KAPI_ServerUrl,KAPI_ActionProductsList];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url = %@ \n param = %@",urlString,param);
+    
+    NSString *jsonString = [param JSONRepresentation];
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    ASIFormDataRequest *formRequest = [ASIFormDataRequest requestWithURL:url];
+    formRequest.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:KAPI_ActionProductsList,HTTP_USER_INFO, nil];
+    [formRequest appendPostData:data];
+    [formRequest setDelegate:self];
+    [formRequest startAsynchronous];
+}
 
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSString *string =[[NSString alloc]initWithData:request.responseData encoding:NSUTF8StringEncoding];
     NSDictionary *dictionary = [string JSONValue];
     NSLog(@"result = %@",dictionary);
     [self.hud removeFromSuperview];
-
+    
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
+        if ([KAPI_ActionProductsCategory isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            if ([[dictionary valueForKey:@"value"] isKindOfClass:[NSDictionary class]]) {
+                
+                
+                BDCategoryModel *model = [[BDCategoryModel alloc] init];
+                model.ids = 0;
+                model.name = @"全部";
+                
+                BDMenuModel *all = [[BDMenuModel alloc] init];
+                all.orignalModel = model;
+                all.title = model.name;
+                all.type = [NSString stringWithFormat:@"%ld",(long)model.ids];
+                [self.categorys addObject:all];
+
+                for (NSDictionary *dic in [[dictionary valueForKey:@"value"] valueForKey:@"data"]) {
+                    BDCategoryModel *category = [HNYJSONUitls mappingDictionary:dic toObjectWithClassName:@"BDCategoryModel"];
+                    BDMenuModel *menu = [[BDMenuModel alloc] init];
+                    menu.orignalModel = category;
+                    menu.title = category.name;
+                    menu.type = [NSString stringWithFormat:@"%ld",(long)category.ids];
+                    [self.categorys addObject:menu];
+                }
+                
+                self.topView.subMenuAry = self.categorys;
+                self.topView.defaultSelectedIndex = 0;
+                
+            }
+            [self requestProductList];
+        }
+        else if ([KAPI_ActionProductsList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            if ([[dictionary valueForKey:@"value"] isKindOfClass:[NSDictionary class]]) {
+                NSArray *array = [HNYJSONUitls mappingDicAry:[[dictionary valueForKey:@"value"] valueForKey:@"data"] toObjectAryWithClassName:@"BDProductModel"];
+                [self.tableController doneRefresh];
+                [self.tableController.list addObjectsFromArray:array];
+                [self.tableController.tableView reloadData];
+                if (array.count < self.tableController.pageSize)
+                    self.tableController.enbleFooterLoad = NO;
+                else
+                    self.tableController.enbleFooterLoad = YES;
+                
+                if (self.tableController.list.count == 0)
+                    [self showTips:@"暂无数据"];
+                
+            }
+        }
     }
     else{
+        if ([KAPI_ActionProductsCategory isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+            [self requestProductList];
+            
+        }
+        else if ([KAPI_ActionProductsList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
+            [self showTips:[dictionary valueForKey:HTTP_INFO]];
+            
+        }
+        
     }
 }
 

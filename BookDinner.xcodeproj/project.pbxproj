@@ -163,6 +163,9 @@
 		03E0365219B704CD008C1084 /* BDOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E0365119B704CD008C1084 /* BDOrderModel.m */; };
 		03F4A69E19B81C760039C70C /* BDOrderTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F4A69D19B81C760039C70C /* BDOrderTopView.m */; };
 		03F4A6A119B826220039C70C /* BDOrderTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F4A6A019B826220039C70C /* BDOrderTopItemView.m */; };
+		6192D3A71BBBCB8F00821DB4 /* BDToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6192D3A41BBBCB8F00821DB4 /* BDToolBar.m */; };
+		6192D3A81BBBCB8F00821DB4 /* BDToolBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6192D3A61BBBCB8F00821DB4 /* BDToolBarItem.m */; };
+		6192D3AC1BBBCBA900821DB4 /* BDShoppingCartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6192D3AB1BBBCBA900821DB4 /* BDShoppingCartView.m */; };
 		CA04291E199129E7007BCA4A /* HNYDetailItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA042919199129E7007BCA4A /* HNYDetailItemModel.m */; };
 		CA04291F199129E7007BCA4A /* HNYDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA04291B199129E7007BCA4A /* HNYDetailTableViewController.m */; };
 		CA16CA9219B7562A00CDE5D8 /* BDAddressDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA16CA8519B7562A00CDE5D8 /* BDAddressDetailViewController.m */; };
@@ -546,6 +549,12 @@
 		03F4A69D19B81C760039C70C /* BDOrderTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderTopView.m; sourceTree = "<group>"; };
 		03F4A69F19B826220039C70C /* BDOrderTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOrderTopItemView.h; sourceTree = "<group>"; };
 		03F4A6A019B826220039C70C /* BDOrderTopItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOrderTopItemView.m; sourceTree = "<group>"; };
+		6192D3A31BBBCB8F00821DB4 /* BDToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDToolBar.h; sourceTree = "<group>"; };
+		6192D3A41BBBCB8F00821DB4 /* BDToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDToolBar.m; sourceTree = "<group>"; };
+		6192D3A51BBBCB8F00821DB4 /* BDToolBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDToolBarItem.h; sourceTree = "<group>"; };
+		6192D3A61BBBCB8F00821DB4 /* BDToolBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDToolBarItem.m; sourceTree = "<group>"; };
+		6192D3AA1BBBCBA900821DB4 /* BDShoppingCartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDShoppingCartView.h; sourceTree = "<group>"; };
+		6192D3AB1BBBCBA900821DB4 /* BDShoppingCartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDShoppingCartView.m; sourceTree = "<group>"; };
 		CA042918199129E7007BCA4A /* HNYDetailItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYDetailItemModel.h; sourceTree = "<group>"; };
 		CA042919199129E7007BCA4A /* HNYDetailItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNYDetailItemModel.m; sourceTree = "<group>"; };
 		CA04291A199129E7007BCA4A /* HNYDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNYDetailTableViewController.h; sourceTree = "<group>"; };
@@ -968,6 +977,7 @@
 		03BE21ED196E3B3D005C0D03 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				6192D3A91BBBCBA900821DB4 /* Cart */,
 				CA8109D21B63C94600909FF4 /* News */,
 				CA8109D31B63C94600909FF4 /* Product */,
 				CA2BA5C119F5597500AC9DA8 /* Pay */,
@@ -1007,6 +1017,7 @@
 		03BE2221196E3B3D005C0D03 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				6192D3A21BBBCB8F00821DB4 /* ToolBar */,
 				03BE2222196E3B3D005C0D03 /* CheckButton */,
 				03BE2225196E3B3D005C0D03 /* NaviBar */,
 				03BE222A196E3B3D005C0D03 /* PXAlertView */,
@@ -1382,6 +1393,26 @@
 				03BE235A196E3B3E005C0D03 /* iconHomebg.png */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		6192D3A21BBBCB8F00821DB4 /* ToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				6192D3A31BBBCB8F00821DB4 /* BDToolBar.h */,
+				6192D3A41BBBCB8F00821DB4 /* BDToolBar.m */,
+				6192D3A51BBBCB8F00821DB4 /* BDToolBarItem.h */,
+				6192D3A61BBBCB8F00821DB4 /* BDToolBarItem.m */,
+			);
+			path = ToolBar;
+			sourceTree = "<group>";
+		};
+		6192D3A91BBBCBA900821DB4 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				6192D3AA1BBBCBA900821DB4 /* BDShoppingCartView.h */,
+				6192D3AB1BBBCBA900821DB4 /* BDShoppingCartView.m */,
+			);
+			path = Cart;
 			sourceTree = "<group>";
 		};
 		CA042917199129E7007BCA4A /* Detail */ = {
@@ -1834,7 +1865,9 @@
 				CA16CA9519B7562A00CDE5D8 /* BDAddressSelectorViewController.m in Sources */,
 				CA2F1E2619927B7C00D3396C /* HNYTActionSheetViewController.m in Sources */,
 				CACDB3A219FD1E6100C85710 /* BDRechargeTableViewCell.m in Sources */,
+				6192D3A71BBBCB8F00821DB4 /* BDToolBar.m in Sources */,
 				03BE23AB196E3B3E005C0D03 /* EGORefreshTableHeaderView.m in Sources */,
+				6192D3AC1BBBCBA900821DB4 /* BDShoppingCartView.m in Sources */,
 				03B6A14319AD82DC009F905F /* HNYDownTableView.m in Sources */,
 				03758E10196E907F00360E2D /* HNYTabBarItem.m in Sources */,
 				03BE21CF196E3AB5005C0D03 /* AppDelegate.m in Sources */,
@@ -1860,6 +1893,7 @@
 				CA16CA9619B7562A00CDE5D8 /* BDAddressTableViewCell.m in Sources */,
 				03BE2385196E3B3E005C0D03 /* BDLoginViewController.m in Sources */,
 				03BE238F196E3B3E005C0D03 /* ASINetworkQueue.m in Sources */,
+				6192D3A81BBBCB8F00821DB4 /* BDToolBarItem.m in Sources */,
 				CA8109D61B63C97D00909FF4 /* BDProductsViewController.m in Sources */,
 				CAFCD32D19B3672A005EDD7D /* BDPersonModel.m in Sources */,
 				CA16CA9819B7562A00CDE5D8 /* BDCodeModel.m in Sources */,

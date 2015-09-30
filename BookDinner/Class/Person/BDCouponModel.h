@@ -12,9 +12,9 @@
 @property (nonatomic,strong) NSString *addtime;
 @property (nonatomic) int debit;
 @property (nonatomic) float discount;
-@property (nonatomic,strong) NSString *enddate;
+@property (nonatomic,strong) NSString *endtime;
 @property (nonatomic,strong) NSString *label;
-@property (nonatomic) int id;
+@property (nonatomic) int ids;
 //状态（1未使用，2已使用，3过期 ）
 @property (nonatomic) int state;
 @property (nonatomic,strong) NSString *state_name;
@@ -23,6 +23,6 @@
 @property (nonatomic) int using;
 @property (nonatomic,strong) NSString *using_name;
 @property (nonatomic,strong) NSString *name;
-@property (nonatomic,strong) NSString *prize;
+@property (nonatomic,strong) NSString *money;
 
 @end

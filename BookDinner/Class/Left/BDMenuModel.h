@@ -11,5 +11,6 @@
 @interface BDMenuModel : HNYModel
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) id orignalModel;
 
 @end

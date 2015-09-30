@@ -219,10 +219,9 @@
 - (void)getOrderList{
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:self.tableController.pageNum],@"pagenum",
-                                  [NSNumber numberWithInt:self.tableController.pageSize],@"pagesize",
+                                  [NSNumber numberWithInt:self.tableController.pageNum],@"page",
+                                  [NSNumber numberWithInt:self.tableController.pageSize],@"list_number",
                                   self.orderState,@"state",
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
@@ -248,14 +247,17 @@
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([KAPI_ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
 
-            NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDOrderModel"];
-            [self.tableController doneRefresh];
-            [self.tableController.list addObjectsFromArray:value];
-            [self.tableController.tableView reloadData];
-            if (value.count < self.tableController.pageSize)
-                self.tableController.enbleFooterLoad = NO;
-            else
-                self.tableController.enbleFooterLoad = YES;
+            if ([[dictionary valueForKey:HTTP_VALUE] isKindOfClass:[NSDictionary class]]) {
+                NSArray *value = [HNYJSONUitls mappingDicAry:[[dictionary valueForKey:HTTP_VALUE] valueForKey:HTTP_DATA] toObjectAryWithClassName:@"BDOrderModel"];
+                [self.tableController doneRefresh];
+                [self.tableController.list addObjectsFromArray:value];
+                [self.tableController.tableView reloadData];
+                if (value.count < self.tableController.pageSize)
+                    self.tableController.enbleFooterLoad = NO;
+                else
+                    self.tableController.enbleFooterLoad = YES;
+
+            }
             
             if (self.tableController.list.count == 0)
                 [self showTips:@"无订单"];
@@ -263,8 +265,10 @@
     }
     
     else{
-        if ([KAPI_ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]])
+        if ([KAPI_ActionGetOrderList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
+            [self.tableController doneRefresh];
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
+        }
     }
 }
 

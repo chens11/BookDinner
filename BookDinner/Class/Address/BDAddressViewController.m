@@ -108,8 +108,6 @@
     BDAddressDetailViewController *controller = [[BDAddressDetailViewController alloc] init];
     controller.isAddAddress = YES;
     controller.delegate = self;
-    if (self.menuAry.count == 0)
-        controller.isDefault = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -143,9 +141,11 @@
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([KAPI_ActionGetAddressList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
             [self.menuAry removeAllObjects];
-            NSArray *value = [dictionary valueForKey:HTTP_VALUE];
-            self.menuAry = [HNYJSONUitls mappingDicAry:value toObjectAryWithClassName:@"BDAddressModel"];
-            [self.table reloadData];
+            if ([[dictionary valueForKey:HTTP_VALUE] isKindOfClass:[NSDictionary class]]) {
+                NSArray *value = [[dictionary valueForKey:HTTP_VALUE] valueForKey:@"data"];
+                self.menuAry = [HNYJSONUitls mappingDicAry:value toObjectAryWithClassName:@"BDAddressModel"];
+                [self.table reloadData];
+            }
         }
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){

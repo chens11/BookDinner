@@ -11,13 +11,13 @@
 
 @interface BDAddressModel : HNYModel
 @property (nonatomic,strong) NSString *name;
-@property (nonatomic,strong) NSString *phone;
 @property (nonatomic,strong) NSString *address;
-@property (nonatomic) int id;
+@property (nonatomic,strong) NSString *addtime;
+@property (nonatomic) NSInteger ids;
+@property (nonatomic,strong) NSString *is_default;
 @property (nonatomic,strong) NSString *tel;
-@property (nonatomic,strong) BDCodeModel *prorince;
-@property (nonatomic,strong) BDCodeModel *city;
-@property (nonatomic,strong) BDCodeModel *district;
-@property (nonatomic,strong) BDCodeModel *street;
+@property (nonatomic,strong) NSString *province;
+@property (nonatomic,strong) NSString *city;
+@property (nonatomic,strong) NSString *area;
 
 @end

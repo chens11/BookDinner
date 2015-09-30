@@ -9,7 +9,7 @@
 #import "HNYModel.h"
 
 @interface BDDinnerModel : HNYModel
-@property (nonatomic,strong) NSString *description;
+@property (nonatomic,strong) NSString *descriptions;
 @property (nonatomic) int id;
 @property (nonatomic,strong) NSString *img;
 @property (nonatomic,strong) NSString *money;

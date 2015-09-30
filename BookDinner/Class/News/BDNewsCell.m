@@ -18,6 +18,12 @@
     // Drawing code
 }
 */
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.bottomLine.backgroundColor = [UIColor lightGrayColor];
+}
+
 - (void)configureCellWith:(BDNewModel*)model{
     if ([model isKindOfClass:[BDNewModel class]]) {
         self.textLabel.text = model.title;

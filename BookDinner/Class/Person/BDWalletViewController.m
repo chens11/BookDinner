@@ -28,7 +28,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.moneyAry = [NSArray arrayWithObjects:@"1",@"50",@"100",@"200",@"500",@"1000", nil];
+        self.moneyAry = [NSArray arrayWithObjects:@"0.01",@"50",@"100",@"200",@"500",@"1000", nil];
 
         // Custom initialization
     }
@@ -98,6 +98,7 @@
     self.tableController.delegate = self;
     self.tableController.pageNum = 1;
     self.tableController.pageSize = 20;
+    self.tableController.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableController.view];
     [self addChildViewController:self.tableController];
 }
@@ -153,7 +154,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BDOrderModel *model = [self.tableController.list objectAtIndex:indexPath.row];
-    [self createPayViewController:model];
+    if (model.state == 0) {
+        [self createPayViewController:model];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -202,10 +205,9 @@
 }
 
 - (void)createPayViewController:(BDOrderModel*)model{
-    model.pricemoney = model.money;
+    model.price = model.money;
     model.type = 1;
-    model.product = [[BDDinnerModel alloc] init];
-    model.product.description = @"充值";
+    model.descriptions = @"充值";
     model.title = @"充值";
     BDPayViewController *controller = [[BDPayViewController alloc] init];
     controller.orderModel = model;
@@ -246,8 +248,7 @@
 - (void)recharge{
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  [NSNumber numberWithInt:[self.money intValue]],@"money",
+                                  [NSNumber numberWithDouble:[self.money doubleValue]],@"money",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
     
@@ -268,9 +269,8 @@
 - (void)getRechargeList{
     [self showRequestingTips:nil];
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [[NSUserDefaults standardUserDefaults] valueForKey:HTTP_TOKEN],HTTP_TOKEN,
-                                  [NSNumber numberWithInt:self.tableController.pageNum],@"pagenum",
-                                  [NSNumber numberWithInt:self.tableController.pageSize],@"pagesize",
+                                  [NSNumber numberWithInt:self.tableController.pageNum],@"page",
+                                  [NSNumber numberWithInt:self.tableController.pageSize],@"list_number",
                                   self.orderState,@"state",
                                   [AppInfo headInfo],HTTP_HEAD,nil];
     
@@ -298,7 +298,8 @@
     
     if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 1) {
         if ([KAPI_ActionGetRechargeRecordList isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
-            NSArray *value = [HNYJSONUitls mappingDicAry:[dictionary valueForKey:HTTP_VALUE] toObjectAryWithClassName:@"BDOrderModel"];
+            if ([[dictionary valueForKey:HTTP_VALUE] isKindOfClass:[NSDictionary class]]){
+                NSArray *value = [HNYJSONUitls mappingDicAry:[[dictionary valueForKey:HTTP_VALUE] valueForKey:HTTP_DATA] toObjectAryWithClassName:@"BDOrderModel"];
             [self.tableController doneRefresh];
             [self.tableController.list addObjectsFromArray:value];
             [self.tableController.tableView reloadData];
@@ -310,13 +311,14 @@
             if (self.tableController.list.count == 0)
                 [self showTips:@"无记录"];
         }
+        }
         else if ([KAPI_ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]){
             [self showTips:[dictionary valueForKey:HTTP_INFO]];
             NSDictionary *value = [dictionary valueForKey:@"value"];
             if ([value isKindOfClass:[NSDictionary class]]) {
                 BDOrderModel *model = [[BDOrderModel alloc] init];
                 model.money = self.money;
-                model.id = [[value valueForKey:@"id"] intValue];
+                model.ids = [value valueForKey:@"ids"];
                 [self createPayViewController:model];
             }
 
@@ -330,9 +332,8 @@
     }
     
     else{
-        if ([KAPI_ActionRecharge isEqualToString:[request.userInfo objectForKey:HTTP_USER_INFO]]) {
-            [self showTips:[dictionary valueForKey:HTTP_INFO]];
-        }
+        [self.tableController doneRefresh];
+        [self showTips:[dictionary valueForKey:HTTP_INFO]];
     }
 }
 

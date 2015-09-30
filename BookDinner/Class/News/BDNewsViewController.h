@@ -9,5 +9,6 @@
 #import "HNYBaseViewController.h"
 
 @interface BDNewsViewController : HNYBaseViewController
+@property (nonatomic,strong) UINavigationController *customNaviController;
 
 @end
