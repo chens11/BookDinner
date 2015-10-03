@@ -98,4 +98,9 @@
     }
     return nil;
 }
+
+- (void)setProducts:(NSMutableArray *)products{
+    _products = products;
+    [self updatePrice];
+}
 @end

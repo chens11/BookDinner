@@ -242,7 +242,9 @@
         controller.customNaviController = self.contentNaviController;
         return controller;
     }
-    return  [[BDHomeViewController alloc] init];
+    BDHomeViewController *controller = [[BDHomeViewController alloc] init];
+    controller.customNaviController = self.contentNaviController;
+    return controller;
 }
 
 #pragma mark - show or hide left view

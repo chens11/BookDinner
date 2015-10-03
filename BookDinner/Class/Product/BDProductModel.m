@@ -10,6 +10,7 @@
 
 @implementation BDProductModel
 
+
 - (BDProductModel*)copy{
     BDProductModel *model = [[BDProductModel alloc] init];
     model.ids = self.ids;

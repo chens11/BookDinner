@@ -13,6 +13,7 @@
 #import "BDToolBar.h"
 #import "BDShoppingCartView.h"
 #import "BDOrderDetailViewController.h"
+#import "BDProductDetailViewController.h"
 
 @interface BDHomeViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
@@ -38,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createTopView];
+    self.title = @"订餐";
     [self createCart];
     [self createTable];
     [self requestProductCategory];
@@ -48,6 +50,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.cartView updatePrice];
+    [self.tableController.tableView reloadData];
 }
 
 /*
@@ -124,14 +132,26 @@
     BDProductCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
     if (!cell) {
         cell = [[BDProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.delegate = self;
+    BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+    
+    BDProductModel *buy = [self.cartView getProductByProductId:model.ids];
+    if (buy) {
+        model.number = buy.number;
+    }
     [cell configureCellWith:[self.tableController.list objectAtIndex:indexPath.row]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+    BDProductModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+
+    BDProductDetailViewController *controller = [[BDProductDetailViewController alloc] init];
+    controller.product = model;
+    controller.products = self.cartView.products;
+    [self.customNaviController pushViewController:controller animated:YES];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {

@@ -62,9 +62,9 @@
     self.headImg.frame = CGRectMake(8, 8, self.frame.size.height - 8, self.frame.size.height - 8);
     self.textLabel.frame = CGRectMake(self.frame.size.height + 10, 10, self.frame.size.width - self.frame.size.height, 40);
     self.priceLabel.frame = CGRectMake(self.frame.size.height + 10, self.frame.size.height - 40, 80, 30);
-    self.addBtn.frame = CGRectMake(self.frame.size.width - 40, self.frame.size.height - 30, 20, 20);
-    self.numLabel.frame = CGRectMake(self.frame.size.width - 70, self.frame.size.height - 30, 30, 20);
-    self.removeBtn.frame = CGRectMake(self.frame.size.width - 90, self.frame.size.height - 30, 20, 20);
+    self.addBtn.frame = CGRectMake(self.frame.size.width - 45, self.frame.size.height - 40, 30, 30);
+    self.numLabel.frame = CGRectMake(self.frame.size.width - 75, self.frame.size.height - 40, 30, 30);
+    self.removeBtn.frame = CGRectMake(self.frame.size.width - 105, self.frame.size.height - 40, 30, 30);
     self.bottomLine.backgroundColor = [UIColor lightGrayColor];
 }
 
@@ -74,6 +74,7 @@
         self.textLabel.text = model.title;
         self.priceLabel.text = model.money;
         [self.headImg setImageWithURL:[NSURL URLWithString:model.img]];
+        self.numLabel.text = [NSString stringWithFormat:@"%ld",(long)model.number];
     }
 }
 - (void)touchBuyButton:(UIButton*)sender{

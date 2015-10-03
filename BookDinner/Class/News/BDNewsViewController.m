@@ -11,6 +11,7 @@
 #import "BDNewModel.h"
 #import "BDNewsCell.h"
 #import "BDToolBar.h"
+#import "BDNewsDetailViewController.h"
 
 @interface BDNewsViewController ()<HNYRefreshTableViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) HNYRefreshTableViewController *tableController;
@@ -36,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"资讯";
     [self createTopView];
     [self createTable];
     [self requestNewsCategory];
@@ -65,7 +67,6 @@
     self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + self.topView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - self.topView.frame.size.height);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
-    self.tableController.tableView.separatorColor = [UIColor clearColor];
     self.tableController.pageNum = 1;
     self.tableController.pageSize = 10;
     self.tableController.delegate = self;
@@ -111,7 +112,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    BDNewModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+    BDNewModel *model = [self.tableController.list objectAtIndex:indexPath.row];
+    
+    BDNewsDetailViewController *controller = [[BDNewsDetailViewController alloc] init];
+    controller.newsModel = model;
+    [self.customNaviController pushViewController:controller animated:YES];
+
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {

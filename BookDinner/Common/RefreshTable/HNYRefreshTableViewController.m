@@ -56,6 +56,7 @@
     [self createUpdateView];
     self.longPressGesture= [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGesture:)];
     [self.tableView addGestureRecognizer:self.longPressGesture];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

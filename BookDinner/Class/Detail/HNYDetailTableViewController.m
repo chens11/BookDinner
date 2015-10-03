@@ -63,6 +63,8 @@
     tapGr.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGr];
     self.tableView.separatorColor = self.separatorLineColor;
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (BOOL)disablesAutomaticKeyboardDismissal{
