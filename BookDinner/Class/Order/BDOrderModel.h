@@ -26,7 +26,6 @@
 @property (nonatomic,strong) NSString *ticker_money;
 @property (nonatomic,strong) NSString *ticker_name;
 @property (nonatomic,strong) NSMutableArray *product;
-@property (nonatomic,strong) BDAddressModel *address;
 
 @property (nonatomic,strong) NSString *address_address;
 @property (nonatomic) NSInteger address_id;

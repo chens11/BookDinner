@@ -171,6 +171,9 @@
 		CA0E978F1BCA1B1C00B3C7C6 /* shopmenu_shop_card.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0E978C1BCA1B1C00B3C7C6 /* shopmenu_shop_card.png */; };
 		CA0E97901BCA1B1C00B3C7C6 /* shopmenu_shop_card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0E978D1BCA1B1C00B3C7C6 /* shopmenu_shop_card@2x.png */; };
 		CA0E97911BCA1B1C00B3C7C6 /* shopmenu_shop_card@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0E978E1BCA1B1C00B3C7C6 /* shopmenu_shop_card@3x.png */; };
+		CA0E97951BCA3F7000B3C7C6 /* nav_back_icon_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0E97921BCA3F7000B3C7C6 /* nav_back_icon_grey.png */; };
+		CA0E97961BCA3F7000B3C7C6 /* nav_back_icon_grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0E97931BCA3F7000B3C7C6 /* nav_back_icon_grey@2x.png */; };
+		CA0E97971BCA3F7000B3C7C6 /* nav_back_icon_grey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0E97941BCA3F7000B3C7C6 /* nav_back_icon_grey@3x.png */; };
 		CA149B121BBFB70A0056E073 /* BDNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA149B111BBFB70A0056E073 /* BDNewsDetailViewController.m */; };
 		CA16CA9219B7562A00CDE5D8 /* BDAddressDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA16CA8519B7562A00CDE5D8 /* BDAddressDetailViewController.m */; };
 		CA16CA9319B7562A00CDE5D8 /* BDAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA16CA8719B7562A00CDE5D8 /* BDAddressModel.m */; };
@@ -588,6 +591,9 @@
 		CA0E978C1BCA1B1C00B3C7C6 /* shopmenu_shop_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopmenu_shop_card.png; sourceTree = "<group>"; };
 		CA0E978D1BCA1B1C00B3C7C6 /* shopmenu_shop_card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopmenu_shop_card@2x.png"; sourceTree = "<group>"; };
 		CA0E978E1BCA1B1C00B3C7C6 /* shopmenu_shop_card@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopmenu_shop_card@3x.png"; sourceTree = "<group>"; };
+		CA0E97921BCA3F7000B3C7C6 /* nav_back_icon_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_back_icon_grey.png; sourceTree = "<group>"; };
+		CA0E97931BCA3F7000B3C7C6 /* nav_back_icon_grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_icon_grey@2x.png"; sourceTree = "<group>"; };
+		CA0E97941BCA3F7000B3C7C6 /* nav_back_icon_grey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_icon_grey@3x.png"; sourceTree = "<group>"; };
 		CA149B101BBFB70A0056E073 /* BDNewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsDetailViewController.h; sourceTree = "<group>"; };
 		CA149B111BBFB70A0056E073 /* BDNewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsDetailViewController.m; sourceTree = "<group>"; };
 		CA16CA8419B7562A00CDE5D8 /* BDAddressDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDAddressDetailViewController.h; sourceTree = "<group>"; };
@@ -1476,6 +1482,9 @@
 		03BE233C196E3B3E005C0D03 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CA0E97921BCA3F7000B3C7C6 /* nav_back_icon_grey.png */,
+				CA0E97931BCA3F7000B3C7C6 /* nav_back_icon_grey@2x.png */,
+				CA0E97941BCA3F7000B3C7C6 /* nav_back_icon_grey@3x.png */,
 				CA0E978C1BCA1B1C00B3C7C6 /* shopmenu_shop_card.png */,
 				CA0E978D1BCA1B1C00B3C7C6 /* shopmenu_shop_card@2x.png */,
 				CA0E978E1BCA1B1C00B3C7C6 /* shopmenu_shop_card@3x.png */,
@@ -2030,8 +2039,10 @@
 				03BE239D196E3B3E005C0D03 /* Overlay.png in Resources */,
 				03BE23E8196E3B3E005C0D03 /* iconRightArrow.png in Resources */,
 				03BE23E3196E3B3E005C0D03 /* iconHomeTail.png in Resources */,
+				CA0E97961BCA3F7000B3C7C6 /* nav_back_icon_grey@2x.png in Resources */,
 				03BE23DD196E3B3E005C0D03 /* ic_forget_back.png in Resources */,
 				03BE239A196E3B3E005C0D03 /* ELCAlbumPickerController.xib in Resources */,
+				CA0E97951BCA3F7000B3C7C6 /* nav_back_icon_grey.png in Resources */,
 				CA51108519ED6746000A5FD3 /* UMShareEditViewController.xib in Resources */,
 				03BE23EE196E3B3E005C0D03 /* menu-bg.png in Resources */,
 				CA51108719ED6746000A5FD3 /* UMSLoginViewController.xib in Resources */,
@@ -2058,6 +2069,7 @@
 				CAA7E9EE1976D52400BEBE36 /* button_back.png in Resources */,
 				CA51108419ED6746000A5FD3 /* UMSCommentInputControlleriPad.xib in Resources */,
 				03BE23F0196E3B3E005C0D03 /* title-bg.png in Resources */,
+				CA0E97971BCA3F7000B3C7C6 /* nav_back_icon_grey@3x.png in Resources */,
 				CAE2706019C7361500D88268 /* my_wallet.png in Resources */,
 				03A22D7E199DDC4100420B4E /* dinner.png in Resources */,
 				03BE23E7196E3B3E005C0D03 /* iconlogin.png in Resources */,

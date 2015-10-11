@@ -23,7 +23,10 @@
     if ([keyAry isKindOfClass:[NSArray class]]) {
         for (NSString *string in keyAry) {
             if ([object respondsToSelector:NSSelectorFromString(string)]) {
-                [object setValue:[dictionary objectForKey:string] forKey:string];
+                id value = [dictionary objectForKey:string];
+                if (value != nil && ![value isKindOfClass:[NSNull class]]){
+                    [object setValue:value forKey:string];
+                }
             }
         }
     }

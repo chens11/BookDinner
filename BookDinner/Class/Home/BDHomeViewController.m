@@ -153,6 +153,7 @@
 
     BDProductDetailViewController *controller = [[BDProductDetailViewController alloc] init];
     controller.product = model;
+    controller.delegate = self;
     controller.products = self.cartView.products;
     [self.customNaviController pushViewController:controller animated:YES];
 }

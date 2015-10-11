@@ -94,6 +94,7 @@
     [self.contentView addSubview:self.infoView];
     
     self.addressView = [[BDOrderAddressView alloc] init];
+    self.addressView.delegate = self;
     [self.contentView addSubview:self.addressView];
     
     
@@ -228,6 +229,16 @@
         
         [self calculatePrice];
     }
+    else if ([vController isKindOfClass:[BDAddressViewController class]]) {
+        BDAddressModel *address = [info valueForKey:@"BDAddressModel"];
+        
+        self.orderModel.address_address = [NSString stringWithFormat:@"%@ %@ %@ %@",address.province,address.city,address.area,address.address];
+        self.orderModel.address_id = address.ids;
+        self.orderModel.address_name = address.name;
+        self.orderModel.address_tel = address.tel;
+        [self.addressView updateAddreeName:address.name tel:address.tel address:self.orderModel.address_address];
+    }
+
 }
 
 
@@ -257,6 +268,13 @@
         controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
     }
+    else if ([aView isEqual:self.addressView]){
+        BDAddressViewController *controller = [[BDAddressViewController alloc] init];
+        controller.delegate = self;
+        controller.selector = YES;
+        controller.title = @"请选择收货地址";
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 #pragma mark - touchButton
@@ -276,7 +294,7 @@
         return;
     }
     
-    if (!self.orderModel.address) {
+    if (self.orderModel.address_id == 0) {
         [self showTips:@"请您输入收货地址"];
         return;
     }
@@ -295,7 +313,7 @@
 
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setValue:array forKey:@"order"];
-    [dictionary setValue:[NSNumber numberWithInteger:self.orderModel.address.ids] forKey:@"address_id"];
+    [dictionary setValue:[NSNumber numberWithInteger:self.orderModel.address_id] forKey:@"address_id"];
     [dictionary setValue:[NSNumber numberWithInteger:self.orderModel.ticker_id] forKey:@"ticker_id"];
     [dictionary setValue:self.orderModel.remark forKey:@"remark"];
     
@@ -379,12 +397,11 @@
                 NSArray *value = [dic valueForKey:HTTP_DATA];
                 if ([value isKindOfClass:[NSArray class]] && value.count > 0) {
                     BDAddressModel *address = [HNYJSONUitls mappingDictionary:[value objectAtIndex:0] toObjectWithClassName:@"BDAddressModel"];
-                    self.orderModel.address_address = address.address;
+                    self.orderModel.address_address = [NSString stringWithFormat:@"%@ %@ %@ %@",address.province,address.city,address.area,address.address];
                     self.orderModel.address_id = address.ids;
                     self.orderModel.address_name = address.name;
                     self.orderModel.address_tel = address.tel;
-                    self.orderModel.address = address;
-                    
+                    [self.addressView updateAddreeName:address.name tel:address.tel address:self.orderModel.address_address];
                 }
             }
         }

@@ -259,7 +259,7 @@
 //            model.money = @"9.8";
 //            model.name = @"ddd";
 //            [self.tableController.list addObject:model];
-            [self.tableController.tableView reloadData];
+//            [self.tableController.tableView reloadData];
         }
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){

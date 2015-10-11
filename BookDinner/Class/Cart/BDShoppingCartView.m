@@ -61,10 +61,15 @@
 
     double sum = 0.0;
     NSInteger num = 0;
+    NSMutableArray *delAry = [NSMutableArray array];
     for (BDProductModel *model in self.products) {
         sum += [model.money doubleValue] * (double)model.number;
         num += model.number;
+        if (model.number == 0) {
+            [delAry addObject:model];
+        }
     }
+    [self.products removeObjectsInArray:delAry];
     self.priceLabel.text = [NSString stringWithFormat:@"¥ %.2f",sum];
     if (num == 0) {
         self.numLabel.text = @"";

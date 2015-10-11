@@ -10,4 +10,5 @@
 
 @interface BDOrderAddressView : HNYView
 
+- (void)updateAddreeName:(NSString*)name tel:(NSString*)tel address:(NSString*)address;
 @end

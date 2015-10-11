@@ -116,6 +116,14 @@
     [super updateViewConstraints];
 }
 
+- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
+    if ([[info valueForKey:@"PayResult"] boolValue]) {
+        [self.delegate viewController:self actionWitnInfo:info];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+
+}
+
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
     if ([aView isKindOfClass:[BDShoppingCartView class]]) {
         

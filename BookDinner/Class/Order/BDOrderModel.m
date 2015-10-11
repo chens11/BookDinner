@@ -53,16 +53,7 @@
     }
     _product = array;
 }
-- (void)setAddress:(id)address{
-    if ([address isKindOfClass:[BDAddressModel class]]) {
-        _address = address;
-    }
-    else if ([address isKindOfClass:[NSDictionary class]]){
-        _address = [HNYJSONUitls mappingDictionary:address toObjectWithClassName:@"BDAddressModel"];
-    }
-    else
-        _address = nil;
-}
+
 - (void)setState_refund:(NSInteger)state_refund{
     _state_refund = state_refund;
     // ： 退款状态（0无，1有退款，2不同意退款，3等买家退货，4等卖家收货，5退款成功，6退款关闭）

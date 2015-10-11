@@ -9,6 +9,7 @@
 #import "BDOrderCouponView.h"
 @interface BDOrderCouponView()
 @property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UIImageView *tailImg;
 
 @end
 
@@ -38,7 +39,12 @@
         self.offsetPriceLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIN_12];
         [self addSubview:self.offsetPriceLabel];
         
+        self.tailImg = [[UIImageView alloc] init];
+        self.tailImg.contentMode = UIViewContentModeCenter;
+        self.tailImg.image = [UIImage imageNamed:@"nav_back_icon_grey"];
+        [self addSubview:self.tailImg];
         
+
     }
     return self;
 }
@@ -52,14 +58,19 @@
     
     [self.detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.nameLabel);
-        make.left.equalTo(self.nameLabel.mas_right);
-        make.right.equalTo(self).offset(-KFONT_SIZE_MAX_16);
+        make.right.equalTo(self.tailImg.mas_left).offset(-KFONT_SIZE_MAX_16);
     }];
     
     [self.offsetPriceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLabel.mas_bottom);
+        make.right.equalTo(self.detailLabel);
+    }];
+    
+    [self.tailImg mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
         make.right.equalTo(self).offset(-KFONT_SIZE_MAX_16);
     }];
+
 }
 /*
 // Only override drawRect: if you perform custom drawing.
