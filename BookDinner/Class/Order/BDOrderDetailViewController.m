@@ -88,6 +88,7 @@
     
     self.couponView = [[BDOrderCouponView alloc] init];
     self.couponView.delegate = self;
+    self.couponView.editAble = self.editAble;
     [self.contentView addSubview:self.couponView];
     
     self.infoView = [[BDOrderInfoView alloc] init];
@@ -205,6 +206,7 @@
         cell = [[BDOrderProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.editAble = self.editAble;
     cell.delegate = self;
     BDProductModel *model = [self.orderModel.product objectAtIndex:indexPath.row];
     [cell configureCellWith:model];

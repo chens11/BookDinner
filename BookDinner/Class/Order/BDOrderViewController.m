@@ -121,7 +121,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150.0;
+    return [BDOrderTableViewCell cellHeightWith:[self.tableController.list objectAtIndex:indexPath.row] maxWidth:0];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentify = @"BDOrderTableViewCell";

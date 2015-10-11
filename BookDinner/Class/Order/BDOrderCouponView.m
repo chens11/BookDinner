@@ -82,7 +82,9 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.superview endEditing:YES];
-    [self.delegate view:self actionWitnInfo:nil];
+    if (self.editAble) {
+        [self.delegate view:self actionWitnInfo:nil];
+    }
 }
 
 @end

@@ -89,4 +89,10 @@
     
 }
 
+- (void)setEditAble:(BOOL)editAble{
+    _editAble = editAble;
+    self.addBtn.enabled = editAble;
+    self.removeBtn.enabled = editAble;
+}
+
 @end

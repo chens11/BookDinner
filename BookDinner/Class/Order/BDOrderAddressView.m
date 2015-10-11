@@ -59,21 +59,21 @@
         make.left.equalTo(self).offset(KFONT_SIZE_MAX_16);
     }];
     
-    [self.addressLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(KFONT_SIZE_MAX_16);
-        make.left.equalTo(self).offset(KFONT_SIZE_MAX_16);
-        make.right.equalTo(self.phoneLabel.mas_left).offset(-KFONT_SIZE_MAX_16);
-        make.bottom.equalTo(self).offset(-KFONT_SIZE_MAX_16);
+    [self.tailImg mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.right.equalTo(self).offset(-KFONT_SIZE_MAX_16);
     }];
     
     [self.phoneLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.right.equalTo(self.tailImg.mas_left).offset(-KFONT_SIZE_MAX_16);
     }];
-    
-    [self.tailImg mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.equalTo(self).offset(-KFONT_SIZE_MAX_16);
+
+    [self.addressLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(KFONT_SIZE_MAX_16);
+        make.left.equalTo(self).offset(KFONT_SIZE_MAX_16);
+        make.right.equalTo(self.phoneLabel.mas_left).offset(-KFONT_SIZE_MAX_16);
+        make.bottom.equalTo(self).offset(-KFONT_SIZE_MAX_16);
     }];
     
 }

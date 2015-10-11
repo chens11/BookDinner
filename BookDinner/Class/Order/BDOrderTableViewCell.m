@@ -7,8 +7,9 @@
 //
 
 #import "BDOrderTableViewCell.h"
+#import "BDProductModel.h"
 
-@interface BDOrderTableViewCell()
+@interface BDOrderTableViewCell()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UILabel *statusLabel;
@@ -17,6 +18,8 @@
 @property (nonatomic,strong) UIButton *payBtn;
 @property (nonatomic,strong) UILabel *payLabel;
 @property (nonatomic,strong) UILabel *couponLabel;
+@property (nonatomic,strong) UITableView *table;
+@property (nonatomic,strong) BDOrderModel *order;
 
 @end
 
@@ -39,6 +42,29 @@
         self.nameLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self.contentView addSubview:self.nameLabel];
         
+        self.timeLabel = [[UILabel alloc] init];
+        self.timeLabel.textAlignment = NSTextAlignmentRight;
+        self.timeLabel.backgroundColor = [UIColor clearColor];
+        self.timeLabel.textColor = [UIColor lightGrayColor];
+        self.timeLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
+        [self.contentView addSubview:self.timeLabel];
+        
+        
+        self.table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        self.table.dataSource = self;
+        self.table.userInteractionEnabled = NO;
+        self.table.delegate = self;
+        self.table.separatorColor = [UIColor clearColor];
+        [self.contentView addSubview:self.table];
+        
+        self.couponLabel = [[UILabel alloc] init];
+        self.couponLabel.textAlignment = NSTextAlignmentLeft;
+        self.couponLabel.backgroundColor = [UIColor clearColor];
+        self.couponLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
+        [self.contentView addSubview:self.couponLabel];
+        
+
+
         self.statusLabel = [[UILabel alloc] init];
         self.statusLabel.textAlignment = NSTextAlignmentRight;
         self.statusLabel.textColor = [UIColor redColor];
@@ -46,19 +72,7 @@
         self.statusLabel.font = [UIFont boldSystemFontOfSize:KFONT_SIZE_MAX_16];
         [self.contentView addSubview:self.statusLabel];
         
-        self.timeLabel = [[UILabel alloc] init];
-        self.timeLabel.textAlignment = NSTextAlignmentLeft;
-        self.timeLabel.backgroundColor = [UIColor clearColor];
-        self.timeLabel.textColor = [UIColor lightGrayColor];
-        self.timeLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
-        [self.contentView addSubview:self.timeLabel];
 
-        self.couponLabel = [[UILabel alloc] init];
-        self.couponLabel.textAlignment = NSTextAlignmentLeft;
-        self.couponLabel.backgroundColor = [UIColor clearColor];
-        self.couponLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
-        [self.contentView addSubview:self.couponLabel];
-        
         self.numLabel = [[UILabel alloc] init];
         self.numLabel.textAlignment = NSTextAlignmentRight;
         self.numLabel.backgroundColor = [UIColor clearColor];
@@ -67,7 +81,7 @@
         [self.contentView addSubview:self.numLabel];
         
         self.payLabel = [[UILabel alloc] init];
-        self.payLabel.textAlignment = NSTextAlignmentLeft;
+        self.payLabel.textAlignment = NSTextAlignmentRight;
         self.payLabel.textColor = [UIColor redColor];
         self.payLabel.backgroundColor = [UIColor clearColor];
         self.payLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
@@ -100,20 +114,68 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.tailImg.frame = CGRectMake(10 ,10,self.contentView.frame.size.width - 20,self.contentView.frame.size.height-20);
+    [self updateConstraints];
+}
 
-    self.nameLabel.frame = CGRectMake(15 ,10,self.contentView.frame.size.width - 150,20);
-    self.statusLabel.frame = CGRectMake(self.contentView.frame.size.width - 80 ,15,60,20);
-    self.timeLabel.frame = CGRectMake(15, 30, self.contentView.frame.size.width - 110, 20);
-    self.couponLabel.frame = CGRectMake(110,65,150,20);
+- (void)updateConstraints{
+    [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self);
+    }];
+    
+    [self.tailImg mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(self.contentView).offset(10);
+        make.right.bottom.equalTo(self.contentView).offset(-10);
+    }];
+    
+    [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(self.contentView).offset(14);
+        make.right.equalTo(self.timeLabel.mas_left);
+    }];
+    
+    [self.timeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(14);
+        make.right.equalTo(self.contentView).offset(-14);
+    }];
+    
 
+    [self.table mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(10);
+        make.right.equalTo(self.contentView).offset(-10);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
+        make.height.mas_equalTo(40*self.order.product.count);
+    }];
+    
+    [self.couponLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(24);
+        make.right.equalTo(self.contentView).offset(-14);
+        make.top.equalTo(self.table.mas_bottom).offset(10);
+    }];
+    
 
-    self.numLabel.frame = CGRectMake(15 ,self.contentView.frame.size.height - 35 ,130,20);
-    self.payLabel.frame = CGRectMake(145, self.contentView.frame.size.height - 35, self.contentView.frame.size.height - 35 , 20);
-    self.payBtn.frame = CGRectMake(self.contentView.frame.size.width - 80, self.contentView.frame.size.height - 40, 60, 25);
+    [self.payLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.numLabel.mas_left).offset(10);
+        make.right.equalTo(self.contentView).offset(-14);
+        make.top.equalTo(self.couponLabel.mas_bottom).offset(10);
+        make.bottom.mas_equalTo(self.contentView).offset(-18);
+    }];
+    
+    
+    [self.numLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.statusLabel.mas_right).offset(30);
+        make.top.equalTo(self.couponLabel.mas_bottom).offset(10);
+    }];
+    
+    
+    [self.statusLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(14);
+        make.top.equalTo(self.couponLabel.mas_bottom).offset(10);
+    }];
+
+    [super updateConstraints];
 }
 - (void)configureCellWith:(BDOrderModel*)model{
     if ([model isKindOfClass:[BDOrderModel class]]) {
+        self.order = model;
         self.nameLabel.text = [NSString stringWithFormat:@"订单ID: %@",model.ids];
         self.statusLabel.text = model.stateName;
         if (model.addtime.length > 16) {
@@ -129,14 +191,60 @@
             num += product.number;
         }
         self.numLabel.text = [NSString stringWithFormat:@"合计        x%ld",(long)num];
-        self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
 
+        if (self.order.ticker_id == 0) {
+            self.couponLabel.text = [NSString stringWithFormat:@"优惠券:      未使用"];
+        }
+        else{
+            self.couponLabel.text = [NSString stringWithFormat:@"优惠券:  %@ -¥ %.2f",self
+                                     .order.ticker_name,[self.order.ticker_money doubleValue]];
+        }
         if (model.state == 0)
             self.payBtn.hidden = NO;
         else
             self.payBtn.hidden = YES;
-            
+        [self.table reloadData];
     }
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.order.product.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentify = @"UITableViewCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentify];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    BDProductModel *model = [self.order.product objectAtIndex:indexPath.row];
+    cell.textLabel.text = model.title;
+    cell.textLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIN_12];
+    cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"x %ld   ¥ %.2f",model.number,[model.money doubleValue] * model.number];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 40;
+}
+
++ (NSInteger)cellHeightWith:(id)model maxWidth:(CGFloat)maxWidth{
+    BDOrderTableViewCell *cell = [[BDOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BDOrderTableViewCell"];
+    [cell configureCellWith:model];
+    
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    [cell.contentView layoutIfNeeded];
+    return  cell.contentView.frame.size.height;
 }
 #pragma mark - ibaction
 - (void)touchPayBtn:(UIButton*)sender{

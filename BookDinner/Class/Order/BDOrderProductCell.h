@@ -15,5 +15,6 @@
 @property (nonatomic,strong) UIButton *addBtn;
 @property (nonatomic,strong) BDProductModel *productModel;
 
+@property (nonatomic) BOOL editAble;
 
 @end
