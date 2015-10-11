@@ -33,8 +33,9 @@
 {
     [super viewDidLoad];
     self.title = @"我的订单";
-    [self createTopView];
+//    [self createTopView];
     [self createTable];
+    [self getOrderList];
     // Do any additional setup after loading the view.
 }
 
@@ -83,7 +84,7 @@
 
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
-    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height + 44, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height - 44);
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];

@@ -31,20 +31,9 @@
 {
     [super viewDidLoad];
     
-    [self createTopView];
+//    [self createTopView];
     [self createTable];
-//    if (!self.selector) {
-//        UIButton *defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        defaultBtn.frame = CGRectMake(15, self.view.frame.size.height - 50 , self.view.frame.size.width - 30, 40);
-//        defaultBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//        defaultBtn.titleLabel.font = ButtonTitleFont;
-//        [defaultBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg"] forState:UIControlStateNormal];
-//        [defaultBtn setTitle:@"删除" forState:UIControlStateNormal];
-//        [defaultBtn addTarget:self action:@selector(touchLoginButton:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.view addSubview:defaultBtn];
-//    }
-
-
+    [self getCouponList];
     // Do any additional setup after loading the view.
 }
 
@@ -56,8 +45,6 @@
 #pragma mark - create subview
 - (void)createNaviBarItems{
     [super createNaviBarItems];
-//    HNYNaviBarItem *barItem = [HNYNaviBarItem initWithTitle:@"编辑" target:self action:@selector(touchDeleteBarItem:)];
-//    self.naviBar.rightItems = [NSArray arrayWithObjects:barItem, nil];
 }
 
 - (void)createTopView{

@@ -28,8 +28,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.moneyAry = [NSArray arrayWithObjects:@"0.01",@"50",@"100",@"200",@"500",@"1000", nil];
-
+        self.moneyAry = [NSArray arrayWithObjects:@"20",@"50",@"100",@"200",@"500",@"1000", nil];
+        self.orderState = @"1";
         // Custom initialization
     }
     return self;
@@ -39,8 +39,9 @@
 {
     [super viewDidLoad];
     self.title = @"充值记录";
-    [self createTopView];
+//    [self createTopView];
     [self createTable];
+    [self getRechargeList];
     // Do any additional setup after loading the view.
 }
 
@@ -91,7 +92,7 @@
 
 - (void)createTable{
     self.tableController = [[HNYRefreshTableViewController alloc] init];
-    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height+44, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height-44);
+    self.tableController.view.frame = CGRectMake(0, self.naviBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.naviBar.frame.size.height);
     self.tableController.tableView.delegate = self;
     self.tableController.tableView.dataSource = self;
     self.tableController.tableView.separatorColor = [UIColor clearColor];
