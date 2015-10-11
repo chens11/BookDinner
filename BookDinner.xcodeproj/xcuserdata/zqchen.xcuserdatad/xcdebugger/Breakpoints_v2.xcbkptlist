@@ -228,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BookDinner/Class/Order/BDOrderDetailViewController.m"
-            timestampString = "466234885.426687"
+            timestampString = "466237361.594213"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
             landmarkName = "-requestFinished:"
             landmarkType = "5">
          </BreakpointContent>

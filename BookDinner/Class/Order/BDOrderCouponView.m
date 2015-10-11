@@ -9,7 +9,6 @@
 #import "BDOrderCouponView.h"
 @interface BDOrderCouponView()
 @property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UILabel *offsetPriceLabel;
 
 @end
 
@@ -29,7 +28,7 @@
         self.detailLabel.textColor = [UIColor lightGrayColor];
         self.detailLabel.backgroundColor = [UIColor clearColor];
         self.detailLabel.textAlignment = NSTextAlignmentRight;
-        self.detailLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MAX_16];
+        self.detailLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
         [self addSubview:self.detailLabel];
         
         self.offsetPriceLabel = [[UILabel alloc] init];
@@ -72,6 +71,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.superview endEditing:YES];
+    [self.delegate view:self actionWitnInfo:nil];
 }
 
 @end

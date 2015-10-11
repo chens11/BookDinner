@@ -10,5 +10,6 @@
 
 @interface BDOrderCouponView : HNYView
 @property (nonatomic,strong) UILabel *detailLabel;
+@property (nonatomic,strong) UILabel *offsetPriceLabel;
 
 @end

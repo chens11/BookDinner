@@ -253,6 +253,13 @@
             
             if (self.tableController.list.count == 0)
                 [self showTips:@"无优惠券"];
+//#warning <#message#>
+//            BDCouponModel *model = [[BDCouponModel alloc] init];
+//            model.ids = 1;
+//            model.money = @"9.8";
+//            model.name = @"ddd";
+//            [self.tableController.list addObject:model];
+            [self.tableController.tableView reloadData];
         }
     }
     else if ([[dictionary objectForKey:HTTP_RESULT] intValue] == 2){

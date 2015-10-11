@@ -31,16 +31,6 @@
         self.stateName = @"失效";
     }
 }
-- (void)setTicker:(id)ticker{
-    if ([ticker isKindOfClass:[BDCouponModel class]]) {
-        _ticker = ticker;
-    }
-    else if ([ticker isKindOfClass:[NSDictionary class]]){
-        _ticker = [HNYJSONUitls mappingDictionary:ticker toObjectWithClassName:@"BDCouponModel"];
-    }
-    else
-        _ticker = nil;
-}
 
 - (void)setProduct:(NSMutableArray *)product{
 

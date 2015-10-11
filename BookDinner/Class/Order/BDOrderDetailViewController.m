@@ -87,6 +87,7 @@
     [self.contentView addSubview:self.tableView];
     
     self.couponView = [[BDOrderCouponView alloc] init];
+    self.couponView.delegate = self;
     [self.contentView addSubview:self.couponView];
     
     self.infoView = [[BDOrderInfoView alloc] init];
@@ -216,12 +217,18 @@
 
 #pragma mark - HNYDelegate
 
-//- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
-//    if ([[info valueForKey:@"PayResult"] boolValue]) {
-//        [self.cartView clearProoducts];
-//        [self.customNaviController popViewControllerAnimated:YES];
-//    }
-//}
+- (void)viewController:(UIViewController *)vController actionWitnInfo:(NSDictionary *)info{
+    if ([vController isKindOfClass:[BDCouponViewController class]]) {
+        BDCouponModel *model = [info valueForKey:@"BDCouponModel"];
+        self.orderModel.ticker_id = model.ids;
+        self.orderModel.ticker_name = model.name;
+        self.orderModel.ticker_money = model.money;
+        self.couponView.detailLabel.text = model.name;
+        self.couponView.offsetPriceLabel.text = [NSString stringWithFormat:@"¥ -%@",model.money];
+        
+        [self calculatePrice];
+    }
+}
 
 
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
@@ -242,6 +249,13 @@
         }
         [cell configureCellWith:cell.productModel];
         [self calculatePrice];
+    }
+    else if ([aView isEqual:self.couponView]){
+        BDCouponViewController *controller = [[BDCouponViewController alloc] init];
+        controller.title = @"请选择优惠券";
+        controller.selector = YES;
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
@@ -282,12 +296,8 @@
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setValue:array forKey:@"order"];
     [dictionary setValue:[NSNumber numberWithInteger:self.orderModel.address.ids] forKey:@"address_id"];
-    [dictionary setValue:self.orderModel.ticker_id forKey:@"ticker_id"];
+    [dictionary setValue:[NSNumber numberWithInteger:self.orderModel.ticker_id] forKey:@"ticker_id"];
     [dictionary setValue:self.orderModel.remark forKey:@"remark"];
-    //分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
-    //        if (self.orderModel.ticker.type == 2 || self.orderModel.ticker.type == 3){
-    //            [dictionary setValue:[NSNumber numberWithInt:[numItem.value intValue]- 1] forKey:@"order_number"];
-    //        }
     
     [dictionary setValue:[AppInfo headInfo] forKey:HTTP_HEAD];
     [self payOrderWith:dictionary];
@@ -438,6 +448,13 @@
         for (BDProductModel *model in self.orderModel.product) {
             sum += [model.money doubleValue] * (double)model.number;
             num += model.number;
+        }
+    }
+    
+    if (self.orderModel.ticker_id != 0) {
+        sum -= [self.orderModel.ticker_money doubleValue];
+        if (sum < 0) {
+            sum = 0;
         }
     }
     [self.infoView updateNum:num price:sum];

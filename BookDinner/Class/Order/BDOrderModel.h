@@ -7,7 +7,6 @@
 //
 
 #import "HNYModel.h"
-#import "BDCouponModel.h"
 #import "BDProductModel.h"
 #import "BDAddressModel.h"
 
@@ -22,13 +21,12 @@
 //（0待付款，1已付款，2派送中，3成交，4失效）
 @property (nonatomic) NSInteger state;
 @property (nonatomic,strong) NSString *stateName;
-@property (nonatomic) int order_number;
-@property (nonatomic,strong) NSString *ticker_id;
+@property (nonatomic) NSInteger order_number;
+@property (nonatomic) NSInteger ticker_id;
 @property (nonatomic,strong) NSString *ticker_money;
 @property (nonatomic,strong) NSString *ticker_name;
 @property (nonatomic,strong) NSMutableArray *product;
 @property (nonatomic,strong) BDAddressModel *address;
-@property (nonatomic,strong) BDCouponModel *ticker;
 
 @property (nonatomic,strong) NSString *address_address;
 @property (nonatomic) NSInteger address_id;
@@ -36,12 +34,11 @@
 @property (nonatomic,strong) NSString *address_tel;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *remark;
-@property (nonatomic) int using;
 // ： 退款状态（0无，1有退款，2不同意退款，3等买家退货，4等卖家收货，5退款成功，6退款关闭）
 @property (nonatomic) NSInteger state_refund;
 @property (nonatomic,strong) NSString *state_refund_name;
 //0 菜单订单 1充值订单
-@property (nonatomic) int type;
+@property (nonatomic) NSInteger type;
 @property (nonatomic,strong) NSString *descriptions;
 
 @end
