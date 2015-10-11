@@ -57,7 +57,8 @@
             [array addObject:model];
         }
         else if ([object isKindOfClass:[BDProductModel class]]) {
-            [array addObject:object];
+            _product = product;
+            return;
         }
     }
     _product = array;

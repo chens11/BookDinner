@@ -20,6 +20,14 @@
     return self;
 }
 
+- (void)showTips:(NSString *)tips inView:(UIView*)aView{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:aView animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.detailsLabelText = tips;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:1];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

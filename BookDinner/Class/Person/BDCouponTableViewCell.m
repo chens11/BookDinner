@@ -108,11 +108,7 @@
         self.nameLabel.text = model.name;
         self.statusLabel.text = model.state_name;
         self.ruleLabel.text = model.label;
-        self.dateLabel.text = [NSString stringWithFormat:@"有效期至 %@",model.endtime];
-        if (model.using == 1) {
-            self.nameLabel.text = [NSString stringWithFormat:@"%@(%@)",model.name,model.using_name];
-        }
-        
+        self.dateLabel.text = [NSString stringWithFormat:@"有效期至 %@",model.endtime];        
     }
 }
 

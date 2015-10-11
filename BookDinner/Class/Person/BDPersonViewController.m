@@ -252,7 +252,7 @@
         BDLuckyDrawViewController *controller = [[BDLuckyDrawViewController alloc] init];
         controller.personModel = self.personModel;
         controller.delegate = self;
-        [self.navigationController pushViewController:controller animated:YES];
+//        [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([@"order" isEqualToString:model.key]) {
         BDOrderViewController *controller = [[BDOrderViewController alloc] init];

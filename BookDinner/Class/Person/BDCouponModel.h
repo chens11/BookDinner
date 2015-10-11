@@ -10,18 +10,16 @@
 
 @interface BDCouponModel : HNYModel
 @property (nonatomic,strong) NSString *addtime;
-@property (nonatomic) int debit;
+@property (nonatomic) NSInteger debit;
 @property (nonatomic) float discount;
 @property (nonatomic,strong) NSString *endtime;
 @property (nonatomic,strong) NSString *label;
-@property (nonatomic) int ids;
+@property (nonatomic) NSInteger ids;
 //状态（1未使用，2已使用，3过期 ）
-@property (nonatomic) int state;
+@property (nonatomic) NSInteger state;
 @property (nonatomic,strong) NSString *state_name;
 //分类（1一元购，2买一送一，3买二送一 4 充值十元 5 充值五元）
-@property (nonatomic) int type;
-@property (nonatomic) int using;
-@property (nonatomic,strong) NSString *using_name;
+@property (nonatomic) NSInteger type;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *money;
 

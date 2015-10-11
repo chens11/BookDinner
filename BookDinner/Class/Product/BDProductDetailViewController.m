@@ -35,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createSubView];
+    [self updateConstraints];
     [self requestProduct];
     // Do any additional setup after loading the view.
 }
@@ -75,7 +76,7 @@
     [self.view addSubview:self.cartView];
 }
 
-- (void)updateViewConstraints{
+- (void)updateConstraints{
     
     [self.scroll mas_updateConstraints:^(MASConstraintMaker *make) {
         
@@ -109,9 +110,10 @@
         make.bottom.mas_equalTo(self.contentView);
     }];
     
-    self.scroll.contentSize = CGSizeMake(self.view.frame.size.width, self.contentView.frame.size.height);
+    if (self.contentView.frame.size.height > 50) {
+        self.scroll.contentSize = CGSizeMake(self.view.frame.size.width, self.contentView.frame.size.height);
+    }
     [super updateViewConstraints];
-    
 }
 
 - (void)view:(UIView *)aView actionWitnInfo:(NSDictionary *)info{
@@ -182,7 +184,7 @@
                 [self.imgView setImageWithURL:[NSURL URLWithString:self.product.img]];
                 self.headView.product = self.product;
                 self.descriptionView.product = self.product;
-                [self updateViewConstraints];
+                [self updateConstraints];
             }
         }
     }

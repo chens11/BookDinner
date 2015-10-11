@@ -121,6 +121,9 @@
 }
 
 #pragma mark - UIGestureRecognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    return YES;
+}
 - (void)panGestureRecognizer:(UIPanGestureRecognizer*)gesture{
     CGPoint translation = [gesture translationInView:self.view];
     NSLog(@"x = %f,y = %f",translation.x,translation.y);

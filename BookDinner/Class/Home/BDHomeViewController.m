@@ -141,7 +141,10 @@
     if (buy) {
         model.number = buy.number;
     }
-    [cell configureCellWith:[self.tableController.list objectAtIndex:indexPath.row]];
+    else {
+        model.number = 0;
+    }
+    [cell configureCellWith:model];
     return cell;
 }
 
@@ -220,7 +223,15 @@
                 [self.cartView removeProduct:cell.productModel];
             }
         }
-        cell.numLabel.text = [NSString stringWithFormat:@"%ld",(long)cell.productModel.number];
+        if (cell.productModel.number == 0) {
+            cell.numLabel.text = @"";
+            cell.removeBtn.hidden = YES;
+        }
+        else{
+            cell.numLabel.text = [NSString stringWithFormat:@"%ld",(long)cell.productModel.number];
+            cell.removeBtn.hidden = NO;
+        }
+
     }
     else if ([aView isKindOfClass:[BDShoppingCartView class]]) {
         

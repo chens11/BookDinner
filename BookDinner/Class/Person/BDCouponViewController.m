@@ -163,16 +163,8 @@
             [self showTips:@"该优惠券过期"];
             return;
         }
-        if (self.using == 0 && model.using == 1) {
-            [self showTips:@"该订单不是赠送朋友不能使用朋友卷"];
-        }
-        else if (self.using == 1 && model.using == 0) {
-            [self showTips:@"该订单不是赠送朋友只能使用朋友卷"];
-        }
-        else{
-            [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:model,@"BDCouponModel", nil]];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+        [self.delegate viewController:self actionWitnInfo:[NSDictionary dictionaryWithObjectsAndKeys:model,@"BDCouponModel", nil]];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     
 }

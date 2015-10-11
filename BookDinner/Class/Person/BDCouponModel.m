@@ -10,8 +10,7 @@
 
 @implementation BDCouponModel
 @synthesize state = _state;
-@synthesize using = _using;
-- (void)setState:(int)state{
+- (void)setState:(NSInteger)state{
     _state = state;
     if (state == 1) {
         self.state_name = @"可使用";
@@ -24,12 +23,4 @@
     }
 }
 
-- (void)setUsing:(int)using{
-    _using = using;
-    if (using == 1) {
-        self.using_name = @"朋友卷";
-    }
-    else if (using == 0)
-        self.using_name = @"";
-}
 @end

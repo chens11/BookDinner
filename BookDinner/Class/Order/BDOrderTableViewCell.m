@@ -131,12 +131,6 @@
         self.numLabel.text = [NSString stringWithFormat:@"合计        x%ld",(long)num];
         self.couponLabel.text = [NSString stringWithFormat:@"优惠券: 未使用"];
 
-        if ([model.ticker isKindOfClass:[BDCouponModel class]]){
-            model.ticker.using = model.using;
-            self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@",model.ticker.name];
-            if (model.ticker.using_name.length > 2)
-                self.couponLabel.text = [NSString stringWithFormat:@"优惠券: %@(%@)",model.ticker.name,model.ticker.using_name];
-        }
         if (model.state == 0)
             self.payBtn.hidden = NO;
         else

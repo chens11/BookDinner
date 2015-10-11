@@ -23,5 +23,6 @@
 @property (nonatomic,strong) UINavigationController *customNaviController;
 @property (nonatomic,strong) UIImageView *bgImageView;
 @property (nonatomic,weak) id <HNYDelegate> delegate;
+- (void)showTips:(NSString *)tips inView:(UIView*)aView;
 
 @end
