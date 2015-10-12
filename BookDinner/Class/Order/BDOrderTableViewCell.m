@@ -229,7 +229,7 @@
     cell.textLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIDDLE_14];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:KFONT_SIZE_MIN_12];
     cell.detailTextLabel.textColor = [UIColor lightGrayColor];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"x %ld   ¥ %.2f",model.number,[model.money doubleValue] * model.number];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"x %ld   ¥ %.2f",(long)model.number,[model.money doubleValue] * model.number];
     return cell;
 }
 

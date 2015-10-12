@@ -264,18 +264,28 @@
         [self calculatePrice];
     }
     else if ([aView isEqual:self.couponView]){
-        BDCouponViewController *controller = [[BDCouponViewController alloc] init];
-        controller.title = @"请选择优惠券";
-        controller.selector = YES;
-        controller.delegate = self;
-        [self.navigationController pushViewController:controller animated:YES];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
+            
+            BDCouponViewController *controller = [[BDCouponViewController alloc] init];
+            controller.title = @"请选择优惠券";
+            controller.selector = YES;
+            controller.delegate = self;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        else
+            [self login];
+        
     }
     else if ([aView isEqual:self.addressView]){
-        BDAddressViewController *controller = [[BDAddressViewController alloc] init];
-        controller.delegate = self;
-        controller.selector = YES;
-        controller.title = @"请选择收货地址";
-        [self.navigationController pushViewController:controller animated:YES];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:KUSER_IS_LOGIN]) {
+            BDAddressViewController *controller = [[BDAddressViewController alloc] init];
+            controller.delegate = self;
+            controller.selector = YES;
+            controller.title = @"请选择收货地址";
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        else
+            [self login];
     }
 }
 
